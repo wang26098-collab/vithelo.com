@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 
 describe("A-Prime token contract", () => {
   const css = readFileSync("src/styles/tokens.css", "utf8");
+  const globals = readFileSync("src/app/globals.css", "utf8");
 
   it("defines the locked token families", () => {
     for (const token of [
@@ -48,5 +49,26 @@ describe("A-Prime token contract", () => {
     for (const radius of [0, 4, 8, 12]) {
       expect(css).toContain(`--radius-${radius}:`);
     }
+  });
+
+  it("locks the precision type stack and responsive heading roles", () => {
+    expect(css).toContain("--font-precision: ui-sans-serif, Aptos, \"Helvetica Neue\"");
+    expect(css).toContain("--font-size-h1: 3.25rem;");
+    expect(css).toContain("--font-size-h2: 2.5rem;");
+    expect(css).toContain("--font-size-h3: 1.875rem;");
+    expect(css).toContain("--font-size-h1-mobile: 2.5rem;");
+    expect(css).toContain("--font-size-h2-mobile: 2rem;");
+    expect(css).toContain("--font-size-h3-mobile: 1.5rem;");
+  });
+
+  it("keeps the foundation cool and mineral rather than channel colored", () => {
+    expect(css).toContain("--color-ivory: #f3f4f0;");
+    expect(css).toContain("--color-optical: #dedbea;");
+  });
+
+  it("supports dynamic viewport height and specialized containers", () => {
+    expect(globals).toContain("min-height: 100dvh;");
+    expect(globals).toContain(".container-form");
+    expect(globals).toContain(".container-data");
   });
 });

@@ -15,7 +15,7 @@ html {
 }
 
 body {
-  min-height: 100vh;
+  min-height: 100dvh;
   margin: 0;
   background: var(--color-background);
   color: var(--color-foreground);
@@ -36,13 +36,27 @@ body {
 }
 
 .container-standard,
-.container-reading {
-  width: min(100% - (2 * var(--container-gutter)), var(--container-standard));
+.container-reading,
+.container-form,
+.container-data {
+  width: calc(100% - (2 * var(--container-gutter)));
   margin-inline: auto;
+}
+
+.container-standard {
+  max-width: var(--container-standard);
 }
 
 .container-reading {
   max-width: var(--container-reading);
+}
+
+.container-form {
+  max-width: var(--container-form);
+}
+
+.container-data {
+  max-width: var(--container-data);
 }
 
 .section-space {
