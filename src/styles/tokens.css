@@ -1,0 +1,85 @@
+:root {
+  color-scheme: light;
+
+  --color-ivory: #f4f1e9;
+  --color-ivory-deep: #e8e3d8;
+  --color-graphite: #20211f;
+  --color-graphite-soft: #555750;
+  --color-titanium: #a7aaa5;
+  --color-titanium-light: #d5d6d1;
+  --color-optical: #f0dfbd;
+  --color-optical-strong: #8b6b32;
+
+  --color-background: var(--color-ivory);
+  --color-surface: #faf8f2;
+  --color-foreground: var(--color-graphite);
+  --color-muted: var(--color-graphite-soft);
+  --color-border: color-mix(in srgb, var(--color-titanium) 58%, transparent);
+  --color-focus: var(--color-optical-strong);
+
+  --font-precision: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-editorial: Iowan Old Style, Baskerville, "Times New Roman", serif;
+  --font-size-label: 0.8125rem;
+  --font-size-body-sm: 0.9375rem;
+  --font-size-body: 1rem;
+  --font-size-body-lg: 1.125rem;
+  --font-size-title-sm: 1.5rem;
+  --font-size-title: 2rem;
+  --font-size-display-sm: 3rem;
+  --font-size-display: 5rem;
+  --line-height-tight: 1.05;
+  --line-height-copy: 1.6;
+  --letter-spacing-label: 0.08em;
+  --letter-spacing-display: -0.035em;
+
+  --space-4: 0.25rem;
+  --space-8: 0.5rem;
+  --space-12: 0.75rem;
+  --space-16: 1rem;
+  --space-20: 1.25rem;
+  --space-24: 1.5rem;
+  --space-32: 2rem;
+  --space-40: 2.5rem;
+  --space-48: 3rem;
+  --space-64: 4rem;
+  --space-80: 5rem;
+  --space-96: 6rem;
+  --space-120: 7.5rem;
+  --space-160: 10rem;
+
+  --radius-0: 0;
+  --radius-4: 0.25rem;
+  --radius-8: 0.5rem;
+  --radius-12: 0.75rem;
+
+  --shadow-overlay: 0 16px 48px rgb(32 33 31 / 0.12);
+
+  --container-standard: 82rem;
+  --container-reading: 44rem;
+  --container-form: 38rem;
+  --container-data: 92rem;
+  --container-gutter: clamp(var(--space-20), 4vw, var(--space-64));
+
+  --z-p1: 10;
+  --z-p2: 20;
+  --z-p3: 30;
+  --z-p4: 40;
+
+  --motion-fast: 150ms;
+  --motion-standard: 240ms;
+  --motion-narrative: 500ms;
+  --motion-immersive: 900ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--color-focus) 70%, transparent);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-background: #1c1d1b;
+  --color-surface: #252624;
+  --color-foreground: #f2efe7;
+  --color-muted: #b8bab4;
+  --color-border: color-mix(in srgb, var(--color-titanium-light) 34%, transparent);
+  --color-focus: var(--color-optical);
+}
