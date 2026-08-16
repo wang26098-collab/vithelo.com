@@ -49,7 +49,7 @@ The local Seed mirror at `D:/Winhttrack web/yingyang/seed.com/index.html` was vi
 - Viewports: 768, 390, 375
 - Requirement: no clipping or overlap
 - Observed: the disabled search input and button remained in one row, truncating `Search not configured`.
-- Before evidence: `science-375-recheck.png` and the original `science-768.png`, `science-390.png`, `science-375.png` captures.
+- Before evidence: `finding-001-before.png`, reproducing the reviewed baseline row layout at 375.
 - Changed file: `src/components/patterns/science-page.tsx`
 - Fix: stack the input and action below the desktop breakpoint.
 - Passing recheck: `science-768-after.png`, `science-390-after.png`, `science-375-after.png`, plus the final formal `science-{width}.png` set.
