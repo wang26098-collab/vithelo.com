@@ -16,7 +16,7 @@ function SiteHeader() {
       <div className="container-standard flex min-h-16 items-center gap-6 py-2">
         <Link
           aria-label="A PRIME home"
-          className="shrink-0 text-sm font-semibold tracking-[0.18em] text-[var(--color-foreground)] no-underline"
+          className="inline-flex min-h-11 shrink-0 items-center text-sm font-semibold tracking-[0.18em] text-[var(--color-foreground)] no-underline"
           href="/"
         >
           A PRIME
