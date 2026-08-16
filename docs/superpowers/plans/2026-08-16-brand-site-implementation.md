@@ -63,7 +63,7 @@ Create `package.json` with these scripts and dependency families:
     "@radix-ui/react-slot": "^1.2.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "lucide-react": "^0.468.0",
+    "@phosphor-icons/react": "^2.1.10",
     "motion": "^13.1.0",
     "next": "^16.3.1",
     "react": "^19.2.8",
@@ -104,7 +104,7 @@ import HomePage from "@/app/page";
 
 it("renders the temporary wordmark and demo disclosure", () => {
   render(<HomePage />);
-  expect(screen.getByText("A—PRIME")).toBeInTheDocument();
+  expect(screen.getByText("A PRIME")).toBeInTheDocument();
   expect(screen.getByText(/demonstration content/i)).toBeInTheDocument();
 });
 ```
@@ -116,7 +116,7 @@ Expected: FAIL because the page shell and test configuration do not exist yet.
 
 - [ ] **Step 5: Add framework, Vitest, and minimal app configuration**
 
-Configure `@/*` to map to `src/*`, use jsdom in Vitest, import `@testing-library/jest-dom/vitest`, and create a root layout with English metadata plus a body containing `HomePage`. The initial page must render `A—PRIME` and `Demonstration content — not a production product or claim.`.
+Configure `@/*` to map to `src/*`, use jsdom in Vitest, import `@testing-library/jest-dom/vitest`, and create a root layout with English metadata plus a body containing `HomePage`. The initial page must render `A PRIME` and `Demonstration content - not a production product or claim.`. Add the approved direction contract as the first rendered body comment and preserve it in the production build.
 
 - [ ] **Step 6: Verify the baseline**
 
