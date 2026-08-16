@@ -17,7 +17,7 @@ FORM: Scientific Material Humanism, approved code-led direction, seed aprime-v61
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md`;
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
-  const insertDirectionContract = `document.body.insertBefore(document.createComment(${JSON.stringify(directionContract)}),document.body.firstChild);document.currentScript.remove();`;
+  const insertDirectionContract = `document.body.insertBefore(document.createComment(${JSON.stringify(directionContract)}),document.body.firstChild);`;
 
   return (
     <html lang="en">
