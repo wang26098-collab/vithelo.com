@@ -27,7 +27,7 @@ function SciencePage({ evidence = defaultEvidence }: SciencePageProps) {
             <label className="block font-medium" htmlFor="science-search">
               Search the science library
             </label>
-            <div className="mt-3 flex gap-3">
+            <div className="mt-3 flex flex-col gap-3 lg:flex-row">
               <div className="relative min-w-0 flex-1">
                 <MagnifyingGlass
                   aria-hidden="true"
