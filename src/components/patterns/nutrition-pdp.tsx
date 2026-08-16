@@ -67,16 +67,14 @@ function NutritionPdp({
       </section>
 
       <div className="relative">
-        <div className="lg:hidden">
-          <StickyResource label="Nutrition commerce availability" priority="P1">
-            <div className="container-standard flex items-center justify-between gap-4">
-              <span className="text-sm">Purchase is not configured</span>
-              <Button asChild size="small" variant="secondary">
-                <a href="#commerce">Review availability</a>
-              </Button>
-            </div>
-          </StickyResource>
-        </div>
+        <StickyResource className="lg:hidden" label="Nutrition commerce availability" priority="P1">
+          <div className="flex items-center justify-between gap-4">
+            <span className="text-sm">Purchase is not configured</span>
+            <Button asChild size="small" variant="secondary">
+              <a href="#commerce">Review availability</a>
+            </Button>
+          </div>
+        </StickyResource>
 
         <section className="section-space border-t border-[var(--color-border)]">
           <div className="container-standard grid gap-10 lg:grid-cols-[minmax(14rem,0.45fr)_minmax(0,1.55fr)] lg:gap-24">

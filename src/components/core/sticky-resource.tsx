@@ -54,7 +54,7 @@ function StickyResource({
       aria-hidden={paused || undefined}
       aria-label={label}
       className={cn(
-        "sticky bottom-0 border-t border-[var(--color-border)] bg-[var(--color-background)] p-4 transition-opacity duration-[var(--motion-fast)] data-[paused=true]:pointer-events-none data-[paused=true]:opacity-0",
+        "sticky top-[calc(100dvh-5.8125rem)] min-h-[5.8125rem] border-t border-[var(--color-border)] bg-[var(--color-background)] p-4 transition-opacity duration-[var(--motion-fast)] data-[paused=true]:pointer-events-none data-[paused=true]:opacity-0 sm:top-[calc(100dvh-4.8125rem)] sm:min-h-[4.8125rem]",
         priorityClasses[priority],
         className,
       )}

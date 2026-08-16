@@ -46,16 +46,14 @@ function DevicePdp({ product = defaultProduct, technologies = defaultTechnologie
       </section>
 
       <div className="relative">
-        <div className="lg:hidden">
-          <StickyResource label="Device inquiry availability" priority="P1">
-            <div className="container-standard flex items-center justify-between gap-4">
-              <span className="text-sm">Inquiry is not configured</span>
-              <Button asChild size="small" variant="secondary">
-                <a href="#commerce">Review availability</a>
-              </Button>
-            </div>
-          </StickyResource>
-        </div>
+        <StickyResource className="lg:hidden" label="Device inquiry availability" priority="P1">
+          <div className="flex items-center justify-between gap-4">
+            <span className="text-sm">Inquiry is not configured</span>
+            <Button asChild size="small" variant="secondary">
+              <a href="#commerce">Review availability</a>
+            </Button>
+          </div>
+        </StickyResource>
 
         <section className="section-space border-t border-[var(--color-border)]">
           <div className="container-standard grid gap-10 lg:grid-cols-[minmax(14rem,0.42fr)_minmax(0,1.58fr)] lg:gap-24">

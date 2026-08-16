@@ -45,9 +45,17 @@ test("mobile commerce resource exits before safety", async ({ page, viewport }) 
     "/aesthetic-technology/demo-precision-device",
   ]) {
     await page.goto(route);
+    const sticky = page.locator('aside[data-priority="P1"]');
+    await sticky.scrollIntoViewIfNeeded();
+    const activeStickyBox = await sticky.boundingBox();
+
+    expect(activeStickyBox).not.toBeNull();
+    if (activeStickyBox && viewport) {
+      expect(activeStickyBox.y + activeStickyBox.height).toBeCloseTo(viewport.height, 0);
+    }
+
     const safety = page.locator("#safety");
     await safety.scrollIntoViewIfNeeded();
-    const sticky = page.locator('aside[data-priority="P1"]');
     const [safetyBox, stickyBox] = await Promise.all([safety.boundingBox(), sticky.boundingBox()]);
 
     expect(safetyBox).not.toBeNull();
