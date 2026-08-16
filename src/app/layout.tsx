@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { DemoDisclosure } from "@/components/core/demo-disclosure";
+import { SiteHeader } from "@/components/core/site-header";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -21,6 +23,8 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
     <html lang="en">
       <body>
         <script dangerouslySetInnerHTML={{ __html: insertDirectionContract }} />
+        <DemoDisclosure />
+        <SiteHeader />
         {children}
       </body>
     </html>
