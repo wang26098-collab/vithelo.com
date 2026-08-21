@@ -12,4 +12,7 @@ it("keeps the two product worlds recognizable without color-channel theming", ()
 
   expect(screen.getByText(/complete device/i)).toBeVisible();
   expect(screen.getByText(/skin interface/i)).toBeVisible();
+  expect(
+    screen.getByAltText(/fictional demonstration aesthetic device/i),
+  ).toHaveAttribute("loading", "eager");
 });

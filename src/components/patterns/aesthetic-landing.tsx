@@ -51,6 +51,7 @@ function AestheticLanding({
             alt="Fictional demonstration aesthetic device in a titanium material environment"
             className="object-cover"
             fill
+            loading="eager"
             priority
             sizes="(min-width: 1024px) 62vw, 100vw"
             src="/media/aesthetic-device-demo.png"
