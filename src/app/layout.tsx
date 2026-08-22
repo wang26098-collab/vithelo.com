@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { DemoDisclosure } from "@/components/core/demo-disclosure";
+import { MobileInquiryBar } from "@/components/core/mobile-inquiry-bar";
 import { SiteHeader } from "@/components/core/site-header";
 import "./globals.css";
 
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
         <DemoDisclosure />
         <SiteHeader />
         {children}
+        <MobileInquiryBar />
       </body>
     </html>
   );

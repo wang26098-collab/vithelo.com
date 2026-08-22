@@ -3,10 +3,14 @@
 import { useState } from "react";
 import { ArrowLeft } from "@phosphor-icons/react";
 import { Button } from "@/components/core/button";
+import { InquiryActionPair } from "@/components/core/inquiry-action-pair";
 import { businessIntents, type BusinessIntentId } from "@/content/business-intents";
 
 function ProjectIntake() {
   const [selectedIntent, setSelectedIntent] = useState<BusinessIntentId | null>(null);
+  const [productWorld, setProductWorld] = useState("Nutrition");
+  const [market, setMarket] = useState("");
+  const [summary, setSummary] = useState("");
   const selected = businessIntents.find((intent) => intent.id === selectedIntent);
 
   if (!selected) {
@@ -34,6 +38,13 @@ function ProjectIntake() {
     );
   }
 
+  const context = {
+    cooperationType: selected.label,
+    productWorld,
+    market: market || "Not provided",
+    summary: summary || "No project summary provided.",
+  };
+
   return (
     <div aria-live="polite">
       <Button onClick={() => setSelectedIntent(null)} variant="text">
@@ -46,47 +57,55 @@ function ProjectIntake() {
 
       <form className="mt-9 max-w-3xl" onSubmit={(event) => event.preventDefault()}>
         <div>
-          <label className="block font-medium" htmlFor="project-context">
-            {selected.firstQuestion}
+          <label className="block font-medium" htmlFor="project-product-world">
+            Product world
           </label>
-          <textarea
-            className="mt-3 min-h-36 w-full rounded-[var(--radius-4)] border border-[var(--color-border)] bg-[var(--color-background)] p-4 text-[var(--color-foreground)] placeholder:text-[var(--color-muted)]"
-            id="project-context"
-            name="projectContext"
-            placeholder="Enter demonstration project context"
+          <select
+            className="mt-3 min-h-12 w-full rounded-[var(--radius-4)] border border-[var(--color-border)] bg-[var(--color-background)] px-4 text-[var(--color-foreground)]"
+            id="project-product-world"
+            name="productWorld"
+            onChange={(event) => setProductWorld(event.target.value)}
+            value={productWorld}
+          >
+            <option>Nutrition</option>
+            <option>Aesthetic Technology</option>
+            <option>Both product worlds</option>
+          </select>
+        </div>
+
+        <div className="mt-7">
+          <label className="block font-medium" htmlFor="project-market">
+            Country or market
+          </label>
+          <input
+            className="mt-3 min-h-12 w-full rounded-[var(--radius-4)] border border-[var(--color-border)] bg-[var(--color-background)] px-4 text-[var(--color-foreground)] placeholder:text-[var(--color-muted)]"
+            id="project-market"
+            name="market"
+            onChange={(event) => setMarket(event.target.value)}
+            placeholder="Enter country or market"
+            type="text"
+            value={market}
           />
         </div>
-        <div className="mt-7 grid gap-6 sm:grid-cols-2">
-          <div>
-            <label className="block font-medium" htmlFor="project-market">
-              Intended market
-            </label>
-            <input
-              className="mt-3 min-h-12 w-full rounded-[var(--radius-4)] border border-[var(--color-border)] bg-[var(--color-background)] px-4 text-[var(--color-foreground)] placeholder:text-[var(--color-muted)]"
-              id="project-market"
-              name="market"
-              placeholder="Not configured"
-              type="text"
-            />
-          </div>
-          <div>
-            <label className="block font-medium" htmlFor="project-timeline">
-              Timeline context
-            </label>
-            <input
-              className="mt-3 min-h-12 w-full rounded-[var(--radius-4)] border border-[var(--color-border)] bg-[var(--color-background)] px-4 text-[var(--color-foreground)] placeholder:text-[var(--color-muted)]"
-              id="project-timeline"
-              name="timeline"
-              placeholder="Not configured"
-              type="text"
-            />
-          </div>
+
+        <div className="mt-7">
+          <label className="block font-medium" htmlFor="project-summary">
+            Project summary
+          </label>
+          <p className="mt-2 text-sm text-[var(--color-muted)]">{selected.firstQuestion}</p>
+          <textarea
+            className="mt-3 min-h-36 w-full rounded-[var(--radius-4)] border border-[var(--color-border)] bg-[var(--color-background)] p-4 text-[var(--color-foreground)] placeholder:text-[var(--color-muted)]"
+            id="project-summary"
+            name="summary"
+            onChange={(event) => setSummary(event.target.value)}
+            placeholder="Describe the project context"
+            value={summary}
+          />
         </div>
-        <Button className="mt-8" disabled size="large" type="submit">
-          Submit project
-        </Button>
+
+        <InquiryActionPair className="mt-8" context={context} />
         <p className="mt-3 text-sm text-[var(--color-muted)]">
-          DEMO_ONLY. Project submission is not configured and no information is sent.
+          DEMO_ONLY. No information is transmitted by this page.
         </p>
       </form>
     </div>
