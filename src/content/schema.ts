@@ -64,6 +64,81 @@ export const MarketConfigurationSchema = ConfiguredStatusSchema.extend({
   dataStatus: DataStatusSchema,
 });
 
+const MissingEmailConfigSchema = z.object({
+  status: z.literal("NOT_CONFIGURED"),
+  value: z.null(),
+  message: z.string().min(1),
+});
+
+const ConfiguredEmailSchema = z.object({
+  status: z.literal("CONFIGURED"),
+  value: z.email(),
+  message: z.string().min(1),
+});
+
+const MissingWhatsAppConfigSchema = z.object({
+  status: z.literal("NOT_CONFIGURED"),
+  e164: z.null(),
+  message: z.string().min(1),
+});
+
+const ConfiguredWhatsAppSchema = z.object({
+  status: z.literal("CONFIGURED"),
+  e164: z.string().regex(/^\d{8,15}$/),
+  message: z.string().min(1),
+});
+
+export const SiteConfigSchema = z.object({
+  brand: z.object({
+    name: z.literal("VITHELO"),
+    signature: z.literal("PRECISION · SCIENCE · HUMAN"),
+    designFormula: z.literal("HUMAN × MATERIAL × PRECISION"),
+  }),
+  contact: z.object({
+    email: z.discriminatedUnion("status", [
+      MissingEmailConfigSchema,
+      ConfiguredEmailSchema,
+    ]),
+    whatsapp: z.discriminatedUnion("status", [
+      MissingWhatsAppConfigSchema,
+      ConfiguredWhatsAppSchema,
+    ]),
+  }),
+});
+
+export const HomeContentSchema = z.object({
+  dataStatus: DataStatusSchema,
+  hero: z.object({
+    headline: z.string().min(1),
+    supportingText: z.string().min(1),
+    primaryAction: z.literal("email"),
+    secondaryAction: z.literal("whatsapp"),
+    desktopMedia: MediaSchema,
+    mobileMedia: MediaSchema,
+  }),
+  partnerPaths: z
+    .array(
+      z.object({
+        id: z.enum(["product-partners", "professional-partners"]),
+        title: z.string().min(1),
+        summary: z.string().min(1),
+        intentIds: z.array(z.string().min(1)).min(1),
+        preferredChannel: z.enum(["email", "whatsapp"]),
+      }),
+    )
+    .length(2),
+  capabilities: z
+    .array(
+      z.object({
+        id: z.string().min(1),
+        title: z.string().min(1),
+        summary: z.string().min(1),
+        inquiryContext: z.string().min(1),
+      }),
+    )
+    .length(5),
+});
+
 const ProductBaseSchema = z.object({
   id: z.string().min(1),
   slug: z.string().min(1),
@@ -99,3 +174,5 @@ export type Technology = z.infer<typeof TechnologySchema>;
 export type Evidence = z.infer<typeof EvidenceSchema>;
 export type Capability = z.infer<typeof CapabilitySchema>;
 export type MarketConfiguration = z.infer<typeof MarketConfigurationSchema>;
+export type SiteConfig = z.infer<typeof SiteConfigSchema>;
+export type HomeContent = z.infer<typeof HomeContentSchema>;
