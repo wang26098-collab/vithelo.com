@@ -26,7 +26,7 @@ function HomePagePattern({ evidence, products }: HomePagePatternProps) {
       <section className="container-standard grid min-h-[calc(100dvh-7.5rem)] gap-12 py-12 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:items-center lg:py-16">
         <div className="relative z-10 max-w-2xl">
           <p className="mb-7 text-sm font-semibold tracking-[0.18em] text-[var(--color-muted)]">
-            A PRIME
+            VITHELO
           </p>
           <h1 className="text-[length:var(--font-size-h1-mobile)] leading-[0.98] tracking-[var(--letter-spacing-display)] sm:text-[length:var(--font-size-h1)] lg:text-[length:var(--font-size-display)]">
             Human.

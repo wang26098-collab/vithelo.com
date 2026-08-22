@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { List, MagnifyingGlass, ShoppingBag, UserCircle } from "@phosphor-icons/react";
+import { List, MagnifyingGlass } from "@phosphor-icons/react";
 import { Button } from "@/components/core/button";
 import {
   primaryNavigation,
@@ -21,8 +21,6 @@ import {
 
 const utilityIcons = {
   Search: MagnifyingGlass,
-  Account: UserCircle,
-  Cart: ShoppingBag,
 } as const;
 
 function MobileMenu() {
@@ -72,6 +70,15 @@ function MobileMenu() {
           </ul>
         </nav>
 
+        <DialogClose asChild>
+          <Link
+            className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-[var(--radius-4)] border border-[var(--color-graphite)] bg-[var(--color-graphite)] px-6 font-medium text-[var(--color-ivory)] no-underline"
+            href="/contact"
+          >
+            Start a Project
+          </Link>
+        </DialogClose>
+
         <nav aria-label="Mobile secondary navigation">
           <ul className="m-0 flex list-none gap-5 p-0">
             {secondaryNavigation.map((item) => (
@@ -90,7 +97,7 @@ function MobileMenu() {
         </nav>
 
         <nav aria-label="Mobile utility navigation" className="mt-auto">
-          <ul className="m-0 grid list-none grid-cols-3 gap-2 p-0">
+          <ul className="m-0 grid list-none grid-cols-1 gap-2 p-0">
             {utilityNavigation.map((item) => {
               const Icon = utilityIcons[item.label];
               return (

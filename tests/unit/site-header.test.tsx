@@ -7,12 +7,16 @@ it("exposes the five locked primary destinations and an accessible mobile menu",
   for (const label of [
     "Nutrition",
     "Aesthetic Technology",
-    "By Need",
+    "Capabilities",
     "Science",
     "Professional",
   ]) {
     expect(screen.getAllByRole("link", { name: label })[0]).toBeVisible();
   }
+  expect(screen.getByRole("link", { name: "Start a Project" })).toHaveAttribute(
+    "href",
+    "/contact",
+  );
 
   const menuButton = screen.getByRole("button", { name: /open menu/i });
   fireEvent.click(menuButton);
