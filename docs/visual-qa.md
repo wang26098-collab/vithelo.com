@@ -102,3 +102,43 @@ The final prototype meets the V6.1 completion gate of P0 = 0 and P1 = 0.
 - Focused responsive E2E: 9 passed, 3 desktop skips. The new sticky-position regression passed at 768, 390, and 375.
 - Full E2E: 74 passed, 3 expected desktop skips, and one transient desktop Professional test failed when the concurrent Next.js development server returned `Unexpected end of JSON input`. The same Professional test passed on an immediate isolated rerun in 793 ms. No visual-review route or sticky regression failed.
 - Production build: passed; 14 static pages generated.
+
+---
+
+## VITHELO inquiry-first acceptance — 2026-08-22
+
+This review supersedes the brand-shell and Home findings above for the VITHELO inquiry-first revision. Home, Contact, Professional, Nutrition PDP, and Device PDP were captured as full-page screenshots at 1440, 1024, 768, 390, and 375 pixels. The 25 light-appearance artifacts and representative 1440/390 dark-appearance artifacts are stored under the ignored `test-results/responsive-core-routes-*` directories.
+
+Screenshots used normal motion behavior and waited one second for image and reveal settling. Freezing animations at their initial frame incorrectly preserves the Home membrane cover and is not valid visual evidence.
+
+| Requirement | 1440 | 1024 | 768 | 390 | 375 |
+| --- | --- | --- | --- | --- | --- |
+| Home hero copy, actions, and product visual | PASS | PASS | PASS | PASS | PASS |
+| Contact intent selection and inquiry access | PASS | PASS | PASS | PASS | PASS |
+| Professional hierarchy and capability path | PASS | PASS | PASS | PASS | PASS |
+| Nutrition commerce, context, and visible Safety | PASS | PASS | PASS | PASS | PASS |
+| Device commerce, engineering, and visible Safety | PASS | PASS | PASS | PASS | PASS |
+| No clipping, overlap, or horizontal overflow | PASS | PASS | PASS | PASS | PASS |
+
+Additional acceptance results:
+
+- Desktop navigation remains one line and below 80 pixels. The VITHELO V monogram and wordmark are both present.
+- Nutrition and Aesthetic Technology share one Ivory, Graphite, Titanium, and Optical system while remaining distinct through human-use and engineered-object media.
+- No three consecutive zigzag sections or repeated equal-card grid controls the page rhythm.
+- The global mobile inquiry bar pauses under the menu and is omitted on PDP routes where the page-local commerce resource has priority.
+- Page-local PDP resources remain pinned while relevant and exit before Safety at 768, 390, and 375 pixels.
+- No invented email address or WhatsApp number is rendered. Both channels remain disabled and visibly marked `NOT_CONFIGURED` through their configuration messages.
+- Representative 1440 and 390 dark captures preserve hierarchy, image fidelity, borders, focus contrast, and readable status text.
+- Reduced Motion E2E keeps the Home proposition, product facts, and actions visible without relying on animation.
+
+### Findings fixed in this revision
+
+1. **VITHELO-P1-001 — competing mobile sticky resources on PDPs.** The global inquiry bar and PDP commerce resource occupied the same viewport edge. `src/components/core/mobile-inquiry-bar.tsx` now yields to the PDP-local resource. The focused 1440/390 rerun and all 768/390/375 sticky geometry checks pass.
+2. **VITHELO-P1-002 — brand shell lacked the approved V monogram.** `src/components/core/brand-mark.tsx` now includes the scalable geometric V alongside the wordmark. Navigation remains within the width and height gates at every acceptance viewport.
+3. **VITHELO-P1-003 — global inquiry actions did not follow the mobile lifecycle contract.** The bar is now fixed only after the Home hero exits, pauses for drawers and editable controls, yields entirely to Contact and PDP-local resources, and reserves page-end space where it is active.
+4. **VITHELO-P1-004 — contextual inquiry links lost their route context.** Validated `world`, `subject`, and `path` values now initialize the local Contact intake without transmitting data or accepting arbitrary workflow state.
+5. **VITHELO-P1-005 — visible brand and evidence boundaries were incomplete.** The supplied signature is rendered in the shell, unavailable channels visibly carry `NOT_CONFIGURED`, and Home keeps source, scope, supported-statement boundary, and limitation together.
+
+Final automated acceptance after these fixes: lint passed, typecheck passed, 46 unit tests passed, 99 E2E tests passed with 3 expected desktop skips, and the production build passed. The focused mobile inquiry and responsive rerun added 6 passing checks after Contact was made page-local.
+
+Final VITHELO visual gate: **PASS — P0 = 0, P1 = 0.**

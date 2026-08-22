@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { Button } from "@/components/core/button";
@@ -16,12 +16,33 @@ type HomePagePatternProps = {
 
 function HomePagePattern({ content, evidence, products }: HomePagePatternProps) {
   const evidenceRecord = evidence[0];
+  const commonImageProps = { alt: content.hero.desktopMedia.alt, sizes: "100vw" };
+  const {
+    props: { srcSet: desktopHeroSrcSet },
+  } = getImageProps({
+    ...commonImageProps,
+    fetchPriority: "high",
+    height: 941,
+    sizes: "(min-width: 1024px) 58vw, 100vw",
+    src: "/media/vithelo-hero-composite.png",
+    width: 1672,
+  });
+  const {
+    props: { alt: mobileHeroAlt, srcSet: mobileHeroSrcSet, ...mobileHeroProps },
+  } = getImageProps({
+    ...commonImageProps,
+    fetchPriority: "high",
+    height: 1402,
+    src: "/media/vithelo-hero-composite-mobile.png",
+    width: 1122,
+  });
 
   return (
     <main>
       <section
         aria-labelledby="home-hero-title"
         className="container-standard grid min-h-[calc(100dvh-7.5rem)] gap-10 py-10 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:items-center lg:py-12"
+        data-inquiry-hero
       >
         <div className="relative z-10 max-w-2xl">
           <p className="mb-7 text-sm font-medium tracking-[0.22em] text-[var(--color-muted)]">
@@ -41,22 +62,11 @@ function HomePagePattern({ content, evidence, products }: HomePagePatternProps) 
         </div>
 
         <HomeMembraneVisual className="min-h-[27rem] border-l border-[var(--color-border)] lg:min-h-[40rem]">
-          <Image
-            alt={content.hero.desktopMedia.alt}
-            className="hidden object-cover md:block"
-            fill
-            priority
-            sizes="(min-width: 1024px) 58vw, 100vw"
-            src="/media/vithelo-hero-composite.png"
-          />
-          <Image
-            alt={content.hero.desktopMedia.alt}
-            className="object-cover md:hidden"
-            fill
-            priority
-            sizes="100vw"
-            src="/media/vithelo-hero-composite-mobile.png"
-          />
+          <picture className="absolute inset-0" data-testid="hero-art-direction">
+            <source media="(min-width: 768px)" srcSet={desktopHeroSrcSet} />
+            <source media="(max-width: 767px)" srcSet={mobileHeroSrcSet} />
+            <img {...mobileHeroProps} alt={mobileHeroAlt} className="h-full w-full object-cover" />
+          </picture>
           <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-6 border-t border-white/30 bg-[color:color-mix(in_srgb,var(--color-graphite)_84%,transparent)] p-4 text-sm text-[var(--color-ivory)] backdrop-blur-sm">
             <span>Nutrition and Aesthetic Technology</span>
             <span>{content.dataStatus}</span>
@@ -184,6 +194,11 @@ function HomePagePattern({ content, evidence, products }: HomePagePatternProps) 
             <p className="mt-4 text-[var(--color-muted)]">
               {evidenceRecord?.supportedStatementBoundary ?? "No evidence statement is available."}
             </p>
+            <dl className="mt-6 grid gap-4 border-t border-[var(--color-border)] pt-5 text-sm">
+              <div><dt className="font-medium">Source</dt><dd className="mt-1 text-[var(--color-muted)]">{evidenceRecord?.source.message ?? "Source not configured"}</dd></div>
+              <div><dt className="font-medium">Scope</dt><dd className="mt-1 text-[var(--color-muted)]">{evidenceRecord?.scope ?? "Scope not configured"}</dd></div>
+              <div><dt className="font-medium">Limitation</dt><dd className="mt-1 text-[var(--color-muted)]">{evidenceRecord?.limitation ?? "Limitation not configured"}</dd></div>
+            </dl>
             <Link className="mt-7 inline-flex min-h-11 items-center gap-2 font-medium underline-offset-4 hover:underline" href="/science">
               Explore Science <ArrowUpRight aria-hidden="true" />
             </Link>

@@ -9,6 +9,21 @@ it("does not invent contact targets when both channels are missing", () => {
   expect(screen.getByRole("button", { name: "WhatsApp" })).toBeDisabled();
   expect(screen.getByText(/email inquiry address not configured/i)).toBeVisible();
   expect(screen.getByText(/whatsapp number not configured/i)).toBeVisible();
+  expect(screen.getAllByText("NOT_CONFIGURED")).toHaveLength(2);
+});
+
+it("preserves validated context supplied by an inquiry link", () => {
+  render(
+    <ProjectIntake
+      initialProductWorld="Aesthetic Technology"
+      initialSummary="Demo Precision Device"
+    />,
+  );
+
+  fireEvent.click(screen.getByRole("button", { name: "Distribution" }));
+
+  expect(screen.getByLabelText("Product world")).toHaveValue("Aesthetic Technology");
+  expect(screen.getByLabelText("Project summary")).toHaveValue("Demo Precision Device");
 });
 
 it("collects local context before exposing channel state", () => {

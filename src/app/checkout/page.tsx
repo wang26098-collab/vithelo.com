@@ -4,7 +4,7 @@ import { StatePanel } from "@/components/core/state-panel";
 import { UtilityPage } from "@/components/patterns/utility-page";
 
 export const metadata: Metadata = {
-  title: "Checkout | A PRIME",
+  title: "Checkout | VITHELO",
   description: "Demonstration checkout with payment configuration unavailable.",
 };
 

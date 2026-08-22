@@ -5,7 +5,7 @@ V6.1 high-fidelity demonstration for one master brand with two product worlds:
 - Nutrition
 - Aesthetic Technology
 
-The governing direction is `HUMAN × MATERIAL × PRECISION`. The current site is a demonstration, not a production commerce or regulated-product system. The temporary `A PRIME` wordmark is replaceable.
+The governing direction is `HUMAN × MATERIAL × PRECISION`. The current VITHELO site is a demonstration, not a production commerce or regulated-product system. Production identity masters and usage approval remain required.
 
 ## Current boundary
 

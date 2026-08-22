@@ -26,10 +26,13 @@ export default defineConfig({
     name,
     use: { viewport: { width, height } },
   })),
-  webServer: {
-    command: "node node_modules/next/dist/bin/next dev --hostname 127.0.0.1 --port 3100",
-    reuseExistingServer: false,
-    timeout: 120_000,
-    url: "http://127.0.0.1:3100",
-  },
+  webServer: process.env.E2E_EXTERNAL_SERVER
+    ? undefined
+    : {
+        command:
+          "node node_modules/next/dist/bin/next dev --hostname 127.0.0.1 --port 3100",
+        reuseExistingServer: false,
+        timeout: 120_000,
+        url: "http://127.0.0.1:3100",
+      },
 });

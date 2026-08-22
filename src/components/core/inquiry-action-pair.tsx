@@ -28,27 +28,28 @@ function InquiryActionPair({
 }: InquiryActionPairProps) {
   const email = siteConfig.contact.email;
   const whatsapp = siteConfig.contact.whatsapp;
+  const compact = !showConfigurationMessages;
 
   return (
     <div className={cn(className)}>
-      <div className="flex flex-col gap-3 sm:flex-row">
+      <div className={cn("flex gap-3", compact ? "flex-row" : "flex-col sm:flex-row")}>
         {email.status === "NOT_CONFIGURED" ? (
-          <Button disabled size="large">
+          <Button className={compact ? "flex-1 px-3" : undefined} disabled size="large">
             <EnvelopeSimple aria-hidden="true" /> Email Inquiry
           </Button>
         ) : (
-          <Button asChild size="large">
+          <Button asChild className={compact ? "flex-1 px-3" : undefined} size="large">
             <a href={buildEmailInquiryUrl(email.value, context)}>
               <EnvelopeSimple aria-hidden="true" /> Email Inquiry
             </a>
           </Button>
         )}
         {whatsapp.status === "NOT_CONFIGURED" ? (
-          <Button disabled size="large" variant="secondary">
+          <Button className={compact ? "flex-1 px-3" : undefined} disabled size="large" variant="secondary">
             <WhatsappLogo aria-hidden="true" /> WhatsApp
           </Button>
         ) : (
-          <Button asChild size="large" variant="secondary">
+          <Button asChild className={compact ? "flex-1 px-3" : undefined} size="large" variant="secondary">
             <a
               href={buildWhatsAppInquiryUrl(whatsapp.e164, context)}
               rel="noreferrer"
@@ -60,10 +61,14 @@ function InquiryActionPair({
         )}
       </div>
       {showConfigurationMessages ? (
-        <div className="mt-3 text-sm text-[var(--color-muted)]">
-          <p>{email.message}</p>
-          <p>{whatsapp.message}</p>
+        <div className="mt-3 space-y-1 text-sm text-[var(--color-muted)]">
+          <p><span className="font-mono text-[var(--color-foreground)]">NOT_CONFIGURED</span> · {email.message}</p>
+          <p><span className="font-mono text-[var(--color-foreground)]">NOT_CONFIGURED</span> · {whatsapp.message}</p>
         </div>
+      ) : email.status === "NOT_CONFIGURED" || whatsapp.status === "NOT_CONFIGURED" ? (
+        <p className="mt-2 text-center text-xs text-[var(--color-muted)]">
+          <span className="font-mono text-[var(--color-foreground)]">NOT_CONFIGURED</span> · Contact channels pending approval.
+        </p>
       ) : null}
     </div>
   );

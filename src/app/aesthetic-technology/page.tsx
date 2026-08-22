@@ -3,7 +3,7 @@ import { AestheticLanding } from "@/components/patterns/aesthetic-landing";
 import { localContentAdapter } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Aesthetic Technology | A PRIME",
+  title: "Aesthetic Technology | VITHELO",
   description:
     "Demonstration aesthetic technology experience connecting engineering, safety, and professional context.",
 };

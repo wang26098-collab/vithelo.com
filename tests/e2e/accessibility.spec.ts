@@ -64,7 +64,7 @@ test("reduced motion keeps meaningful content static and visible", async ({ page
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
 
-  await expect(page.getByRole("heading", { name: "Human. Material. Precision." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Precision for what comes next." })).toBeVisible();
   await expect(page.locator('[data-testid="reduced-motion-static"]').first()).toBeVisible();
 
   await page.goto("/nutrition/demo-daily-formula");

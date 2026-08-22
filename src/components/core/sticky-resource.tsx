@@ -17,12 +17,25 @@ type StickyResourceProps = {
   priority?: StickyPriority;
   label?: string;
   className?: string;
+  position?: "fixed" | "sticky";
 };
 
 function hasOpenDialog() {
   return (
     document.body.dataset.dialogOpen === "true" ||
+    document.body.dataset.consentOpen === "true" ||
+    document.body.dataset.stickyOverlayOpen === "true" ||
     document.querySelector('[role="dialog"][aria-modal="true"]') !== null
+  );
+}
+
+function hasFocusedFormControl() {
+  const activeElement = document.activeElement;
+  return (
+    activeElement instanceof HTMLInputElement ||
+    activeElement instanceof HTMLTextAreaElement ||
+    activeElement instanceof HTMLSelectElement ||
+    (activeElement instanceof HTMLElement && activeElement.isContentEditable)
   );
 }
 
@@ -31,22 +44,30 @@ function StickyResource({
   priority = "P1",
   label = "Sticky resource",
   className,
+  position = "sticky",
 }: StickyResourceProps) {
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    const syncDialogState = () => setPaused(hasOpenDialog());
-    const observer = new MutationObserver(syncDialogState);
+    const syncPausedState = () => setPaused(hasOpenDialog() || hasFocusedFormControl());
+    const observer = new MutationObserver(syncPausedState);
 
-    syncDialogState();
+    syncPausedState();
     observer.observe(document.body, {
       attributes: true,
-      attributeFilter: ["data-dialog-open"],
+      attributeFilter: ["data-consent-open", "data-dialog-open", "data-sticky-overlay-open"],
       childList: true,
       subtree: true,
     });
+    document.addEventListener("focusin", syncPausedState);
+    const syncAfterFocusChange = () => queueMicrotask(syncPausedState);
+    document.addEventListener("focusout", syncAfterFocusChange);
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("focusin", syncPausedState);
+      document.removeEventListener("focusout", syncAfterFocusChange);
+    };
   }, []);
 
   return (
@@ -54,7 +75,10 @@ function StickyResource({
       aria-hidden={paused || undefined}
       aria-label={label}
       className={cn(
-        "sticky top-[calc(100dvh-5.8125rem)] min-h-[5.8125rem] border-t border-[var(--color-border)] bg-[var(--color-background)] p-4 transition-opacity duration-[var(--motion-fast)] data-[paused=true]:pointer-events-none data-[paused=true]:opacity-0 sm:top-[calc(100dvh-4.8125rem)] sm:min-h-[4.8125rem]",
+        "min-h-[5.8125rem] border-t border-[var(--color-border)] bg-[var(--color-background)] p-4 transition-opacity duration-[var(--motion-fast)] data-[paused=true]:pointer-events-none data-[paused=true]:opacity-0 sm:min-h-[4.8125rem]",
+        position === "fixed"
+          ? "fixed inset-x-0 bottom-0"
+          : "sticky top-[calc(100dvh-5.8125rem)] sm:top-[calc(100dvh-4.8125rem)]",
         priorityClasses[priority],
         className,
       )}

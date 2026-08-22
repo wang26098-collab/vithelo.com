@@ -15,4 +15,8 @@ it("prioritizes the VITHELO B2B inquiry journey", () => {
     screen.getByRole("heading", { name: "Two product worlds. One VITHELO standard." }),
   ).toBeVisible();
   expect(screen.getByRole("heading", { name: "Tell us what you are building." })).toBeVisible();
+  expect(screen.getByText("Source not configured")).toBeVisible();
+  expect(screen.getByText("Scope requires approved source input")).toBeVisible();
+  expect(screen.getByText("This demonstration record is not product evidence")).toBeVisible();
+  expect(document.querySelector('[data-testid="hero-art-direction"] source')).toBeInTheDocument();
 });

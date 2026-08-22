@@ -17,6 +17,8 @@ it("exposes the five locked primary destinations and an accessible mobile menu",
     "href",
     "/contact",
   );
+  expect(screen.getByTestId("vithelo-monogram")).toBeVisible();
+  expect(screen.getByText("PRECISION · SCIENCE · HUMAN")).toBeVisible();
 
   const menuButton = screen.getByRole("button", { name: /open menu/i });
   fireEvent.click(menuButton);

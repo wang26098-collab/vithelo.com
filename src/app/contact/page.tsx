@@ -1,6 +1,32 @@
 import { ProjectIntake } from "@/components/domain/project-intake";
 
-export default function ContactPage() {
+type ContactPageProps = {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
+
+function firstValue(value: string | string[] | undefined) {
+  return Array.isArray(value) ? value[0] : value;
+}
+
+export default async function ContactPage({ searchParams }: ContactPageProps) {
+  const query = await searchParams;
+  const world = firstValue(query.world);
+  const subject = firstValue(query.subject)?.trim().slice(0, 160);
+  const path = firstValue(query.path);
+  const initialProductWorld =
+    world === "aesthetic-technology" || path === "professional-partners"
+      ? "Aesthetic Technology"
+      : world === "nutrition"
+        ? "Nutrition"
+        : "Both product worlds";
+  const initialSummary =
+    subject ||
+    (path === "product-partners"
+      ? "Product partner inquiry"
+      : path === "professional-partners"
+        ? "Professional partner inquiry"
+        : "");
+
   return (
     <main className="container-standard section-space">
       <div className="max-w-3xl">
@@ -12,7 +38,10 @@ export default function ContactPage() {
         </p>
       </div>
       <div className="mt-16 border-t border-[var(--color-border)] pt-12">
-        <ProjectIntake />
+        <ProjectIntake
+          initialProductWorld={initialProductWorld}
+          initialSummary={initialSummary}
+        />
       </div>
     </main>
   );

@@ -55,26 +55,27 @@ test("science provides a clear return to support", async ({ page }) => {
   await expect(supportLink).toHaveAttribute("href", "/support");
 });
 
-test("professional intake branches on the first question", async ({ page }) => {
-  await page.goto("/professional#project-intake");
+test("professional routes into the shared project intake", async ({ page }) => {
+  await page.goto("/professional");
+
+  await expect(
+    page.getByRole("main").getByRole("link", { name: "Start a Project", exact: true }),
+  ).toHaveAttribute("href", "/contact");
+
+  await page.goto("/contact");
 
   await page.getByRole("button", { name: "Develop a product" }).click();
   await expect(page.getByRole("heading", { name: "Project basics" })).toBeVisible();
-  await expect(
-    page.getByLabel("What product world and early brief should we understand?"),
-  ).toBeVisible();
+  await expect(page.getByLabel("Product world")).toBeVisible();
+  await expect(page.getByLabel("Project summary")).toBeVisible();
 
   await page.getByRole("button", { name: "Change intent" }).click();
   await page.getByRole("button", { name: "Private Label" }).click();
-  await expect(
-    page.getByLabel("What approved product category and brand scope should be considered?"),
-  ).toBeVisible();
+  await expect(page.getByText("Selected intent: Private Label", { exact: true })).toBeVisible();
 
   await page.getByRole("button", { name: "Change intent" }).click();
   await page.getByRole("button", { name: "OEM / ODM" }).click();
-  await expect(
-    page.getByLabel("What concept and development ownership model should be considered?"),
-  ).toBeVisible();
+  await expect(page.getByText("Selected intent: OEM / ODM", { exact: true })).toBeVisible();
 });
 
 test("search and cart preserve task clarity", async ({ page }) => {

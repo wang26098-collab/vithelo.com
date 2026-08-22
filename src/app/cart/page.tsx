@@ -6,7 +6,7 @@ import { UtilityPage } from "@/components/patterns/utility-page";
 import { localContentAdapter } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Cart | A PRIME",
+  title: "Cart | VITHELO",
   description: "Demonstration cart with explicit transaction configuration states.",
 };
 

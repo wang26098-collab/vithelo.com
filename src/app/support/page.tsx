@@ -4,7 +4,7 @@ import { StatePanel } from "@/components/core/state-panel";
 import { UtilityPage } from "@/components/patterns/utility-page";
 
 export const metadata: Metadata = {
-  title: "Support | A PRIME",
+  title: "Support | VITHELO",
   description: "Demonstration support task map with provider configuration unavailable.",
 };
 

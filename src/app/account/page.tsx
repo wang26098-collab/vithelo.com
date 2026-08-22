@@ -5,7 +5,7 @@ import { StatePanel } from "@/components/core/state-panel";
 import { UtilityPage } from "@/components/patterns/utility-page";
 
 export const metadata: Metadata = {
-  title: "Account | A PRIME",
+  title: "Account | VITHELO",
   description: "Demonstration account task map with no configured identity provider.",
 };
 

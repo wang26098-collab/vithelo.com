@@ -13,6 +13,7 @@ const routes = [
   "/checkout",
   "/account",
   "/support",
+  "/contact",
 ] as const;
 
 test("core routes do not overflow the viewport", async ({ page }, testInfo) => {
@@ -27,13 +28,43 @@ test("core routes do not overflow the viewport", async ({ page }, testInfo) => {
       dimensions.scrollWidth,
       `${route} overflowed by ${dimensions.scrollWidth - dimensions.clientWidth}px`,
     ).toBeLessThanOrEqual(dimensions.clientWidth + 1);
+
+    const bodyWidth = await page.locator("body").evaluate((body) => ({
+      clientWidth: body.clientWidth,
+      scrollWidth: body.scrollWidth,
+    }));
+    expect(bodyWidth.scrollWidth, `${route} body overflowed`).toBe(bodyWidth.clientWidth);
   }
 
   await page.goto("/");
+  await page.waitForTimeout(1_000);
   await page.screenshot({
-    animations: "disabled",
     fullPage: true,
     path: testInfo.outputPath("home-final.png"),
+  });
+
+  for (const [name, route] of [
+    ["contact", "/contact"],
+    ["professional", "/professional"],
+    ["nutrition-pdp", "/nutrition/demo-daily-formula"],
+    ["device-pdp", "/aesthetic-technology/demo-precision-device"],
+  ] as const) {
+    await page.goto(route);
+    await page.waitForTimeout(1_000);
+    await page.screenshot({
+      fullPage: true,
+      path: testInfo.outputPath(`${name}-final.png`),
+    });
+  }
+
+  await page.goto("/");
+  await page.evaluate(() => {
+    document.documentElement.dataset.theme = "dark";
+  });
+  await page.waitForTimeout(1_000);
+  await page.screenshot({
+    fullPage: true,
+    path: testInfo.outputPath("home-dark-final.png"),
   });
 });
 
@@ -45,7 +76,11 @@ test("mobile commerce resource exits before safety", async ({ page, viewport }) 
     "/aesthetic-technology/demo-precision-device",
   ]) {
     await page.goto(route);
-    const sticky = page.locator('aside[data-priority="P1"]');
+    const sticky = page.getByRole("complementary", {
+      name: route.startsWith("/nutrition")
+        ? "Nutrition commerce availability"
+        : "Device inquiry availability",
+    });
     await sticky.scrollIntoViewIfNeeded();
     const activeStickyBox = await sticky.boundingBox();
 

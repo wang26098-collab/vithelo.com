@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: NutritionProductPageProps): P
   const product = await localContentAdapter.getProductBySlug(slug);
 
   return {
-    title: product?.kind === "nutrition" ? `${product.name} | A PRIME` : "Nutrition | A PRIME",
+    title: product?.kind === "nutrition" ? `${product.name} | VITHELO` : "Nutrition | VITHELO",
     description: "Demonstration nutrition product record with explicit configuration boundaries.",
   };
 }

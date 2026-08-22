@@ -3,7 +3,7 @@ import { SciencePage } from "@/components/patterns/science-page";
 import { localContentAdapter } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Science | A PRIME",
+  title: "Science | VITHELO",
   description: "Demonstration science library with explicit source and evidence boundaries.",
 };
 

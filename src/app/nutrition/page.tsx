@@ -3,7 +3,7 @@ import { NutritionLanding } from "@/components/patterns/nutrition-landing";
 import { localContentAdapter } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Nutrition | A PRIME",
+  title: "Nutrition | VITHELO",
   description: "Demonstration nutrition discovery experience with responsible data boundaries.",
 };
 

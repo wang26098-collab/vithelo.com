@@ -6,11 +6,21 @@ import { Button } from "@/components/core/button";
 import { InquiryActionPair } from "@/components/core/inquiry-action-pair";
 import { businessIntents, type BusinessIntentId } from "@/content/business-intents";
 
-function ProjectIntake() {
+type ProductWorld = "Nutrition" | "Aesthetic Technology" | "Both product worlds";
+
+type ProjectIntakeProps = {
+  initialProductWorld?: ProductWorld;
+  initialSummary?: string;
+};
+
+function ProjectIntake({
+  initialProductWorld = "Nutrition",
+  initialSummary = "",
+}: ProjectIntakeProps = {}) {
   const [selectedIntent, setSelectedIntent] = useState<BusinessIntentId | null>(null);
-  const [productWorld, setProductWorld] = useState("Nutrition");
+  const [productWorld, setProductWorld] = useState(initialProductWorld);
   const [market, setMarket] = useState("");
-  const [summary, setSummary] = useState("");
+  const [summary, setSummary] = useState(initialSummary);
   const selected = businessIntents.find((intent) => intent.id === selectedIntent);
 
   if (!selected) {
@@ -64,7 +74,7 @@ function ProjectIntake() {
             className="mt-3 min-h-12 w-full rounded-[var(--radius-4)] border border-[var(--color-border)] bg-[var(--color-background)] px-4 text-[var(--color-foreground)]"
             id="project-product-world"
             name="productWorld"
-            onChange={(event) => setProductWorld(event.target.value)}
+            onChange={(event) => setProductWorld(event.target.value as ProductWorld)}
             value={productWorld}
           >
             <option>Nutrition</option>
@@ -112,4 +122,4 @@ function ProjectIntake() {
   );
 }
 
-export { ProjectIntake };
+export { ProjectIntake, type ProjectIntakeProps };

@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: DeviceProductPageProps): Prom
 
   return {
     title:
-      product?.kind === "device" ? `${product.name} | A PRIME` : "Aesthetic Technology | A PRIME",
+      product?.kind === "device" ? `${product.name} | VITHELO` : "Aesthetic Technology | VITHELO",
     description: "Demonstration device record with explicit engineering and safety boundaries.",
   };
 }

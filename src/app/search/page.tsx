@@ -6,7 +6,7 @@ import { UtilityPage } from "@/components/patterns/utility-page";
 import { localContentAdapter } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Search | A PRIME",
+  title: "Search | VITHELO",
   description: "Demonstration search entry with grouped task destinations.",
 };
 

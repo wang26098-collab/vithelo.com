@@ -3,7 +3,7 @@ import { ProfessionalPage } from "@/components/patterns/professional-page";
 import { localContentAdapter } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Professional | A PRIME",
+  title: "Professional | VITHELO",
   description: "Demonstration professional project path with explicit capability boundaries.",
 };
 
