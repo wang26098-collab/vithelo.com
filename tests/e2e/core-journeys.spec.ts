@@ -17,7 +17,7 @@ test("home hydrates without browser errors", async ({ page }) => {
   page.on("pageerror", (error) => errors.push(error.message));
 
   await page.goto("/");
-  await page.getByRole("heading", { name: "Human. Material. Precision." }).waitFor();
+  await page.getByRole("heading", { name: "Precision for what comes next." }).waitFor();
 
   expect(errors).toEqual([]);
 });

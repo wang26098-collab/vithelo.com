@@ -1,4 +1,4 @@
-import { EnvelopeSimple, WhatsappLogo } from "@phosphor-icons/react";
+import { EnvelopeSimple, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
 import { Button } from "@/components/core/button";
 import { siteConfig } from "@/content/site-config";
 import {
