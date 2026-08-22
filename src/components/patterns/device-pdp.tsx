@@ -27,7 +27,14 @@ function DevicePdp({ product = defaultProduct, technologies = defaultTechnologie
   return (
     <main>
       <section className="container-standard grid gap-10 py-10 lg:grid-cols-[minmax(20rem,0.82fr)_minmax(0,1.18fr)] lg:items-center lg:py-16">
-        <ProductCommerce product={product} />
+        <div>
+          <ProductCommerce product={product} />
+          <Button asChild className="mt-4" variant="secondary">
+            <Link href={`/contact?world=aesthetic-technology&subject=${encodeURIComponent(product.name)}`}>
+              Start a Project
+            </Link>
+          </Button>
+        </div>
         <figure className="m-0">
           <div className="relative min-h-[30rem] overflow-hidden lg:min-h-[42rem]">
             <Image

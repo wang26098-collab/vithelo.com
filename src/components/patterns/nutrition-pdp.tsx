@@ -63,7 +63,14 @@ function NutritionPdp({
             Demonstration image. Approved product media remains NOT_CONFIGURED.
           </figcaption>
         </figure>
-        <ProductCommerce product={product} />
+        <div>
+          <ProductCommerce product={product} />
+          <Button asChild className="mt-4" variant="secondary">
+            <Link href={`/contact?world=nutrition&subject=${encodeURIComponent(product.name)}`}>
+              Start a Project
+            </Link>
+          </Button>
+        </div>
       </section>
 
       <div className="relative">

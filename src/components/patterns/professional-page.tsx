@@ -34,8 +34,8 @@ function ProfessionalPage({
           <p className="mt-7 max-w-xl text-lg text-[var(--color-muted)]">
             One professional path for product intent, capability fit, market context, and required proof.
           </p>
-          <Link className="mt-9 inline-flex min-h-12 items-center gap-2 border border-[var(--color-graphite)] bg-[var(--color-graphite)] px-6 font-medium text-[var(--color-ivory)] no-underline" href="#project-intake">
-            Start project intake <ArrowRight aria-hidden="true" />
+          <Link className="mt-9 inline-flex min-h-12 items-center gap-2 border border-[var(--color-graphite)] bg-[var(--color-graphite)] px-6 font-medium text-[var(--color-ivory)] no-underline" href="/contact">
+            Start a Project <ArrowRight aria-hidden="true" />
           </Link>
         </div>
         <div className="relative min-h-[28rem] overflow-hidden border-l border-[var(--color-border)] lg:min-h-[40rem]">
@@ -69,7 +69,7 @@ function ProfessionalPage({
         </div>
       </section>
 
-      <section className="section-space">
+      <section className="section-space" id="capabilities">
         <div className="container-standard grid gap-12 lg:grid-cols-[minmax(14rem,0.42fr)_minmax(0,1.58fr)] lg:gap-24">
           <div>
             <h2 className="text-[length:var(--font-size-h2-mobile)] leading-tight sm:text-[length:var(--font-size-h2)]">

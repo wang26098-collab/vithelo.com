@@ -14,6 +14,11 @@ it("reveals evidence scope and limitation without converting it into a claim", (
 it("starts professional intake from a business intent", () => {
   render(<ProfessionalPage />);
 
+  expect(screen.getByRole("link", { name: "Start a Project" })).toHaveAttribute(
+    "href",
+    "/contact",
+  );
+
   fireEvent.click(screen.getByRole("button", { name: /develop a product/i }));
 
   expect(screen.getByRole("heading", { name: /project basics/i })).toBeVisible();

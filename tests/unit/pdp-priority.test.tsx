@@ -15,4 +15,8 @@ it.each([
   expect(screen.getByText(/price not configured/i)).toBeVisible();
   expect(screen.getByRole("button", { name: /add to cart|start inquiry/i })).toBeVisible();
   expect(screen.getByRole("heading", { name: /safety/i })).toBeVisible();
+  expect(screen.getByRole("link", { name: "Start a Project" })).toHaveAttribute(
+    "href",
+    expect.stringContaining("/contact?"),
+  );
 });
