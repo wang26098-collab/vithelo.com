@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 
-describe("A-Prime token contract", () => {
+describe("VITHELO token contract", () => {
   const css = readFileSync("src/styles/tokens.css", "utf8");
   const globals = readFileSync("src/app/globals.css", "utf8");
 
@@ -62,8 +62,9 @@ describe("A-Prime token contract", () => {
   });
 
   it("keeps the foundation cool and mineral rather than channel colored", () => {
-    expect(css).toContain("--color-ivory: #f3f4f0;");
-    expect(css).toContain("--color-optical: #dedbea;");
+    expect(css).toContain("--color-ivory: #f4f4f0;");
+    expect(css).toContain("--color-optical: #b8d0c8;");
+    expect(css).toContain("--font-editorial: var(--font-precision);");
   });
 
   it("supports dynamic viewport height and specialized containers", () => {

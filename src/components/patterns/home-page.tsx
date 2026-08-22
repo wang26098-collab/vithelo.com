@@ -43,11 +43,19 @@ function HomePagePattern({ content, evidence, products }: HomePagePatternProps) 
         <HomeMembraneVisual className="min-h-[27rem] border-l border-[var(--color-border)] lg:min-h-[40rem]">
           <Image
             alt={content.hero.desktopMedia.alt}
-            className="object-cover"
+            className="hidden object-cover md:block"
             fill
             priority
             sizes="(min-width: 1024px) 58vw, 100vw"
-            src="/media/home-membrane.png"
+            src="/media/vithelo-hero-composite.png"
+          />
+          <Image
+            alt={content.hero.desktopMedia.alt}
+            className="object-cover md:hidden"
+            fill
+            priority
+            sizes="100vw"
+            src="/media/vithelo-hero-composite-mobile.png"
           />
           <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-6 border-t border-white/30 bg-[color:color-mix(in_srgb,var(--color-graphite)_84%,transparent)] p-4 text-sm text-[var(--color-ivory)] backdrop-blur-sm">
             <span>Nutrition and Aesthetic Technology</span>

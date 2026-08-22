@@ -1,14 +1,14 @@
 :root {
   color-scheme: light;
 
-  --color-ivory: #f3f4f0;
+  --color-ivory: #f4f4f0;
   --color-ivory-deep: #e5e7e2;
-  --color-graphite: #20211f;
-  --color-graphite-soft: #555750;
-  --color-titanium: #a6aaa8;
+  --color-graphite: #191b1a;
+  --color-graphite-soft: #626762;
+  --color-titanium: #a7aca8;
   --color-titanium-light: #d4d8d5;
-  --color-optical: #dedbea;
-  --color-optical-strong: #716983;
+  --color-optical: #b8d0c8;
+  --color-optical-strong: #58756c;
 
   --color-background: var(--color-ivory);
   --color-surface: #fafbf8;
@@ -18,7 +18,7 @@
   --color-focus: var(--color-optical-strong);
 
   --font-precision: ui-sans-serif, Aptos, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-editorial: Iowan Old Style, Baskerville, "Times New Roman", serif;
+  --font-editorial: var(--font-precision);
   --font-size-label: 0.8125rem;
   --font-size-body-sm: 0.9375rem;
   --font-size-body: 1rem;
