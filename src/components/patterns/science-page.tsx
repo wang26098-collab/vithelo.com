@@ -3,16 +3,13 @@ import Link from "next/link";
 import { ArrowRight, MagnifyingGlass } from "@phosphor-icons/react/dist/ssr";
 import { Button } from "@/components/core/button";
 import { EvidenceCard } from "@/components/domain/evidence-card";
-import { demoEvidence } from "@/content/demo/evidence";
-import { EvidenceSchema, type Evidence } from "@/content/schema";
-
-const defaultEvidence = demoEvidence.items.map((item) => EvidenceSchema.parse(item));
+import type { Evidence } from "@/content/schema";
 
 type SciencePageProps = {
-  evidence?: Evidence[];
+  evidence: Evidence[];
 };
 
-function SciencePage({ evidence = defaultEvidence }: SciencePageProps) {
+function SciencePage({ evidence }: SciencePageProps) {
   return (
     <main>
       <section className="container-standard grid min-h-[calc(100dvh-7.5rem)] gap-10 py-10 md:grid-cols-[minmax(0,1.05fr)_minmax(18rem,0.95fr)] md:items-center lg:py-16">
@@ -52,7 +49,7 @@ function SciencePage({ evidence = defaultEvidence }: SciencePageProps) {
             alt="Abstract ivory and titanium material field for the demonstration science library"
             className="object-cover object-[60%_center]"
             fill
-            priority
+            loading="eager"
             sizes="(min-width: 768px) 46vw, 100vw"
             src="/media/home-membrane.png"
           />

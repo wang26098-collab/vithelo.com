@@ -3,30 +3,16 @@ import Link from "next/link";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Button } from "@/components/core/button";
 import { ProductCard } from "@/components/domain/product-card";
-import { demoProducts } from "@/content/demo/products";
-import {
-  ProductSchema,
-  TechnologySchema,
-  type Product,
-  type Technology,
-} from "@/content/schema";
-
-const defaultDeviceProducts = demoProducts.items
-  .map((item) => ProductSchema.parse(item))
-  .filter((product) => product.kind === "device");
-
-const defaultTechnologies = demoProducts.technologies.map((technology) =>
-  TechnologySchema.parse(technology),
-);
+import type { Product, Technology } from "@/content/schema";
 
 type AestheticLandingProps = {
-  products?: Product[];
-  technologies?: Technology[];
+  products: Product[];
+  technologies: Technology[];
 };
 
 function AestheticLanding({
-  products = defaultDeviceProducts,
-  technologies = defaultTechnologies,
+  products,
+  technologies,
 }: AestheticLandingProps) {
   const technology = technologies[0];
 
@@ -52,7 +38,6 @@ function AestheticLanding({
             className="object-cover"
             fill
             loading="eager"
-            priority
             sizes="(min-width: 1024px) 62vw, 100vw"
             src="/media/aesthetic-device-demo.png"
           />
@@ -133,6 +118,7 @@ function AestheticLanding({
               alt="Close material view of a fictional demo device and human-scale contact surface"
               className="object-cover object-[63%_center]"
               fill
+              loading="eager"
               sizes="(min-width: 768px) 42vw, 100vw"
               src="/media/aesthetic-device-demo.png"
             />

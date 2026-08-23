@@ -1,10 +1,12 @@
 import { demoEvidence } from "@/content/demo/evidence";
+import { demoHome } from "@/content/demo/home";
 import { demoProducts } from "@/content/demo/products";
 import { demoProfessional } from "@/content/demo/professional";
 import {
   CapabilitySchema,
   EvidenceSchema,
   FormulaSchema,
+  HomeContentSchema,
   IngredientSchema,
   MarketConfigurationSchema,
   ProductSchema,
@@ -20,6 +22,14 @@ it("marks every product fixture and record as DEMO_ONLY", () => {
   for (const product of demoProducts.items) {
     expect(ProductSchema.parse(product).dataStatus).toBe("DEMO_ONLY");
   }
+});
+
+it("keeps demo fixtures free of prohibited approval and efficacy language", () => {
+  const fixtureText = JSON.stringify({ demoEvidence, demoHome, demoProducts, demoProfessional });
+
+  expect(fixtureText).not.toMatch(
+    /FDA|clinically proven|certified|guaranteed|approved device/i,
+  );
 });
 
 it("validates both product kinds and their relationships", () => {
@@ -80,10 +90,12 @@ it("validates evidence, professional capabilities, and market configuration", ()
 });
 
 it("returns only validated fixtures through the local content adapter", async () => {
+  const home = await localContentAdapter.getHomeContent();
   const products = await localContentAdapter.listProducts();
   const product = await localContentAdapter.getProductBySlug("demo-daily-formula");
   const missingProduct = await localContentAdapter.getProductBySlug("missing-product");
 
+  expect(HomeContentSchema.parse(home).dataStatus).toBe("DEMO_ONLY");
   expect(products).toHaveLength(4);
   expect(products.map((item) => ProductSchema.parse(item).kind)).toEqual([
     "nutrition",

@@ -2,6 +2,7 @@ import type {
   Capability,
   Evidence,
   Formula,
+  HomeContent,
   Ingredient,
   MarketConfiguration,
   Product,
@@ -9,6 +10,7 @@ import type {
 } from "@/content/schema";
 
 export interface ContentAdapter {
+  getHomeContent(): Promise<HomeContent>;
   listProducts(): Promise<Product[]>;
   getProductBySlug(slug: string): Promise<Product | null>;
   listFormulas(): Promise<Formula[]>;

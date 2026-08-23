@@ -3,11 +3,28 @@ import type { ReactNode } from "react";
 import { DemoDisclosure } from "@/components/core/demo-disclosure";
 import { MobileInquiryBar } from "@/components/core/mobile-inquiry-bar";
 import { SiteHeader } from "@/components/core/site-header";
+import { getSiteOrigin } from "@/lib/site-origin";
 import "./globals.css";
+
+const siteOrigin = getSiteOrigin();
 
 export const metadata: Metadata = {
   title: "VITHELO | Nutrition",
   description: "Nutrition-led products with a secondary professional capability.",
+  ...(siteOrigin
+    ? {
+        metadataBase: new URL(siteOrigin),
+        alternates: { canonical: "/" },
+        openGraph: {
+          title: "VITHELO | Nutrition",
+          description: "Nutrition-led products with a secondary professional capability.",
+          siteName: "VITHELO",
+          type: "website" as const,
+          url: "/",
+        },
+        twitter: { card: "summary" as const },
+      }
+    : { robots: { index: false, follow: false } }),
 };
 
 const directionContract = `THESIS: VITHELO is nutrition-led, with a secondary professional capability; it refuses the stitched shop and device catalog.

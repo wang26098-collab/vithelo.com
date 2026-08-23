@@ -1,15 +1,22 @@
+import type { Metadata } from "next";
 import { HomePagePattern } from "@/components/patterns/home-page";
-import { demoHome } from "@/content/demo/home";
-import { demoEvidence } from "@/content/demo/evidence";
-import { demoProducts } from "@/content/demo/products";
-import { EvidenceSchema, ProductSchema, type NutritionProduct } from "@/content/schema";
+import type { NutritionProduct } from "@/content/schema";
+import { localContentAdapter } from "@/lib/content";
 
-const products = demoProducts.items.map((product) => ProductSchema.parse(product));
-const evidence = demoEvidence.items.map((record) => EvidenceSchema.parse(record));
-const nutritionProducts = products.filter(
-  (product): product is NutritionProduct => product.kind === "nutrition",
-);
+export const metadata: Metadata = {
+  title: "Nutrition for Human Rhythms | VITHELO",
+  description: "VITHELO nutrition discovery with explicit product, evidence, and safety boundaries.",
+};
 
-export default function HomePage() {
-  return <HomePagePattern content={demoHome} evidence={evidence} nutritionProducts={nutritionProducts} products={products} />;
+export default async function HomePage() {
+  const [content, evidence, products] = await Promise.all([
+    localContentAdapter.getHomeContent(),
+    localContentAdapter.listEvidence(),
+    localContentAdapter.listProducts(),
+  ]);
+  const nutritionProducts = products.filter(
+    (product): product is NutritionProduct => product.kind === "nutrition",
+  );
+
+  return <HomePagePattern content={content} evidence={evidence} nutritionProducts={nutritionProducts} products={products} />;
 }

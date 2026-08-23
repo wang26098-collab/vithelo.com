@@ -74,7 +74,7 @@ function NutritionProductFocusRail({ products }: NutritionProductFocusRailProps)
           >
             <a
               aria-label={product.name}
-              className="group block h-full min-h-11 outline-offset-[-4px] focus-visible:outline-2 focus-visible:outline-[var(--color-focus)]"
+              className="group relative block h-full min-h-11 outline-offset-[-4px] focus-visible:outline-2 focus-visible:outline-[var(--color-focus)]"
               href={`/nutrition/${product.slug}`}
               onFocus={() => activate(index)}
               onKeyDown={(event) => handleKeyDown(event, index)}

@@ -53,6 +53,7 @@ it("renders every approved card asset without hover and exposes mobile snap sema
   expect(screen.getAllByTestId("nutrition-product-card")).toHaveLength(3);
   expect(screen.getAllByText("DEMO_ONLY", { exact: true })).toHaveLength(3);
   expect(screen.getAllByTestId("nutrition-product-card-image")).toHaveLength(3);
+  expect(screen.getAllByRole("link")[0]?.className).toContain("relative");
 
   const rail = screen.getByTestId("nutrition-product-focus-rail");
   expect(rail.className).toContain("snap-x");

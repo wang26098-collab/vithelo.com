@@ -3,8 +3,8 @@ import HomePage from "@/app/page";
 import { NutritionHomeHero } from "@/components/patterns/nutrition-home-hero";
 import { demoHome } from "@/content/demo/home";
 
-it("renders the six nutrition screens in order before the inquiry path", () => {
-  render(<HomePage />);
+it("renders the six nutrition screens in order before the inquiry path", async () => {
+  render(await HomePage());
 
   expect(document.getElementById("nutrition-hero")).toBeInTheDocument();
   expect(document.getElementById("nutrition-hero")).toHaveAttribute("data-motion-intent", "ORIENT");
@@ -15,7 +15,7 @@ it("renders the six nutrition screens in order before the inquiry path", () => {
   ).toBeVisible();
   expect(screen.getByTestId("nutrition-hero-media-demo")).toBeInTheDocument();
   expect(screen.getByTestId("nutrition-hero-approved-art")).toHaveAttribute(
-    "src",
+    "srcset",
     expect.stringContaining("vithelo-home-screen-01-background.png"),
   );
   expect(document.getElementById("nutrition-hero")).toHaveAttribute(
@@ -108,9 +108,11 @@ it("renders the six nutrition screens in order before the inquiry path", () => {
   expect(humanRhythms).toBeInTheDocument();
   expect(capsuleScience!.compareDocumentPosition(gummyScience!)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
   expect(gummyScience!.compareDocumentPosition(humanRhythms!)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
-  expect(within(capsuleScience!).getByRole("heading", { name: "Capsule form study" })).toBeVisible();
+  expect(capsuleScience).toHaveAttribute("data-static-design", "screen-04-approved");
+  expect(within(capsuleScience!).getByRole("heading", { name: "Precision inside every capsule." })).toBeVisible();
   expect(within(gummyScience!).getByRole("heading", { name: "Gummy form study" })).toBeVisible();
-  expect(screen.getAllByText("FORM", { exact: true })).toHaveLength(2);
+  expect(within(capsuleScience!).getByText("OUTER FORM", { exact: true })).toBeVisible();
+  expect(within(gummyScience!).getByText("FORM", { exact: true })).toBeVisible();
   expect(
     within(humanRhythms!).getByRole("heading", {
       name: "Your health moves with your rhythms.",
@@ -138,12 +140,13 @@ it("renders the six nutrition screens in order before the inquiry path", () => {
   expect(screen.getAllByRole("button", { name: "WhatsApp" })[0]).toBeDisabled();
 });
 
-it("keeps non-approved capsule and gummy media visibly disclosed", () => {
-  render(<HomePage />);
+it("keeps non-approved capsule and gummy media visibly disclosed", async () => {
+  render(await HomePage());
 
   expect(document.getElementById("capsule-science")).toHaveTextContent("NOT_CONFIGURED");
   expect(document.getElementById("gummy-science")).toHaveTextContent("NOT_CONFIGURED");
-  expect(screen.getAllByTestId("form-media-fallback")).toHaveLength(2);
+  expect(within(document.getElementById("capsule-science")!).getByTestId("capsule-visual")).toBeVisible();
+  expect(within(document.getElementById("gummy-science")!).getByTestId("form-media-fallback")).toBeVisible();
   expect(document.querySelectorAll("[class*='ruby-material'] button, [class*='ruby-material'] a")).toHaveLength(0);
 });
 

@@ -163,7 +163,7 @@ export const demoHome = HomeContentSchema.parse({
     {
       id: "professional-technology",
       title: "Professional Technology",
-      summary: "Approved device and professional-use inputs required.",
+      summary: "Device and professional-use inputs require approval.",
       inquiryContext: "Professional Technology",
     },
     {

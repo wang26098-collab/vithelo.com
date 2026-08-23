@@ -4,26 +4,17 @@ import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { CapabilityCard } from "@/components/domain/capability-card";
 import { ProjectIntake } from "@/components/domain/project-intake";
 import { businessIntents } from "@/content/business-intents";
-import { demoProfessional } from "@/content/demo/professional";
 import {
-  CapabilitySchema,
-  MarketConfigurationSchema,
   type Capability,
   type MarketConfiguration,
 } from "@/content/schema";
 
-const defaultCapabilities = demoProfessional.capabilities.map((item) => CapabilitySchema.parse(item));
-const defaultMarketConfiguration = MarketConfigurationSchema.parse(demoProfessional.marketConfiguration);
-
 type ProfessionalPageProps = {
-  capabilities?: Capability[];
-  marketConfiguration?: MarketConfiguration;
+  capabilities: Capability[];
+  marketConfiguration: MarketConfiguration;
 };
 
-function ProfessionalPage({
-  capabilities = defaultCapabilities,
-  marketConfiguration = defaultMarketConfiguration,
-}: ProfessionalPageProps) {
+function ProfessionalPage({ capabilities, marketConfiguration }: ProfessionalPageProps) {
   return (
     <main>
       <section className="container-standard grid min-h-[calc(100dvh-7.5rem)] gap-10 py-10 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:items-center lg:py-16">
@@ -43,7 +34,7 @@ function ProfessionalPage({
             alt="Abstract demonstration material field connecting nutrition and aesthetic technology"
             className="object-cover object-[53%_center]"
             fill
-            priority
+            loading="eager"
             sizes="(min-width: 1024px) 54vw, 100vw"
             src="/media/home-membrane.png"
           />

@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DevicePdp } from "@/components/patterns/device-pdp";
-import { demoProducts } from "@/content/demo/products";
 import { localContentAdapter } from "@/lib/content";
 
 type DeviceProductPageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export function generateStaticParams() {
-  return demoProducts.items
+export async function generateStaticParams() {
+  const products = await localContentAdapter.listProducts();
+
+  return products
     .filter((product) => product.kind === "device")
     .map((product) => ({ slug: product.slug }));
 }

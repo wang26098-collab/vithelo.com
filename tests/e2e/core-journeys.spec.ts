@@ -13,6 +13,32 @@ test("home hydrates without browser errors", async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
+test("primary visual routes avoid Next Image configuration warnings", async ({ page }) => {
+  const warnings: string[] = [];
+  let currentRoute = "";
+  page.on("console", (message) => {
+    if (message.type() === "warning") warnings.push(`${currentRoute}: ${message.text()}`);
+  });
+
+  for (const route of [
+    "/",
+    "/nutrition",
+    "/aesthetic-technology",
+    "/nutrition/demo-daily-formula",
+    "/aesthetic-technology/demo-precision-device",
+  ]) {
+    currentRoute = route;
+    await page.goto(route);
+    await page.locator("main").waitFor();
+    await page.waitForLoadState("networkidle");
+    await page.evaluate(() => new Promise<void>((resolve) => {
+      requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+    }));
+  }
+
+  expect(warnings.filter((warning) => /Image with src|Largest Contentful Paint/.test(warning))).toEqual([]);
+});
+
 test("home hero navigation follows the approved first-screen routes", async ({ page, viewport }) => {
   test.skip(!viewport || viewport.width < 1024, "Desktop hero-navigation check");
 
@@ -52,7 +78,11 @@ test("nutrition home retains the approved capsule and gummy stages", async ({ pa
   await page.goto("/");
 
   await expect(page.locator("#nutrition-manifesto")).toBeVisible();
-  await expect(page.locator("#capsule-science").getByRole("heading", { name: "Capsule form study" })).toBeVisible();
+  await expect(
+    page.locator("#capsule-science").getByRole("heading", {
+      name: "Precision inside every capsule.",
+    }),
+  ).toBeVisible();
   await expect(page.locator("#gummy-science").getByRole("heading", { name: "Gummy form study" })).toBeVisible();
   await expect(page.locator("#human-rhythms").getByRole("heading", { name: "Your health moves with your rhythms." })).toBeVisible();
 });

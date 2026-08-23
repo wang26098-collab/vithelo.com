@@ -244,6 +244,160 @@ body {
   filter: saturate(0.92) contrast(0.98);
 }
 
+.capsule-story {
+  min-height: 240vh;
+}
+
+.capsule-material {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(4px);
+  opacity: 0.76;
+  pointer-events: none;
+}
+
+.capsule-material-left {
+  top: -22%;
+  left: -12%;
+  width: 46vw;
+  height: 72vh;
+  background: radial-gradient(circle at 62% 68%, rgb(225 217 210 / 0.95), rgb(128 123 117 / 0.38) 58%, transparent 72%);
+}
+
+.capsule-material-right {
+  right: -15%;
+  bottom: -24%;
+  width: 58vw;
+  height: 86vh;
+  background: radial-gradient(circle at 30% 28%, rgb(187 184 179 / 0.92), rgb(76 74 71 / 0.5) 55%, transparent 72%);
+}
+
+.capsule-material-light {
+  top: 6%;
+  right: 25%;
+  width: 25vw;
+  height: 40vh;
+  background: radial-gradient(circle, rgb(255 253 247 / 0.58), transparent 68%);
+}
+
+.capsule-glass-stage {
+  border: 1px solid rgb(255 255 255 / 0.5);
+  background:
+    linear-gradient(115deg, rgb(245 242 235 / 0.78), rgb(226 224 219 / 0.56)),
+    rgb(239 236 229 / 0.48);
+  backdrop-filter: blur(22px) saturate(112%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.72),
+    0 30px 90px rgb(38 36 34 / 0.14);
+}
+
+.capsule-visual-stage {
+  display: grid;
+  min-height: clamp(23rem, 54vh, 34rem);
+  place-items: center;
+  perspective: 900px;
+}
+
+.capsule-object {
+  position: relative;
+  width: clamp(7rem, 9vw, 9.5rem);
+  height: clamp(19rem, 28vw, 27rem);
+  filter: drop-shadow(0 38px 32px rgb(19 19 18 / 0.24));
+  transform-origin: center;
+  transition: transform var(--motion-narrative) var(--ease-standard);
+}
+
+.capsule-visual-stage[data-active-index="0"] .capsule-object {
+  transform: rotate(-3deg);
+}
+
+.capsule-visual-stage[data-active-index="1"] .capsule-object {
+  transform: translateY(-8px) rotate(-1deg);
+}
+
+.capsule-visual-stage[data-active-index="2"] .capsule-object {
+  transform: rotate(1deg);
+}
+
+.capsule-visual-stage[data-active-index="3"] .capsule-object {
+  transform: translateY(-8px) rotate(3deg);
+}
+
+.capsule-half {
+  position: absolute;
+  inset-inline: 0;
+  overflow: hidden;
+}
+
+.capsule-half-top {
+  top: 0;
+  height: 51%;
+  border: 1px solid rgb(61 60 58 / 0.38);
+  border-radius: 999px 999px 1rem 1rem;
+  background:
+    linear-gradient(90deg, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0.7) 28%, rgb(132 125 126 / 0.34) 62%, rgb(255 255 255 / 0.3)),
+    rgb(183 167 173 / 0.42);
+  box-shadow:
+    inset 12px 0 18px rgb(255 255 255 / 0.28),
+    inset -10px 0 18px rgb(62 59 58 / 0.16);
+  backdrop-filter: blur(8px);
+}
+
+.capsule-half-bottom {
+  bottom: 0;
+  height: 51%;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 1rem 1rem 999px 999px;
+  background: linear-gradient(90deg, #0b0c0c, #424443 45%, #111212 73%, #050606);
+  box-shadow:
+    inset 13px 0 19px rgb(255 255 255 / 0.08),
+    inset -12px 0 20px rgb(0 0 0 / 0.55);
+}
+
+.capsule-seam {
+  position: absolute;
+  z-index: 3;
+  top: calc(50% - 3px);
+  right: -3%;
+  left: -3%;
+  height: 7px;
+  border-block: 1px solid rgb(255 255 255 / 0.46);
+  background: rgb(35 35 34 / 0.3);
+}
+
+.capsule-highlight {
+  position: absolute;
+  z-index: 4;
+  top: 9%;
+  bottom: 10%;
+  left: 18%;
+  width: 9%;
+  border-radius: 999px;
+  background: linear-gradient(rgb(255 255 255 / 0.48), rgb(255 255 255 / 0.04));
+  filter: blur(1px);
+}
+
+.capsule-state {
+  border-top: 1px solid rgb(30 31 30 / 0.28);
+  opacity: 0.42;
+  padding-block: clamp(1rem, 2.2vh, 1.5rem);
+  transform: translateX(8px);
+  transition:
+    opacity var(--motion-standard) var(--ease-standard),
+    transform var(--motion-standard) var(--ease-standard),
+    border-color var(--motion-standard) var(--ease-standard);
+}
+
+.capsule-state:last-child {
+  border-bottom: 1px solid rgb(30 31 30 / 0.28);
+}
+
+.capsule-state[data-active="true"] {
+  border-color: rgb(20 21 20 / 0.86);
+  opacity: 1;
+  transform: none;
+}
+
 @keyframes nutrition-hero-arrive {
   from {
     opacity: 0.84;
@@ -315,6 +469,27 @@ body {
     width: 100%;
     min-width: 0;
   }
+
+  .capsule-story {
+    min-height: auto;
+  }
+
+  .capsule-glass-stage {
+    backdrop-filter: blur(12px);
+  }
+
+  .capsule-visual-stage {
+    min-height: 24rem;
+  }
+
+  .capsule-state {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .capsule-object {
+    transform: none !important;
+  }
 }
 
 .sr-only {
@@ -345,5 +520,18 @@ body {
   .nutrition-product-card:focus-within {
     flex-grow: 1;
     transform: none;
+  }
+
+  .capsule-story {
+    min-height: auto;
+  }
+
+  .capsule-story-frame {
+    position: relative;
+  }
+
+  .capsule-state {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

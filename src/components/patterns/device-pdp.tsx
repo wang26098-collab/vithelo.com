@@ -6,22 +6,16 @@ import { StickyResource } from "@/components/core/sticky-resource";
 import { ProductCommerce } from "@/components/domain/product-commerce";
 import { SafetyPanel } from "@/components/domain/safety-panel";
 import { TechnologyStory } from "@/components/domain/technology-story";
-import { demoProducts } from "@/content/demo/products";
-import { ProductSchema, TechnologySchema, type Product, type Technology } from "@/content/schema";
+import type { Product, Technology } from "@/content/schema";
 
 type DeviceProduct = Extract<Product, { kind: "device" }>;
 
-const defaultProduct = ProductSchema.parse(
-  demoProducts.items.find((item) => item.kind === "device"),
-) as DeviceProduct;
-const defaultTechnologies = demoProducts.technologies.map((item) => TechnologySchema.parse(item));
-
 type DevicePdpProps = {
-  product?: DeviceProduct;
-  technologies?: Technology[];
+  product: DeviceProduct;
+  technologies: Technology[];
 };
 
-function DevicePdp({ product = defaultProduct, technologies = defaultTechnologies }: DevicePdpProps) {
+function DevicePdp({ product, technologies }: DevicePdpProps) {
   const relatedTechnologies = technologies.filter((item) => product.technologyIds.includes(item.id));
 
   return (
@@ -41,7 +35,7 @@ function DevicePdp({ product = defaultProduct, technologies = defaultTechnologie
               alt="Fictional demonstration device; approved product media and parameters are not configured"
               className="object-cover"
               fill
-              priority
+              loading="eager"
               sizes="(min-width: 1024px) 58vw, 100vw"
               src="/media/aesthetic-device-demo.png"
             />
@@ -119,6 +113,7 @@ function DevicePdp({ product = defaultProduct, technologies = defaultTechnologie
                 alt="Close material view of a fictional demonstration device interface"
                 className="object-cover object-[66%_center]"
                 fill
+                loading="eager"
                 sizes="(min-width: 768px) 42vw, 100vw"
                 src="/media/aesthetic-device-demo.png"
               />

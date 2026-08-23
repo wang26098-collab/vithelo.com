@@ -69,9 +69,14 @@ test("reduced motion keeps meaningful content static and visible", async ({ page
       name: "Nutrition for the rhythms that shape a life.",
     }),
   ).toBeVisible();
-  await expect(page.locator("#capsule-science").getByRole("heading", { name: "Capsule form study" })).toBeVisible();
+  await expect(
+    page.locator("#capsule-science").getByRole("heading", {
+      name: "Precision inside every capsule.",
+    }),
+  ).toBeVisible();
   await expect(page.locator("#gummy-science").getByRole("heading", { name: "Gummy form study" })).toBeVisible();
-  await expect(page.locator('[data-testid="reduced-motion-static"]')).toHaveCount(4);
+  await expect(page.getByTestId("capsule-science-static")).toBeVisible();
+  await expect(page.locator('[data-testid="reduced-motion-static"]')).toHaveCount(3);
 
   await page.goto("/nutrition/demo-daily-formula");
   await expect(page.getByText("Formula record", { exact: true }).first()).toBeVisible();

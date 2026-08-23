@@ -19,7 +19,9 @@ const routes = [
 test("demo facts are visibly disclosed", async ({ page }) => {
   for (const route of routes) {
     await page.goto(route);
-    await expect(page.getByText(/demonstration content/i).first()).toBeVisible();
+    await expect(
+      page.locator(".demo-disclosure:visible, [data-content-status='DEMO_ONLY']:visible").first(),
+    ).toBeVisible();
     await expect(page.locator("body")).toContainText(/DEMO_ONLY|NOT_CONFIGURED|not configured/i);
   }
 });
@@ -41,7 +43,9 @@ test("rendered copy has no unmarked claims, credentials, verified language, or f
     }
     const visibleText = await page.locator("body").evaluate((body) => {
       const copy = body.cloneNode(true) as HTMLElement;
-      copy.querySelectorAll("[data-demo-only-claim]").forEach((claim) => claim.remove());
+      copy
+        .querySelectorAll("script, style, template, noscript, [data-demo-only-claim]")
+        .forEach((element) => element.remove());
       return copy.textContent ?? "";
     });
 

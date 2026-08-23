@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import Link from "next/link";
 import { HeroIntro } from "@/components/motion/hero-intro";
 import type { HomeContent } from "@/content/schema";
@@ -17,7 +17,7 @@ function HeroMedia({
   if (media.status === "DEMO_ONLY") {
     return (
       <div className={`absolute inset-0 ${viewportClassName}`} data-testid={`nutrition-hero-media-${viewport}-demo`}>
-        <Image alt={media.alt} className="object-cover" fill priority sizes="100vw" src={media.src} />
+        <Image alt={media.alt} className="object-cover" fetchPriority="high" fill sizes="100vw" src={media.src} />
       </div>
     );
   }
@@ -32,22 +32,53 @@ function HeroMedia({
   );
 }
 
+function ResponsiveHeroMedia({ mobileMedia }: { mobileMedia: Extract<HomeContent["hero"]["mobileMedia"], { status: "DEMO_ONLY" }> }) {
+  const common = { alt: mobileMedia.alt, quality: 75, sizes: "100vw" } as const;
+  const { props: { srcSet: desktop } } = getImageProps({
+    ...common,
+    height: 992,
+    src: "/media/vithelo-home-screen-01-background.png",
+    width: 1586,
+  });
+  const { props: { srcSet: mobile, ...imageProps } } = getImageProps({
+    ...common,
+    height: mobileMedia.height,
+    src: mobileMedia.src,
+    width: mobileMedia.width,
+  });
+
+  return (
+    <picture>
+      <source data-testid="nutrition-hero-approved-art" media="(min-width: 768px)" srcSet={desktop} />
+      <source media="(max-width: 767px)" srcSet={mobile} />
+      <img {...imageProps} alt={mobileMedia.alt} className="size-full object-cover object-center" fetchPriority="high" />
+    </picture>
+  );
+}
+
 function NutritionHomeHero({ hero }: NutritionHomeHeroProps) {
   return (
     <section aria-labelledby="nutrition-hero-title" className="relative isolate min-h-[100dvh] overflow-hidden bg-[var(--color-graphite)] text-white" data-content-status="DEMO_ONLY" data-motion-intent="ORIENT" data-static-design="screen-01-approved" id="nutrition-hero">
       <div className="absolute inset-0" data-testid="nutrition-hero-media-demo">
-        <div className="nutrition-hero-background absolute inset-0 hidden md:block" data-motion-intent="ORIENT" data-testid="nutrition-hero-media-desktop-demo">
-          <Image
-            alt=""
-            className="object-cover object-center"
-            data-testid="nutrition-hero-approved-art"
-            fill
-            priority
-            sizes="100vw"
-            src="/media/vithelo-home-screen-01-background.png"
-          />
-        </div>
-        <HeroMedia media={hero.mobileMedia} viewport="mobile" />
+        {hero.mobileMedia.status === "DEMO_ONLY" ? (
+          <div className="nutrition-hero-background absolute inset-0" data-motion-intent="ORIENT" data-testid="nutrition-hero-media-desktop-demo">
+            <ResponsiveHeroMedia mobileMedia={hero.mobileMedia} />
+          </div>
+        ) : (
+          <>
+            <div className="nutrition-hero-background absolute inset-0 hidden md:block" data-motion-intent="ORIENT" data-testid="nutrition-hero-media-desktop-demo">
+              <Image
+                alt=""
+                className="object-cover object-center"
+                fill
+                fetchPriority="high"
+                sizes="100vw"
+                src="/media/vithelo-home-screen-01-background.png"
+              />
+            </div>
+            <HeroMedia media={hero.mobileMedia} viewport="mobile" />
+          </>
+        )}
       </div>
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgb(12_12_11_/_0.36)_0%,transparent_48%)]" />
 

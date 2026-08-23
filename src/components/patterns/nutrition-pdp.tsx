@@ -6,13 +6,7 @@ import { StickyResource } from "@/components/core/sticky-resource";
 import { FormulaSnapshot } from "@/components/domain/formula-snapshot";
 import { ProductCommerce } from "@/components/domain/product-commerce";
 import { SafetyPanel } from "@/components/domain/safety-panel";
-import { demoEvidence } from "@/content/demo/evidence";
-import { demoProducts } from "@/content/demo/products";
 import {
-  EvidenceSchema,
-  FormulaSchema,
-  IngredientSchema,
-  ProductSchema,
   type Evidence,
   type Formula,
   type Ingredient,
@@ -21,26 +15,14 @@ import {
 
 type NutritionProduct = Extract<Product, { kind: "nutrition" }>;
 
-const defaultProduct = ProductSchema.parse(
-  demoProducts.items.find((item) => item.kind === "nutrition"),
-) as NutritionProduct;
-const defaultFormulas = demoProducts.formulas.map((item) => FormulaSchema.parse(item));
-const defaultIngredients = demoProducts.ingredients.map((item) => IngredientSchema.parse(item));
-const defaultEvidence = demoEvidence.items.map((item) => EvidenceSchema.parse(item));
-
 type NutritionPdpProps = {
-  evidence?: Evidence[];
-  formulas?: Formula[];
-  ingredients?: Ingredient[];
-  product?: NutritionProduct;
+  evidence: Evidence[];
+  formulas: Formula[];
+  ingredients: Ingredient[];
+  product: NutritionProduct;
 };
 
-function NutritionPdp({
-  evidence = defaultEvidence,
-  formulas = defaultFormulas,
-  ingredients = defaultIngredients,
-  product = defaultProduct,
-}: NutritionPdpProps) {
+function NutritionPdp({ evidence, formulas, ingredients, product }: NutritionPdpProps) {
   const formula = formulas.find((item) => product.formulaIds.includes(item.id));
   const relatedIngredients = ingredients.filter((item) => product.ingredientIds.includes(item.id));
   const evidenceRecord = evidence.find((item) => item.relationshipIds.includes(product.id));
@@ -54,7 +36,7 @@ function NutritionPdp({
               alt="Demonstration nutrition scene; approved product media is not configured"
               className="object-cover object-[44%_center]"
               fill
-              priority
+              loading="eager"
               sizes="(min-width: 768px) 54vw, 100vw"
               src="/media/nutrition-ritual.png"
             />

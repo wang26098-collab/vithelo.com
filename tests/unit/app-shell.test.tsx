@@ -1,8 +1,8 @@
 import { render, within } from "@testing-library/react";
 import HomePage from "@/app/page";
 
-it("renders the VITHELO Nutrition identity and demo disclosure in the hero", () => {
-  render(<HomePage />);
+it("renders the VITHELO Nutrition identity and demo disclosure in the hero", async () => {
+  render(await HomePage());
 
   const hero = document.getElementById("nutrition-hero");
   expect(hero).toBeInTheDocument();

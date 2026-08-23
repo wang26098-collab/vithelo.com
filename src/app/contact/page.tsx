@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import { ProjectIntake } from "@/components/domain/project-intake";
+
+export const metadata: Metadata = {
+  title: "Start a Project | VITHELO",
+  description: "Choose a VITHELO business intent and prepare an email or WhatsApp inquiry.",
+};
 
 type ContactPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;

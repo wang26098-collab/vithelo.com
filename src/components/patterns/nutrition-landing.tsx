@@ -3,25 +3,16 @@ import Link from "next/link";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Button } from "@/components/core/button";
 import { ProductCard } from "@/components/domain/product-card";
-import { demoProducts } from "@/content/demo/products";
 import {
-  FormulaSchema,
-  ProductSchema,
   type Formula,
   type NutritionHealthCategory,
   type NutritionProduct,
   type Product,
 } from "@/content/schema";
 
-const defaultNutritionProducts = demoProducts.items
-  .map((item) => ProductSchema.parse(item))
-  .filter((product): product is NutritionProduct => product.kind === "nutrition");
-
-const defaultFormulas = demoProducts.formulas.map((formula) => FormulaSchema.parse(formula));
-
 type NutritionLandingProps = {
-  formulas?: Formula[];
-  products?: Product[];
+  formulas: Formula[];
+  products: Product[];
 };
 
 const categories: Array<{
@@ -74,8 +65,8 @@ function CategoryProductDetails({ product }: { product: NutritionProduct }) {
 }
 
 function NutritionLanding({
-  formulas = defaultFormulas,
-  products = defaultNutritionProducts,
+  formulas,
+  products,
 }: NutritionLandingProps) {
   const nutritionProducts = products.filter(
     (product): product is NutritionProduct => product.kind === "nutrition",
@@ -106,7 +97,7 @@ function NutritionLanding({
             alt="Demonstration nutrition ritual with soft glass and neutral material surfaces"
             className="object-cover"
             fill
-            priority
+            loading="eager"
             sizes="(min-width: 768px) 55vw, 100vw"
             src="/media/nutrition-ritual.png"
           />

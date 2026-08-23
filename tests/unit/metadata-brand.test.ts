@@ -3,6 +3,8 @@ import { metadata as deviceLandingMetadata } from "@/app/aesthetic-technology/pa
 import { generateMetadata as generateDeviceMetadata } from "@/app/aesthetic-technology/[slug]/page";
 import { metadata as cartMetadata } from "@/app/cart/page";
 import { metadata as checkoutMetadata } from "@/app/checkout/page";
+import { metadata as contactMetadata } from "@/app/contact/page";
+import { metadata as homeMetadata } from "@/app/page";
 import { metadata as nutritionLandingMetadata } from "@/app/nutrition/page";
 import { generateMetadata as generateNutritionMetadata } from "@/app/nutrition/[slug]/page";
 import { metadata as professionalMetadata } from "@/app/professional/page";
@@ -15,6 +17,8 @@ const staticMetadata = [
   deviceLandingMetadata,
   cartMetadata,
   checkoutMetadata,
+  contactMetadata,
+  homeMetadata,
   nutritionLandingMetadata,
   professionalMetadata,
   scienceMetadata,

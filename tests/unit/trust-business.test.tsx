@@ -1,9 +1,16 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { ProfessionalPage } from "@/components/patterns/professional-page";
 import { SciencePage } from "@/components/patterns/science-page";
+import { demoEvidence } from "@/content/demo/evidence";
+import { demoProfessional } from "@/content/demo/professional";
+import { CapabilitySchema, EvidenceSchema, MarketConfigurationSchema } from "@/content/schema";
+
+const evidence = demoEvidence.items.map((item) => EvidenceSchema.parse(item));
+const capabilities = demoProfessional.capabilities.map((item) => CapabilitySchema.parse(item));
+const marketConfiguration = MarketConfigurationSchema.parse(demoProfessional.marketConfiguration);
 
 it("reveals evidence scope and limitation without converting it into a claim", () => {
-  render(<SciencePage />);
+  render(<SciencePage evidence={evidence} />);
 
   fireEvent.click(screen.getByRole("button", { name: /view source context/i }));
 
@@ -12,7 +19,12 @@ it("reveals evidence scope and limitation without converting it into a claim", (
 });
 
 it("starts professional intake from a business intent", () => {
-  render(<ProfessionalPage />);
+  render(
+    <ProfessionalPage
+      capabilities={capabilities}
+      marketConfiguration={marketConfiguration}
+    />,
+  );
 
   expect(screen.getByRole("link", { name: "Start a Project" })).toHaveAttribute(
     "href",
