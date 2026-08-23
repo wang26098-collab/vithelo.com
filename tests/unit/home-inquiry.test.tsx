@@ -10,17 +10,22 @@ it("renders the six nutrition screens in order before the inquiry path", async (
   expect(document.getElementById("nutrition-hero")).toHaveAttribute("data-motion-intent", "ORIENT");
   expect(
     within(document.getElementById("nutrition-hero")!).getByRole("heading", {
-      name: "Sleep deeper. Live in balance.",
+      name: "WOMEN’S NUTRITION, SHAPED WITH PRECISION.",
     }),
+  ).toBeVisible();
+  expect(
+    within(document.getElementById("nutrition-hero")!).getByText(
+      "A flagship gummy platform for differentiated formulas, brand programs and professional partnerships.",
+    ),
   ).toBeVisible();
   expect(screen.getByTestId("nutrition-hero-media-demo")).toBeInTheDocument();
   expect(screen.getByTestId("nutrition-hero-approved-art")).toHaveAttribute(
     "srcset",
-    expect.stringContaining("vithelo-home-screen-01-background.png"),
+    expect.stringContaining("vithelo-womens-gummy-hero-desktop.png"),
   );
   expect(document.getElementById("nutrition-hero")).toHaveAttribute(
     "data-static-design",
-    "screen-01-approved",
+    "screen-01-womens-gummy-approved",
   );
   expect(document.getElementById("nutrition-hero")).toHaveAttribute(
     "data-content-status",
@@ -38,10 +43,24 @@ it("renders the six nutrition screens in order before the inquiry path", async (
     "href",
     "/nutrition#sleep-health",
   );
-  expect(within(document.getElementById("nutrition-hero")!).getByRole("link", { name: "Explore our range" })).toHaveAttribute(
+  expect(
+    within(document.getElementById("nutrition-hero")!).getByRole("link", {
+      name: "START A PROJECT",
+    }),
+  ).toHaveAttribute(
     "href",
-    "#nutrition-products",
+    "/contact?world=nutrition&subject=Women%E2%80%99s%20gummy%20partnership",
   );
+  expect(
+    within(document.getElementById("nutrition-hero")!).getAllByRole("link", {
+      name: /START A PROJECT/i,
+    }),
+  ).toHaveLength(1);
+  expect(
+    within(document.getElementById("nutrition-hero")!).queryByRole("link", {
+      name: "Explore our range",
+    }),
+  ).not.toBeInTheDocument();
   expect(screen.getByTestId("nutrition-hero-live-content")).toHaveAttribute(
     "data-motion-intent",
     "ORIENT",
