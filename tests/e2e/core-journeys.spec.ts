@@ -17,20 +17,47 @@ test("home hydrates without browser errors", async ({ page }) => {
   page.on("pageerror", (error) => errors.push(error.message));
 
   await page.goto("/");
-  await page.getByRole("heading", { name: "Precision for what comes next." }).waitFor();
+  await page
+    .getByRole("heading", { name: "Nutrition for the rhythms that shape a life." })
+    .waitFor();
 
   expect(errors).toEqual([]);
 });
 
-test("brand orientation reaches both product worlds and professional", async ({ page }) => {
+test("brand orientation reaches nutrition, science, knowledge, and professional partnership", async ({ page }) => {
   await page.goto("/");
   const navigation = await primaryNavigation(page);
 
-  await expect(navigation.getByRole("link", { name: "Nutrition", exact: true })).toBeVisible();
+  await expect(navigation.getByRole("link", { name: "Products", exact: true })).toBeVisible();
+  await expect(navigation.getByRole("link", { name: "Science", exact: true })).toBeVisible();
   await expect(
-    navigation.getByRole("link", { name: "Aesthetic Technology", exact: true }),
+    navigation.getByRole("link", { name: "Health Knowledge", exact: true }),
   ).toBeVisible();
-  await expect(navigation.getByRole("link", { name: "Professional", exact: true })).toBeVisible();
+  await expect(
+    navigation.getByRole("link", { name: "Professional Partnership", exact: true }),
+  ).toBeVisible();
+});
+
+test("nutrition discovery and health knowledge retain disclosed category routes", async ({ page }) => {
+  await page.goto("/nutrition#sleep-health");
+  await expect(page.locator("#sleep-health")).toBeVisible();
+  await expect(page.locator("#womens-health")).toBeVisible();
+  await expect(page.locator("#daily-essential")).toBeVisible();
+
+  await page.goto("/learn");
+  await expect(page.getByRole("heading", { name: "Health Knowledge" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Sleep Health", exact: true })).toHaveAttribute(
+    "href",
+    "/nutrition#sleep-health",
+  );
+  await expect(page.getByRole("link", { name: "Science", exact: true })).toHaveAttribute(
+    "href",
+    "/science",
+  );
+  await expect(page.getByRole("link", { name: "Support", exact: true })).toHaveAttribute(
+    "href",
+    "/support",
+  );
 });
 
 test("both product decisions keep commerce and safety visible", async ({ page }) => {
