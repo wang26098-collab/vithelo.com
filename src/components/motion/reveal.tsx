@@ -13,6 +13,12 @@ type RevealProps = {
   intent: MotionIntent;
 };
 
+const motionTransition = {
+  fast: { duration: 0.15, ease: [0.2, 0, 0, 1] as const },
+  standard: { duration: 0.24, ease: [0.2, 0, 0, 1] as const },
+  narrative: { duration: 0.5, ease: [0.2, 0, 0, 1] as const },
+} as const;
+
 const revealDistance: Record<MotionIntent, number> = {
   ORIENT: 20,
   RELATE: 14,
@@ -22,11 +28,11 @@ const revealDistance: Record<MotionIntent, number> = {
 };
 
 const revealDuration: Record<MotionIntent, number> = {
-  ORIENT: 0.5,
-  RELATE: 0.5,
-  EXPLAIN: 0.24,
-  FOCUS: 0.24,
-  CONFIRM: 0.15,
+  ORIENT: motionTransition.narrative.duration,
+  RELATE: motionTransition.narrative.duration,
+  EXPLAIN: motionTransition.standard.duration,
+  FOCUS: motionTransition.standard.duration,
+  CONFIRM: motionTransition.fast.duration,
 };
 
 function Reveal({ children, className, intent }: RevealProps) {
@@ -42,7 +48,7 @@ function Reveal({ children, className, intent }: RevealProps) {
       key={reducedMotion ? "static" : "animated"}
       transition={{
         duration: reducedMotion ? 0 : revealDuration[intent],
-        ease: [0.2, 0, 0, 1],
+        ease: motionTransition.standard.ease,
       }}
       viewport={{ amount: 0.2, once: true }}
       whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
@@ -65,7 +71,7 @@ function MediaReveal({ children, className, intent }: RevealProps) {
       key={reducedMotion ? "static" : "animated"}
       transition={{
         duration: reducedMotion ? 0 : revealDuration[intent],
-        ease: [0.2, 0, 0, 1],
+        ease: motionTransition.standard.ease,
       }}
       viewport={{ amount: 0.2, once: true }}
       whileInView={
@@ -77,4 +83,10 @@ function MediaReveal({ children, className, intent }: RevealProps) {
   );
 }
 
-export { MediaReveal, Reveal, type MotionIntent, type RevealProps };
+export {
+  MediaReveal,
+  Reveal,
+  motionTransition,
+  type MotionIntent,
+  type RevealProps,
+};
