@@ -6,14 +6,14 @@ import { SiteHeader } from "@/components/core/site-header";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "VITHELO",
-  description: "Nutrition and aesthetic technology for product and professional partners.",
+  title: "VITHELO | Nutrition",
+  description: "Nutrition-led products with a secondary professional capability.",
 };
 
-const directionContract = `THESIS: VITHELO connects nutrition and aesthetic technology for product and professional partners; it refuses the stitched shop and device catalog.
+const directionContract = `THESIS: VITHELO is nutrition-led, with a secondary professional capability; it refuses the stitched shop and device catalog.
 OWN-WORLD: Ivory, graphite, titanium, and restrained optical light; low-radius, low-shadow, precision-led components.
-STORY: Visitors orient, distinguish two product worlds, inspect evidence and safety, and choose a product or professional inquiry path.
-FIRST VIEWPORT: VITHELO leads a calm material field with Email Inquiry and WhatsApp visible above the fold.
+STORY: Visitors orient through nutrition, inspect evidence and safety, and choose a product or professional inquiry path.
+FIRST VIEWPORT: VITHELO leads a calm nutrition material field with product discovery above the fold.
 FORM: Swiss precision and Scientific Material Humanism for a B2B-first brand experience.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md`;
 

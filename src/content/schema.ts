@@ -7,10 +7,24 @@ const ConfiguredStatusSchema = z.object({
   message: z.string().min(1),
 });
 
-export const MediaSchema = z.object({
-  status: z.literal("NOT_CONFIGURED"),
+const DemoMediaSchema = z.object({
+  status: z.literal("DEMO_ONLY"),
+  src: z.string().regex(/^\/media\/[\w./-]+$/),
+  width: z.number().int().positive(),
+  height: z.number().int().positive(),
   alt: z.string().min(1),
 });
+
+const MissingMediaSchema = z.object({
+  status: z.literal("NOT_CONFIGURED"),
+  alt: z.string().min(1),
+  message: z.string().min(1),
+});
+
+export const MediaSchema = z.discriminatedUnion("status", [
+  DemoMediaSchema,
+  MissingMediaSchema,
+]);
 
 export const CommerceSchema = ConfiguredStatusSchema;
 
@@ -106,6 +120,29 @@ export const SiteConfigSchema = z.object({
   }),
 });
 
+export const NutritionHealthCategorySchema = z.enum([
+  "sleep-health",
+  "womens-health",
+  "daily-essential",
+]);
+
+export const NutritionFormSchema = z.enum(["capsule", "gummy"]);
+
+const ScienceStageStateSchema = z.object({
+  label: z.enum(["FORM", "MATERIAL", "USE", "SAFETY"]),
+  summary: z.string().min(1),
+  status: z.union([DataStatusSchema, ConfiguredStatusSchema]),
+});
+
+const ScienceStageSchema = z.object({
+  id: z.enum(["capsule-stage", "gummy-stage"]),
+  dataStatus: DataStatusSchema,
+  form: NutritionFormSchema,
+  title: z.string().min(1),
+  media: MediaSchema,
+  states: z.array(ScienceStageStateSchema).length(4),
+});
+
 export const HomeContentSchema = z.object({
   dataStatus: DataStatusSchema,
   hero: z.object({
@@ -115,6 +152,27 @@ export const HomeContentSchema = z.object({
     secondaryAction: z.literal("whatsapp"),
     desktopMedia: MediaSchema,
     mobileMedia: MediaSchema,
+  }),
+  categoryPaths: z
+    .array(
+      z.object({
+        id: NutritionHealthCategorySchema,
+        title: z.string().min(1),
+        summary: z.string().min(1),
+        href: z.string().regex(/^\/nutrition#(?:sleep-health|womens-health)$/),
+      }),
+    )
+    .length(2),
+  scienceStages: z.array(ScienceStageSchema).length(2),
+  humanRhythms: z.object({
+    title: z.string().min(1),
+    summary: z.string().min(1),
+    media: MediaSchema,
+  }),
+  professionalInquiry: z.object({
+    title: z.string().min(1),
+    summary: z.string().min(1),
+    href: z.literal("/professional"),
   }),
   partnerPaths: z
     .array(
@@ -153,6 +211,8 @@ const ProductBaseSchema = z.object({
 
 export const NutritionProductSchema = ProductBaseSchema.extend({
   kind: z.literal("nutrition"),
+  healthCategory: NutritionHealthCategorySchema,
+  form: NutritionFormSchema,
   formulaIds: z.array(z.string().min(1)).min(1),
   ingredientIds: z.array(z.string().min(1)).min(1),
 });
@@ -168,6 +228,11 @@ export const ProductSchema = z.discriminatedUnion("kind", [
 ]);
 
 export type Product = z.infer<typeof ProductSchema>;
+export type Media = z.infer<typeof MediaSchema>;
+export type NutritionHealthCategory = z.infer<typeof NutritionHealthCategorySchema>;
+export type NutritionForm = z.infer<typeof NutritionFormSchema>;
+export type NutritionProduct = z.infer<typeof NutritionProductSchema>;
+export type ScienceStage = z.infer<typeof ScienceStageSchema>;
 export type Formula = z.infer<typeof FormulaSchema>;
 export type Ingredient = z.infer<typeof IngredientSchema>;
 export type Technology = z.infer<typeof TechnologySchema>;

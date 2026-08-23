@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { MagnifyingGlass } from "@phosphor-icons/react/dist/ssr";
 import { BrandMark } from "@/components/core/brand-mark";
-import { Button } from "@/components/core/button";
 import { MegaMenu } from "@/components/core/mega-menu";
 import { MobileMenu } from "@/components/core/mobile-menu";
 import { secondaryNavigation, utilityNavigation } from "@/components/core/navigation";
@@ -47,11 +46,6 @@ function SiteHeader() {
             );
           })}
         </nav>
-
-        <Button asChild className="hidden xl:inline-flex" size="small">
-          <Link href="/contact">Start a Project</Link>
-        </Button>
-
         <div className="ml-auto lg:hidden">
           <MobileMenu />
         </div>

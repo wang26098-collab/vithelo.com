@@ -27,6 +27,8 @@ it("validates both product kinds and their relationships", () => {
 
   expect(products.map((product) => product.kind)).toEqual([
     "nutrition",
+    "nutrition",
+    "nutrition",
     "device",
   ]);
   expect(products.every((product) => product.relationshipIds.length > 0)).toBe(true);
@@ -37,6 +39,23 @@ it("validates both product kinds and their relationships", () => {
   expect(TechnologySchema.parse(demoProducts.technologies[0]).dataStatus).toBe(
     "DEMO_ONLY",
   );
+});
+
+it("requires a nutrition category and product form for nutrition products", () => {
+  const nutritionProducts = demoProducts.items.flatMap((item) => {
+    const product = ProductSchema.parse(item);
+
+    return product.kind === "nutrition" ? [product] : [];
+  });
+
+  expect(
+    nutritionProducts.map((product) => product.healthCategory),
+  ).toEqual(["sleep-health", "womens-health", "daily-essential"]);
+  expect(nutritionProducts.map((product) => product.form)).toEqual([
+    "capsule",
+    "gummy",
+    "capsule",
+  ]);
 });
 
 it("keeps safety visible when configuration is missing", () => {
@@ -65,8 +84,10 @@ it("returns only validated fixtures through the local content adapter", async ()
   const product = await localContentAdapter.getProductBySlug("demo-daily-formula");
   const missingProduct = await localContentAdapter.getProductBySlug("missing-product");
 
-  expect(products).toHaveLength(2);
+  expect(products).toHaveLength(4);
   expect(products.map((item) => ProductSchema.parse(item).kind)).toEqual([
+    "nutrition",
+    "nutrition",
     "nutrition",
     "device",
   ]);

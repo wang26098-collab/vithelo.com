@@ -1,21 +1,21 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { SiteHeader } from "@/components/core/site-header";
 
-it("exposes the five locked primary destinations and an accessible mobile menu", async () => {
+it("exposes the nutrition-led primary destinations and an accessible mobile menu", async () => {
   render(<SiteHeader />);
 
-  for (const label of [
-    "Nutrition",
-    "Aesthetic Technology",
-    "Capabilities",
-    "Science",
-    "Professional",
-  ]) {
-    expect(screen.getAllByRole("link", { name: label })[0]).toBeVisible();
+  for (const [label, href] of [
+    ["Products", "/nutrition"],
+    ["Science", "/science"],
+    ["Health Knowledge", "/learn"],
+    ["Professional Partnership", "/professional"],
+  ] as const) {
+    expect(screen.getAllByRole("link", { name: label })[0]).toHaveAttribute("href", href);
   }
-  expect(screen.getByRole("link", { name: "Start a Project" })).toHaveAttribute(
+  expect(screen.queryByRole("link", { name: /^Aesthetic Technology$/ })).not.toBeInTheDocument();
+  expect(screen.getByRole("link", { name: "Professional Partnership" })).toHaveAttribute(
     "href",
-    "/contact",
+    "/professional",
   );
   expect(screen.getByTestId("vithelo-monogram")).toBeVisible();
   expect(screen.getByText("PRECISION · SCIENCE · HUMAN")).toBeVisible();

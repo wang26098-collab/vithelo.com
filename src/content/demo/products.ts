@@ -28,15 +28,78 @@ export const demoProducts = {
   items: [
     {
       id: "demo-nutrition-01",
+      slug: "demo-sleep-formula",
+      kind: "nutrition",
+      dataStatus: "DEMO_ONLY",
+      name: "Demo Sleep Formula",
+      descriptor: "Demonstration nutrition product",
+      healthCategory: "sleep-health",
+      form: "capsule",
+      media: [
+        {
+          status: "DEMO_ONLY",
+          src: "/media/nutrition-ritual.png",
+          width: 1536,
+          height: 1024,
+          alt: "Demonstration nutrition product image",
+        },
+      ],
+      commerce: {
+        status: "NOT_CONFIGURED",
+        message: "Price not configured",
+      },
+      safety: {
+        status: "NOT_CONFIGURED",
+        dataStatus: "DEMO_ONLY",
+        message: "Safety details require approved product input",
+      },
+      formulaIds: ["demo-formula-01"],
+      ingredientIds: ["demo-ingredient-01"],
+      relationshipIds: ["demo-formula-01", "demo-ingredient-01"],
+    },
+    {
+      id: "demo-nutrition-02",
+      slug: "demo-womens-formula",
+      kind: "nutrition",
+      dataStatus: "DEMO_ONLY",
+      name: "Demo Women’s Formula",
+      descriptor: "Demonstration nutrition product",
+      healthCategory: "womens-health",
+      form: "gummy",
+      media: [
+        {
+          status: "NOT_CONFIGURED",
+          alt: "Demo Women’s Formula media requires approved product assets",
+          message: "Demo Women’s Formula media requires approved product assets.",
+        },
+      ],
+      commerce: {
+        status: "NOT_CONFIGURED",
+        message: "Price not configured",
+      },
+      safety: {
+        status: "NOT_CONFIGURED",
+        dataStatus: "DEMO_ONLY",
+        message: "Safety details require approved product input",
+      },
+      formulaIds: ["demo-formula-01"],
+      ingredientIds: ["demo-ingredient-01"],
+      relationshipIds: ["demo-formula-01", "demo-ingredient-01"],
+    },
+    {
+      id: "demo-nutrition-03",
       slug: "demo-daily-formula",
       kind: "nutrition",
       dataStatus: "DEMO_ONLY",
       name: "Demo Daily Formula",
       descriptor: "Demonstration nutrition product",
+      healthCategory: "daily-essential",
+      form: "capsule",
       media: [
         {
           status: "NOT_CONFIGURED",
           alt: "Demo Daily Formula media requires approved product assets",
+          message: "Demo Daily Formula media requires approved product assets.",
         },
       ],
       commerce: {
@@ -63,6 +126,7 @@ export const demoProducts = {
         {
           status: "NOT_CONFIGURED",
           alt: "Demo Precision Device media requires approved product assets",
+          message: "Demo Precision Device media requires approved product assets.",
         },
       ],
       commerce: {

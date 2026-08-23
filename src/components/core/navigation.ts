@@ -1,9 +1,8 @@
 export const primaryNavigation = [
-  { label: "Nutrition", href: "/nutrition" },
-  { label: "Aesthetic Technology", href: "/aesthetic-technology" },
-  { label: "Capabilities", href: "/professional#capabilities" },
+  { label: "Products", href: "/nutrition" },
   { label: "Science", href: "/science" },
-  { label: "Professional", href: "/professional" },
+  { label: "Health Knowledge", href: "/learn" },
+  { label: "Professional Partnership", href: "/professional" },
 ] as const;
 
 export const secondaryNavigation = [

@@ -9,6 +9,8 @@
   --color-titanium-light: #d4d8d5;
   --color-optical: #b8d0c8;
   --color-optical-strong: #58756c;
+  --color-human-mauve: #a37683;
+  --color-ruby-material: #9b2831;
 
   --color-background: var(--color-ivory);
   --color-surface: #fafbf8;
@@ -57,6 +59,7 @@
   --radius-4: 0.25rem;
   --radius-8: 0.5rem;
   --radius-12: 0.75rem;
+  --radius-cinematic: 1.25rem;
 
   --shadow-overlay: 0 16px 48px rgb(32 33 31 / 0.12);
 
@@ -65,6 +68,7 @@
   --container-form: 38rem;
   --container-data: 92rem;
   --container-gutter: clamp(var(--space-20), 4vw, var(--space-64));
+  --home-header-height: 4.75rem;
 
   --z-p1: 10;
   --z-p2: 20;

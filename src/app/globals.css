@@ -63,6 +63,22 @@ body {
   padding-block: clamp(var(--space-64), 8vw, var(--space-120));
 }
 
+.home-viewport {
+  min-height: 100dvh;
+  background: var(--color-background);
+}
+
+.home-cinematic-media {
+  overflow: clip;
+  border-radius: var(--radius-cinematic);
+}
+
+.home-section {
+  position: relative;
+  overflow: clip;
+  padding-block: clamp(var(--space-64), 8vw, var(--space-120));
+}
+
 .demo-disclosure {
   border-block: 1px solid var(--color-border);
   padding-block: var(--space-12);
