@@ -146,10 +146,16 @@ const ScienceStageSchema = z.object({
 export const HomeContentSchema = z.object({
   dataStatus: DataStatusSchema,
   hero: z.object({
-    headline: z.string().min(1),
-    supportingText: z.string().min(1),
-    primaryAction: z.literal("email"),
-    secondaryAction: z.literal("whatsapp"),
+    headline: z.literal("WOMEN’S NUTRITION, SHAPED WITH PRECISION."),
+    supportingText: z.literal(
+      "A flagship gummy platform for differentiated formulas, brand programs and professional partnerships.",
+    ),
+    primaryAction: z.object({
+      label: z.literal("START A PROJECT"),
+      href: z.literal(
+        "/contact?world=nutrition&subject=Women%E2%80%99s%20gummy%20partnership",
+      ),
+    }),
     desktopMedia: MediaSchema,
     mobileMedia: MediaSchema,
   }),

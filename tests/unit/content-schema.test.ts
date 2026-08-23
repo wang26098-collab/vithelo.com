@@ -112,6 +112,30 @@ it("returns only validated fixtures through the local content adapter", async ()
   );
 });
 
+it("models the Home hero as one women’s gummy project action", async () => {
+  const home = await localContentAdapter.getHomeContent();
+
+  expect(home.hero.headline).toBe("WOMEN’S NUTRITION, SHAPED WITH PRECISION.");
+  expect(home.hero.supportingText.split(/\s+/)).toHaveLength(12);
+  expect(home.hero.primaryAction).toEqual({
+    label: "START A PROJECT",
+    href: "/contact?world=nutrition&subject=Women%E2%80%99s%20gummy%20partnership",
+  });
+  expect(home.hero).not.toHaveProperty("secondaryAction");
+  expect(home.hero.desktopMedia).toMatchObject({
+    status: "DEMO_ONLY",
+    src: "/media/vithelo-womens-gummy-hero-desktop.png",
+    width: 1536,
+    height: 1024,
+  });
+  expect(home.hero.mobileMedia).toMatchObject({
+    status: "DEMO_ONLY",
+    src: "/media/vithelo-womens-gummy-hero-mobile.png",
+    width: 1024,
+    height: 1536,
+  });
+});
+
 it("returns explicit NOT_CONFIGURED commerce states", async () => {
   await expect(localCommerceAdapter.getPrice("demo-nutrition-01")).resolves.toEqual({
     status: "NOT_CONFIGURED",

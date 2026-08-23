@@ -3,24 +3,26 @@ import { HomeContentSchema } from "@/content/schema";
 export const demoHome = HomeContentSchema.parse({
   dataStatus: "DEMO_ONLY",
   hero: {
-    headline: "Nutrition for the rhythms that shape a life.",
+    headline: "WOMEN’S NUTRITION, SHAPED WITH PRECISION.",
     supportingText:
-      "A nutrition-led VITHELO demonstration requires approved product information.",
-    primaryAction: "email",
-    secondaryAction: "whatsapp",
+      "A flagship gummy platform for differentiated formulas, brand programs and professional partnerships.",
+    primaryAction: {
+      label: "START A PROJECT",
+      href: "/contact?world=nutrition&subject=Women%E2%80%99s%20gummy%20partnership",
+    },
     desktopMedia: {
       status: "DEMO_ONLY",
-      src: "/media/vithelo-hero-composite.png",
-      width: 1672,
-      height: 941,
-      alt: "Demonstration VITHELO nutrition composition",
+      src: "/media/vithelo-womens-gummy-hero-desktop.png",
+      width: 1536,
+      height: 1024,
+      alt: "Demo VITHELO women’s gummy bottle with transparent red bear gummies and an adult woman in soft natural light",
     },
     mobileMedia: {
       status: "DEMO_ONLY",
-      src: "/media/vithelo-hero-composite-mobile.png",
-      width: 1122,
-      height: 1402,
-      alt: "Demonstration VITHELO nutrition composition for mobile",
+      src: "/media/vithelo-womens-gummy-hero-mobile.png",
+      width: 1024,
+      height: 1536,
+      alt: "Mobile demo composition of a VITHELO women’s gummy bottle, transparent red bear gummies, and an adult woman",
     },
   },
   categoryPaths: [

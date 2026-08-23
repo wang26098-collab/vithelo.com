@@ -23,8 +23,11 @@ describe("VITHELO site configuration", () => {
     const parsed = HomeContentSchema.parse(demoHome);
 
     expect(parsed.dataStatus).toBe("DEMO_ONLY");
-    expect(parsed.hero.primaryAction).toBe("email");
-    expect(parsed.hero.secondaryAction).toBe("whatsapp");
+    expect(parsed.hero.primaryAction).toEqual({
+      label: "START A PROJECT",
+      href: "/contact?world=nutrition&subject=Women%E2%80%99s%20gummy%20partnership",
+    });
+    expect(parsed.hero).not.toHaveProperty("secondaryAction");
     expect(parsed.capabilities).toHaveLength(5);
   });
 });
