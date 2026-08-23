@@ -65,6 +65,14 @@ test("reduced motion keeps meaningful content static and visible", async ({ page
   await page.goto("/");
 
   await expect(
+    page.locator("#nutrition-hero").getByRole("heading", {
+      name: "WOMEN’S NUTRITION, SHAPED WITH PRECISION.",
+    }),
+  ).toBeVisible();
+  await expect(
+    page.locator("#nutrition-hero").getByRole("link", { name: "START A PROJECT" }),
+  ).toBeVisible();
+  await expect(
     page.locator("#nutrition-manifesto").getByRole("heading", {
       name: "Nutrition for the rhythms that shape a life.",
     }),

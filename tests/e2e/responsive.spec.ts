@@ -17,6 +17,40 @@ const routes = [
   "/contact",
 ] as const;
 
+test("women's gummy hero keeps its decision content inside the first viewport", async ({
+  page,
+  viewport,
+}) => {
+  await page.goto("/");
+
+  const hero = page.locator("#nutrition-hero");
+  const title = hero.getByRole("heading", {
+    name: "WOMEN’S NUTRITION, SHAPED WITH PRECISION.",
+  });
+  const action = hero.getByRole("link", { name: "START A PROJECT" });
+  const scrim = hero.locator(".nutrition-hero-scrim");
+
+  await expect(title).toBeVisible();
+  await expect(action).toBeVisible();
+  await expect
+    .poll(() => scrim.evaluate((element) => getComputedStyle(element).backgroundImage))
+    .not.toBe("none");
+
+  const [heroBox, actionBox] = await Promise.all([hero.boundingBox(), action.boundingBox()]);
+  expect(heroBox).not.toBeNull();
+  expect(actionBox).not.toBeNull();
+  if (heroBox && actionBox && viewport) {
+    expect(heroBox.height).toBeGreaterThanOrEqual(viewport.height - 1);
+    expect(actionBox.y + actionBox.height).toBeLessThanOrEqual(heroBox.y + viewport.height + 1);
+  }
+
+  if (viewport && viewport.width >= 1024) {
+    const copyBox = await hero.locator(".nutrition-hero-copy").boundingBox();
+    expect(copyBox).not.toBeNull();
+    if (copyBox) expect(copyBox.width).toBeLessThanOrEqual(viewport.width * 0.46);
+  }
+});
+
 test("core routes do not overflow the viewport", async ({ page }, testInfo) => {
   for (const route of routes) {
     await page.goto(route);

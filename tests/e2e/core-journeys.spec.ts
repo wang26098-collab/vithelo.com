@@ -52,6 +52,21 @@ test("home hero navigation follows the approved first-screen routes", async ({ p
   await expect(navigation.getByRole("link", { name: "About", exact: true })).toBeVisible();
 });
 
+test("women's gummy hero starts a prefilled Nutrition project", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#nutrition-hero").getByRole("link", { name: "START A PROJECT" }).click();
+  await page.waitForURL(/\/contact\?/);
+
+  const contactUrl = new URL(page.url());
+  expect(contactUrl.pathname).toBe("/contact");
+  expect(contactUrl.searchParams.get("world")).toBe("nutrition");
+  expect(contactUrl.searchParams.get("subject")).toBe("Women’s gummy partnership");
+
+  await page.getByRole("button", { name: "Develop a product" }).click();
+  await expect(page.getByLabel("Product world")).toHaveValue("Nutrition");
+  await expect(page.getByLabel("Project summary")).toHaveValue("Women’s gummy partnership");
+});
+
 test("nutrition discovery and health knowledge retain disclosed category routes", async ({ page }) => {
   await page.goto("/nutrition#sleep-health");
   await expect(page.locator("#sleep-health")).toBeVisible();
