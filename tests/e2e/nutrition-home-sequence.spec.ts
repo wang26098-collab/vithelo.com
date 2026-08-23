@@ -11,7 +11,7 @@ test("nutrition home keeps the approved six screens in sequence", async ({ page 
   const humanRhythms = page.locator("#human-rhythms");
 
   await expect(hero).toBeVisible();
-  await expect(hero.getByRole("heading", { name: "Nutrition for the rhythms that shape a life." })).toBeVisible();
+  await expect(hero.getByRole("heading", { name: "Sleep deeper. Live in balance." })).toBeVisible();
   await expect(manifesto).toBeVisible();
   await expect(manifesto.getByRole("link", { name: "Sleep Health" })).toHaveAttribute(
     "href",

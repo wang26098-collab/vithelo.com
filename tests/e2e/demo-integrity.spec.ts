@@ -31,9 +31,21 @@ test("rendered copy has no unmarked claims, credentials, verified language, or f
 
   for (const route of routes) {
     await page.goto(route);
-    const visibleText = await page.locator("body").innerText();
+    const markedDemoClaims = page.locator("[data-demo-only-claim]");
+    for (let index = 0; index < (await markedDemoClaims.count()); index += 1) {
+      const claim = markedDemoClaims.nth(index);
+      await expect(claim).toBeVisible();
+      await expect(
+        claim.locator("xpath=ancestor::*[@data-content-status='DEMO_ONLY'][1]"),
+      ).toHaveCount(1);
+    }
+    const visibleText = await page.locator("body").evaluate((body) => {
+      const copy = body.cloneNode(true) as HTMLElement;
+      copy.querySelectorAll("[data-demo-only-claim]").forEach((claim) => claim.remove());
+      return copy.textContent ?? "";
+    });
 
-    expect(visibleText, `${route} contains an unapproved claim phrase`).not.toMatch(unapprovedPhrase);
+    expect(visibleText, `${route} contains an unmarked claim phrase`).not.toMatch(unapprovedPhrase);
     expect(visibleText, `${route} presents demo content as verified`).not.toContain(
       "VERIFIED INFORMATION ONLY",
     );

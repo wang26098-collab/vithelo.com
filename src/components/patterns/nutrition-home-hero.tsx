@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { HeroIntro } from "@/components/motion/hero-intro";
 import type { HomeContent } from "@/content/schema";
 
 type NutritionHomeHeroProps = { hero: HomeContent["hero"] };
@@ -33,24 +34,53 @@ function HeroMedia({
 
 function NutritionHomeHero({ hero }: NutritionHomeHeroProps) {
   return (
-    <section aria-labelledby="nutrition-hero-title" className="relative isolate flex min-h-[calc(100dvh-var(--home-header-height))] items-end overflow-hidden bg-[var(--color-graphite)] text-[var(--color-ivory)]" data-motion-intent="ORIENT" id="nutrition-hero">
+    <section aria-labelledby="nutrition-hero-title" className="relative isolate min-h-[100dvh] overflow-hidden bg-[var(--color-graphite)] text-white" data-content-status="DEMO_ONLY" data-motion-intent="ORIENT" data-static-design="screen-01-approved" id="nutrition-hero">
       <div className="absolute inset-0" data-testid="nutrition-hero-media-demo">
-        <HeroMedia media={hero.desktopMedia} viewport="desktop" />
+        <div className="nutrition-hero-background absolute inset-0 hidden md:block" data-motion-intent="ORIENT" data-testid="nutrition-hero-media-desktop-demo">
+          <Image
+            alt=""
+            className="object-cover object-center"
+            data-testid="nutrition-hero-approved-art"
+            fill
+            priority
+            sizes="100vw"
+            src="/media/vithelo-home-screen-01-background.png"
+          />
+        </div>
         <HeroMedia media={hero.mobileMedia} viewport="mobile" />
       </div>
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,color-mix(in_srgb,var(--color-graphite)_78%,transparent),color-mix(in_srgb,var(--color-graphite)_10%,transparent))]" />
-      <div className="container-standard relative z-10 w-full pb-[var(--space-40)] pt-[calc(var(--home-header-height)+var(--space-40))] sm:pb-[var(--space-64)]">
-        <div className="max-w-2xl">
-          <p className="text-[var(--font-size-label)] tracking-[var(--letter-spacing-label)] text-[color:color-mix(in_srgb,var(--color-ivory)_80%,transparent)] uppercase">VITHELO · Nutrition</p>
-          <p className="mt-[var(--space-20)] text-[var(--font-size-label)] tracking-[var(--letter-spacing-label)] text-[color:color-mix(in_srgb,var(--color-ivory)_72%,transparent)] uppercase">{hero.desktopMedia.status}</p>
-          <h1 className="mt-[var(--space-20)] text-[length:var(--font-size-h1-mobile)] leading-[0.98] tracking-[var(--letter-spacing-display)] sm:text-[length:var(--font-size-h1)] lg:text-[length:var(--font-size-display)]" id="nutrition-hero-title">{hero.headline}</h1>
-          <p className="mt-[var(--space-20)] max-w-xl text-lg text-[color:color-mix(in_srgb,var(--color-ivory)_84%,transparent)]">{hero.supportingText}</p>
-          <div className="mt-[var(--space-32)] flex flex-wrap items-center gap-[var(--space-20)]">
-            <Link className="inline-flex min-h-11 items-center border border-[color:color-mix(in_srgb,var(--color-ivory)_72%,transparent)] px-[var(--space-20)] text-sm font-medium transition-colors hover:bg-[var(--color-ivory)] hover:text-[var(--color-graphite)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-ivory)]" href="#nutrition-manifesto">Explore nutrition</Link>
-            <Link className="inline-flex min-h-11 items-center text-sm text-[color:color-mix(in_srgb,var(--color-ivory)_80%,transparent)] underline underline-offset-4 transition-colors hover:text-[var(--color-ivory)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-ivory)]" href="/professional">Professional partnership</Link>
-          </div>
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgb(12_12_11_/_0.36)_0%,transparent_48%)]" />
+
+      <HeroIntro className="absolute inset-x-0 top-0 z-20 hidden items-center justify-between px-[clamp(2rem,2.5vw,3rem)] pt-[clamp(1.75rem,3.8vh,2.75rem)] lg:flex">
+        <Link className="text-[clamp(1.5rem,2vw,2rem)] font-light tracking-[0.18em] no-underline transition-opacity hover:opacity-70 focus-visible:outline-white" href="/" aria-label="VITHELO home">VITHELO</Link>
+        <nav aria-label="Hero navigation" className="flex items-center gap-[clamp(1.5rem,3.7vw,3.75rem)] text-[0.78rem] tracking-[0.12em] uppercase">
+          <Link className="hero-nav-link" href="#nutrition-manifesto">Our approach</Link>
+          <Link className="hero-nav-link" href="/nutrition#sleep-health">Sleep health</Link>
+          <Link className="hero-nav-link" href="/nutrition#womens-health">Women’s health</Link>
+          <Link className="hero-nav-link" href="/learn">Journal</Link>
+          <Link className="hero-nav-link" href="/professional">About</Link>
+        </nav>
+      </HeroIntro>
+
+      <div className="relative z-10 flex min-h-[100dvh] items-center px-[clamp(1.5rem,2.5vw,3rem)] pt-[clamp(5rem,8vw,8rem)] md:items-start md:pt-[31vh]" data-motion-intent="ORIENT" data-testid="nutrition-hero-live-content">
+        <div className="w-full max-w-[48rem] md:w-[47vw]">
+          <HeroIntro delay={0.1}>
+            <h1 className="text-[clamp(4rem,6.9vw,7rem)] leading-[1.02] font-light tracking-[-0.055em]" data-demo-only-claim id="nutrition-hero-title">
+              <span className="block">Sleep deeper.</span>
+              <span className="block">Live in balance.</span>
+            </h1>
+          </HeroIntro>
+          <HeroIntro className="mt-[clamp(1.25rem,2vw,2rem)]" delay={0.2}>
+            <p className="max-w-[22rem] text-[clamp(1rem,1.25vw,1.25rem)] leading-[1.35] font-light text-white/90">Science-led nutrition for sleep health and women’s health, designed to fit real life.</p>
+          </HeroIntro>
+          <HeroIntro className="mt-[clamp(1.75rem,3vw,3rem)] flex flex-wrap gap-4" delay={0.3}>
+            <Link className="hero-cta hero-cta-primary" href="#nutrition-manifesto">Our approach</Link>
+            <Link className="hero-cta hero-cta-secondary" href="#nutrition-products">Explore our range</Link>
+          </HeroIntro>
         </div>
       </div>
+
+      <span className="absolute right-3 bottom-3 z-20 bg-black/55 px-2 py-1 text-[0.625rem] tracking-[0.12em] text-white/75 uppercase">DEMO_ONLY</span>
     </section>
   );
 }

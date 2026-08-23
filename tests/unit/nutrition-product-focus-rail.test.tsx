@@ -34,6 +34,8 @@ it("keeps pointer and keyboard focus in the same active product state", () => {
   const womenCard = screen.getByRole("link", { name: /Demo Women.*Formula/i });
   const dailyCard = screen.getByRole("link", { name: /Demo Daily Formula/i });
 
+  expect(womenCard.closest("article")).toHaveAttribute("data-active", "true");
+
   fireEvent.pointerEnter(womenCard);
   expect(womenCard.closest("article")).toHaveAttribute("data-active", "true");
 
@@ -45,18 +47,12 @@ it("keeps pointer and keyboard focus in the same active product state", () => {
   expect(dailyCard.closest("article")).toHaveAttribute("data-active", "true");
 });
 
-it("renders every product fact without hover and exposes mobile snap semantics", () => {
+it("renders every approved card asset without hover and exposes mobile snap semantics", () => {
   render(<NutritionProductFocusRail products={nutritionProducts()} />);
 
   expect(screen.getAllByTestId("nutrition-product-card")).toHaveLength(3);
-  expect(screen.getAllByTestId("product-focus-fact")).toHaveLength(3);
-  expect(screen.getByText("sleep-health")).toBeVisible();
-  expect(screen.getByText("womens-health")).toBeVisible();
-  expect(screen.getByText("daily-essential")).toBeVisible();
-  expect(screen.getAllByTestId("product-focus-fact")).toHaveLength(3);
-  expect(screen.getAllByTestId("product-focus-fact")[0]).toHaveTextContent(
-    "Safety details require approved product input",
-  );
+  expect(screen.getAllByText("DEMO_ONLY", { exact: true })).toHaveLength(3);
+  expect(screen.getAllByTestId("nutrition-product-card-image")).toHaveLength(3);
 
   const rail = screen.getByTestId("nutrition-product-focus-rail");
   expect(rail.className).toContain("snap-x");
@@ -72,7 +68,7 @@ it("uses an explicit static equivalent when reduced motion is requested", () => 
   render(<NutritionProductFocusRail products={nutritionProducts()} />);
 
   expect(screen.getByTestId("reduced-motion-static")).toBeVisible();
-  expect(screen.getAllByTestId("product-focus-fact")).toHaveLength(3);
+  expect(screen.getAllByTestId("nutrition-product-card-image")).toHaveLength(3);
   expect(screen.getByRole("link", { name: /Demo Sleep Formula/i })).toBeVisible();
   expect(screen.getByRole("link", { name: /Demo Women.*Formula/i })).toBeVisible();
   expect(screen.getByRole("link", { name: /Demo Daily Formula/i })).toBeVisible();

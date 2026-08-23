@@ -7,6 +7,6 @@ it("renders the VITHELO Nutrition identity and demo disclosure in the hero", () 
   const hero = document.getElementById("nutrition-hero");
   expect(hero).toBeInTheDocument();
 
-  expect(within(hero!).getByText("VITHELO · Nutrition", { selector: "p" })).toBeVisible();
-  expect(within(hero!).getByText("DEMO_ONLY", { selector: "p" })).toBeVisible();
+  expect(within(hero!).getByRole("link", { name: "VITHELO home" })).toBeVisible();
+  expect(within(hero!).getByText("DEMO_ONLY")).toBeVisible();
 });

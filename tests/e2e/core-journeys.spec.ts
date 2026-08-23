@@ -1,13 +1,4 @@
-import { expect, test, type Page } from "@playwright/test";
-
-async function primaryNavigation(page: Page) {
-  const desktopNavigation = page.getByRole("navigation", { name: "Primary navigation" });
-
-  if (await desktopNavigation.isVisible()) return desktopNavigation;
-
-  await page.getByRole("button", { name: "Open menu" }).click();
-  return page.getByRole("navigation", { name: "Mobile primary navigation" });
-}
+import { expect, test } from "@playwright/test";
 
 test("home hydrates without browser errors", async ({ page }) => {
   const errors: string[] = [];
@@ -22,18 +13,17 @@ test("home hydrates without browser errors", async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
-test("brand orientation reaches nutrition, science, knowledge, and professional partnership", async ({ page }) => {
-  await page.goto("/");
-  const navigation = await primaryNavigation(page);
+test("home hero navigation follows the approved first-screen routes", async ({ page, viewport }) => {
+  test.skip(!viewport || viewport.width < 1024, "Desktop hero-navigation check");
 
-  await expect(navigation.getByRole("link", { name: "Products", exact: true })).toBeVisible();
-  await expect(navigation.getByRole("link", { name: "Science", exact: true })).toBeVisible();
-  await expect(
-    navigation.getByRole("link", { name: "Health Knowledge", exact: true }),
-  ).toBeVisible();
-  await expect(
-    navigation.getByRole("link", { name: "Professional Partnership", exact: true }),
-  ).toBeVisible();
+  await page.goto("/");
+  const navigation = page.getByRole("navigation", { name: "Hero navigation" });
+
+  await expect(navigation.getByRole("link", { name: "Our approach", exact: true })).toBeVisible();
+  await expect(navigation.getByRole("link", { name: "Sleep health", exact: true })).toBeVisible();
+  await expect(navigation.getByRole("link", { name: "Women’s health", exact: true })).toBeVisible();
+  await expect(navigation.getByRole("link", { name: "Journal", exact: true })).toBeVisible();
+  await expect(navigation.getByRole("link", { name: "About", exact: true })).toBeVisible();
 });
 
 test("nutrition discovery and health knowledge retain disclosed category routes", async ({ page }) => {

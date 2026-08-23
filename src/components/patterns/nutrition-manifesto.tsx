@@ -1,23 +1,65 @@
+import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import type { HomeContent } from "@/content/schema";
 
 type NutritionManifestoProps = { categoryPaths: HomeContent["categoryPaths"] };
 
+const manifestoNavigation = [
+  { href: "#nutrition-manifesto", label: "Our approach" },
+  { href: "/nutrition#sleep-health", label: "Sleep health" },
+  { href: "/nutrition#womens-health", label: "Women’s health" },
+  { href: "/learn", label: "Journal" },
+  { href: "/professional", label: "About" },
+] as const;
+
 function NutritionManifesto({ categoryPaths }: NutritionManifestoProps) {
   return (
-    <section aria-labelledby="nutrition-manifesto-title" className="section-space bg-[var(--color-ivory)]" data-motion-intent="RELATE" id="nutrition-manifesto">
-      <div className="container-standard">
-        <p className="text-[var(--font-size-label)] tracking-[var(--letter-spacing-label)] text-[var(--color-muted)] uppercase">Daily rhythm</p>
-        <h2 className="mt-[var(--space-20)] max-w-4xl text-[length:var(--font-size-h2-mobile)] leading-[var(--line-height-tight)] tracking-[var(--letter-spacing-display)] sm:text-[length:var(--font-size-h2)]" id="nutrition-manifesto-title">Nutrition for the rhythms that shape a life.</h2>
-        <div className="mt-[var(--space-48)] grid border-t border-[var(--color-border)] lg:grid-cols-2">
-          {categoryPaths.map((path, index) => (
-            <Link aria-label={path.title} className={`group grid min-h-44 content-between gap-[var(--space-32)] py-[var(--space-24)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-focus)] ${index === 1 ? "border-t border-[var(--color-border)] lg:border-t-0 lg:border-l lg:pl-[var(--space-32)]" : "lg:pr-[var(--space-32)]"}`} href={path.href} key={path.id}>
-              <h3 className="text-[length:var(--font-size-h3-mobile)] leading-[var(--line-height-tight)] sm:text-[length:var(--font-size-h3)]">{path.title}</h3>
-              <div className="flex items-end justify-between gap-[var(--space-20)]"><p className="max-w-md text-[var(--color-muted)]">{path.summary}</p><span aria-hidden="true" className="text-xl transition-transform group-hover:translate-x-1">↗</span></div>
-            </Link>
-          ))}
+    <section
+      aria-labelledby="nutrition-manifesto-title"
+      className="relative isolate min-h-[100dvh] overflow-hidden bg-[#f4f2ed] text-[var(--color-graphite)]"
+      data-content-status="DEMO_ONLY"
+      data-motion-intent="RELATE"
+      data-static-design="screen-02-approved"
+      id="nutrition-manifesto"
+    >
+      <Image
+        alt=""
+        className="nutrition-manifesto-media object-cover object-center"
+        data-testid="nutrition-manifesto-background"
+        fill
+        sizes="100vw"
+        src="/media/vithelo-home-screen-02-background.png"
+      />
+
+      <div className="absolute inset-x-0 top-0 z-20 hidden items-center justify-between px-[clamp(2rem,2.5vw,3rem)] pt-[clamp(1.75rem,3.8vh,2.75rem)] text-[var(--color-graphite)] lg:flex">
+        <Link aria-label="VITHELO home" className="text-[clamp(1.5rem,2vw,2rem)] font-light tracking-[0.18em] no-underline transition-opacity hover:opacity-60" href="/">VITHELO</Link>
+        <nav aria-label="Manifesto navigation" className="flex items-center gap-[clamp(1.5rem,3.7vw,3.75rem)] text-[0.78rem] tracking-[0.12em] uppercase">
+          {manifestoNavigation.map((item) => <Link className="hero-nav-link" href={item.href} key={item.label}>{item.label}</Link>)}
+        </nav>
+      </div>
+
+      <div className="nutrition-manifesto-content relative z-10 flex min-h-[100dvh] items-start px-[clamp(1.5rem,3vw,3rem)] pt-[clamp(10rem,27vh,17rem)]" data-motion-intent="RELATE" data-testid="nutrition-manifesto-live-content">
+        <div className="w-full max-w-[44rem] md:w-[46vw]">
+          <h2 className="text-[clamp(4rem,6.9vw,7rem)] leading-[1.03] font-light tracking-[-0.055em]" id="nutrition-manifesto-title">
+            <span className="block">Nutrition for</span>
+            <span className="block">the rhythms</span>
+            <span className="block">that shape</span>
+            <span className="block">a life.</span>
+          </h2>
+
+          <div className="mt-[clamp(3rem,6vh,5.5rem)] grid max-w-[40rem] gap-6 sm:grid-cols-2 sm:gap-12">
+            {categoryPaths.map((path) => (
+              <Link aria-label={path.title} className="manifesto-category-link group" href={path.href} key={path.id}>
+                <span>{path.title}</span>
+                <ArrowRight aria-hidden="true" className="transition-transform duration-[var(--motion-standard)] ease-[var(--ease-standard)] group-hover:translate-x-1" weight="thin" />
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
+
+      <span className="absolute right-3 bottom-3 z-20 bg-white/65 px-2 py-1 text-[0.625rem] tracking-[0.12em] text-black/60 uppercase">DEMO_ONLY</span>
     </section>
   );
 }

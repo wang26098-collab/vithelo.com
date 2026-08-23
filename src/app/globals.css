@@ -88,6 +88,235 @@ body {
   text-transform: uppercase;
 }
 
+@media (min-width: 1024px) {
+  body:has(> main > #nutrition-hero[data-static-design="screen-01-approved"]) > .demo-disclosure,
+  body:has(> main > #nutrition-hero[data-static-design="screen-01-approved"]) > header {
+    display: none;
+  }
+}
+
+.nutrition-hero-background {
+  animation: nutrition-hero-arrive 1.4s var(--ease-standard) both;
+  transform-origin: 62% 46%;
+}
+
+.nutrition-hero-intro {
+  animation: nutrition-hero-intro 0.6s var(--ease-standard) var(--hero-intro-delay, 0s) both;
+}
+
+.hero-nav-link {
+  position: relative;
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+}
+
+.hero-nav-link::after {
+  position: absolute;
+  right: 0;
+  bottom: 0.35rem;
+  left: 0;
+  height: 1px;
+  content: "";
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--motion-standard) var(--ease-standard);
+}
+
+.hero-nav-link:hover::after,
+.hero-nav-link:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.hero-cta {
+  display: inline-flex;
+  min-width: 14.5rem;
+  min-height: 3.55rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(255 255 255 / 0.7);
+  padding-inline: 1.5rem;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    color var(--motion-standard) var(--ease-standard),
+    background-color var(--motion-standard) var(--ease-standard),
+    border-color var(--motion-standard) var(--ease-standard),
+    transform var(--motion-fast) var(--ease-standard);
+}
+
+.hero-cta-primary {
+  border-color: rgb(244 244 240 / 0.94);
+  background: rgb(244 244 240 / 0.94);
+  color: var(--color-graphite);
+}
+
+.hero-cta-primary:hover,
+.hero-cta-primary:focus-visible {
+  border-color: white;
+  background: white;
+}
+
+.hero-cta-secondary {
+  background: rgb(15 15 14 / 0.18);
+  backdrop-filter: blur(8px);
+}
+
+.hero-cta-secondary:hover,
+.hero-cta-secondary:focus-visible {
+  border-color: white;
+  background: rgb(244 244 240 / 0.94);
+  color: var(--color-graphite);
+}
+
+.hero-cta:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.manifesto-category-link {
+  display: flex;
+  min-height: 3.25rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid rgb(25 27 26 / 0.72);
+  color: inherit;
+  font-size: clamp(0.82rem, 1.15vw, 1.1rem);
+  letter-spacing: 0.18em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: border-color var(--motion-standard) var(--ease-standard);
+}
+
+.manifesto-category-link:hover,
+.manifesto-category-link:focus-visible {
+  border-color: rgb(25 27 26);
+}
+
+.product-gallery-link {
+  min-height: 3.25rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+  border-bottom: 1px solid rgb(25 27 26 / 0.72);
+  color: inherit;
+  font-size: clamp(0.76rem, 1vw, 0.95rem);
+  letter-spacing: 0.16em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: border-color var(--motion-standard) var(--ease-standard);
+}
+
+.product-gallery-link:hover,
+.product-gallery-link:focus-visible {
+  border-color: rgb(25 27 26);
+}
+
+.nutrition-product-card {
+  transform-origin: center bottom;
+  transition:
+    flex-grow var(--motion-standard) var(--ease-standard),
+    transform var(--motion-standard) var(--ease-standard);
+}
+
+.nutrition-product-card[data-active="true"],
+.nutrition-product-card:hover,
+.nutrition-product-card:focus-within {
+  flex-grow: 1.34;
+  transform: translateY(-10px) scale(1.035);
+}
+
+.nutrition-product-rail:has(.nutrition-product-card:hover) .nutrition-product-card[data-active="true"]:not(:hover) {
+  flex-grow: 1;
+  transform: none;
+}
+
+.nutrition-product-card[data-active="false"] img {
+  filter: saturate(0.92) contrast(0.98);
+}
+
+@keyframes nutrition-hero-arrive {
+  from {
+    opacity: 0.84;
+    transform: scale(1.035);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes nutrition-hero-intro {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes nutrition-manifesto-relate {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes nutrition-manifesto-material {
+  from {
+    transform: scale(1.035) translateY(1.5%);
+  }
+
+  to {
+    transform: scale(1) translateY(0);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .nutrition-manifesto-content {
+    animation: nutrition-manifesto-relate linear both;
+    animation-range: entry 10% cover 36%;
+    animation-timeline: view();
+  }
+
+  .nutrition-manifesto-media {
+    animation: nutrition-manifesto-material linear both;
+    animation-range: entry 0% cover 70%;
+    animation-timeline: view();
+  }
+
+  .nutrition-products-content {
+    animation: nutrition-manifesto-relate linear both;
+    animation-range: entry 8% cover 34%;
+    animation-timeline: view();
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-cta {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -108,5 +337,13 @@ body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .nutrition-product-card,
+  .nutrition-product-card[data-active="true"],
+  .nutrition-product-card:hover,
+  .nutrition-product-card:focus-within {
+    flex-grow: 1;
+    transform: none;
   }
 }

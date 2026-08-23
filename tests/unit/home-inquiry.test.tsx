@@ -10,17 +10,61 @@ it("renders the six nutrition screens in order before the inquiry path", () => {
   expect(document.getElementById("nutrition-hero")).toHaveAttribute("data-motion-intent", "ORIENT");
   expect(
     within(document.getElementById("nutrition-hero")!).getByRole("heading", {
-      name: "Nutrition for the rhythms that shape a life.",
+      name: "Sleep deeper. Live in balance.",
     }),
   ).toBeVisible();
   expect(screen.getByTestId("nutrition-hero-media-demo")).toBeInTheDocument();
-  expect(screen.getByRole("link", { name: "Professional partnership" })).toHaveAttribute(
+  expect(screen.getByTestId("nutrition-hero-approved-art")).toHaveAttribute(
+    "src",
+    expect.stringContaining("vithelo-home-screen-01-background.png"),
+  );
+  expect(document.getElementById("nutrition-hero")).toHaveAttribute(
+    "data-static-design",
+    "screen-01-approved",
+  );
+  expect(document.getElementById("nutrition-hero")).toHaveAttribute(
+    "data-content-status",
+    "DEMO_ONLY",
+  );
+  const heroNavigation = within(document.getElementById("nutrition-hero")!).getByRole(
+    "navigation",
+    { name: "Hero navigation" },
+  );
+  expect(within(heroNavigation).getByRole("link", { name: "Our approach" })).toHaveAttribute(
+    "href",
+    "#nutrition-manifesto",
+  );
+  expect(within(heroNavigation).getByRole("link", { name: "Sleep health" })).toHaveAttribute(
+    "href",
+    "/nutrition#sleep-health",
+  );
+  expect(within(document.getElementById("nutrition-hero")!).getByRole("link", { name: "Explore our range" })).toHaveAttribute(
+    "href",
+    "#nutrition-products",
+  );
+  expect(screen.getByTestId("nutrition-hero-live-content")).toHaveAttribute(
+    "data-motion-intent",
+    "ORIENT",
+  );
+  expect(within(heroNavigation).getByRole("link", { name: "About" })).toHaveAttribute(
     "href",
     "/professional",
   );
 
   expect(document.getElementById("nutrition-manifesto")).toBeInTheDocument();
   expect(document.getElementById("nutrition-manifesto")).toHaveAttribute("data-motion-intent", "RELATE");
+  expect(document.getElementById("nutrition-manifesto")).toHaveAttribute(
+    "data-static-design",
+    "screen-02-approved",
+  );
+  expect(screen.getByTestId("nutrition-manifesto-background")).toHaveAttribute(
+    "src",
+    expect.stringContaining("vithelo-home-screen-02-background.png"),
+  );
+  expect(screen.getByTestId("nutrition-manifesto-live-content")).toHaveAttribute(
+    "data-motion-intent",
+    "RELATE",
+  );
   expect(
     within(document.getElementById("nutrition-manifesto")!).getByRole("heading", {
       name: "Nutrition for the rhythms that shape a life.",
@@ -37,8 +81,23 @@ it("renders the six nutrition screens in order before the inquiry path", () => {
 
   expect(document.getElementById("nutrition-products")).toBeInTheDocument();
   expect(document.getElementById("nutrition-products")).toHaveAttribute("data-motion-intent", "FOCUS");
+  expect(document.getElementById("nutrition-products")).toHaveAttribute(
+    "data-static-design",
+    "screen-03-approved",
+  );
   expect(screen.getByRole("heading", { name: "Find your daily formula." })).toBeVisible();
+  expect(screen.getByRole("link", { name: "View all products" })).toHaveAttribute(
+    "href",
+    "/nutrition",
+  );
   expect(screen.getAllByTestId("nutrition-product-card")).toHaveLength(3);
+  expect(screen.getAllByTestId("nutrition-product-card-image").map((image) => image.getAttribute("src"))).toEqual(
+    expect.arrayContaining([
+      expect.stringContaining("vithelo-product-card-sleep.png"),
+      expect.stringContaining("vithelo-product-card-womens.png"),
+      expect.stringContaining("vithelo-product-card-daily.png"),
+    ]),
+  );
 
   const capsuleScience = document.getElementById("capsule-science");
   const gummyScience = document.getElementById("gummy-science");
