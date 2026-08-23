@@ -101,3 +101,31 @@ test("mobile commerce resource exits before safety", async ({ page, viewport }) 
     }
   }
 });
+
+test("mobile nutrition stages remain sequential and product discovery preserves horizontal snap", async ({
+  page,
+  viewport,
+}) => {
+  test.skip(!viewport || viewport.width > 768, "Mobile nutrition-stage check");
+
+  await page.goto("/");
+
+  const rail = page.getByTestId("nutrition-product-focus-rail");
+  await expect(rail).toBeVisible();
+  await expect.poll(() => rail.evaluate((element) => getComputedStyle(element).scrollSnapType)).toContain("x");
+
+  const capsuleStage = page.locator("#capsule-science [data-motion-intent='EXPLAIN']");
+  const gummyStage = page.locator("#gummy-science [data-motion-intent='EXPLAIN']");
+  await expect(capsuleStage).toBeVisible();
+  await expect(gummyStage).toBeVisible();
+  await expect.poll(() => capsuleStage.evaluate((element) => getComputedStyle(element).position)).toBe("static");
+  await expect.poll(() => gummyStage.evaluate((element) => getComputedStyle(element).position)).toBe("static");
+
+  const [capsuleBox, gummyBox] = await Promise.all([
+    capsuleStage.boundingBox(),
+    gummyStage.boundingBox(),
+  ]);
+  expect(capsuleBox).not.toBeNull();
+  expect(gummyBox).not.toBeNull();
+  if (capsuleBox && gummyBox) expect(capsuleBox.y).toBeLessThan(gummyBox.y);
+});

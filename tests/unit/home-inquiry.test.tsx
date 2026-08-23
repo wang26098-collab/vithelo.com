@@ -1,24 +1,7 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
-import { beforeEach, vi } from "vitest";
 import HomePage from "@/app/page";
 import { NutritionHomeHero } from "@/components/patterns/nutrition-home-hero";
 import { demoHome } from "@/content/demo/home";
-
-beforeEach(() => {
-  Object.defineProperty(window, "matchMedia", {
-    configurable: true,
-    value: vi.fn().mockImplementation((query: string) => ({
-      matches: false,
-      media: query,
-      onchange: null,
-      addEventListener: vi.fn(),
-      removeEventListener: vi.fn(),
-      addListener: vi.fn(),
-      removeListener: vi.fn(),
-      dispatchEvent: vi.fn(),
-    })),
-  });
-});
 
 it("renders the six nutrition screens in order before the inquiry path", () => {
   render(<HomePage />);

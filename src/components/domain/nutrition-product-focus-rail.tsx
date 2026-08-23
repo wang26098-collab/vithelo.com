@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type KeyboardEvent } from "react";
+import { useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import { motion } from "motion/react";
 import Image from "next/image";
 import type { NutritionProduct } from "@/content/schema";
@@ -15,6 +15,7 @@ function NutritionProductFocusRail({ products }: NutritionProductFocusRailProps)
   const reducedMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
   const linkRefs = useRef<Array<HTMLAnchorElement | null>>([]);
+  const pointerPosition = useRef<{ index: number; x: number; y: number } | null>(null);
 
   function activate(index: number) {
     if (products[index]) setActiveIndex(index);
@@ -23,6 +24,25 @@ function NutritionProductFocusRail({ products }: NutritionProductFocusRailProps)
   function focusProduct(index: number) {
     activate(index);
     linkRefs.current[index]?.focus();
+  }
+
+  function handlePointerEnter(event: PointerEvent<HTMLElement>, index: number) {
+    const previous = pointerPosition.current;
+    const reflowedUnderStationaryPointer =
+      previous &&
+      previous.index !== index &&
+      previous.x === event.clientX &&
+      previous.y === event.clientY;
+
+    if (!reflowedUnderStationaryPointer) activate(index);
+
+    pointerPosition.current = reflowedUnderStationaryPointer
+      ? previous
+      : { index, x: event.clientX, y: event.clientY };
+  }
+
+  function handlePointerMove(event: PointerEvent<HTMLElement>, index: number) {
+    pointerPosition.current = { index, x: event.clientX, y: event.clientY };
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLAnchorElement>, index: number) {
@@ -62,7 +82,8 @@ function NutritionProductFocusRail({ products }: NutritionProductFocusRailProps)
             data-testid="nutrition-product-card"
             initial={false}
             key={product.id}
-            onPointerEnter={() => activate(index)}
+            onPointerEnter={(event) => handlePointerEnter(event, index)}
+            onPointerMove={(event) => handlePointerMove(event, index)}
             transition={reducedMotion ? { duration: 0 } : motionTransition.standard}
           >
             <a

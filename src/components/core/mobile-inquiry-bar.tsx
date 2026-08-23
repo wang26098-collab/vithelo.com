@@ -15,7 +15,7 @@ function MobileInquiryBar() {
   useEffect(() => {
     if (pathname !== "/") return;
 
-    const hero = document.querySelector("[data-inquiry-hero]");
+    const hero = document.querySelector("#nutrition-hero");
     if (!hero) return;
 
     const observer = new IntersectionObserver(([entry]) => setHeroExited(!entry.isIntersecting), {

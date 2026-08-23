@@ -17,9 +17,7 @@ test("home hydrates without browser errors", async ({ page }) => {
   page.on("pageerror", (error) => errors.push(error.message));
 
   await page.goto("/");
-  await page
-    .getByRole("heading", { name: "Nutrition for the rhythms that shape a life." })
-    .waitFor();
+  await page.locator("#nutrition-hero-title").waitFor();
 
   expect(errors).toEqual([]);
 });
@@ -50,14 +48,23 @@ test("nutrition discovery and health knowledge retain disclosed category routes"
     "href",
     "/nutrition#sleep-health",
   );
-  await expect(page.getByRole("link", { name: "Science", exact: true })).toHaveAttribute(
+  await expect(page.getByRole("main").getByRole("link", { name: "Science", exact: true })).toHaveAttribute(
     "href",
     "/science",
   );
-  await expect(page.getByRole("link", { name: "Support", exact: true })).toHaveAttribute(
+  await expect(page.getByRole("main").getByRole("link", { name: "Support", exact: true })).toHaveAttribute(
     "href",
     "/support",
   );
+});
+
+test("nutrition home retains the approved capsule and gummy stages", async ({ page }) => {
+  await page.goto("/");
+
+  await expect(page.locator("#nutrition-manifesto")).toBeVisible();
+  await expect(page.locator("#capsule-science").getByRole("heading", { name: "Capsule form study" })).toBeVisible();
+  await expect(page.locator("#gummy-science").getByRole("heading", { name: "Gummy form study" })).toBeVisible();
+  await expect(page.locator("#human-rhythms").getByRole("heading", { name: "Your health moves with your rhythms." })).toBeVisible();
 });
 
 test("both product decisions keep commerce and safety visible", async ({ page }) => {

@@ -6,7 +6,7 @@ The implemented site is a complete demonstration, not a production launch. The f
 
 - VITHELO inquiry email address, owner, and expected response policy.
 - VITHELO WhatsApp number in E.164 format, account owner, supported hours, and privacy handling.
-- Approved desktop and mobile Home hero imagery.
+- Approved desktop and mobile nutrition Hero imagery, including art direction, crop, focal point, alt text, and usage rights.
 - Approved product sheets, capability statements, market eligibility, and inquiry-routing rules.
 
 ## Brand identity
@@ -19,11 +19,12 @@ The implemented site is a complete demonstration, not a production launch. The f
 
 ## Real Nutrition SKU data
 
-- Product IDs, slugs, names, descriptors, variants, forms, pack sizes, and availability.
+- Product IDs, slugs, names, descriptors, variants, validated health categories, forms, pack sizes, and availability.
 - Formula and ingredient records with approved relationships.
 - Approved usage, amount, timing, frequency, storage, suitability, warnings, and contraindications.
 - Price, currency, inventory, subscription decision if any, tax, and market availability.
-- Packaging, label, batch, and product-support source material.
+- Approved packaging, labels, batch, product-support source material, and product media for each nutrition SKU.
+- Approved capsule form media and transparent ruby-red bear-gummy form media, with rights, alt text, dimensions, and replacement policy.
 
 ## Real device data
 
@@ -60,7 +61,7 @@ The implemented site is a complete demonstration, not a production launch. The f
 ## Media
 
 - Approved product packshots and complete device views.
-- Approved human, routine, skin-interface, professional, factory, and manufacturing media.
+- Approved adult human-rhythms media/poster, routine, skin-interface, professional, factory, and manufacturing media.
 - Asset rights, territories, expiry, alt text, crops, focal points, dimensions, and delivery formats.
 - Approved diagrams, manuals, evidence figures, and Safety illustrations.
 - Policy for replacing the current demonstration images in `public/media/`.

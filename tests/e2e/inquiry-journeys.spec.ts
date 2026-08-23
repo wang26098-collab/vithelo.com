@@ -25,13 +25,14 @@ test("Start a Project collects local context without submission", async ({ page 
   await expect(page.getByText(/no information is transmitted/i)).toBeVisible();
 });
 
-test("mobile inquiry bar activates after Home hero and pauses for overlays", async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 });
+test("mobile inquiry bar activates after Home hero and pauses for overlays", async ({ page, viewport }) => {
+  test.skip(!viewport || viewport.width > 768, "Mobile inquiry-bar check");
+
   await page.goto("/");
   await expect(page.locator("#nutrition-hero")).toBeVisible();
   const inquiryBar = page.getByLabel("Inquiry channels");
   await expect(inquiryBar).toBeHidden();
-  await page.locator("[data-inquiry-hero]").evaluate((hero) => {
+  await page.locator("#nutrition-hero").evaluate((hero) => {
     window.scrollTo(0, (hero as HTMLElement).offsetTop + (hero as HTMLElement).offsetHeight + 1);
   });
   await expect(inquiryBar).toBeVisible();
