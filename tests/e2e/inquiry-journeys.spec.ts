@@ -2,7 +2,9 @@ import { expect, test } from "@playwright/test";
 
 test("Home exposes both inquiry channels without inventing targets", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "Precision for what comes next." })).toBeVisible();
+  await expect(page.locator("#human-rhythms")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Professional partnership" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Tell us what you are building." })).toBeVisible();
   await expect(page.getByRole("button", { name: "Email Inquiry" }).first()).toBeDisabled();
   await expect(page.getByRole("button", { name: "WhatsApp" }).first()).toBeDisabled();
   await expect(page.getByText("Email inquiry address not configured").first()).toBeVisible();
@@ -26,7 +28,7 @@ test("Start a Project collects local context without submission", async ({ page 
 test("mobile inquiry bar activates after Home hero and pauses for overlays", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "Precision for what comes next." })).toBeVisible();
+  await expect(page.locator("#nutrition-hero")).toBeVisible();
   const inquiryBar = page.getByLabel("Inquiry channels");
   await expect(inquiryBar).toBeHidden();
   await page.locator("[data-inquiry-hero]").evaluate((hero) => {

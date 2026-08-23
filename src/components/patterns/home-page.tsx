@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
-import { Button } from "@/components/core/button";
 import { InquiryActionPair } from "@/components/core/inquiry-action-pair";
-import { ProductCard } from "@/components/domain/product-card";
 import { NutritionHomeHero } from "@/components/patterns/nutrition-home-hero";
+import { NutritionHumanRhythms } from "@/components/patterns/nutrition-human-rhythms";
 import { NutritionManifesto } from "@/components/patterns/nutrition-manifesto";
 import { NutritionProductDiscovery } from "@/components/patterns/nutrition-product-discovery";
+import { NutritionScienceStage } from "@/components/patterns/nutrition-science-stage";
 import type { Evidence, HomeContent, NutritionProduct, Product } from "@/content/schema";
 
 type HomePagePatternProps = {
@@ -15,7 +15,7 @@ type HomePagePatternProps = {
   products: Product[];
 };
 
-function HomePagePattern({ content, evidence, nutritionProducts, products }: HomePagePatternProps) {
+function HomePagePattern({ content, evidence, nutritionProducts }: HomePagePatternProps) {
   const evidenceRecord = evidence[0];
 
   return (
@@ -23,26 +23,9 @@ function HomePagePattern({ content, evidence, nutritionProducts, products }: Hom
       <NutritionHomeHero hero={content.hero} />
       <NutritionManifesto categoryPaths={content.categoryPaths} />
       <NutritionProductDiscovery products={nutritionProducts} />
-
-      <section aria-labelledby="capabilities-title" className="section-space bg-[var(--color-surface)]">
-        <div className="container-standard grid gap-12 lg:grid-cols-[minmax(16rem,0.55fr)_minmax(0,1.45fr)] lg:gap-24">
-          <div>
-            <h2 className="text-[length:var(--font-size-h2-mobile)] leading-tight sm:text-[length:var(--font-size-h2)]" id="capabilities-title">Capabilities for product and professional partners.</h2>
-            <Button asChild className="mt-8" variant="secondary"><Link href="/professional#capabilities">Explore Capabilities</Link></Button>
-          </div>
-          <div>
-            {content.capabilities.map((capability) => (
-              <article className="grid gap-3 border-t border-[var(--color-border)] py-7 sm:grid-cols-[minmax(12rem,0.72fr)_minmax(0,1.28fr)]" key={capability.id}>
-                <h3 className="text-xl">{capability.title}</h3>
-                <div>
-                  <p className="text-[var(--color-muted)]">{capability.summary}</p>
-                  <Link className="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-medium underline-offset-4 hover:underline" href={`/contact?subject=${encodeURIComponent(capability.inquiryContext)}`}>Start a Project <ArrowUpRight aria-hidden="true" /></Link>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <NutritionScienceStage stage={content.scienceStages[0]} />
+      <NutritionScienceStage stage={content.scienceStages[1]} />
+      <NutritionHumanRhythms categoryPaths={content.categoryPaths} content={content.humanRhythms} />
 
       <section aria-labelledby="science-material-human-title" className="section-space">
         <div className="container-standard grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-24">
@@ -64,23 +47,49 @@ function HomePagePattern({ content, evidence, nutritionProducts, products }: Hom
         </div>
       </section>
 
-      <section aria-labelledby="consumer-support-title" className="section-space border-y border-[var(--color-border)]">
-        <div className="container-standard">
-          <h2 className="text-[length:var(--font-size-h2-mobile)] leading-tight sm:text-[length:var(--font-size-h2)]" id="consumer-support-title">Product understanding remains available.</h2>
-          <p className="mt-5 max-w-2xl text-[var(--color-muted)]">Consumers and professional end users can inspect product context, use, safety, and evidence boundaries.</p>
-          <div className="mt-12">{products.map((product) => <ProductCard key={product.id} product={product} />)}</div>
+      <section aria-labelledby="health-knowledge-title" className="section-space border-y border-[var(--color-border)] bg-[var(--color-surface)]">
+        <div className="container-standard grid gap-[var(--space-32)] lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)]">
+          <div>
+            <h2 className="text-[length:var(--font-size-h2-mobile)] leading-tight sm:text-[length:var(--font-size-h2)]" id="health-knowledge-title">Health Knowledge</h2>
+            <p className="mt-[var(--space-20)] max-w-lg text-[var(--color-muted)]">Demonstration category routes remain available while approved educational content is configured.</p>
+          </div>
+          <div className="grid border-t border-[var(--color-border)]">
+            {content.categoryPaths.map((path) => <Link className="flex min-h-11 items-center justify-between border-b border-[var(--color-border)] py-[var(--space-16)] text-lg font-medium underline-offset-4 hover:underline" href={path.href} key={path.id}>{path.title}<span aria-hidden="true">↗</span></Link>)}
+            <Link className="flex min-h-11 items-center justify-between border-b border-[var(--color-border)] py-[var(--space-16)] text-lg font-medium underline-offset-4 hover:underline" href="/science">Science <span aria-hidden="true">↗</span></Link>
+          </div>
         </div>
       </section>
 
-      <section aria-labelledby="final-inquiry-title" className="section-space">
+      <section aria-labelledby="professional-partnership-title" className="section-space">
+        <div className="container-standard grid gap-[var(--space-32)] lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
+          <div>
+            <p className="text-[var(--font-size-label)] tracking-[var(--letter-spacing-label)] text-[var(--color-muted)] uppercase">B2B</p>
+            <h2 className="mt-[var(--space-20)] text-[length:var(--font-size-h2-mobile)] leading-tight sm:text-[length:var(--font-size-h2)]" id="professional-partnership-title">{content.professionalInquiry.title}</h2>
+          </div>
+          <div>
+            <p className="text-[var(--color-muted)]">{content.professionalInquiry.summary}</p>
+            <Link className="mt-[var(--space-20)] inline-flex min-h-11 items-center gap-2 font-medium underline-offset-4 hover:underline" href={content.professionalInquiry.href}>Explore Professional Partnership <ArrowUpRight aria-hidden="true" /></Link>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="final-inquiry-title" className="section-space border-t border-[var(--color-border)]">
         <div className="container-standard grid items-end gap-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(18rem,0.7fr)]">
           <div>
             <h2 className="max-w-4xl text-[length:var(--font-size-h2-mobile)] leading-tight sm:text-[length:var(--font-size-h2)] lg:text-6xl" id="final-inquiry-title">Tell us what you are building.</h2>
-            <p className="mt-6 max-w-2xl text-lg text-[var(--color-muted)]">Select the business context, then continue through the channel that fits the project.</p>
+            <p className="mt-6 max-w-2xl text-lg text-[var(--color-muted)]">Nutrition partnership inquiry channels require approved destinations.</p>
           </div>
-          <InquiryActionPair className="lg:justify-self-end" />
+          <InquiryActionPair className="lg:justify-self-end" context={{ cooperationType: "Nutrition partnership", productWorld: "Nutrition", market: "Not provided", summary: "Please provide nutrition partnership context." }} />
         </div>
       </section>
+
+      <nav aria-label="Support links" className="border-t border-[var(--color-border)] py-[var(--space-32)]">
+        <div className="container-standard flex flex-wrap gap-x-[var(--space-24)] gap-y-[var(--space-12)] text-sm">
+          <Link className="min-h-11 underline-offset-4 hover:underline" href="/support">Support</Link>
+          <Link className="min-h-11 underline-offset-4 hover:underline" href="/science">Science</Link>
+          <Link className="min-h-11 underline-offset-4 hover:underline" href="/professional">Professional Partnership</Link>
+        </div>
+      </nav>
     </main>
   );
 }
