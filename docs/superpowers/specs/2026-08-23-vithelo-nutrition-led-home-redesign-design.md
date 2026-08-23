@@ -23,6 +23,8 @@ Nutrition owns approximately 90% of the public brand experience. Sleep Health an
 - Missing efficacy, formula, dosage, certification, pricing, and policy inputs remain `NOT_CONFIGURED` or visibly `DEMO_ONLY`.
 - The six approved static UI renders are the visual authority for the homepage's first six screens.
 - The implementation must reproduce the approved static composition, hierarchy, spacing, typography, material treatment, and product emphasis before adding motion.
+- The approved renders are composition references, not final product-label artwork, approved media, or approved marketing claims.
+- The render text establishes hierarchy, line count, and tone. It may ship only after normal content approval; otherwise the implementation uses equally sized, claim-safe demonstration copy.
 
 ## 3. Reference Boundary
 
@@ -55,6 +57,23 @@ Not allowed:
 - Page theme: light
 - Corner system: square to 4px for interface components; up to 20px only for approved cinematic media or scientific-stage containers
 
+The 20px cinematic-media corner is a named exception. It must be introduced through the token system, not as a page-local value.
+
+## 4.1 Visual Reference Preservation
+
+The six approved renders define the target composition. They do not authorize shipping generated mockup pixels, product labels, invented packaging details, or unsupported copy.
+
+| Screen | Non-negotiable visual fingerprint | Production asset requirement |
+| --- | --- | --- |
+| 1 | One full-viewport interior image with two dominant product forms at lower-right and copy overlaid at left | Approved product packaging render or disclosed `DEMO_ONLY` replacement; approved lifestyle image or disclosed demonstration image |
+| 2 | Cold-Ivory negative space, one monumental left-aligned headline, two underlined category paths | No factual asset required; use claim-safe approved copy |
+| 3 | One continuous product row with an enlarged middle card and narrowed adjacent cards | Approved product media or disclosed demonstration media for every visible product |
+| 4 | Large split capsule inside a light frosted technical stage | Approved capsule media and only validated form/material/use/Safety records |
+| 5 | Large transparent ruby-red bear gummy inside a light frosted technical stage | Approved gummy media and only validated form/material/use/Safety records |
+| 6 | Monumental left copy with one candid adult human media panel at right | Approved human media, including video poster and static fallback |
+
+The apparent header in all six renders represents one persistent homepage header. The implementation renders it once and preserves its visual state through the scroll sequence.
+
 ## 5. Information Architecture
 
 ### 5.1 Primary navigation
@@ -72,8 +91,8 @@ The header follows the spacing, scale, and one-line geometry of the approved sta
   - nutrition-led homepage
 - `/nutrition`
   - all nutrition products
-  - Sleep Health
-  - Women's Health
+  - `#sleep-health` category section
+  - `#womens-health` category section
 - `/nutrition/[slug]`
   - product detail
 - `/science`
@@ -113,6 +132,7 @@ The first six screens must be implemented in this order. The capsule stage and g
 - Product bottles dominate the lower-right and remain legible at all acceptance viewports.
 - Sleep Health and Women's Health appear as the first product contexts.
 - Keep the headline to two visual statements and the primary CTA visible without scrolling.
+- The exploratory render phrase `Sleep deeper. Live in balance.` is not an approved efficacy claim. Before claim approval, preserve its typographic footprint with claim-safe demonstration copy.
 - Primary CTA: explore nutrition products.
 - Secondary route: professional partnership, visually restrained.
 - Motion declaration: `ORIENT`.
@@ -154,7 +174,7 @@ The first six screens must be implemented in this order. The capsule stage and g
 - Desktop section length is approximately `180–200vh` with a pinned visual stage.
 - Scroll progress moves through capsule form, material, use, and safety states.
 - Facts change only when corresponding validated records exist.
-- Use `VERIFIED INFORMATION ONLY` as a governance principle, not as a certification claim.
+- Use `VERIFIED INFORMATION ONLY` only when the displayed records are actually validated; otherwise render the corresponding `DEMO_ONLY` or `NOT_CONFIGURED` status.
 - Do not use decorative molecular graphics or invented technical data.
 - Reduced Motion presents the same states as a static vertical sequence.
 - Motion declaration: `EXPLAIN`.
@@ -168,6 +188,7 @@ The first six screens must be implemented in this order. The capsule stage and g
 - Red exists in the gummy material only; it does not become the site's interface accent.
 - Desktop section length is approximately `180–200vh` with an independent pinned stage.
 - Scroll states explain form, material, use, and safety using approved inputs.
+- Use `VERIFIED INFORMATION ONLY` only when the displayed records are actually validated; otherwise render the corresponding `DEMO_ONLY` or `NOT_CONFIGURED` status.
 - The gummy remains premium and material-led, never childish or candy-like.
 - Reduced Motion presents a static vertical sequence.
 - Motion declaration: `EXPLAIN`.
@@ -177,6 +198,7 @@ The first six screens must be implemented in this order. The capsule stage and g
 **Static authority:** Approved editorial split render with monumental left copy, an adult woman in a natural quiet moment on the right, a restrained video control, and Sleep Health / Women's Health paths.
 
 - Use the approved headline: `Your health moves with your rhythms.`
+- The static render's supporting copy is illustrative until approved. It must not imply a product outcome or evidence level that is not present in validated content.
 - Left-side copy remains readable while the right media changes or advances.
 - Human imagery must feel candid and intelligent, not like generic wellness stock photography.
 - Media may transition between sleep and women's-health contexts.
@@ -285,6 +307,7 @@ No route or page-pattern component may contain invented product facts.
 - Reduced Motion is a completion requirement.
 - Motion may not hide facts, safety, or recovery actions.
 - Video requires user controls and a non-video fallback.
+- Automatic media changes require a visible pause control; otherwise media changes only through scroll position or direct user selection.
 - Text and control contrast must meet WCAG AA.
 
 ## 12. States and Recovery
@@ -364,3 +387,14 @@ The redesign is acceptable only when:
 ## 16. Implementation Boundary
 
 This document approves the design only. No production implementation begins until the user reviews this written specification and approves transition to an implementation plan.
+
+## 17. Documentation Alignment Required During Implementation
+
+The implementation plan must update the affected supporting documents so final acceptance has one source of truth:
+
+- `docs/brand-system.md`: revise the equal-weight product-world expression while preserving one master brand and the secondary Aesthetic Technology capability;
+- `docs/design-system.md`: remove homepage editorial-serif guidance, document the neo-grotesk homepage expression, and add the named cinematic-media radius token if used;
+- `docs/content-model.md`: add validated category and product-form support before rendering Sleep Health, Women's Health, capsule, or gummy relationships as product truth;
+- `docs/acceptance.md` and relevant tests: replace the expectation that Home exposes both product worlds as co-primary with the approved nutrition-led hierarchy.
+
+No production content, route, or acceptance test may remain governed by the superseded equal-weight homepage specification after this redesign lands.
