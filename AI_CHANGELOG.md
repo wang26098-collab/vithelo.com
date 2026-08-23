@@ -181,3 +181,35 @@ This log records Phase A engineering actions, their reason, and fresh verificati
 - Preserved all unrelated and pre-existing user-owned working-tree files.
 - Prepared a recoverable local checkpoint on `codex/phase-a-engineering` containing only the reviewed Phase A files and previously approved Home work.
 - No Antigravity installation, launch, Phase B branch, Phase B worktree, or visual redesign was performed.
+
+## 2026-08-23 - Authorized Home screen 01 visual implementation
+
+### Scope
+
+- Implemented only the approved Home first screen; screens 02 through 06 were preserved.
+- Reframed the hero around one flagship women's gummy platform with a cold scientific tone, natural adult skin, restrained soft light, and translucent ruby-red bear gummies.
+- Replaced the old sleep-led headline and two-action layout with one B2B action: `START A PROJECT`.
+- Kept all content and media visibly within the existing `DEMO_ONLY` governance boundary.
+
+### Implementation
+
+- Added responsive desktop and mobile hero artwork under `public/media/`.
+- Moved the headline, supporting copy, CTA, and responsive media references into the validated Home content contract.
+- Rebuilt the hero as a semantic, data-driven composition with responsive art direction, an ivory readability scrim, restrained arrival motion, and explicit Reduced Motion behavior.
+- Connected the hero CTA to Contact with a prefilled Nutrition world and `Women’s gummy partnership` project summary.
+- Preserved media fallback behavior for separately unavailable desktop or mobile records.
+
+### Verification
+
+- `pnpm.cmd lint`: exit 0.
+- `pnpm.cmd typecheck`: exit 0.
+- `pnpm.cmd test`: exit 0; 20 test files and 63 tests passed.
+- `pnpm.cmd build`: exit 0; Next.js 16.3.1 production build completed successfully.
+- `pnpm.cmd test:e2e`: exit 0; 138 passed, 12 expected viewport skips, 0 failed across 1440, 1280, 1024, 768, 390, and 375 pixel projects.
+- Visual review of the generated desktop and mobile acceptance captures confirmed readable hierarchy, visible CTA, preserved product/person separation, and no regression in screens 02 through 06.
+- P0: 0. P1: 0.
+
+### Boundary
+
+- No production claims, price, dosage, certification, policy, contact target, commerce provider, CMS, CRM, or deployment configuration was added.
+- This was an explicitly authorized UI implementation inside the current Phase A repository; it did not start Phase B or Antigravity work.
