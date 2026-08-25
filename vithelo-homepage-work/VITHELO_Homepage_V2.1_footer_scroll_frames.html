@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VITHELO | Global Nutrition OEM ODM Manufacturing Partner</title>
+<meta name="description" content="VITHELO provides global nutrition OEM and ODM manufacturing solutions including gummies, capsules, powders and custom supplements.">
+<meta property="og:title" content="VITHELO Global Nutrition Manufacturing Partner">
+<meta property="og:description" content="Custom nutrition solutions for global brands.">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root{
+--navy:#102A43;
+--gray:#52606D;
+--orange:#E6772E;
+--light:#F5F7FA;
+--border:#D9E2EC;
+}
+html{
+scroll-behavior:smooth;
+}
+body{
+font-family:Inter,Arial,sans-serif;
+color:var(--gray);
+}
+.container-main{
+max-width:1280px;
+margin:auto;
+padding-left:32px;
+padding-right:32px;
+}
+.btn-primary{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+background:#E6772E;
+color:white;
+border-radius:6px;
+padding:14px 24px;
+transition:300ms ease-out;
+font-weight:600;
+}
+.btn-primary:hover{
+background:#C85F20;
+transform:translateY(-1px);
+}
+.btn-secondary{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+background:transparent;
+color:#FFFFFF;
+border:1px solid rgba(255,255,255,0.6);
+border-radius:6px;
+padding:14px 24px;
+transition:300ms ease-out;
+font-weight:600;
+}
+.btn-secondary:hover{
+background:rgba(255,255,255,0.08);
+transform:translateY(-1px);
+}
+.card{
+background:#FFFFFF;
+border:1px solid #D9E2EC;
+border-radius:12px;
+padding:24px;
+transition:300ms ease-out;
+}
+.card:hover{
+transform:translateY(-4px);
+box-shadow:0 16px 40px rgba(16,42,67,0.08);
+}
+.hero-section{
+position:relative;
+min-height:720px;
+height:72vh;
+max-height:780px;
+background-image:
+linear-gradient(90deg, rgba(16,42,67,0.78) 0%, rgba(16,42,67,0.68) 38%, rgba(16,42,67,0.34) 70%, rgba(16,42,67,0.18) 100%),
+url('https://placehold.co/1600x1000');
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+display:flex;
+align-items:center;
+}
+.hero-badge{
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:8px 12px;
+border-radius:999px;
+background:rgba(255,255,255,0.12);
+border:1px solid rgba(255,255,255,0.18);
+color:#FFFFFF;
+font-size:12px;
+letter-spacing:0.08em;
+text-transform:uppercase;
+}
+.hero-copy{
+max-width:640px;
+color:#FFFFFF;
+}
+.hero-copy p{
+max-width:600px;
+}
+.proof-strip{
+background:#F5F7FA;
+border-bottom:1px solid #D9E2EC;
+}
+.proof-grid{
+display:grid;
+grid-template-columns:repeat(4,minmax(0,1fr));
+padding-top:32px;
+padding-bottom:32px;
+}
+.proof-item{
+display:flex;
+flex-direction:column;
+gap:8px;
+padding:4px 28px;
+border-left:1px solid #D9E2EC;
+}
+.proof-item:first-child{
+padding-left:0;
+border-left:0;
+}
+.proof-item:last-child{
+padding-right:0;
+}
+.proof-item dt{
+order:2;
+font-size:13px;
+line-height:1.45;
+color:#52606D;
+}
+.proof-item dd{
+order:1;
+margin:0;
+font-size:clamp(30px,3vw,42px);
+line-height:1;
+font-weight:700;
+letter-spacing:-0.03em;
+color:#102A43;
+}
+.proof-item dd span{
+font-size:14px;
+font-weight:600;
+letter-spacing:0;
+color:#52606D;
+}
+.proof-item--accent dd{
+color:#E6772E;
+}
+.fade-up{
+opacity:0;
+transform:translateY(24px);
+transition:600ms ease-out;
+}
+.fade-up.show{
+opacity:1;
+transform:translateY(0);
+}
+.reveal{
+opacity:0;
+transform:translateY(30px);
+transition:600ms ease-out;
+}
+.reveal.show{
+opacity:1;
+transform:translateY(0);
+}
+
+.product-spotlight-wrap{
+background:#102A43;
+}
+.product-spotlight-card{
+background:rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,0.08);
+border-radius:18px;
+padding:20px;
+overflow:hidden;
+transition:300ms ease-out;
+height:100%;
+transform-origin:center center;
+backdrop-filter:blur(2px);
+}
+.product-spotlight-card:hover{
+transform:translateY(-12px) scaleY(1.08);
+box-shadow:0 22px 50px rgba(0,0,0,0.18);
+z-index:2;
+}
+
+.product-spotlight-card > *{
+transform-origin:center;
+transition:300ms ease-out;
+}
+.product-spotlight-card:hover h3,
+.product-spotlight-card:hover p,
+.product-spotlight-card:hover .product-spotlight-tag,
+.product-spotlight-card:hover .product-spotlight-code,
+.product-spotlight-card:hover .product-spotlight-btn{
+transform:translateY(0);
+}
+
+.product-spotlight-tag{
+display:inline-flex;
+align-items:center;
+padding:6px 10px;
+border-radius:999px;
+font-size:12px;
+line-height:1;
+background:rgba(255,255,255,0.14);
+color:#ffffff;
+}
+.product-spotlight-code{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+min-width:72px;
+padding:6px 12px;
+border-radius:999px;
+border:1px solid rgba(255,255,255,0.48);
+color:#ffffff;
+font-size:12px;
+line-height:1;
+}
+.product-spotlight-frame{
+position:relative;
+height:300px;
+border-radius:12px;
+display:flex;
+align-items:flex-end;
+justify-content:center;
+overflow:hidden;
+}
+.product-spotlight-image{
+width:66%;
+max-width:200px;
+height:auto;
+transform-origin:center bottom;
+transition:450ms cubic-bezier(0.22,1,0.36,1);
+}
+.product-spotlight-card:hover .product-spotlight-image{
+transform:translateY(-18px) scale(1);
+}
+.product-spotlight-btn{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+padding:12px 22px;
+border-radius:999px;
+background:#0B1F33;
+color:#FFFFFF;
+font-weight:600;
+transition:300ms ease-out;
+}
+.product-spotlight-card:hover .product-spotlight-btn{
+background:#E6772E;
+}
+.product-spotlight-meta{
+margin-top:20px;
+}
+
+
+.final-outro-section{
+  position:relative;
+  background:#123E12;
+  color:#FFFFFF;
+  height:165vh;
+  min-height:1200px;
+}
+.final-outro-sticky{
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow:hidden;
+  background:#123E12;
+}
+.footer-main{
+  position:relative;
+  z-index:3;
+  background:#123E12;
+  padding-top:88px;
+  padding-bottom:88px;
+  min-height:62vh;
+  box-shadow:0 18px 50px rgba(0,0,0,0.10);
+}
+.footer-logo{
+  font-size:20px;
+  font-weight:700;
+  letter-spacing:-0.02em;
+}
+.footer-headline{
+  font-size:clamp(34px, 4vw, 56px);
+  line-height:1.06;
+  font-weight:700;
+  max-width:960px;
+  letter-spacing:-0.03em;
+}
+.footer-subcopy{
+  max-width:560px;
+  color:rgba(255,255,255,0.82);
+  line-height:1.7;
+}
+.footer-cta{
+  display:inline-flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  min-width:320px;
+  padding:16px 18px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.65);
+  color:#FFFFFF;
+  font-weight:600;
+  transition:300ms ease-out;
+}
+.footer-cta:hover{
+  background:rgba(255,255,255,0.06);
+  transform:translateY(-1px);
+}
+.footer-note{
+  display:inline-block;
+  margin-top:28px;
+  padding:10px 12px;
+  border:1px solid rgba(255,255,255,0.18);
+  border-radius:8px;
+  font-size:13px;
+  line-height:1.45;
+  color:rgba(255,255,255,0.72);
+  max-width:360px;
+}
+.footer-links-title{
+  font-size:12px;
+  line-height:1;
+  font-weight:700;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.42);
+  margin-bottom:16px;
+}
+.footer-links-col{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.footer-links-col a{
+  color:#FFFFFF;
+  font-size:14px;
+  line-height:1.4;
+  font-weight:600;
+  opacity:0.95;
+  transition:300ms ease-out;
+}
+.footer-links-col a:hover{
+  opacity:1;
+  text-decoration:underline;
+}
+.footer-reveal-wrap{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:34vh;
+  min-height:260px;
+  overflow:hidden;
+  z-index:1;
+}
+.footer-reveal-panel{
+  position:absolute;
+  inset:0;
+  transform:translateY(96%);
+  will-change:transform;
+}
+.footer-reveal-bg{
+  position:absolute;
+  inset:0;
+  background-image:url('https://placehold.co/1600x420');
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  filter:saturate(0.88);
+  transform:scale(1.04);
+}
+.footer-reveal-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg, rgba(18,62,18,0.14) 0%, rgba(18,62,18,0.22) 100%);
+}
+.footer-reveal-word{
+  position:absolute;
+  left:50%;
+  top:54%;
+  transform:translate(-50%,-50%);
+  font-size:clamp(82px, 13vw, 180px);
+  line-height:0.9;
+  font-weight:800;
+  letter-spacing:-0.06em;
+  color:#FFFFFF;
+  white-space:nowrap;
+  text-align:center;
+}
+.footer-reveal-copy{
+  position:absolute;
+  left:50%;
+  bottom:20px;
+  transform:translateX(-50%);
+  font-size:12px;
+  color:rgba(255,255,255,0.82);
+  text-align:center;
+  white-space:nowrap;
+}
+
+@media(max-width:1024px){
+.hero-section{
+min-height:620px;
+height:70vh;
+max-height:720px;
+background-image:
+linear-gradient(180deg, rgba(16,42,67,0.82) 0%, rgba(16,42,67,0.70) 48%, rgba(16,42,67,0.45) 100%),
+url('https://placehold.co/1200x1400');
+}
+}
+@media(max-width:768px){
+.container-main{
+padding-left:16px;
+padding-right:16px;
+}
+.hero-section{
+min-height:560px;
+height:75vh;
+}
+.proof-grid{
+grid-template-columns:repeat(2,minmax(0,1fr));
+padding-top:8px;
+padding-bottom:8px;
+}
+.proof-item,
+.proof-item:first-child,
+.proof-item:last-child{
+padding:24px 16px;
+border-left:0;
+border-top:1px solid #D9E2EC;
+}
+.proof-item:nth-child(odd){
+border-right:1px solid #D9E2EC;
+}
+.proof-item:nth-child(-n+2){
+border-top:0;
+}
+.product-spotlight-frame{
+height:260px;
+}
+.final-outro-section{
+height:150vh;
+min-height:980px;
+}
+.footer-main{
+padding-top:64px;
+padding-bottom:72px;
+min-height:60vh;
+}
+.footer-cta{
+min-width:0;
+width:100%;
+}
+.footer-reveal-wrap{
+height:26vh;
+min-height:180px;
+}
+.footer-reveal-word{
+font-size:clamp(58px, 14vw, 96px);
+}
+.footer-reveal-copy{
+bottom:14px;
+white-space:normal;
+width:calc(100% - 32px);
+}
+}
+</style>
+</head>
+
+<body class="bg-white">
+<header class="h-20 bg-white border-b border-slate-200 sticky top-0 z-50">
+  <div class="container-main h-full flex items-center justify-between">
+    <div class="text-2xl font-bold tracking-tight" style="color:#102A43;">VITHELO</div>
+    <nav class="hidden md:flex gap-8 text-sm" style="color:#334E68;">
+      <a href="#products" class="hover:text-slate-900 transition">Products</a>
+      <a href="#capability" class="hover:text-slate-900 transition">OEM / ODM</a>
+      <a href="#process" class="hover:text-slate-900 transition">Manufacturing</a>
+      <a href="#cta" class="hover:text-slate-900 transition">Contact</a>
+    </nav>
+    <a href="#cta" class="btn-primary">Request Quote</a>
+  </div>
+</header>
+
+<main>
+
+<section class="hero-section" aria-labelledby="hero-title">
+  <div class="container-main w-full">
+    <div class="hero-copy">
+      <div class="hero-badge fade-up" style="transition-delay:0ms;">GUMMY-LED NUTRITION OEM / ODM</div>
+      <h1 id="hero-title" class="mt-6 text-4xl md:text-5xl lg:text-6xl font-bold leading-tight fade-up" style="transition-delay:120ms;">
+        Build Your Next Nutrition Product With a Proven Manufacturer.
+      </h1>
+      <p class="mt-6 text-base md:text-lg leading-8 text-slate-100 fade-up" style="transition-delay:240ms;">
+        VITHELO helps U.S. nutrition brands develop and manufacture gummies and other oral formats—from formula and sampling to packaging and delivery.
+      </p>
+      <div class="mt-10 flex flex-col sm:flex-row gap-4 fade-up" style="transition-delay:360ms;">
+        <a href="#cta" class="btn-primary">Contact Sales</a>
+        <a href="#products" class="btn-secondary">Explore Gummy Manufacturing</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proof-strip" aria-label="Manufacturing proof points">
+  <dl class="container-main proof-grid">
+    <div class="proof-item">
+      <dt>Manufacturing experience since</dt>
+      <dd>2008</dd>
+    </div>
+    <div class="proof-item">
+      <dt>Cumulative clients served</dt>
+      <dd>5,000+</dd>
+    </div>
+    <div class="proof-item">
+      <dt>Countries and markets</dt>
+      <dd>50+</dd>
+    </div>
+    <div class="proof-item proof-item--accent">
+      <dt>Custom gummy MOQ</dt>
+      <dd>500 <span>bottles</span></dd>
+    </div>
+  </dl>
+</section>
+
+<section id="products" class="py-20 product-spotlight-wrap">
+  <div class="container-main">
+    <div class="grid lg:grid-cols-[1.3fr_1fr_auto] gap-8 items-start">
+      <div class="reveal">
+        <h2 class="text-4xl md:text-5xl font-bold leading-tight text-white max-w-lg">
+          Signature nutrition programs designed for modern wellness brands.
+        </h2>
+      </div>
+      <div class="reveal lg:pt-4">
+        <p class="text-sm md:text-base leading-7 text-slate-200 max-w-md">
+          Featured concepts that reflect VITHELO’s core strengths in beauty, sleep, energy and daily nutrition. Hover over each product to see the vertical enlargement interaction.
+        </p>
+      </div>
+      <div class="reveal lg:pt-4">
+        <a href="#capability" class="text-sm font-semibold text-white border-b border-white/60 pb-1 inline-flex items-center gap-2">View More <span>→</span></a>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6 mt-12">
+      <article class="product-spotlight-card reveal">
+        <div class="flex items-start justify-between gap-4">
+          <span class="product-spotlight-tag">Featured</span>
+          <span class="product-spotlight-code">BG-01</span>
+        </div>
+        <div class="product-spotlight-meta">
+          <h3 class="text-2xl font-semibold text-white">Beauty Gummies</h3>
+        </div>
+        <div class="product-spotlight-frame mt-4">
+          <img src="https://placehold.co/520x760" alt="Beauty gummies featured product placeholder" class="product-spotlight-image">
+        </div>
+        <div class="mt-4 flex flex-col items-start gap-4">
+          <a href="#cta" class="product-spotlight-btn">Request Quote</a>
+          <p class="text-sm text-slate-300">Collagen, biotin and women’s wellness directions.</p>
+        </div>
+      </article>
+
+      <article class="product-spotlight-card reveal">
+        <div class="flex items-start justify-between gap-4">
+          <span class="product-spotlight-tag">New</span>
+          <span class="product-spotlight-code">SS-02</span>
+        </div>
+        <div class="product-spotlight-meta">
+          <h3 class="text-2xl font-semibold text-white">Sleep Support</h3>
+        </div>
+        <div class="product-spotlight-frame mt-4">
+          <img src="https://placehold.co/520x760" alt="Sleep support featured product placeholder" class="product-spotlight-image">
+        </div>
+        <div class="mt-4 flex flex-col items-start gap-4">
+          <a href="#cta" class="product-spotlight-btn">Request Quote</a>
+          <p class="text-sm text-slate-300">Capsule and gummy programs for sleep and relaxation support.</p>
+        </div>
+      </article>
+
+      <article class="product-spotlight-card reveal">
+        <div class="flex items-start justify-between gap-4">
+          <span class="product-spotlight-tag">New</span>
+          <span class="product-spotlight-code">EN-03</span>
+        </div>
+        <div class="product-spotlight-meta">
+          <h3 class="text-2xl font-semibold text-white">Energy + Focus</h3>
+        </div>
+        <div class="product-spotlight-frame mt-4">
+          <img src="https://placehold.co/520x760" alt="Energy and focus featured product placeholder" class="product-spotlight-image">
+        </div>
+        <div class="mt-4 flex flex-col items-start gap-4">
+          <a href="#cta" class="product-spotlight-btn">Request Quote</a>
+          <p class="text-sm text-slate-300">Daily support concepts tailored to energy and cognitive routines.</p>
+        </div>
+      </article>
+
+      <article class="product-spotlight-card reveal">
+        <div class="flex items-start justify-between gap-4">
+          <span class="product-spotlight-tag">New</span>
+          <span class="product-spotlight-code">DN-04</span>
+        </div>
+        <div class="product-spotlight-meta">
+          <h3 class="text-2xl font-semibold text-white">Daily Nutrition</h3>
+        </div>
+        <div class="product-spotlight-frame mt-4">
+          <img src="https://placehold.co/520x760" alt="Daily nutrition featured product placeholder" class="product-spotlight-image">
+        </div>
+        <div class="mt-4 flex flex-col items-start gap-4">
+          <a href="#cta" class="product-spotlight-btn">Request Quote</a>
+          <p class="text-sm text-slate-300">Powder, capsule and sachet concepts for daily wellness categories.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="py-24" style="background:#F8F7F1;">
+  <div class="container-main">
+
+    <div class="grid lg:grid-cols-[1fr_1.1fr] gap-16 items-center">
+
+      <div class="reveal">
+        <p class="text-sm uppercase tracking-[0.14em] mb-5" style="color:#627D98;">Product Categories</p>
+        <h2 class="text-5xl font-bold leading-tight" style="color:#102A43;">
+          Nutrition solutions designed for every stage of modern wellness.
+        </h2>
+        <p class="mt-6 text-base leading-8 max-w-lg">
+          Explore VITHELO's core supplement formats, from daily wellness to beauty, sports and functional nutrition programs.
+        </p>
+      </div>
+
+      <div class="reveal">
+        <div class="rounded-3xl overflow-hidden bg-white p-8">
+          <img src="https://placehold.co/720x480" 
+          alt="Featured nutrition product collection placeholder"
+          class="w-full rounded-2xl">
+        </div>
+
+        <div class="grid grid-cols-3 gap-4 mt-4">
+          <img src="https://placehold.co/240x180" alt="Nutrition application image" class="rounded-xl">
+          <img src="https://placehold.co/240x180" alt="Supplement packaging image" class="rounded-xl">
+          <img src="https://placehold.co/240x180" alt="Lifestyle nutrition image" class="rounded-xl">
+        </div>
+      </div>
+
+    </div>
+
+
+    
+
+  </div>
+</section>
+
+<section id="capability" class="py-20">
+  <div class="container-main">
+    <div class="max-w-2xl reveal">
+      <p class="text-sm uppercase tracking-[0.14em] mb-4" style="color:#627D98;">Manufacturing Strength</p>
+      <h2 class="text-4xl font-bold mb-4" style="color:#102A43;">OEM / ODM Manufacturing Capability</h2>
+      <p class="text-base leading-7">From formulation to packaging, VITHELO supports end-to-end supplement development for global brand owners.</p>
+    </div>
+
+    <div class="grid md:grid-cols-4 gap-8 mt-12">
+      <div class="card reveal">
+        <h3 class="text-lg font-semibold" style="color:#102A43;">Formula Development</h3>
+        <p class="mt-3">Custom concept support and formula planning aligned with category direction.</p>
+      </div>
+      <div class="card reveal">
+        <h3 class="text-lg font-semibold" style="color:#102A43;">Private Label</h3>
+        <p class="mt-3">Brand-ready product solutions for businesses seeking fast and flexible market launch.</p>
+      </div>
+      <div class="card reveal">
+        <h3 class="text-lg font-semibold" style="color:#102A43;">Packaging Customization</h3>
+        <p class="mt-3">Support for bottle, pouch, sachet and format-specific packaging requirements.</p>
+      </div>
+      <div class="card reveal">
+        <h3 class="text-lg font-semibold" style="color:#102A43;">Production Management</h3>
+        <p class="mt-3">Structured project execution with manufacturing coordination and delivery planning.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process" class="py-20" style="background:#F5F7FA;">
+  <div class="container-main">
+    <div class="max-w-2xl reveal">
+      <p class="text-sm uppercase tracking-[0.14em] mb-4" style="color:#627D98;">Project Workflow</p>
+      <h2 class="text-4xl font-bold mb-4" style="color:#102A43;">OEM Process</h2>
+      <p class="text-base leading-7">A clear process helps buyers understand how ideas move into scalable nutrition products.</p>
+    </div>
+    <div class="grid md:grid-cols-6 gap-6 mt-12">
+      <div class="card reveal"><div class="text-sm font-semibold mb-3" style="color:#E6772E;">01</div><h3 class="text-lg font-semibold" style="color:#102A43;">Idea</h3></div>
+      <div class="card reveal"><div class="text-sm font-semibold mb-3" style="color:#E6772E;">02</div><h3 class="text-lg font-semibold" style="color:#102A43;">Formula</h3></div>
+      <div class="card reveal"><div class="text-sm font-semibold mb-3" style="color:#E6772E;">03</div><h3 class="text-lg font-semibold" style="color:#102A43;">Sample</h3></div>
+      <div class="card reveal"><div class="text-sm font-semibold mb-3" style="color:#E6772E;">04</div><h3 class="text-lg font-semibold" style="color:#102A43;">Production</h3></div>
+      <div class="card reveal"><div class="text-sm font-semibold mb-3" style="color:#E6772E;">05</div><h3 class="text-lg font-semibold" style="color:#102A43;">QC</h3></div>
+      <div class="card reveal"><div class="text-sm font-semibold mb-3" style="color:#E6772E;">06</div><h3 class="text-lg font-semibold" style="color:#102A43;">Delivery</h3></div>
+    </div>
+  </div>
+</section>
+
+
+<section id="cta" class="final-outro-section">
+  <div class="final-outro-sticky">
+    <div class="footer-main">
+      <div class="container-main">
+        <div class="grid lg:grid-cols-[1.4fr_1.15fr] gap-16">
+          <div>
+            <div class="footer-logo">VITHELO ●</div>
+            <h2 class="footer-headline mt-8">
+              Precision nutrition manufacturing for global brands, built through formulation, quality control and long-term supply collaboration.
+            </h2>
+            <p class="footer-subcopy mt-8">
+              Discuss your product direction with the VITHELO team. We support OEM, ODM and private label nutrition projects across multiple formats.
+            </p>
+            <a href="#" class="footer-cta mt-8">
+              <span>Start Your Project Inquiry</span>
+              <span>→</span>
+            </a>
+            <div class="footer-note">
+              Business-use website only. Product claims, formulas, MOQ, lead time and regulatory suitability are subject to project confirmation.
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-10">
+            <div class="footer-links-col">
+              <div class="footer-links-title">Products</div>
+              <a href="#">Gummies</a>
+              <a href="#">Capsules</a>
+              <a href="#">Powders</a>
+              <a href="#">Liquid Supplements</a>
+            </div>
+            <div class="footer-links-col">
+              <div class="footer-links-title">Capability</div>
+              <a href="#">OEM / ODM</a>
+              <a href="#">Formula Development</a>
+              <a href="#">Packaging Customization</a>
+              <a href="#">Quality Control</a>
+            </div>
+            <div class="footer-links-col">
+              <div class="footer-links-title">Company</div>
+              <a href="#">About VITHELO</a>
+              <a href="#">Manufacturing</a>
+              <a href="#">Resources</a>
+              <a href="#">Contact</a>
+            </div>
+            <div class="footer-links-col">
+              <div class="footer-links-title">Support</div>
+              <a href="#">Inquiry Guide</a>
+              <a href="#">Project Workflow</a>
+              <a href="#">FAQs</a>
+              <a href="#">Global Supply</a>
+            </div>
+            <div class="footer-links-col">
+              <div class="footer-links-title">Social</div>
+              <a href="#">LinkedIn</a>
+              <a href="#">Instagram</a>
+              <a href="#">YouTube</a>
+              <a href="#">Email</a>
+            </div>
+            <div class="footer-links-col">
+              <div class="footer-links-title">Legal</div>
+              <a href="#">Privacy Policy</a>
+              <a href="#">Terms & Conditions</a>
+              <a href="#">Accessibility</a>
+              <a href="#">Consent Preferences</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-reveal-wrap">
+      <div class="footer-reveal-panel" id="footerRevealPanel">
+        <div class="footer-reveal-bg"></div>
+        <div class="footer-reveal-overlay"></div>
+        <div class="footer-reveal-word">VITHELO</div>
+        <div class="footer-reveal-copy">© 2026 VITHELO. Global Nutrition OEM / ODM Manufacturing Partner.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="py-10" style="background:#0B1F33;color:white;">
+  <div class="container-main flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
+    <div class="font-semibold">VITHELO</div>
+    <div class="text-sm text-slate-300">Global Nutrition OEM / ODM Manufacturing Partner</div>
+  </div>
+</footer>
+
+</main>
+
+<script>
+document.querySelectorAll('.fade-up').forEach((el) => {
+  requestAnimationFrame(() => el.classList.add('show'));
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+const outroSection = document.querySelector('.final-outro-section');
+const revealPanel = document.getElementById('footerRevealPanel');
+
+function updateFooterReveal() {
+  if (!outroSection || !revealPanel) return;
+  const rect = outroSection.getBoundingClientRect();
+  const viewport = window.innerHeight || document.documentElement.clientHeight;
+
+  // Progress starts when section top reaches viewport bottom
+  const total = rect.height - viewport;
+  let progress = 0;
+  if (total > 0) {
+    progress = (viewport - rect.top) / total;
+  }
+  progress = Math.max(0, Math.min(1, progress));
+
+  // Slow upward pull-out effect, matching the stepped screenshots
+  const translatePercent = 96 - (progress * 96);
+  revealPanel.style.transform = `translateY(${translatePercent}%)`;
+}
+
+window.addEventListener('scroll', updateFooterReveal, { passive: true });
+window.addEventListener('resize', updateFooterReveal);
+updateFooterReveal();
+</script>
+</body>
+</html>
