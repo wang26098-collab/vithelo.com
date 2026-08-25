@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VITHELO | Global Nutrition OEM ODM Manufacturing Partner</title>
+<meta name="description" content="VITHELO provides global nutrition OEM and ODM manufacturing solutions including gummies, capsules, powders and custom supplements.">
+<meta property="og:title" content="VITHELO Global Nutrition Manufacturing Partner">
+<meta property="og:description" content="Custom nutrition solutions for global brands.">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root{
+--navy:#102A43;
+--gray:#52606D;
+--orange:#E6772E;
+--light:#F5F7FA;
+--border:#D9E2EC;
+}
+html{
+scroll-behavior:smooth;
+}
+body{
+font-family:Inter,Arial,sans-serif;
+color:var(--gray);
+}
+.container-main{
+max-width:1280px;
+margin:auto;
+padding-left:32px;
+padding-right:32px;
+}
+.btn-primary{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+background:#E6772E;
+color:white;
+border-radius:6px;
+padding:14px 24px;
+transition:300ms ease-out;
+font-weight:600;
+}
+.btn-primary:hover{
+background:#C85F20;
+transform:translateY(-1px);
+}
+.btn-secondary{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+background:transparent;
+color:#FFFFFF;
+border:1px solid rgba(255,255,255,0.6);
+border-radius:6px;
+padding:14px 24px;
+transition:300ms ease-out;
+font-weight:600;
+}
+.btn-secondary:hover{
+background:rgba(255,255,255,0.08);
+transform:translateY(-1px);
+}
+.card{
+background:#FFFFFF;
+border:1px solid #D9E2EC;
+border-radius:12px;
+padding:24px;
+transition:300ms ease-out;
+}
+.card:hover{
+transform:translateY(-4px);
+box-shadow:0 16px 40px rgba(16,42,67,0.08);
+}
+.hero-section{
+position:relative;
+min-height:720px;
+height:72vh;
+max-height:780px;
+background-image:
+linear-gradient(90deg, rgba(16,42,67,0.78) 0%, rgba(16,42,67,0.68) 38%, rgba(16,42,67,0.34) 70%, rgba(16,42,67,0.18) 100%),
+url('https://placehold.co/1600x1000');
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+display:flex;
+align-items:center;
+}
+.hero-badge{
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:8px 12px;
+border-radius:999px;
+background:rgba(255,255,255,0.12);
+border:1px solid rgba(255,255,255,0.18);
+color:#FFFFFF;
+font-size:12px;
+letter-spacing:0.08em;
+text-transform:uppercase;
+}
+.hero-copy{
+max-width:640px;
+color:#FFFFFF;
+}
+.hero-copy p{
+max-width:600px;
+}
+.proof-strip{
+background:#F5F7FA;
+border-bottom:1px solid #D9E2EC;
+}
+.proof-grid{
+display:grid;
+grid-template-columns:repeat(4,minmax(0,1fr));
+padding-top:32px;
+padding-bottom:32px;
+}
+.proof-item{
+display:flex;
+flex-direction:column;
+gap:8px;
+padding:4px 28px;
+border-left:1px solid #D9E2EC;
+}
+.proof-item:first-child{
+padding-left:0;
+border-left:0;
+}
+.proof-item:last-child{
+padding-right:0;
+}
+.proof-item dt{
+order:2;
+font-size:13px;
+line-height:1.45;
+color:#52606D;
+}
+.proof-item dd{
+order:1;
+margin:0;
+font-size:clamp(30px,3vw,42px);
+line-height:1;
+font-weight:700;
+letter-spacing:-0.03em;
+color:#102A43;
+}
+.proof-item dd span{
+font-size:14px;
+font-weight:600;
+letter-spacing:0;
+color:#52606D;
+}
+.proof-item--accent dd{
+color:#E6772E;
+}
+.fade-up{
+opacity:0;
+transform:translateY(24px);
+transition:600ms ease-out;
+}
+.fade-up.show{
+opacity:1;
+transform:translateY(0);
+}
+.reveal{
+opacity:0;
+transform:translateY(30px);
+transition:600ms ease-out;
+}
+.reveal.show{
+opacity:1;
+transform:translateY(0);
+}
+
+.product-spotlight-wrap{
+background:#102A43;
+}
+.product-spotlight-card{
+background:rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,0.08);
+border-radius:18px;
+padding:20px;
+overflow:hidden;
+transition:300ms ease-out;
+height:100%;
+transform-origin:center center;
+backdrop-filter:blur(2px);
+}
+.product-spotlight-card:hover{
+transform:translateY(-12px) scaleY(1.08);
+box-shadow:0 22px 50px rgba(0,0,0,0.18);
+z-index:2;
+}
+
+.product-spotlight-card > *{
+transform-origin:center;
+transition:300ms ease-out;
+}
+.product-spotlight-card:hover h3,
+.product-spotlight-card:hover p,
+.product-spotlight-card:hover .product-spotlight-tag,
+.product-spotlight-card:hover .product-spotlight-code,
+.product-spotlight-card:hover .product-spotlight-btn{
+transform:translateY(0);
+}
+
+.product-spotlight-tag{
+display:inline-flex;
+align-items:center;
+padding:6px 10px;
+border-radius:999px;
+font-size:12px;
+line-height:1;
+background:rgba(255,255,255,0.14);
+color:#ffffff;
+}
+.product-spotlight-code{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+min-width:72px;
+padding:6px 12px;
+border-radius:999px;
+border:1px solid rgba(255,255,255,0.48);
+color:#ffffff;
+font-size:12px;
+line-height:1;
+}
+.product-spotlight-frame{
+position:relative;
+height:300px;
+border-radius:12px;
+display:flex;
+align-items:flex-end;
+justify-content:center;
+overflow:hidden;
+}
+.product-spotlight-image{
+width:66%;
+max-width:200px;
+height:auto;
+transform-origin:center bottom;
+transition:450ms cubic-bezier(0.22,1,0.36,1);
+}
+.product-spotlight-card:hover .product-spotlight-image{
+transform:translateY(-18px) scale(1);
+}
+.product-spotlight-btn{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+padding:12px 22px;
+border-radius:999px;
+background:#0B1F33;
+color:#FFFFFF;
+font-weight:600;
+transition:300ms ease-out;
+}
+.product-spotlight-card:hover .product-spotlight-btn{
+background:#E6772E;
+}
+.product-spotlight-meta{
+margin-top:20px;
+}
+
+
+.final-outro-section{
+  position:relative;
+  background:#123E12;
+  color:#FFFFFF;
+  height:165vh;
+  min-height:1200px;
+}
+.final-outro-sticky{
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow:hidden;
+  background:#123E12;
+}
+.footer-main{
+  position:relative;
+  z-index:3;
+  background:#123E12;
+  padding-top:88px;
+  padding-bottom:88px;
+  min-height:62vh;
+  box-shadow:0 18px 50px rgba(0,0,0,0.10);
+}
+.footer-logo{
+  font-size:20px;
+  font-weight:700;
+  letter-spacing:-0.02em;
+}
+.footer-headline{
+  font-size:clamp(34px, 4vw, 56px);
+  line-height:1.06;
+  font-weight:700;
+  max-width:960px;
+  letter-spacing:-0.03em;
+}
+.footer-subcopy{
+  max-width:560px;
+  color:rgba(255,255,255,0.82);
+  line-height:1.7;
+}
+.footer-cta{
+  display:inline-flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  min-width:320px;
+  padding:16px 18px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.65);
+  color:#FFFFFF;
+  font-weight:600;
+  transition:300ms ease-out;
+}
+.footer-cta:hover{
+  background:rgba(255,255,255,0.06);
+  transform:translateY(-1px);
+}
+.footer-note{
+  display:inline-block;
+  margin-top:28px;
+  padding:10px 12px;
+  border:1px solid rgba(255,255,255,0.18);
+  border-radius:8px;
+  font-size:13px;
+  line-height:1.45;
+  color:rgba(255,255,255,0.72);
+  max-width:360px;
+}
+.footer-links-title{
+  font-size:12px;
+  line-height:1;
+  font-weight:700;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.42);
+  margin-bottom:16px;
+}
+.footer-links-col{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.footer-links-col a{
+  color:#FFFFFF;
+  font-size:14px;
+  line-height:1.4;
+  font-weight:600;
+  opacity:0.95;
+  transition:300ms ease-out;
+}
+.footer-links-col a:hover{
+  opacity:1;
+  text-decoration:underline;
+}
+.footer-reveal-wrap{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:34vh;
+  min-height:260px;
+  overflow:hidden;
+  z-index:1;
+}
+.footer-reveal-panel{
+  position:absolute;
+  inset:0;
+  transform:translateY(96%);
+  will-change:transform;
+}
+.footer-reveal-bg{
+  position:absolute;
+  inset:0;
+  background-image:url('https://placehold.co/1600x420');
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  filter:saturate(0.88);
+  transform:scale(1.04);
+}
+.footer-reveal-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg, rgba(18,62,18,0.14) 0%, rgba(18,62,18,0.22) 100%);
+}
+.footer-reveal-word{
+  position:absolute;
+  left:50%;
+  top:54%;
+  transform:translate(-50%,-50%);
+  font-size:clamp(82px, 13vw, 180px);
+  line-height:0.9;
+  font-weight:800;
+  letter-spacing:-0.06em;
+  color:#FFFFFF;
+  white-space:nowrap;
+  text-align:center;
+}
+.footer-reveal-copy{
+  position:absolute;
+  left:50%;
+  bottom:20px;
+  transform:translateX(-50%);
+  font-size:12px;
+  color:rgba(255,255,255,0.82);
+  text-align:center;
+  white-space:nowrap;
+}
+
+@media(max-width:1024px){
+.hero-section{
+min-height:620px;
+height:70vh;
+max-height:720px;
+background-image:
+linear-gradient(180deg, rgba(16,42,67,0.82) 0%, rgba(16,42,67,0.70) 48%, rgba(16,42,67,0.45) 100%),
+url('https://placehold.co/1200x1400');
+}
+}
+@media(max-width:768px){
+.container-main{
+padding-left:16px;
+padding-right:16px;
+}
+.hero-section{
+min-height:560px;
+height:75vh;
+}
+.proof-grid{
+grid-template-columns:repeat(2,minmax(0,1fr));
+padding-top:8px;
+padding-bottom:8px;
+}
+.proof-item,
+.proof-item:first-child,
+.proof-item:last-child{
+padding:24px 16px;
+border-left:0;
+border-top:1px solid #D9E2EC;
+}
+.proof-item:nth-child(odd){
+border-right:1px solid #D9E2EC;
+}
+.proof-item:nth-child(-n+2){
+border-top:0;
+}
+.product-spotlight-frame{
+height:260px;
+}
+.final-outro-section{
+height:150vh;
+min-height:980px;
+}
+.footer-main{
+padding-top:64px;
+padding-bottom:72px;
+min-height:60vh;
+}
+.footer-cta{
+min-width:0;
+width:100%;
+}
+.footer-reveal-wrap{
+height:26vh;
+min-height:180px;
+}
+.footer-reveal-word{
+font-size:clamp(58px, 14vw, 96px);
+}
+.footer-reveal-copy{
+bottom:14px;
+white-space:normal;
+width:calc(100% - 32px);
+}
+}
+</style>
+</head>
+
+<body class="bg-white">
+<header class="h-20 bg-white border-b border-slate-200 sticky top-0 z-50">
+  <div class="container-main h-full flex items-center justify-between">
+    <div class="text-2xl font-bold tracking-tight" style="color:#102A43;">VITHELO</div>
+    <nav class="hidden md:flex gap-8 text-sm" style="color:#334E68;">
+      <a href="#gummy-stage" class="hover:text-slate-900 transition">Products</a>
+      <a href="#custom-development" class="hover:text-slate-900 transition">OEM / ODM</a>
+      <a href="#manufacturing" class="hover:text-slate-900 transition">Manufacturing</a>
+      <a href="#contact" class="hover:text-slate-900 transition">Contact</a>
+    </nav>
+    <a href="#cta" class="btn-primary">Request Quote</a>
+  </div>
+</header>
+
+<main>
+
+<section class="hero-section" aria-labelledby="hero-title">
+  <div class="container-main w-full">
+    <div class="hero-copy">
+      <div class="hero-badge fade-up" style="transition-delay:0ms;">GUMMY-LED NUTRITION OEM / ODM</div>
+      <h1 id="hero-title" class="mt-6 text-4xl md:text-5xl lg:text-6xl font-bold leading-tight fade-up" style="transition-delay:120ms;">
+        Build Your Next Nutrition Product With a Proven Manufacturer.
+      </h1>
+      <p class="mt-6 text-base md:text-lg leading-8 text-slate-100 fade-up" style="transition-delay:240ms;">
+        VITHELO helps U.S. nutrition brands develop and manufacture gummies and other oral formats—from formula and sampling to packaging and delivery.
+      </p>
+      <div class="mt-10 flex flex-col sm:flex-row gap-4 fade-up" style="transition-delay:360ms;">
+        <a href="#cta" class="btn-primary">Contact Sales</a>
+        <a href="#products" class="btn-secondary">Explore Gummy Manufacturing</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proof-strip" aria-label="Manufacturing proof points">
+  <dl class="container-main proof-grid">
+    <div class="proof-item">
+      <dt>Manufacturing experience since</dt>
+      <dd>2008</dd>
+    </div>
+    <div class="proof-item">
+      <dt>Cumulative clients served</dt>
+      <dd>5,000+</dd>
+    </div>
+    <div class="proof-item">
+      <dt>Countries and markets</dt>
+      <dd>50+</dd>
+    </div>
+    <div class="proof-item proof-item--accent">
+      <dt>Custom gummy MOQ</dt>
+      <dd>500 <span>bottles</span></dd>
+    </div>
+  </dl>
+</section>
+
+<!-- ACTIVE PREVIEW START -->
+<div class="overbuilt-preview" hidden aria-hidden="true">
+<style>
+  :root{--v2-ivory:#f1eee6;--v2-ink:#171918;--v2-muted:#686a65;--v2-line:rgba(23,25,24,.2);--v2-orange:#ed6039}
+  .v2-section{position:relative;padding:clamp(80px,9vw,150px) clamp(22px,6vw,96px);background:var(--v2-ivory);color:var(--v2-ink);overflow:clip}
+  .v2-dark{background:#171918;color:#f1eee6}.v2-orange{background:var(--v2-orange)}
+  .v2-kicker{margin:0 0 24px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--v2-muted)}
+  .v2-dark .v2-kicker,.v2-dark .v2-copy{color:#a9aca5}
+  .v2-title{max-width:1160px;margin:0;font-size:clamp(46px,7vw,108px);font-weight:500;line-height:.91;letter-spacing:-.065em}
+  .v2-copy{max-width:720px;color:var(--v2-muted);font-size:clamp(17px,1.7vw,24px);line-height:1.5}
+  .v2-media{min-height:clamp(380px,58vw,780px);display:flex;align-items:flex-end;padding:28px;border:1px solid var(--v2-line);background:radial-gradient(circle at 64% 32%,#f5f2e8 0,#bbb7ab 35%,#252825 82%);color:#fff;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+  .gummy-editorial{display:grid;grid-template-columns:.7fr 1.3fr;gap:7vw;align-items:end;margin-top:70px}.gummy-details{border-top:1px solid var(--v2-line)}.gummy-details div{padding:22px 0;border-bottom:1px solid var(--v2-line)}.gummy-details b{display:block;font-size:22px;font-weight:500}.gummy-details span{color:var(--v2-muted)}
+  .market-stage{min-height:100svh;padding:0;background:#181a18;color:#f5f1e8}.market-stage-head{position:absolute;z-index:4;top:clamp(32px,5vw,70px);left:12%;max-width:76%}.market-stage-head .v2-title{max-width:900px;font-size:clamp(42px,6.4vw,96px)}
+  .market-viewport{position:relative;min-height:100svh;overflow:hidden}.market-gutter{position:absolute;z-index:5;top:0;bottom:0;width:12%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.45);font-size:10px;letter-spacing:.16em;writing-mode:vertical-rl;text-transform:uppercase}.market-gutter--left{left:0}.market-gutter--right{right:0}
+  .market-story{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1.1fr;align-items:end;padding:clamp(250px,32vh,340px) 12% clamp(90px,10vh,120px);gap:7vw;opacity:0;visibility:hidden;transform:translateY(9%);transition:opacity .52s ease,transform .52s ease,visibility .52s}
+  .market-story.is-active{opacity:1;visibility:visible;transform:none}.market-story-copy{position:relative;z-index:2}.market-story h3{margin:15px 0 24px;font-size:clamp(42px,5vw,82px);font-weight:500;line-height:.94;letter-spacing:-.055em}.market-story p{max-width:560px;color:#c2c4bd;font-size:18px;line-height:1.55}.market-story-visual{min-height:48vh;border-left:1px solid rgba(255,255,255,.25);display:flex;align-items:flex-end;padding:28px;background:radial-gradient(circle at 60% 40%,rgba(240,235,218,.8),rgba(115,119,108,.45) 35%,rgba(22,24,22,.2) 68%);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+  .market-index{font-size:12px;letter-spacing:.16em;color:#a7aaa3}.market-controls{position:absolute;z-index:7;right:12%;bottom:32px;display:flex;align-items:center;gap:10px}.market-controls button{min-width:48px;min-height:48px;border:1px solid rgba(255,255,255,.45);background:transparent;color:#fff}.market-controls button:disabled{opacity:.3}.market-progress{min-width:64px;text-align:center;font-size:12px;letter-spacing:.12em}
+  .dosage-list{margin-top:80px;border-top:1px solid var(--v2-line)}.dosage-chapter{min-height:72vh;display:grid;grid-template-columns:1.15fr .85fr;gap:7vw;align-items:center;border-bottom:1px solid var(--v2-line);padding:60px 0}.dosage-chapter:nth-child(even) .dosage-visual{order:2}.dosage-visual{min-height:52vh;display:flex;align-items:flex-end;padding:24px;background:radial-gradient(ellipse at center,#f6d59e 0,#d56538 30%,#7a2f25 48%,transparent 50%);font-size:11px;letter-spacing:.12em;text-transform:uppercase}.dosage-chapter:nth-child(3n+2) .dosage-visual{background:radial-gradient(ellipse at center,#ffe18a,#bf8f16 40%,transparent 42%)}.dosage-chapter:nth-child(3n) .dosage-visual{background:radial-gradient(ellipse at center,#efede5,#a8a49b 45%,transparent 47%)}.dosage-copy h3{margin:14px 0 22px;font-size:clamp(44px,6vw,92px);font-weight:500;line-height:.92;letter-spacing:-.06em}.dosage-moq{padding-top:24px;border-top:1px solid var(--v2-line);font-size:18px}.dosage-note{margin-top:28px}
+  .v2-blueprint{display:grid;grid-template-columns:1fr minmax(300px,1.1fr) 1fr;gap:34px;align-items:center;margin-top:72px}.v2-core{aspect-ratio:1;border:1px solid currentColor;border-radius:50%;display:grid;place-items:center;text-align:center}.v2-note{padding:28px 0;border-top:1px solid rgba(255,255,255,.24)}.v2-note b{display:block;font-size:23px;font-weight:500}.v2-note span{color:#aaaea6}
+  .v2-ledger{display:grid;grid-template-columns:repeat(4,1fr);margin-top:44px;border-top:1px solid var(--v2-line)}.v2-ledger div{padding:25px;border-right:1px solid var(--v2-line)}.v2-ledger b{display:block;font-size:clamp(28px,3vw,48px);font-weight:500}.v2-ledger small{color:var(--v2-muted)}
+  .quality-record{display:grid;grid-template-columns:.75fr 1.25fr;margin-top:70px;border:1px solid var(--v2-line);background:#faf8f2}.quality-side,.quality-main{padding:40px}.quality-side{border-right:1px solid var(--v2-line)}.quality-row{display:grid;grid-template-columns:1fr 1.2fr .7fr;gap:20px;padding:22px 0;border-top:1px solid var(--v2-line)}
+  .project-runway{display:grid;grid-template-columns:repeat(6,1fr);margin-top:80px;border-top:1px solid rgba(255,255,255,.22)}.runway-step{padding:28px 20px 70px;border-right:1px solid rgba(255,255,255,.22)}.runway-step b{display:block;margin:20px 0;font-size:clamp(28px,4vw,58px);font-weight:400}.runway-step p{color:#a9aca5}
+  .channel-network{display:grid;grid-template-columns:1fr 190px 1fr;align-items:center;margin-top:70px}.channel-path{padding:40px;border-block:1px solid var(--v2-line)}.channel-path h3{font-size:clamp(35px,4.2vw,66px);font-weight:500;line-height:.95;letter-spacing:-.05em}.channel-node{aspect-ratio:1;border:1px solid var(--v2-line);border-radius:50%;display:grid;place-items:center;text-align:center;background:#fff}.channel-path:last-child{border-left:1px solid var(--v2-line)}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:9vw;margin-top:70px}.contact-link{display:block;padding:22px 0;border-top:1px solid rgba(0,0,0,.3);color:inherit;text-decoration:none;font-size:clamp(32px,4.8vw,72px);line-height:1}.contact-pending{padding:18px 0;border-top:1px solid rgba(0,0,0,.3);font-size:12px;letter-spacing:.12em;text-transform:uppercase}.inquiry-form{margin-top:36px}.inquiry-field{display:grid;grid-template-columns:145px 1fr;padding:16px 0;border-top:1px solid rgba(0,0,0,.3)}.inquiry-field label{font-size:11px;letter-spacing:.1em;text-transform:uppercase}.inquiry-field input,.inquiry-field select{border:0;background:transparent;font:inherit}.inquiry-form button{width:100%;min-height:58px;margin-top:18px;border:0;background:#171918;color:#fff;font:inherit}.inquiry-form button:disabled{opacity:.72}
+  .v2-footer{display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;padding:52px clamp(22px,6vw,96px);background:#111312;color:#ece9e1}.v2-footer a{color:inherit}.v2-footer small{color:#969991}
+  @media(max-width:760px){.gummy-editorial,.dosage-chapter,.v2-blueprint,.quality-record,.channel-network,.contact-grid,.v2-footer{grid-template-columns:1fr}.market-stage{padding:90px 22px}.market-stage-head{position:static;max-width:none}.market-viewport{min-height:auto;overflow:visible}.market-gutter,.market-controls{display:none}.market-story{position:relative;inset:auto;display:grid;grid-template-columns:1fr;min-height:82svh;padding:70px 0;border-top:1px solid rgba(255,255,255,.25);opacity:1;visibility:visible;transform:none}.market-story-visual{min-height:38vh}.dosage-chapter{min-height:auto;padding:70px 0}.dosage-chapter:nth-child(even) .dosage-visual{order:0}.dosage-visual{min-height:42vh}.v2-core{order:-1}.v2-ledger,.project-runway{grid-template-columns:1fr 1fr}.quality-side{border-right:0;border-bottom:1px solid var(--v2-line)}.quality-row{grid-template-columns:1fr}.channel-network{gap:30px}.channel-node{width:150px}.channel-path:last-child{border-left:0}.inquiry-field{grid-template-columns:1fr;gap:8px}}
+  @media(prefers-reduced-motion:reduce){.market-story{transition:none!important}.market-stage{scroll-behavior:auto}}
+</style>
+
+<section data-overbuilt-id="gummy-stage" class="v2-section">
+  <p class="v2-kicker">03 · Gummy Spotlight</p><h2 class="v2-title">Gummies are more than a format. They are a product language your brand can own.</h2>
+  <div class="gummy-editorial"><div class="v2-media">Real gummy macro photography · 2400 × 1400 · free commercial asset or factory shoot</div><div class="gummy-details"><div><b>Formula Direction</b><span>Benefit, audience, and sensory experience</span></div><div><b>Shape System</b><span>Standard molds and custom development</span></div><div><b>Taste &amp; Texture</b><span>Pectin, gelatin, flavor, and sweetness routes</span></div><div><b>Color &amp; Packaging</b><span>A recognizable expression built for your brand</span></div><div><b>Custom MOQ</b><span>Projects from 500 bottles</span></div></div></div>
+</section>
+
+<section data-overbuilt-id="solutions" class="market-stage" aria-labelledby="solutions-title" tabindex="-1">
+  <div class="market-stage-head"><p class="v2-kicker">04 · Market-Ready Solutions</p><h2 id="solutions-title" class="v2-title">Market-Led Concepts, Ready to Build.</h2></div>
+  <div class="market-viewport" data-market-stage>
+    <div class="market-gutter market-gutter--left" aria-hidden="true">Page scroll</div><div class="market-gutter market-gutter--right" aria-hidden="true">Page scroll</div>
+    <article class="market-story is-active" data-market-story="0" aria-hidden="false"><div class="market-story-copy"><span class="market-index">01 / 06</span><h3>Women’s Wellness</h3><p>Daily wellness, life-stage support, and beauty-focused concepts developed around a clear consumer occasion.</p></div><div class="market-story-visual">Lifestyle or product asset · 2000 × 1500</div></article>
+    <article class="market-story" data-market-story="1" aria-hidden="true"><div class="market-story-copy"><span class="market-index">02 / 06</span><h3>Sleep, Stress &amp; Mood</h3><p>Format-led concepts for rest, resilience, and everyday emotional wellbeing, subject to formula and claim review.</p></div><div class="market-story-visual">Evening routine asset · 2000 × 1500</div></article>
+    <article class="market-story" data-market-story="2" aria-hidden="true"><div class="market-story-copy"><span class="market-index">03 / 06</span><h3>Beauty From Within</h3><p>Collagen, antioxidant, skin, hair, and nail concepts translated into a distinctive branded routine.</p></div><div class="market-story-visual">Beauty nutrition asset · 2000 × 1500</div></article>
+    <article class="market-story" data-market-story="3" aria-hidden="true"><div class="market-story-copy"><span class="market-index">04 / 06</span><h3>Gut &amp; Digestive Health</h3><p>Prebiotic, fiber, and digestive-wellness directions matched to a format people can use consistently.</p></div><div class="market-story-visual">Ingredient or routine asset · 2000 × 1500</div></article>
+    <article class="market-story" data-market-story="4" aria-hidden="true"><div class="market-story-copy"><span class="market-index">05 / 06</span><h3>Daily Essentials</h3><p>Vitamins, minerals, and everyday nutrition concepts designed for straightforward use and clear shelf communication.</p></div><div class="market-story-visual">Daily ritual asset · 2000 × 1500</div></article>
+    <article class="market-story" data-market-story="5" aria-hidden="true"><div class="market-story-copy"><span class="market-index">06 / 06</span><h3>Active Nutrition</h3><p>Energy, movement, and recovery concepts suited to powders, gummies, and other convenient delivery formats.</p></div><div class="market-story-visual">Active lifestyle asset · 2000 × 1500</div></article>
+    <div class="market-controls"><button type="button" data-market-prev aria-label="Previous market direction">←</button><span class="market-progress" data-market-progress aria-live="polite">01 / 06</span><button type="button" data-market-next aria-label="Next market direction">→</button></div>
+  </div>
+</section>
+
+<section data-overbuilt-id="dosage-forms" class="v2-section" aria-labelledby="dosage-title">
+  <p class="v2-kicker">05 · Dosage Form Spectrum</p><h2 id="dosage-title" class="v2-title">Eight Formats. One Manufacturing System.</h2><p class="v2-copy dosage-note">Flexible MOQ based on formula and packaging. Contact us for MOQ.</p>
+  <div class="dosage-list">
+    <article class="dosage-chapter" data-dosage-chapter><div class="dosage-visual">Transparent product PNG or factory photography</div><div class="dosage-copy"><span class="market-index">01 / 08</span><h3>Gummies</h3><p>Custom shapes, flavors, colors, textures, and packaging.</p><p class="dosage-moq">Custom projects from 500 bottles</p></div></article>
+    <article class="dosage-chapter" data-dosage-chapter><div class="dosage-visual">Transparent product PNG or factory photography</div><div class="dosage-copy"><span class="market-index">02 / 08</span><h3>Hard Capsules</h3><p>Multiple capsule sizes, colors, fills, and bottle configurations.</p><p class="dosage-moq">Project reference: 60,000–100,000 capsules</p></div></article>
+    <article class="dosage-chapter" data-dosage-chapter><div class="dosage-visual">Transparent product PNG or factory photography</div><div class="dosage-copy"><span class="market-index">03 / 08</span><h3>Softgels</h3><p>Oil-based delivery with shell, color, size, and packaging options.</p><p class="dosage-moq">Project reference: 300,000 softgels</p></div></article>
+    <article class="dosage-chapter" data-dosage-chapter><div class="dosage-visual">Transparent product PNG or factory photography</div><div class="dosage-copy"><span class="market-index">04 / 08</span><h3>Tablets</h3><p>Compressed and chewable formats with configurable shapes and coatings.</p><p class="dosage-moq">Project reference: 100,000 tablets</p></div></article>
+    <article class="dosage-chapter" data-dosage-chapter><div class="dosage-visual">Transparent product PNG or factory photography</div><div class="dosage-copy"><span class="market-index">05 / 08</span><h3>Powders</h3><p>Bulk, pouch, jar, and stick-pack routes for daily nutrition products.</p><p class="dosage-moq">Project reference: 100 kg</p></div></article>
+    <article class="dosage-chapter" data-dosage-chapter><div class="dosage-visual">Transparent product PNG or factory photography</div><div class="dosage-copy"><span class="market-index">06 / 08</span><h3>Functional Gum</h3><p>A portable delivery format with flavor, texture, and active-system development.</p><p class="dosage-moq">Project reference: 2 metric tons</p></div></article>
+    <article class="dosage-chapter" data-dosage-chapter><div class="dosage-visual">Transparent product PNG or factory photography</div><div class="dosage-copy"><span class="market-index">07 / 08</span><h3>Liquids</h3><p>Shots, drops, bottles, and other liquid nutrition packaging routes.</p><p class="dosage-moq">Contact us for MOQ</p></div></article>
+    <article class="dosage-chapter" data-dosage-chapter><div class="dosage-visual">Transparent product PNG or factory photography</div><div class="dosage-copy"><span class="market-index">08 / 08</span><h3>Oral Films</h3><p>Thin, portable oral delivery developed around formula and pack feasibility.</p><p class="dosage-moq">Contact us for MOQ</p></div></article>
+  </div>
+</section>
+
+<section data-overbuilt-id="custom-development" class="v2-section v2-dark"><p class="v2-kicker">06 · Custom Development</p><h2 class="v2-title">Turn a market opportunity into a product that can be made.</h2><div class="v2-blueprint"><div><div class="v2-note"><b>Formula Strategy</b><span>Audience, ingredient system, and serving logic</span></div><div class="v2-note"><b>Sensory Design</b><span>Flavor, color, shape, and texture</span></div></div><div class="v2-core"><div><span class="market-index">YOUR PRODUCT</span><h3>Formula × Form × Pack</h3><p>OEM / ODM Development Core</p></div></div><div><div class="v2-note"><b>Packaging Fit</b><span>Container, label, shelf, and transport</span></div><div class="v2-note"><b>Project Review</b><span>MOQ, timing, and manufacturing feasibility</span></div></div></div></section>
+
+<section data-overbuilt-id="manufacturing" class="v2-section"><p class="v2-kicker">07 · Manufacturing Proof</p><h2 class="v2-title">Development, production, and delivery inside one real manufacturing system.</h2><div class="v2-media">Real clean-production panorama · 2400 × 1350 · factory-owned asset required</div><div class="v2-ledger"><div><span>Gummies</span><b>5,000+</b><small>metric tons / year</small></div><div><span>Hard Capsules</span><b>54B+</b><small>pieces / year · verify before launch</small></div><div><span>Tablets</span><b>36B+</b><small>pieces / year · verify before launch</small></div><div><span>Other Lines</span><b>Multi-form</b><small>liquid, powder, and softgel</small></div></div></section>
+
+<section data-overbuilt-id="quality" class="v2-section"><p class="v2-kicker">08 · Quality &amp; Compliance</p><h2 class="v2-title">Not a wall of logos. A traceable batch-quality record.</h2><div class="quality-record"><div class="quality-side"><p class="v2-kicker">Batch Quality Record</p><h3>From incoming material to finished-product release</h3><p>Certifications, testing, and export documentation remain subject to valid factory records and project scope.</p></div><div class="quality-main"><div class="quality-row"><b>01 · Raw Material</b><span>Identity, specification, and supplier documentation</span><em>Verification</em></div><div class="quality-row"><b>02 · In Process</b><span>Critical production and process controls</span><em>Production</em></div><div class="quality-row"><b>03 · Finished Product</b><span>Finished-product review and batch documentation</span><em>Release</em></div><div class="quality-row"><b>04 · Export Support</b><span>Documentation configured by market and project</span><em>Project-specific</em></div></div></div></section>
+
+<section data-overbuilt-id="project-runway" class="v2-section v2-dark"><p class="v2-kicker">09 · Six-Step Project Runway</p><h2 class="v2-title">From the first brief to the first production delivery.</h2><div class="project-runway"><div class="runway-step"><span>01</span><b>Brief</b><p>Define market, format, formula, pack, and volume.</p></div><div class="runway-step"><span>02</span><b>Develop</b><p>Review formula and manufacturing feasibility.</p></div><div class="runway-step"><span>03</span><b>Sample</b><p>Confirm samples and required adjustments.</p></div><div class="runway-step"><span>04</span><b>Pack</b><p>Coordinate packaging specifications and artwork.</p></div><div class="runway-step"><span>05</span><b>Make</b><p>Schedule and execute the production batch.</p></div><div class="runway-step"><span>06</span><b>Deliver</b><p>Inspect, release, and support delivery.</p></div></div></section>
+
+<section data-overbuilt-id="company-fit" class="v2-section"><p class="v2-kicker">10 · Built for Your Channel</p><h2 class="v2-title">One factory. Three paths to growth.</h2><div class="channel-network"><div class="channel-path"><span class="market-index">PATH A</span><h3>Nutrition Brands</h3><p class="v2-copy">Deeper OEM / ODM collaboration from product concept and formula differentiation through packaging.</p></div><div class="channel-node">VITHELO<br>Factory Partner</div><div class="channel-path"><span class="market-index">PATH B</span><h3>Cross-Border Sellers</h3><p class="v2-copy">A practical balance of launch speed, packaging fit, and multi-SKU planning.</p></div><div class="channel-path"><span class="market-index">PATH C</span><h3>Retail &amp; Supermarket</h3><p class="v2-copy">Stable supply, format architecture, and channel-ready delivery support.</p></div></div></section>
+
+<section data-overbuilt-id="contact" class="v2-section v2-orange" data-contact-state="NOT_CONFIGURED"><p class="v2-kicker">11 · Start a Project</p><h2 class="v2-title">Bring your next nutrition product into manufacturing.</h2><div class="contact-grid"><div><p class="v2-copy">Share your target market, dosage format, formula direction, packaging needs, and estimated volume. Our sales team will assess the right project path and MOQ.</p><form class="inquiry-form" id="project-form-overbuilt"><div class="inquiry-field"><label for="project-name-v2">Name / Company</label><input id="project-name-v2" placeholder="Your name and company"></div><div class="inquiry-field"><label for="project-format-v2">Dosage Format</label><select id="project-format-v2"><option>Gummies</option><option>Hard Capsules</option><option>Softgels</option><option>Tablets</option><option>Powders</option><option>Functional Gum</option><option>Liquids</option><option>Oral Films</option></select></div><div class="inquiry-field"><label for="project-brief-v2">Project Brief</label><input id="project-brief-v2" placeholder="Formula, packaging, and estimated volume"></div><button type="button" disabled aria-describedby="contact-pending-v2">Inquiry submission not configured</button></form></div><div><a class="contact-link" href="#contact-pending-v2">Email →</a><a class="contact-link" href="#contact-pending-v2">WhatsApp →</a><div id="contact-pending-v2" class="contact-pending">Contact details pending approval · NOT_CONFIGURED</div></div></div></section>
+<footer class="v2-footer"><div><strong>VITHELO</strong><p>Factory-owned overseas brand and export division</p></div><div><a href="#dosage-forms">Dosage Formats</a><br><a href="#manufacturing">Manufacturing</a><br><a href="#quality">Quality</a></div><div><small>B2B nutrition OEM / ODM preview. Production figures, certification scope, MOQ, and contact details require final verification before launch.</small></div></footer>
+
+<script type="text/plain">
+  import { decideMarketStageAction } from './market-stage-logic.mjs';
+  const stage = document.querySelector('[data-market-stage]');
+  const stories = [...stage.querySelectorAll('[data-market-story]')];
+  const previous = stage.querySelector('[data-market-prev]');
+  const next = stage.querySelector('[data-market-next]');
+  const progress = stage.querySelector('[data-market-progress]');
+  const desktop = matchMedia('(min-width: 761px)');
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  let activeIndex = 0;
+  let transitionLocked = false;
+
+  function showStory(index) {
+    activeIndex = Math.max(0, Math.min(stories.length - 1, index));
+    stories.forEach((story, storyIndex) => {
+      const active = storyIndex === activeIndex;
+      story.classList.toggle('is-active', active);
+      story.setAttribute('aria-hidden', active ? 'false' : 'true');
+    });
+    progress.textContent = `${String(activeIndex + 1).padStart(2, '0')} / ${String(stories.length).padStart(2, '0')}`;
+    previous.disabled = activeIndex === 0;
+    next.disabled = activeIndex === stories.length - 1;
+    if (!reducedMotion.matches) {
+      transitionLocked = true;
+      setTimeout(() => { transitionLocked = false; }, 540);
+    }
+  }
+
+  stage.addEventListener('wheel', (event) => {
+    if (!desktop.matches || reducedMotion.matches || transitionLocked || Math.abs(event.deltaY) < 4) return;
+    const rect = stage.getBoundingClientRect();
+    const pointerRatio = (event.clientX - rect.left) / rect.width;
+    const action = decideMarketStageAction({ index: activeIndex, count: stories.length, direction: event.deltaY > 0 ? 1 : -1, pointerRatio });
+    if (action.type === 'release') return;
+    event.preventDefault();
+    showStory(action.index);
+  }, { passive: false });
+  previous.addEventListener('click', () => showStory(activeIndex - 1));
+  next.addEventListener('click', () => showStory(activeIndex + 1));
+  stage.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') { event.preventDefault(); showStory(activeIndex - 1); }
+    if (event.key === 'ArrowDown' || event.key === 'ArrowRight') { event.preventDefault(); showStory(activeIndex + 1); }
+    if (event.key === 'Escape') document.activeElement?.blur();
+  });
+  showStory(0);
+</script>
+</div>
+<!-- ACTIVE PREVIEW END -->
+
+<!-- FOCUSED PREVIEW START -->
+<div class="focused-full-preview">
+<!-- Complete homepage preview: sections 3–11. The approved hero and proof strip remain above. -->
+<style>
+  :root{--vp-ivory:#f3f0e8;--vp-ink:#171918;--vp-muted:#646761;--vp-line:rgba(23,25,24,.18);--vp-orange:#ec5b32;--vp-cobalt:#2349d8}
+  .vp-section{position:relative;padding:clamp(78px,9vw,144px) clamp(22px,6vw,96px);overflow:hidden;background:var(--vp-ivory);color:var(--vp-ink)}
+  .vp-kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;margin:0 0 24px;color:var(--vp-muted)}
+  .vp-title{font-size:clamp(42px,7vw,104px);line-height:.9;letter-spacing:-.065em;margin:0;max-width:1100px;font-weight:500}
+  .vp-copy{font-size:clamp(17px,1.7vw,25px);line-height:1.45;max-width:720px;color:var(--vp-muted)}
+  .vp-rule{height:1px;background:var(--vp-line);margin:54px 0}
+  .vp-media{min-height:clamp(360px,55vw,760px);border:1px solid var(--vp-line);display:flex;align-items:flex-end;padding:28px;background:radial-gradient(circle at 62% 36%,rgba(255,255,255,.96),rgba(210,210,200,.5) 30%,rgba(40,44,41,.88) 100%);color:white;text-transform:uppercase;letter-spacing:.14em;font-size:11px}
+  .vp-index{font-size:12px;letter-spacing:.12em;color:var(--vp-muted)}
+  .vp-rail{display:grid;grid-template-columns:repeat(6,minmax(190px,1fr));gap:0;border-top:1px solid var(--vp-line);overflow:auto}
+  .vp-rail>*{padding:28px 24px;border-right:1px solid var(--vp-line);min-height:170px}
+  .vp-rail strong{display:block;font-size:20px;font-weight:500;margin:16px 0 8px}
+  .vp-dark{background:#171918;color:#f3f0e8}.vp-dark .vp-kicker,.vp-dark .vp-copy,.vp-dark .vp-index{color:#adb0aa}.vp-dark .vp-rule{background:rgba(255,255,255,.2)}
+  .vp-orange{background:var(--vp-orange);color:#161616}.vp-orange .vp-kicker,.vp-orange .vp-copy{color:rgba(22,22,22,.72)}
+  .vp-chapter{min-height:82vh;display:grid;grid-template-columns:minmax(280px,.8fr) minmax(420px,1.3fr);gap:7vw;align-items:center;border-top:1px solid var(--vp-line)}
+  .vp-chapter:nth-child(even){direction:rtl}.vp-chapter>*{direction:ltr}
+  .vp-chapter h3{font-size:clamp(42px,5.6vw,84px);line-height:.94;letter-spacing:-.055em;margin:16px 0 26px;font-weight:500}
+  .vp-chapter .vp-media{min-height:58vh}
+  .vp-spectrum{display:flex;gap:0;margin-top:70px;border-block:1px solid var(--vp-line);overflow-x:auto}
+  .vp-dose{flex:0 0 min(270px,65vw);min-height:360px;padding:28px;border-right:1px solid var(--vp-line);display:flex;flex-direction:column;justify-content:space-between}
+  .vp-dose .shape{height:170px;background:radial-gradient(circle at 44% 38%,#ffd8a6 0,#eb6d33 38%,#8f2b20 70%,transparent 72%);filter:saturate(.9)}
+  .vp-dose:nth-child(2n) .shape{background:radial-gradient(ellipse at center,#ffe68a,#c89716 46%,transparent 48%)}
+  .vp-dose:nth-child(3n) .shape{background:radial-gradient(ellipse at center,#f2efe6,#aaa79e 49%,transparent 51%)}
+  .vp-dose h3{font-size:27px;margin:0 0 10px}.vp-dose p{color:var(--vp-muted);margin:0}
+  .vp-blueprint{display:grid;grid-template-columns:1fr minmax(340px,1.15fr) 1fr;gap:32px;align-items:center;margin-top:76px}
+  .vp-blueprint-center{aspect-ratio:1;border-radius:50%;border:1px solid currentColor;display:grid;place-items:center;text-align:center;background:radial-gradient(circle,rgba(255,255,255,.12),transparent 67%)}
+  .vp-note{padding:28px 0;border-top:1px solid rgba(255,255,255,.24)}.vp-note strong{display:block;font-size:22px;margin-bottom:8px}.vp-note span{color:#adb0aa}
+  .vp-ledger{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--vp-line);margin-top:46px}.vp-ledger div{padding:26px;border-right:1px solid var(--vp-line)}.vp-ledger b{display:block;font-size:clamp(26px,3vw,48px);font-weight:500}
+  .vp-document{margin-top:70px;border:1px solid var(--vp-line);display:grid;grid-template-columns:.7fr 1.3fr;background:#faf8f2}.vp-doc-side{padding:40px;border-right:1px solid var(--vp-line)}.vp-doc-main{padding:40px}.vp-doc-row{display:grid;grid-template-columns:1fr 1fr 1fr;padding:20px 0;border-top:1px solid var(--vp-line)}
+  .vp-runway{margin-top:80px;display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid rgba(255,255,255,.24)}.vp-step{padding:30px 20px 80px;border-right:1px solid rgba(255,255,255,.24)}.vp-step b{display:block;font-size:clamp(28px,4vw,60px);font-weight:400;margin:24px 0}.vp-step p{color:#adb0aa}
+  .vp-network{display:grid;grid-template-columns:1fr 190px 1fr;align-items:stretch;margin-top:70px}.vp-path{padding:44px;border-block:1px solid var(--vp-line)}.vp-path+.vp-path{border-left:1px solid var(--vp-line)}.vp-path h3{font-size:clamp(32px,4vw,62px);letter-spacing:-.045em;font-weight:500}.vp-node{display:grid;place-items:center;border:1px solid var(--vp-line);border-radius:50%;aspect-ratio:1;align-self:center;text-align:center;background:#fff}
+  .vp-contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:9vw;margin-top:70px}.vp-contact-link{display:block;font-size:clamp(30px,4.5vw,72px);line-height:1.05;letter-spacing:-.04em;color:inherit;text-decoration:none;border-top:1px solid rgba(0,0,0,.28);padding:24px 0}.vp-pending{padding:20px 0;border-top:1px solid rgba(0,0,0,.28);font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+  .vp-form{margin-top:42px}.vp-field{display:grid;grid-template-columns:150px 1fr;align-items:center;border-top:1px solid rgba(0,0,0,.28);padding:16px 0}.vp-field label{font-size:12px;text-transform:uppercase;letter-spacing:.1em}.vp-field input,.vp-field select{appearance:none;border:0;background:transparent;font:inherit;color:inherit;padding:8px;outline-offset:4px}.vp-form button{width:100%;min-height:58px;border:1px solid #171918;background:#171918;color:white;margin-top:18px;font:inherit}.vp-form button:disabled{opacity:.72;cursor:not-allowed}
+  .vp-footer{padding:50px clamp(22px,6vw,96px);background:#111312;color:#eae8e1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px}.vp-footer a{color:inherit}.vp-footer small{color:#93968f}
+  .focused-market-stage{min-height:100svh;display:flex;flex-direction:column;justify-content:center}
+  .focused-market-stage .vp-title{font-size:clamp(42px,6vw,88px)}
+  .focused-market-stage .vp-chapter{display:none;min-height:58vh;margin-top:34px}
+  .focused-market-stage .vp-chapter.is-focused-active{display:grid}
+  .focused-market-stage:not(.is-ready) .vp-chapter:first-of-type{display:grid}
+  .focused-market-controls{position:absolute;right:clamp(22px,6vw,96px);bottom:30px;display:flex;align-items:center;gap:10px;z-index:4}
+  .focused-market-controls button{width:48px;height:48px;border:1px solid var(--vp-line);background:transparent;color:inherit}
+  .focused-market-controls button:disabled{opacity:.3}.focused-market-progress{min-width:62px;text-align:center;font-size:12px;letter-spacing:.12em}
+  #dosage-forms{min-height:100svh;display:flex;flex-direction:column;justify-content:center}
+  .vp-spectrum.dosage-grid{display:grid;grid-template-columns:repeat(4,1fr);overflow:visible;margin-top:42px}
+  .dosage-grid .vp-dose{min-width:0;min-height:230px;padding:20px;border-bottom:1px solid var(--vp-line)}
+  .dosage-grid .vp-dose:nth-child(4n){border-right:0}.dosage-grid .vp-dose .shape{height:100px}.dosage-grid .vp-dose h3{font-size:22px}
+  @media(max-width:760px){.vp-chapter{grid-template-columns:1fr;min-height:auto;padding:70px 0}.vp-chapter:nth-child(even){direction:ltr}.vp-blueprint{grid-template-columns:1fr}.vp-blueprint-center{order:-1}.vp-ledger{grid-template-columns:1fr 1fr}.vp-document{grid-template-columns:1fr}.vp-doc-side{border-right:0;border-bottom:1px solid var(--vp-line)}.vp-doc-row{grid-template-columns:1fr;gap:6px}.vp-runway{grid-template-columns:1fr 1fr}.vp-network,.vp-contact-grid,.vp-footer{grid-template-columns:1fr}.vp-network{gap:30px}.vp-node{width:150px}.vp-path+.vp-path{border-left:0}.vp-field{grid-template-columns:1fr}}
+  @media(max-width:760px){.focused-market-stage{display:block;min-height:auto}.focused-market-stage .vp-chapter,.focused-market-stage .vp-chapter.is-focused-active,.focused-market-stage:not(.is-ready) .vp-chapter:first-of-type{display:grid;min-height:82svh;margin-top:0}.focused-market-controls{display:none}.vp-spectrum.dosage-grid{grid-template-columns:repeat(2,1fr)}.dosage-grid .vp-dose{min-height:210px}.dosage-grid .vp-dose:nth-child(4n){border-right:1px solid var(--vp-line)}.dosage-grid .vp-dose:nth-child(2n){border-right:0}}
+  @media(prefers-reduced-motion:reduce){.focused-market-stage .vp-chapter{transition:none}}
+</style>
+
+<div id="hero" aria-hidden="true"></div><div id="proof" aria-hidden="true"></div>
+<section id="gummy-stage" class="vp-section">
+  <p class="vp-kicker">03 · Gummy Spotlight</p><h2 class="vp-title">Gummies are more than a format. They are a product language your brand can own.</h2>
+  <div class="vp-rule"></div><div class="vp-media">Real gummy macro asset · 2400 × 1400 · free commercial photography or factory shoot</div>
+  <div class="vp-rail"><div><span class="vp-index">01</span><strong>Formula Direction</strong><span>Benefit, flavor, and audience defined together</span></div><div><span class="vp-index">02</span><strong>Shape System</strong><span>Standard molds and custom development</span></div><div><span class="vp-index">03</span><strong>Taste &amp; Texture</strong><span>Gelatin, pectin, and sweetness routes</span></div><div><span class="vp-index">04</span><strong>Color &amp; Flavor</strong><span>A recognizable expression for your brand</span></div><div><span class="vp-index">05</span><strong>Packaging Fit</strong><span>Bottles, pouches, and multiple pack sizes</span></div><div><span class="vp-index">06</span><strong>MOQ</strong><span>Custom projects from 500 bottles</span></div></div>
+</section>
+
+<section id="solutions" class="vp-section focused-market-stage" data-focused-market-stage tabindex="-1">
+  <p class="vp-kicker">04 · Market-Ready Solutions</p><h2 class="vp-title">Market-Led Concepts, Ready to Build.</h2>
+  <div class="vp-chapter"><div><span class="vp-index">01 / 06</span><h3>Women’s Wellness</h3><p class="vp-copy">Daily wellness, life-stage support, and beauty-focused concepts developed around a clear consumer occasion.</p></div><div class="vp-media">Lifestyle asset · 2000 × 1500</div></div>
+  <div class="vp-chapter"><div><span class="vp-index">02 / 06</span><h3>Sleep, Stress &amp; Mood</h3><p class="vp-copy">Format-led concepts for rest, resilience, and everyday emotional wellbeing.</p></div><div class="vp-media">Night routine asset · 2000 × 1500</div></div>
+  <div class="vp-chapter"><div><span class="vp-index">03 / 06</span><h3>Beauty From Within</h3><p class="vp-copy">Collagen, antioxidant, skin, hair, and nail concepts translated into a distinctive branded routine.</p></div><div class="vp-media">Beauty nutrition asset · 2000 × 1500</div></div>
+  <div class="vp-chapter"><div><span class="vp-index">04 / 06</span><h3>Gut &amp; Digestive Health</h3><p class="vp-copy">Prebiotic, fiber, and digestive-wellness directions matched to a format people can use consistently.</p></div><div class="vp-media">Ingredient asset · 2000 × 1500</div></div>
+  <div class="vp-chapter"><div><span class="vp-index">05 / 06</span><h3>Daily Essentials</h3><p class="vp-copy">Vitamins, minerals, and everyday nutrition concepts built for straightforward routines.</p></div><div class="vp-media">Daily ritual asset · 2000 × 1500</div></div>
+  <div class="vp-chapter"><div><span class="vp-index">06 / 06</span><h3>Active Nutrition</h3><p class="vp-copy">Energy, movement, and recovery concepts suited to powders, gummies, and portable formats.</p></div><div class="vp-media">Active lifestyle asset · 2000 × 1500</div></div>
+</section>
+
+<section id="dosage-forms" class="vp-section">
+  <p class="vp-kicker">05 · Dosage Form Spectrum</p><h2 class="vp-title">Eight Formats. One Manufacturing System.</h2><p class="vp-copy">Flexible MOQ based on formula and packaging. Contact us for MOQ.</p>
+  <div class="vp-spectrum dosage-grid"><div class="vp-dose"><div class="shape"></div><div><h3>Gummies</h3><p>Custom projects from 500 bottles</p></div></div><div class="vp-dose"><div class="shape"></div><div><h3>Hard Capsules</h3><p>60,000–100,000 capsules</p></div></div><div class="vp-dose"><div class="shape"></div><div><h3>Softgels</h3><p>300,000 softgels</p></div></div><div class="vp-dose"><div class="shape"></div><div><h3>Tablets</h3><p>100,000 tablets</p></div></div><div class="vp-dose"><div class="shape"></div><div><h3>Powders</h3><p>100 kg</p></div></div><div class="vp-dose"><div class="shape"></div><div><h3>Functional Gum</h3><p>2 metric tons</p></div></div><div class="vp-dose"><div class="shape"></div><div><h3>Liquids</h3><p>Contact us for MOQ</p></div></div><div class="vp-dose"><div class="shape"></div><div><h3>Oral Films</h3><p>Contact us for MOQ</p></div></div></div>
+</section>
+
+<section id="custom-development" class="vp-section vp-dark">
+  <p class="vp-kicker">06 · Custom Development</p><h2 class="vp-title">Turn a market opportunity into a product that can be made.</h2>
+  <div class="vp-blueprint"><div><div class="vp-note"><strong>Formula Strategy</strong><span>Audience, ingredient system, and serving logic</span></div><div class="vp-note"><strong>Sensory Design</strong><span>Flavor, color, shape, and texture</span></div></div><div class="vp-blueprint-center"><div><span class="vp-index">YOUR PRODUCT</span><h3>Formula × Form × Pack</h3><p>OEM / ODM Development Core</p></div></div><div><div class="vp-note"><strong>Packaging Fit</strong><span>Container, label, shelf, and transport</span></div><div class="vp-note"><strong>Project Review</strong><span>MOQ, timing, and manufacturing feasibility</span></div></div></div>
+</section>
+
+<section id="manufacturing" class="vp-section">
+  <p class="vp-kicker">07 · Manufacturing Proof</p><h2 class="vp-title">Development, production, and delivery inside one real manufacturing system.</h2>
+  <div class="vp-media">Real clean-production panorama · 2400 × 1350 · factory-owned asset required</div>
+  <div class="vp-ledger"><div><span>Gummies</span><b>5,000+</b><small>metric tons / year</small></div><div><span>Hard Capsules</span><b>54B+</b><small>pieces / year · verify before launch</small></div><div><span>Tablets</span><b>36B+</b><small>pieces / year · verify before launch</small></div><div><span>Other Lines</span><b>Multi-form</b><small>liquid, powder, softgel</small></div></div>
+</section>
+
+<section id="quality" class="vp-section">
+  <p class="vp-kicker">08 · Quality &amp; Compliance</p><h2 class="vp-title">Not a wall of logos. A traceable batch-quality record.</h2>
+  <div class="vp-document"><div class="vp-doc-side"><p class="vp-kicker">Batch Quality Record</p><h3>From incoming material to finished-product release</h3><p class="vp-copy">Certifications, testing, and export documentation remain subject to valid factory records and project scope.</p></div><div class="vp-doc-main"><div class="vp-doc-row"><b>01 · Raw Material</b><span>Identity, specification, and supplier documentation</span><em>Verification</em></div><div class="vp-doc-row"><b>02 · In Process</b><span>Critical production and process controls</span><em>Production</em></div><div class="vp-doc-row"><b>03 · Finished Product</b><span>Finished-product review and batch documentation</span><em>Release</em></div><div class="vp-doc-row"><b>04 · Export Support</b><span>Documentation configured by market and project</span><em>Project-specific</em></div></div></div>
+</section>
+
+<section id="project-runway" class="vp-section vp-dark">
+  <p class="vp-kicker">09 · 6-Step Project Runway</p><h2 class="vp-title">From the first brief to the first production delivery.</h2>
+  <div class="vp-runway"><div class="vp-step"><span>01</span><b>Brief</b><p>Define market, format, formula, pack, and volume.</p></div><div class="vp-step"><span>02</span><b>Develop</b><p>Review formula and manufacturing feasibility.</p></div><div class="vp-step"><span>03</span><b>Sample</b><p>Confirm samples and required adjustments.</p></div><div class="vp-step"><span>04</span><b>Pack</b><p>Coordinate packaging specifications and artwork.</p></div><div class="vp-step"><span>05</span><b>Make</b><p>Schedule and execute the production batch.</p></div><div class="vp-step"><span>06</span><b>Deliver</b><p>Inspect, release, and support delivery.</p></div></div>
+</section>
+
+<section id="company-fit" class="vp-section">
+  <p class="vp-kicker">10 · Built for Your Channel</p><h2 class="vp-title">One factory. Three paths to growth.</h2>
+  <div class="vp-network"><div class="vp-path"><span class="vp-index">PATH A</span><h3>Nutrition Brands</h3><p class="vp-copy">Deeper OEM / ODM collaboration from product concept and formula differentiation through packaging.</p></div><div class="vp-node">VITHELO<br>Factory Partner</div><div class="vp-path"><span class="vp-index">PATH B</span><h3>Cross-Border Sellers</h3><p class="vp-copy">A practical balance of launch speed, packaging fit, and multi-SKU planning.</p></div><div class="vp-path"><span class="vp-index">PATH C</span><h3>Retail &amp; Supermarket</h3><p class="vp-copy">Stable supply, format architecture, and channel-ready delivery support.</p></div></div>
+</section>
+
+<section id="contact" class="vp-section vp-orange" data-contact-state="NOT_CONFIGURED">
+  <p class="vp-kicker">11 · Start a Project</p><h2 class="vp-title">Bring your next nutrition product into manufacturing.</h2>
+  <div class="vp-contact-grid"><div><p class="vp-copy">Share your target market, dosage format, formula direction, packaging needs, and estimated volume. Our sales team will assess the right project path and MOQ.</p><form id="project-form" class="vp-form"><div class="vp-field"><label for="project-name">Name / Company</label><input id="project-name" placeholder="Your name and company"></div><div class="vp-field"><label for="project-formula">Dosage Format</label><select id="project-formula"><option>Gummies</option><option>Hard Capsules</option><option>Softgels</option><option>Tablets</option><option>Powders</option><option>Functional Gum</option><option>Liquids</option><option>Oral Films</option></select></div><div class="vp-field"><label for="project-brief">Project Brief</label><input id="project-brief" placeholder="Formula, packaging and estimated volume"></div><button type="button" disabled aria-describedby="contact-pending">Inquiry submission not configured</button></form></div><div><a class="vp-contact-link" href="#contact-pending">Email →</a><a class="vp-contact-link" href="#contact-pending">WhatsApp →</a><div id="contact-pending" class="vp-pending">Contact details pending approval · NOT_CONFIGURED</div></div></div>
+</section>
+<footer class="vp-footer"><div><strong>VITHELO</strong><p>Factory-owned overseas brand and export division</p></div><div><a href="#dosage-forms">Dosage Formats</a><br><a href="#manufacturing">Manufacturing</a><br><a href="#quality">Quality</a></div><div><small>B2B nutrition OEM / ODM preview. Production figures, certification scope, MOQ, and contact details require final verification before launch.</small></div></footer>
+
+<script type="module">
+  import { decideMarketStageAction } from './market-stage-logic.mjs';
+  const focusedStage = document.querySelector('[data-focused-market-stage]');
+  const focusedStories = [...focusedStage.querySelectorAll('.vp-chapter')];
+  const focusedDesktop = matchMedia('(min-width: 761px)');
+  const focusedReducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  let focusedIndex = 0;
+  let focusedLocked = false;
+  const focusedControls = document.createElement('div');
+  focusedControls.className = 'focused-market-controls';
+  focusedControls.innerHTML = '<button type="button" data-focused-prev aria-label="Previous market direction">←</button><span class="focused-market-progress" aria-live="polite">01 / 06</span><button type="button" data-focused-next aria-label="Next market direction">→</button>';
+  focusedStage.append(focusedControls);
+  const focusedPrevious = focusedControls.querySelector('[data-focused-prev]');
+  const focusedNext = focusedControls.querySelector('[data-focused-next]');
+  const focusedProgress = focusedControls.querySelector('.focused-market-progress');
+
+  function showFocusedStory(index) {
+    focusedIndex = Math.max(0, Math.min(focusedStories.length - 1, index));
+    focusedStories.forEach((story, storyIndex) => {
+      const active = storyIndex === focusedIndex;
+      story.classList.toggle('is-focused-active', active);
+      story.setAttribute('aria-hidden', focusedDesktop.matches && !active ? 'true' : 'false');
+    });
+    focusedStage.classList.add('is-ready');
+    focusedProgress.textContent = `${String(focusedIndex + 1).padStart(2, '0')} / ${String(focusedStories.length).padStart(2, '0')}`;
+    focusedPrevious.disabled = focusedIndex === 0;
+    focusedNext.disabled = focusedIndex === focusedStories.length - 1;
+    if (!focusedReducedMotion.matches) {
+      focusedLocked = true;
+      setTimeout(() => { focusedLocked = false; }, 520);
+    }
+  }
+
+  focusedStage.addEventListener('wheel', (event) => {
+    if (!focusedDesktop.matches || focusedReducedMotion.matches || focusedLocked || Math.abs(event.deltaY) < 4) return;
+    const rect = focusedStage.getBoundingClientRect();
+    const action = decideMarketStageAction({ index: focusedIndex, count: focusedStories.length, direction: event.deltaY > 0 ? 1 : -1, pointerRatio: (event.clientX - rect.left) / rect.width });
+    if (action.type === 'release') return;
+    event.preventDefault();
+    showFocusedStory(action.index);
+  }, { passive: false });
+  focusedPrevious.addEventListener('click', () => showFocusedStory(focusedIndex - 1));
+  focusedNext.addEventListener('click', () => showFocusedStory(focusedIndex + 1));
+  focusedStage.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') { event.preventDefault(); showFocusedStory(focusedIndex - 1); }
+    if (event.key === 'ArrowDown' || event.key === 'ArrowRight') { event.preventDefault(); showFocusedStory(focusedIndex + 1); }
+    if (event.key === 'Escape') document.activeElement?.blur();
+  });
+  showFocusedStory(0);
+</script>
+
+</div>
+<!-- FOCUSED PREVIEW END -->
+<div class="legacy-preview" hidden aria-hidden="true">
+<section id="products" class="py-20 product-spotlight-wrap">
+  <div class="container-main">
+    <div class="grid lg:grid-cols-[1.3fr_1fr_auto] gap-8 items-start">
+      <div class="reveal">
+        <h2 class="text-4xl md:text-5xl font-bold leading-tight text-white max-w-lg">
+          Signature nutrition programs designed for modern wellness brands.
+        </h2>
+      </div>
+      <div class="reveal lg:pt-4">
+        <p class="text-sm md:text-base leading-7 text-slate-200 max-w-md">
+          Featured concepts that reflect VITHELO’s core strengths in beauty, sleep, energy and daily nutrition. Hover over each product to see the vertical enlargement interaction.
+        </p>
+      </div>
+      <div class="reveal lg:pt-4">
+        <a href="#capability" class="text-sm font-semibold text-white border-b border-white/60 pb-1 inline-flex items-center gap-2">View More <span>→</span></a>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6 mt-12">
+      <article class="product-spotlight-card reveal">
+        <div class="flex items-start justify-between gap-4">
+          <span class="product-spotlight-tag">Featured</span>
+          <span class="product-spotlight-code">BG-01</span>
+        </div>
+        <div class="product-spotlight-meta">
+          <h3 class="text-2xl font-semibold text-white">Beauty Gummies</h3>
+        </div>
+        <div class="product-spotlight-frame mt-4">
+          <img src="https://placehold.co/520x760" alt="Beauty gummies featured product placeholder" class="product-spotlight-image">
+        </div>
+        <div class="mt-4 flex flex-col items-start gap-4">
+          <a href="#cta" class="product-spotlight-btn">Request Quote</a>
+          <p class="text-sm text-slate-300">Collagen, biotin and women’s wellness directions.</p>
+        </div>
+      </article>
+
+      <article class="product-spotlight-card reveal">
+        <div class="flex items-start justify-between gap-4">
+          <span class="product-spotlight-tag">New</span>
+          <span class="product-spotlight-code">SS-02</span>
+        </div>
+        <div class="product-spotlight-meta">
+          <h3 class="text-2xl font-semibold text-white">Sleep Support</h3>
+        </div>
+        <div class="product-spotlight-frame mt-4">
+          <img src="https://placehold.co/520x760" alt="Sleep support featured product placeholder" class="product-spotlight-image">
+        </div>
+        <div class="mt-4 flex flex-col items-start gap-4">
+          <a href="#cta" class="product-spotlight-btn">Request Quote</a>
+          <p class="text-sm text-slate-300">Capsule and gummy programs for sleep and relaxation support.</p>
+        </div>
+      </article>
+
+      <article class="product-spotlight-card reveal">
+        <div class="flex items-start justify-between gap-4">
+          <span class="product-spotlight-tag">New</span>
+          <span class="product-spotlight-code">EN-03</span>
+        </div>
+        <div class="product-spotlight-meta">
+          <h3 class="text-2xl font-semibold text-white">Energy + Focus</h3>
+        </div>
+        <div class="product-spotlight-frame mt-4">
+          <img src="https://placehold.co/520x760" alt="Energy and focus featured product placeholder" class="product-spotlight-image">
+        </div>
+        <div class="mt-4 flex flex-col items-start gap-4">
+          <a href="#cta" class="product-spotlight-btn">Request Quote</a>
+          <p class="text-sm text-slate-300">Daily support concepts tailored to energy and cognitive routines.</p>
+        </div>
+      </article>
+
+      <article class="product-spotlight-card reveal">
+        <div class="flex items-start justify-between gap-4">
+          <span class="product-spotlight-tag">New</span>
+          <span class="product-spotlight-code">DN-04</span>
+        </div>
+        <div class="product-spotlight-meta">
+          <h3 class="text-2xl font-semibold text-white">Daily Nutrition</h3>
+        </div>
+        <div class="product-spotlight-frame mt-4">
+          <img src="https://placehold.co/520x760" alt="Daily nutrition featured product placeholder" class="product-spotlight-image">
+        </div>
+        <div class="mt-4 flex flex-col items-start gap-4">
+          <a href="#cta" class="product-spotlight-btn">Request Quote</a>
+          <p class="text-sm text-slate-300">Powder, capsule and sachet concepts for daily wellness categories.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="py-24" style="background:#F8F7F1;">
+  <div class="container-main">
+
+    <div class="grid lg:grid-cols-[1fr_1.1fr] gap-16 items-center">
+
+      <div class="reveal">
+        <p class="text-sm uppercase tracking-[0.14em] mb-5" style="color:#627D98;">Product Categories</p>
+        <h2 class="text-5xl font-bold leading-tight" style="color:#102A43;">
+          Nutrition solutions designed for every stage of modern wellness.
+        </h2>
+        <p class="mt-6 text-base leading-8 max-w-lg">
+          Explore VITHELO's core supplement formats, from daily wellness to beauty, sports and functional nutrition programs.
+        </p>
+      </div>
+
+      <div class="reveal">
+        <div class="rounded-3xl overflow-hidden bg-white p-8">
+          <img src="https://placehold.co/720x480" 
+          alt="Featured nutrition product collection placeholder"
+          class="w-full rounded-2xl">
+        </div>
+
+        <div class="grid grid-cols-3 gap-4 mt-4">
+          <img src="https://placehold.co/240x180" alt="Nutrition application image" class="rounded-xl">
+          <img src="https://placehold.co/240x180" alt="Supplement packaging image" class="rounded-xl">
+          <img src="https://placehold.co/240x180" alt="Lifestyle nutrition image" class="rounded-xl">
+        </div>
+      </div>
+
+    </div>
+
+
+    
+
+  </div>
+</section>
+
+<section id="capability" class="py-20">
+  <div class="container-main">
+    <div class="max-w-2xl reveal">
+      <p class="text-sm uppercase tracking-[0.14em] mb-4" style="color:#627D98;">Manufacturing Strength</p>
+      <h2 class="text-4xl font-bold mb-4" style="color:#102A43;">OEM / ODM Manufacturing Capability</h2>
+      <p class="text-base leading-7">From formulation to packaging, VITHELO supports end-to-end supplement development for global brand owners.</p>
+    </div>
+
+    <div class="grid md:grid-cols-4 gap-8 mt-12">
+      <div class="card reveal">
+        <h3 class="text-lg font-semibold" style="color:#102A43;">Formula Development</h3>
+        <p class="mt-3">Custom concept support and formula planning aligned with category direction.</p>
+      </div>
+      <div class="card reveal">
+        <h3 class="text-lg font-semibold" style="color:#102A43;">Private Label</h3>
+        <p class="mt-3">Brand-ready product solutions for businesses seeking fast and flexible market launch.</p>
+      </div>
+      <div class="card reveal">
+        <h3 class="text-lg font-semibold" style="color:#102A43;">Packaging Customization</h3>
+        <p class="mt-3">Support for bottle, pouch, sachet and format-specific packaging requirements.</p>
+      </div>
+      <div class="card reveal">
+        <h3 class="text-lg font-semibold" style="color:#102A43;">Production Management</h3>
+        <p class="mt-3">Structured project execution with manufacturing coordination and delivery planning.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process" class="py-20" style="background:#F5F7FA;">
+  <div class="container-main">
+    <div class="max-w-2xl reveal">
+      <p class="text-sm uppercase tracking-[0.14em] mb-4" style="color:#627D98;">Project Workflow</p>
+      <h2 class="text-4xl font-bold mb-4" style="color:#102A43;">OEM Process</h2>
+      <p class="text-base leading-7">A clear process helps buyers understand how ideas move into scalable nutrition products.</p>
+    </div>
+    <div class="grid md:grid-cols-6 gap-6 mt-12">
+      <div class="card reveal"><div class="text-sm font-semibold mb-3" style="color:#E6772E;">01</div><h3 class="text-lg font-semibold" style="color:#102A43;">Idea</h3></div>
+      <div class="card reveal"><div class="text-sm font-semibold mb-3" style="color:#E6772E;">02</div><h3 class="text-lg font-semibold" style="color:#102A43;">Formula</h3></div>
+      <div class="card reveal"><div class="text-sm font-semibold mb-3" style="color:#E6772E;">03</div><h3 class="text-lg font-semibold" style="color:#102A43;">Sample</h3></div>
+      <div class="card reveal"><div class="text-sm font-semibold mb-3" style="color:#E6772E;">04</div><h3 class="text-lg font-semibold" style="color:#102A43;">Production</h3></div>
+      <div class="card reveal"><div class="text-sm font-semibold mb-3" style="color:#E6772E;">05</div><h3 class="text-lg font-semibold" style="color:#102A43;">QC</h3></div>
+      <div class="card reveal"><div class="text-sm font-semibold mb-3" style="color:#E6772E;">06</div><h3 class="text-lg font-semibold" style="color:#102A43;">Delivery</h3></div>
+    </div>
+  </div>
+</section>
+
+
+<section id="cta" class="final-outro-section">
+  <div class="final-outro-sticky">
+    <div class="footer-main">
+      <div class="container-main">
+        <div class="grid lg:grid-cols-[1.4fr_1.15fr] gap-16">
+          <div>
+            <div class="footer-logo">VITHELO ●</div>
+            <h2 class="footer-headline mt-8">
+              Precision nutrition manufacturing for global brands, built through formulation, quality control and long-term supply collaboration.
+            </h2>
+            <p class="footer-subcopy mt-8">
+              Discuss your product direction with the VITHELO team. We support OEM, ODM and private label nutrition projects across multiple formats.
+            </p>
+            <a href="#" class="footer-cta mt-8">
+              <span>Start Your Project Inquiry</span>
+              <span>→</span>
+            </a>
+            <div class="footer-note">
+              Business-use website only. Product claims, formulas, MOQ, lead time and regulatory suitability are subject to project confirmation.
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-10">
+            <div class="footer-links-col">
+              <div class="footer-links-title">Products</div>
+              <a href="#">Gummies</a>
+              <a href="#">Capsules</a>
+              <a href="#">Powders</a>
+              <a href="#">Liquid Supplements</a>
+            </div>
+            <div class="footer-links-col">
+              <div class="footer-links-title">Capability</div>
+              <a href="#">OEM / ODM</a>
+              <a href="#">Formula Development</a>
+              <a href="#">Packaging Customization</a>
+              <a href="#">Quality Control</a>
+            </div>
+            <div class="footer-links-col">
+              <div class="footer-links-title">Company</div>
+              <a href="#">About VITHELO</a>
+              <a href="#">Manufacturing</a>
+              <a href="#">Resources</a>
+              <a href="#">Contact</a>
+            </div>
+            <div class="footer-links-col">
+              <div class="footer-links-title">Support</div>
+              <a href="#">Inquiry Guide</a>
+              <a href="#">Project Workflow</a>
+              <a href="#">FAQs</a>
+              <a href="#">Global Supply</a>
+            </div>
+            <div class="footer-links-col">
+              <div class="footer-links-title">Social</div>
+              <a href="#">LinkedIn</a>
+              <a href="#">Instagram</a>
+              <a href="#">YouTube</a>
+              <a href="#">Email</a>
+            </div>
+            <div class="footer-links-col">
+              <div class="footer-links-title">Legal</div>
+              <a href="#">Privacy Policy</a>
+              <a href="#">Terms & Conditions</a>
+              <a href="#">Accessibility</a>
+              <a href="#">Consent Preferences</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-reveal-wrap">
+      <div class="footer-reveal-panel" id="footerRevealPanel">
+        <div class="footer-reveal-bg"></div>
+        <div class="footer-reveal-overlay"></div>
+        <div class="footer-reveal-word">VITHELO</div>
+        <div class="footer-reveal-copy">© 2026 VITHELO. Global Nutrition OEM / ODM Manufacturing Partner.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="py-10" style="background:#0B1F33;color:white;">
+  <div class="container-main flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
+    <div class="font-semibold">VITHELO</div>
+    <div class="text-sm text-slate-300">Global Nutrition OEM / ODM Manufacturing Partner</div>
+  </div>
+</footer>
+
+</main>
+
+</div>
+<script>
+document.querySelectorAll('.fade-up').forEach((el) => {
+  requestAnimationFrame(() => el.classList.add('show'));
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+const outroSection = document.querySelector('.final-outro-section');
+const revealPanel = document.getElementById('footerRevealPanel');
+
+function updateFooterReveal() {
+  if (!outroSection || !revealPanel) return;
+  const rect = outroSection.getBoundingClientRect();
+  const viewport = window.innerHeight || document.documentElement.clientHeight;
+
+  // Progress starts when section top reaches viewport bottom
+  const total = rect.height - viewport;
+  let progress = 0;
+  if (total > 0) {
+    progress = (viewport - rect.top) / total;
+  }
+  progress = Math.max(0, Math.min(1, progress));
+
+  // Slow upward pull-out effect, matching the stepped screenshots
+  const translatePercent = 96 - (progress * 96);
+  revealPanel.style.transform = `translateY(${translatePercent}%)`;
+}
+
+window.addEventListener('scroll', updateFooterReveal, { passive: true });
+window.addEventListener('resize', updateFooterReveal);
+updateFooterReveal();
+</script>
+</body>
+</html>
