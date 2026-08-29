@@ -1,22 +1,23 @@
 import type { Metadata } from "next";
-import { HomePagePattern } from "@/components/patterns/home-page";
-import type { NutritionProduct } from "@/content/schema";
+import { VitheloB2BSiteFrame } from "@/components/core/vithelo-b2b-site-frame";
+import { VitheloB2BHome } from "@/components/patterns/vithelo-b2b-home";
 import { localContentAdapter } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Nutrition for Human Rhythms | VITHELO",
-  description: "VITHELO nutrition discovery with explicit product, evidence, and safety boundaries.",
+  title: "VITHELO | Nutrition OEM ODM Manufacturing Partner",
+  description:
+    "Gummy-first nutrition OEM and ODM manufacturing across gummies, capsules, tablets, powders, liquids, functional gum and oral films.",
 };
 
 export default async function HomePage() {
-  const [content, evidence, products] = await Promise.all([
-    localContentAdapter.getHomeContent(),
-    localContentAdapter.listEvidence(),
-    localContentAdapter.listProducts(),
+  const [site, content] = await Promise.all([
+    localContentAdapter.getB2BSiteContent(),
+    localContentAdapter.getB2BHomeContent(),
   ]);
-  const nutritionProducts = products.filter(
-    (product): product is NutritionProduct => product.kind === "nutrition",
-  );
 
-  return <HomePagePattern content={content} evidence={evidence} nutritionProducts={nutritionProducts} products={products} />;
+  return (
+    <VitheloB2BSiteFrame content={site}>
+      <VitheloB2BHome content={content} />
+    </VitheloB2BSiteFrame>
+  );
 }

@@ -22,17 +22,18 @@ test("keyboard focus is visible and mobile navigation restores focus", async ({ 
   ).toBe(true);
 
   if (viewport && viewport.width < 1024) {
-    const menuButton = page.getByRole("button", { name: "Open menu" });
+    await page.goto("/products");
+    const menuButton = page.getByText("Menu", { exact: true });
     await menuButton.focus();
     await page.keyboard.press("Enter");
-    await expect(page.getByRole("dialog", { name: "Site navigation" })).toBeVisible();
-    await page.keyboard.press("Escape");
+    await expect(page.getByRole("navigation", { name: "Mobile primary navigation" })).toBeVisible();
+    await page.keyboard.press("Enter");
     await expect(menuButton).toBeFocused();
   }
 });
 
 test("visible navigation and form controls meet the 44px target", async ({ page }) => {
-  for (const route of ["/", "/nutrition", "/learn", "/professional#project-intake", "/search"]) {
+  for (const route of ["/", "/products", "/oem-odm", "/insights", "/contact"]) {
     await page.goto(route);
     const offenders = await page.locator("header a, header button, main button, main input, main textarea").evaluateAll(
       (elements) =>
@@ -65,45 +66,39 @@ test("reduced motion keeps meaningful content static and visible", async ({ page
   await page.goto("/");
 
   await expect(
-    page.locator("#nutrition-hero").getByRole("heading", {
-      name: "WOMEN’S NUTRITION, SHAPED WITH PRECISION.",
+    page.locator("#hero").getByRole("heading", {
+    name: "Your nutrition product, from first brief to finished batch.",
     }),
   ).toBeVisible();
   await expect(
-    page.locator("#nutrition-hero").getByRole("link", { name: "START A PROJECT" }),
+    page.locator("#hero").getByRole("link", { name: "Start a Project" }),
   ).toBeVisible();
-  await expect(
-    page.locator("#nutrition-manifesto").getByRole("heading", {
-      name: "Nutrition for the rhythms that shape a life.",
-    }),
-  ).toBeVisible();
-  await expect(
-    page.locator("#capsule-science").getByRole("heading", {
-      name: "Precision inside every capsule.",
-    }),
-  ).toBeVisible();
-  await expect(page.locator("#gummy-science").getByRole("heading", { name: "Gummy form study" })).toBeVisible();
-  await expect(page.getByTestId("capsule-science-static")).toBeVisible();
-  await expect(page.locator('[data-testid="reduced-motion-static"]')).toHaveCount(3);
+  for (const heading of [
+    "Women’s Wellness",
+    "Sleep, Stress & Mood",
+    "Beauty From Within",
+    "Gut & Digestive Health",
+    "Daily Essentials",
+    "Active Nutrition",
+  ]) {
+    await expect(page.getByRole("heading", { name: heading })).toBeVisible();
+  }
 
-  await page.goto("/nutrition/demo-daily-formula");
-  await expect(page.getByText("Formula record", { exact: true }).first()).toBeVisible();
-  await expect(page.locator('[data-testid="reduced-motion-static"]').first()).toBeVisible();
+  await page.goto("/products");
+  await expect(page.getByTestId("format-ledger")).toBeVisible();
 });
 
-test("product discovery keeps pointer and keyboard focus in parity", async ({ page }) => {
+test("market direction controls keep pointer and keyboard focus in parity", async ({ page, viewport }) => {
+  test.skip(!viewport || viewport.width <= 760, "Desktop market-stage controls");
+
   await page.goto("/");
 
-  const cards = page.getByTestId("nutrition-product-card");
-  const firstLink = cards.nth(0).getByRole("link");
-  const secondCard = cards.nth(1);
-  const secondLink = secondCard.getByRole("link");
+  await page.getByRole("button", { name: "Next market direction" }).click();
+  await expect(page.locator("[aria-live='polite']")).toHaveText("02 / 06");
 
-  await secondCard.hover();
-  await expect(secondCard).toHaveAttribute("data-active", "true");
-
-  await firstLink.focus();
+  const stage = page.getByTestId("market-stage");
+  await stage.focus();
   await page.keyboard.press("ArrowRight");
-  await expect(secondLink).toBeFocused();
-  await expect(secondCard).toHaveAttribute("data-active", "true");
+  await expect(page.locator("[aria-live='polite']")).toHaveText("03 / 06");
+  await expect(page.getByRole("heading", { name: "Beauty From Within" })).toBeVisible();
 });

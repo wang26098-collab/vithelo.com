@@ -12,7 +12,18 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/account", "/cart", "/checkout", "/search"],
+      disallow: [
+        "/account",
+        "/cart",
+        "/checkout",
+        "/search",
+        "/nutrition",
+        "/aesthetic-technology",
+        "/science",
+        "/professional",
+        "/learn",
+        "/support",
+      ],
     },
     sitemap: `${siteOrigin}/sitemap.xml`,
   };

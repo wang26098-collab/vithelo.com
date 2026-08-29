@@ -142,3 +142,29 @@ Additional acceptance results:
 Final automated acceptance after these fixes: lint passed, typecheck passed, 46 unit tests passed, 99 E2E tests passed with 3 expected desktop skips, and the production build passed. The focused mobile inquiry and responsive rerun added 6 passing checks after Contact was made page-local.
 
 Final VITHELO visual gate: **PASS — P0 = 0, P1 = 0.**
+
+---
+
+## VITHELO B2B public site acceptance — 2026-08-28
+
+This review covers the approved inquiry-first public structure: Home, Products, OEM / ODM, Insights, three article routes and Contact. The frozen HTML preview remained a reference artifact and was not edited.
+
+| Route | Viewport | Result | Screenshot evidence |
+| --- | --- | --- | --- |
+| `/` | 1440 × 1000 | PASS | `test-results/responsive-core-routes-do-not-overflow-the-viewport-desktop-1440/home-final.png` |
+| `/` | 1024 × 768 | PASS | `test-results/responsive-core-routes-do-not-overflow-the-viewport-tablet-1024/home-final.png` |
+| `/` | 390 × 844 | PASS | `test-results/responsive-core-routes-do-not-overflow-the-viewport-mobile-390/home-final.png` |
+| `/products` | 1440 × 1000 | PASS | `test-results/responsive-core-routes-do-not-overflow-the-viewport-desktop-1440/products-final.png` |
+| `/products` | 390 × 844 | PASS | `test-results/responsive-core-routes-do-not-overflow-the-viewport-mobile-390/products-final.png` |
+| `/contact` | 1440 × 1000 | PASS | `test-results/responsive-core-routes-do-not-overflow-the-viewport-desktop-1440/contact-final.png` |
+| `/contact` | 390 × 844 | PASS | `test-results/responsive-core-routes-do-not-overflow-the-viewport-mobile-390/contact-final.png` |
+
+Acceptance notes:
+
+- The shared header, compact hero scale and first-viewport density remain editorial and restrained.
+- Home retains exactly eleven sections. The eight product formats remain one section, with no horizontal slider or eight screen-height panels.
+- Products uses a continuous comparison ledger instead of a rounded-card wall. The ledger becomes a readable vertical sequence at mobile widths.
+- No scroll-jacking, elevated card wall, clipping, overlap or horizontal overflow was observed at the six automated viewports.
+- Free stock imagery is labelled as product-form illustration and is not presented as factory evidence.
+- Contact remains visibly `NOT_CONFIGURED`; all eight fields and the submission control are disabled, and no email or WhatsApp target is invented.
+- Final B2B gate: **PASS — P0 = 0, P1 = 0.**

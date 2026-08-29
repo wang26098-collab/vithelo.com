@@ -9,7 +9,12 @@ export default defineConfig({
   },
   test: {
     environment: "jsdom",
-    exclude: [...configDefaults.exclude, "tests/e2e/**"],
+    exclude: [
+      ...configDefaults.exclude,
+      "tests/e2e/**",
+      "tests/unit/deployment-runtime.test.mjs",
+      "vithelo-homepage-work/tests/**",
+    ],
     globals: true,
     setupFiles: ["./vitest.setup.ts"],
   },

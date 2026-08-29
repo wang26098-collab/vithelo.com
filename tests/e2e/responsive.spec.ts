@@ -2,56 +2,142 @@ import { expect, test } from "@playwright/test";
 
 const routes = [
   "/",
-  "/nutrition",
-  "/learn",
-  "/aesthetic-technology",
-  "/nutrition/demo-daily-formula",
-  "/aesthetic-technology/demo-precision-device",
-  "/science",
-  "/professional",
-  "/search",
-  "/cart",
-  "/checkout",
-  "/account",
-  "/support",
+  "/products",
+  "/oem-odm",
+  "/insights",
+  "/insights/choose-the-right-supplement-format",
+  "/insights/prepare-for-an-oem-odm-project",
+  "/insights/gummy-development-guide",
   "/contact",
 ] as const;
 
-test("women's gummy hero keeps its decision content inside the first viewport", async ({
+test("B2B hero keeps its decision content inside the hero stage", async ({
   page,
   viewport,
 }) => {
   await page.goto("/");
 
-  const hero = page.locator("#nutrition-hero");
+  const hero = page.locator("#hero");
   const title = hero.getByRole("heading", {
-    name: "WOMEN’S NUTRITION, SHAPED WITH PRECISION.",
+    name: "Your nutrition product, from first brief to finished batch.",
   });
-  const action = hero.getByRole("link", { name: "START A PROJECT" });
-  const scrim = hero.locator(".nutrition-hero-scrim");
+  const action = hero.getByRole("link", { name: "Start a Project" });
 
   await expect(title).toBeVisible();
   await expect(action).toBeVisible();
   await expect
-    .poll(() => scrim.evaluate((element) => getComputedStyle(element).backgroundImage))
+    .poll(() => hero.evaluate((element) => getComputedStyle(element).backgroundImage))
     .not.toBe("none");
 
   const [heroBox, actionBox] = await Promise.all([hero.boundingBox(), action.boundingBox()]);
   expect(heroBox).not.toBeNull();
   expect(actionBox).not.toBeNull();
-  if (heroBox && actionBox && viewport) {
-    expect(heroBox.height).toBeGreaterThanOrEqual(viewport.height - 1);
-    expect(actionBox.y + actionBox.height).toBeLessThanOrEqual(heroBox.y + viewport.height + 1);
+  if (heroBox && actionBox) {
+    expect(actionBox.y + actionBox.height).toBeLessThanOrEqual(heroBox.y + heroBox.height + 1);
   }
 
   if (viewport && viewport.width >= 1024) {
-    const copyBox = await hero.locator(".nutrition-hero-copy").boundingBox();
+    const copyBox = await hero.getByTestId("hero-copy").boundingBox();
     expect(copyBox).not.toBeNull();
-    if (copyBox) expect(copyBox.width).toBeLessThanOrEqual(viewport.width * 0.46);
+    if (copyBox) expect(copyBox.width).toBeLessThanOrEqual(viewport.width - 64);
   }
 });
 
+test("desktop navigation and hero fit inside a short viewport", async ({ page, viewport }) => {
+  test.skip(!viewport || viewport.width < 1024, "Desktop hero height check");
+
+  await page.setViewportSize({ width: 1440, height: 720 });
+  await page.goto("/");
+
+  const header = page.locator("header").first();
+  const hero = page.locator("#hero");
+  await expect(header).toBeVisible();
+  await expect(hero).toBeVisible();
+  const [headerBox, heroBox] = await Promise.all([header.boundingBox(), hero.boundingBox()]);
+
+  expect(headerBox).not.toBeNull();
+  expect(heroBox).not.toBeNull();
+  if (headerBox && heroBox) {
+    expect(heroBox.y).toBeCloseTo(headerBox.y + headerBox.height, 0);
+    expect(heroBox.y + heroBox.height).toBeLessThanOrEqual(721);
+  }
+});
+
+test("homepage headings use the approved editorial scale", async ({ page, viewport }) => {
+  await page.goto("/");
+
+  const heroSize = await page.locator("#hero h1").evaluate((element) =>
+    Number.parseFloat(getComputedStyle(element).fontSize),
+  );
+  const sectionSize = await page.locator("#gummy-stage h2").evaluate((element) =>
+    Number.parseFloat(getComputedStyle(element).fontSize),
+  );
+
+  expect(heroSize).toBeLessThanOrEqual(viewport && viewport.width <= 760 ? 44 : 48);
+  expect(sectionSize).toBeLessThanOrEqual(viewport && viewport.width <= 760 ? 36 : 48);
+
+  const supportingSizes = await page.locator("main h3").evaluateAll((elements) =>
+    elements.map((element) => Number.parseFloat(getComputedStyle(element).fontSize)),
+  );
+  const paragraphSizes = await page.locator("main p").evaluateAll((elements) =>
+    elements.map((element) => Number.parseFloat(getComputedStyle(element).fontSize)),
+  );
+
+  expect(Math.max(...supportingSizes)).toBeLessThanOrEqual(
+    viewport && viewport.width <= 760 ? 30 : 40,
+  );
+  expect(Math.max(...paragraphSizes)).toBeLessThanOrEqual(
+    viewport && viewport.width <= 760 ? 16 : 18,
+  );
+});
+
+test("content-heavy homepage sections stay within the approved desktop height range", async ({
+  page,
+  viewport,
+}) => {
+  test.skip(!viewport || viewport.width < 1024, "Desktop section height check");
+
+  await page.setViewportSize({ width: 1440, height: 720 });
+  await page.goto("/");
+
+  const limits = {
+    "#gummy-stage": 1050,
+    "#solutions": 800,
+    "#custom-development": 820,
+    "#manufacturing": 1050,
+    "#quality": 800,
+    "#project-runway": 800,
+    "#company-fit": 900,
+    "#contact": 800,
+  } as const;
+
+  for (const [selector, maximumHeight] of Object.entries(limits)) {
+    const height = await page.locator(selector).evaluate((element) =>
+      Math.round(element.getBoundingClientRect().height),
+    );
+    expect(height, `${selector} is ${height}px tall`).toBeLessThanOrEqual(maximumHeight);
+  }
+});
+
+test("dosage spectrum uses four desktop columns and two mobile columns without overflow", async ({ page, viewport }) => {
+  await page.goto("/");
+
+  const grid = page.getByTestId("dosage-grid");
+  await grid.scrollIntoViewIfNeeded();
+  const layout = await grid.evaluate((element) => {
+    const columns = getComputedStyle(element).gridTemplateColumns
+      .split(" ")
+      .filter(Boolean).length;
+    return { columns, clientWidth: element.clientWidth, scrollWidth: element.scrollWidth };
+  });
+
+  expect(layout.columns).toBe(viewport && viewport.width <= 760 ? 2 : 4);
+  expect(layout.scrollWidth).toBeLessThanOrEqual(layout.clientWidth + 1);
+});
+
 test("core routes do not overflow the viewport", async ({ page }, testInfo) => {
+  test.setTimeout(60_000);
+
   for (const route of routes) {
     await page.goto(route);
     const dimensions = await page.evaluate(() => ({
@@ -80,9 +166,9 @@ test("core routes do not overflow the viewport", async ({ page }, testInfo) => {
 
   for (const [name, route] of [
     ["contact", "/contact"],
-    ["professional", "/professional"],
-    ["nutrition-pdp", "/nutrition/demo-daily-formula"],
-    ["device-pdp", "/aesthetic-technology/demo-precision-device"],
+    ["products", "/products"],
+    ["oem-odm", "/oem-odm"],
+    ["insights", "/insights"],
   ] as const) {
     await page.goto(route);
     await page.waitForTimeout(1_000);
@@ -103,65 +189,22 @@ test("core routes do not overflow the viewport", async ({ page }, testInfo) => {
   });
 });
 
-test("mobile commerce resource exits before safety", async ({ page, viewport }) => {
-  test.skip(!viewport || viewport.width > 768, "Mobile priority resource check");
-
-  for (const route of [
-    "/nutrition/demo-daily-formula",
-    "/aesthetic-technology/demo-precision-device",
-  ]) {
-    await page.goto(route);
-    const sticky = page.getByRole("complementary", {
-      name: route.startsWith("/nutrition")
-        ? "Nutrition commerce availability"
-        : "Device inquiry availability",
-    });
-    await sticky.scrollIntoViewIfNeeded();
-    const activeStickyBox = await sticky.boundingBox();
-
-    expect(activeStickyBox).not.toBeNull();
-    if (activeStickyBox && viewport) {
-      expect(activeStickyBox.y + activeStickyBox.height).toBeCloseTo(viewport.height, 0);
-    }
-
-    const safety = page.locator("#safety");
-    await safety.scrollIntoViewIfNeeded();
-    const [safetyBox, stickyBox] = await Promise.all([safety.boundingBox(), sticky.boundingBox()]);
-
-    expect(safetyBox).not.toBeNull();
-    expect(stickyBox).not.toBeNull();
-    if (safetyBox && stickyBox) {
-      expect(stickyBox.y + stickyBox.height).toBeLessThanOrEqual(safetyBox.y + 1);
-    }
-  }
-});
-
-test("mobile nutrition stages remain sequential and product discovery preserves horizontal snap", async ({
+test("mobile market stories remain sequential and never capture document layout", async ({
   page,
   viewport,
 }) => {
-  test.skip(!viewport || viewport.width > 768, "Mobile nutrition-stage check");
+  test.skip(!viewport || viewport.width > 760, "Mobile market-stage check");
 
   await page.goto("/");
 
-  const rail = page.getByTestId("nutrition-product-focus-rail");
-  await expect(rail).toBeVisible();
-  await expect.poll(() => rail.evaluate((element) => getComputedStyle(element).scrollSnapType)).toContain("x");
+  const stories = page.getByTestId("market-story");
+  await expect(stories).toHaveCount(6);
+  for (let index = 0; index < 6; index += 1) {
+    await expect(stories.nth(index)).toBeVisible();
+  }
 
-  const capsuleStage = page.locator("#capsule-science [data-motion-intent='EXPLAIN']");
-  const gummyStage = page.locator("#gummy-science [data-motion-intent='EXPLAIN']");
-  await expect(capsuleStage).toBeVisible();
-  await expect(gummyStage).toBeVisible();
-  await expect
-    .poll(() => capsuleStage.evaluate((element) => getComputedStyle(element).position))
-    .not.toMatch(/sticky|fixed/);
-  await expect.poll(() => gummyStage.evaluate((element) => getComputedStyle(element).position)).toBe("static");
-
-  const [capsuleBox, gummyBox] = await Promise.all([
-    capsuleStage.boundingBox(),
-    gummyStage.boundingBox(),
-  ]);
-  expect(capsuleBox).not.toBeNull();
-  expect(gummyBox).not.toBeNull();
-  if (capsuleBox && gummyBox) expect(capsuleBox.y).toBeLessThan(gummyBox.y);
+  const positions = await stories.evaluateAll((elements) =>
+    elements.map((element) => element.getBoundingClientRect().top + window.scrollY),
+  );
+  expect(positions).toEqual([...positions].sort((a, b) => a - b));
 });

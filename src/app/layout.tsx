@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { DemoDisclosure } from "@/components/core/demo-disclosure";
 import { MobileInquiryBar } from "@/components/core/mobile-inquiry-bar";
+import { RouteShell } from "@/components/core/route-shell";
 import { SiteHeader } from "@/components/core/site-header";
 import { getSiteOrigin } from "@/lib/site-origin";
 import "./globals.css";
@@ -9,19 +10,21 @@ import "./globals.css";
 const siteOrigin = getSiteOrigin();
 
 export const metadata: Metadata = {
-  title: "VITHELO | Nutrition",
-  description: "Nutrition-led products with a secondary professional capability.",
+  title: "VITHELO | Nutrition OEM / ODM",
+  description:
+    "Gummy-first nutrition product development and manufacturing across eight oral formats.",
+  openGraph: {
+    title: "VITHELO | Nutrition OEM / ODM",
+    description:
+      "Gummy-first nutrition product development and manufacturing across eight oral formats.",
+    siteName: "VITHELO",
+    type: "website",
+    url: "/",
+  },
   ...(siteOrigin
     ? {
         metadataBase: new URL(siteOrigin),
         alternates: { canonical: "/" },
-        openGraph: {
-          title: "VITHELO | Nutrition",
-          description: "Nutrition-led products with a secondary professional capability.",
-          siteName: "VITHELO",
-          type: "website" as const,
-          url: "/",
-        },
         twitter: { card: "summary" as const },
       }
     : { robots: { index: false, follow: false } }),
@@ -41,10 +44,13 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
     <html lang="en">
       <body>
         <script dangerouslySetInnerHTML={{ __html: insertDirectionContract }} />
-        <DemoDisclosure />
-        <SiteHeader />
-        {children}
-        <MobileInquiryBar />
+        <RouteShell
+          disclosure={<DemoDisclosure />}
+          header={<SiteHeader />}
+          mobileResource={<MobileInquiryBar />}
+        >
+          {children}
+        </RouteShell>
       </body>
     </html>
   );

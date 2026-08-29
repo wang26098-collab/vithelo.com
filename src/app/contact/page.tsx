@@ -1,54 +1,39 @@
 import type { Metadata } from "next";
-import { ProjectIntake } from "@/components/domain/project-intake";
+import { VitheloB2BSiteFrame } from "@/components/core/vithelo-b2b-site-frame";
+import { VitheloContactPage } from "@/components/patterns/vithelo-contact-page";
+import { localContentAdapter } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Start a Project | VITHELO",
-  description: "Choose a VITHELO business intent and prepare an email or WhatsApp inquiry.",
+  description: "Prepare a nutrition OEM or ODM project brief for VITHELO.",
 };
 
 type ContactPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
-function firstValue(value: string | string[] | undefined) {
-  return Array.isArray(value) ? value[0] : value;
-}
+const firstValue = (value: string | string[] | undefined) =>
+  Array.isArray(value) ? value[0] : value;
 
 export default async function ContactPage({ searchParams }: ContactPageProps) {
   const query = await searchParams;
-  const world = firstValue(query.world);
-  const subject = firstValue(query.subject)?.trim().slice(0, 160);
-  const path = firstValue(query.path);
-  const initialProductWorld =
-    world === "aesthetic-technology" || path === "professional-partners"
-      ? "Aesthetic Technology"
-      : world === "nutrition"
-        ? "Nutrition"
-        : "Both product worlds";
-  const initialSummary =
-    subject ||
-    (path === "product-partners"
-      ? "Product partner inquiry"
-      : path === "professional-partners"
-        ? "Professional partner inquiry"
-        : "");
+  const [site, content] = await Promise.all([
+    localContentAdapter.getB2BSiteContent(),
+    localContentAdapter.getB2BContactPage(),
+  ]);
+  const requestedFormat = firstValue(query.format)?.trim().slice(0, 120);
+  const initialFormat = content.formats.includes(requestedFormat ?? "")
+    ? requestedFormat
+    : content.formats[0];
+  const initialSubject = firstValue(query.subject)?.trim().slice(0, 120) ?? "";
 
   return (
-    <main className="container-standard section-space">
-      <div className="max-w-3xl">
-        <h1 className="text-[length:var(--font-size-h1-mobile)] leading-tight sm:text-[length:var(--font-size-h1)]">
-          Start a Project
-        </h1>
-        <p className="mt-5 text-lg text-[var(--color-muted)]">
-          Choose the business context first, then continue through email or WhatsApp.
-        </p>
-      </div>
-      <div className="mt-16 border-t border-[var(--color-border)] pt-12">
-        <ProjectIntake
-          initialProductWorld={initialProductWorld}
-          initialSummary={initialSummary}
-        />
-      </div>
-    </main>
+    <VitheloB2BSiteFrame content={site}>
+      <VitheloContactPage
+        content={content}
+        initialFormat={initialFormat}
+        initialSubject={initialSubject}
+      />
+    </VitheloB2BSiteFrame>
   );
 }

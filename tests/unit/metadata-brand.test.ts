@@ -1,39 +1,45 @@
-import { metadata as accountMetadata } from "@/app/account/page";
-import { metadata as deviceLandingMetadata } from "@/app/aesthetic-technology/page";
-import { generateMetadata as generateDeviceMetadata } from "@/app/aesthetic-technology/[slug]/page";
-import { metadata as cartMetadata } from "@/app/cart/page";
-import { metadata as checkoutMetadata } from "@/app/checkout/page";
 import { metadata as contactMetadata } from "@/app/contact/page";
 import { metadata as homeMetadata } from "@/app/page";
-import { metadata as nutritionLandingMetadata } from "@/app/nutrition/page";
-import { generateMetadata as generateNutritionMetadata } from "@/app/nutrition/[slug]/page";
-import { metadata as professionalMetadata } from "@/app/professional/page";
-import { metadata as scienceMetadata } from "@/app/science/page";
-import { metadata as searchMetadata } from "@/app/search/page";
-import { metadata as supportMetadata } from "@/app/support/page";
+import { metadata as insightsMetadata } from "@/app/insights/page";
+import { generateMetadata as generateInsightMetadata } from "@/app/insights/[slug]/page";
+import { metadata as layoutMetadata } from "@/app/layout";
+import { metadata as oemOdmMetadata } from "@/app/oem-odm/page";
+import { metadata as productsMetadata } from "@/app/products/page";
 
 const staticMetadata = [
-  accountMetadata,
-  deviceLandingMetadata,
-  cartMetadata,
-  checkoutMetadata,
+  layoutMetadata,
   contactMetadata,
   homeMetadata,
-  nutritionLandingMetadata,
-  professionalMetadata,
-  scienceMetadata,
-  searchMetadata,
-  supportMetadata,
+  insightsMetadata,
+  oemOdmMetadata,
+  productsMetadata,
 ];
 
-it("keeps every route title in the VITHELO brand", async () => {
-  const dynamicMetadata = await Promise.all([
-    generateDeviceMetadata({ params: Promise.resolve({ slug: "demo-precision-device" }) }),
-    generateNutritionMetadata({ params: Promise.resolve({ slug: "demo-daily-formula" }) }),
-  ]);
+it("keeps every public route title in the VITHELO brand", async () => {
+  const insightMetadata = await generateInsightMetadata({
+    params: Promise.resolve({ slug: "gummy-development-guide" }),
+    searchParams: Promise.resolve({}),
+  });
 
-  for (const metadata of [...staticMetadata, ...dynamicMetadata]) {
+  for (const metadata of [...staticMetadata, insightMetadata]) {
     expect(metadata.title).toEqual(expect.stringContaining("VITHELO"));
     expect(metadata.title).not.toEqual(expect.stringContaining("A PRIME"));
   }
+});
+
+it("uses the approved international OEM and ODM site metadata", () => {
+  expect(layoutMetadata.title).toBe("VITHELO | Nutrition OEM / ODM");
+  expect(layoutMetadata.description).toBe(
+    "Gummy-first nutrition product development and manufacturing across eight oral formats.",
+  );
+  expect(layoutMetadata.openGraph).toEqual(
+    expect.objectContaining({
+      title: "VITHELO | Nutrition OEM / ODM",
+      description:
+        "Gummy-first nutrition product development and manufacturing across eight oral formats.",
+      siteName: "VITHELO",
+      type: "website",
+      url: "/",
+    }),
+  );
 });

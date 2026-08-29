@@ -4,27 +4,22 @@ import { getSiteOrigin } from "@/lib/site-origin";
 
 const publicRoutes = [
   "/",
-  "/nutrition",
-  "/aesthetic-technology",
-  "/science",
-  "/learn",
-  "/professional",
+  "/products",
+  "/oem-odm",
+  "/insights",
   "/contact",
-  "/support",
 ] as const;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteOrigin = getSiteOrigin();
   if (!siteOrigin) return [];
 
-  const products = await localContentAdapter.listProducts();
-  const productRoutes = products.map((product) =>
-    product.kind === "nutrition"
-      ? `/nutrition/${product.slug}`
-      : `/aesthetic-technology/${product.slug}`,
-  );
+  const insights = await localContentAdapter.listPublishedB2BInsights();
+  const insightRoutes = insights.map((article) => `/insights/${article.slug}`);
 
-  return [...publicRoutes, ...productRoutes].map((route) => ({
+  const routes = [...publicRoutes.slice(0, 4), ...insightRoutes, "/contact"];
+
+  return routes.map((route) => ({
     url: route === "/" ? `${siteOrigin}/` : `${siteOrigin}${route}`,
   }));
 }

@@ -17,7 +17,7 @@ it("prevents indexing when the production origin is not configured", async () =>
   await expect(sitemap()).resolves.toEqual([]);
 });
 
-it("emits public discovery routes only after a valid origin is configured", async () => {
+it("emits only the approved B2B discovery routes", async () => {
   process.env.NEXT_PUBLIC_SITE_URL = "https://vithelo.example/";
 
   expect(getSiteOrigin()).toBe("https://vithelo.example");
@@ -25,22 +25,45 @@ it("emits public discovery routes only after a valid origin is configured", asyn
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/account", "/cart", "/checkout", "/search"],
+      disallow: [
+        "/account",
+        "/cart",
+        "/checkout",
+        "/search",
+        "/nutrition",
+        "/aesthetic-technology",
+        "/science",
+        "/professional",
+        "/learn",
+        "/support",
+      ],
     },
     sitemap: "https://vithelo.example/sitemap.xml",
   });
 
   const entries = await sitemap();
-  expect(entries.map((entry) => entry.url)).toEqual(
-    expect.arrayContaining([
-      "https://vithelo.example/",
-      "https://vithelo.example/nutrition",
-      "https://vithelo.example/nutrition/demo-daily-formula",
-      "https://vithelo.example/professional",
-      "https://vithelo.example/contact",
-    ]),
-  );
-  expect(entries.map((entry) => entry.url)).not.toEqual(
-    expect.arrayContaining(["https://vithelo.example/cart", "https://vithelo.example/checkout"]),
-  );
+  expect(entries.map((entry) => entry.url)).toEqual([
+    "https://vithelo.example/",
+    "https://vithelo.example/products",
+    "https://vithelo.example/oem-odm",
+    "https://vithelo.example/insights",
+    "https://vithelo.example/insights/choose-the-right-supplement-format",
+    "https://vithelo.example/insights/prepare-for-an-oem-odm-project",
+    "https://vithelo.example/insights/gummy-development-guide",
+    "https://vithelo.example/contact",
+  ]);
+
+  const forbiddenFragments = [
+    "/nutrition",
+    "/aesthetic-technology",
+    "/science",
+    "/professional",
+    "/cart",
+    "/checkout",
+    "/account",
+    "/search",
+  ];
+  for (const fragment of forbiddenFragments) {
+    expect(entries.some((entry) => entry.url.includes(fragment))).toBe(false);
+  }
 });

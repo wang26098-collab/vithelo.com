@@ -2,18 +2,13 @@ import { expect, test } from "@playwright/test";
 
 const routes = [
   "/",
-  "/nutrition",
-  "/learn",
-  "/aesthetic-technology",
-  "/nutrition/demo-daily-formula",
-  "/aesthetic-technology/demo-precision-device",
-  "/science",
-  "/professional",
-  "/search",
-  "/cart",
-  "/checkout",
-  "/account",
-  "/support",
+  "/products",
+  "/oem-odm",
+  "/insights",
+  "/insights/choose-the-right-supplement-format",
+  "/insights/prepare-for-an-oem-odm-project",
+  "/insights/gummy-development-guide",
+  "/contact",
 ] as const;
 
 test("demo facts are visibly disclosed", async ({ page }) => {
