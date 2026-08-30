@@ -36,7 +36,6 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
         data-ui-stage="image-led-hero"
         id="hero"
       >
-        <div className={styles.heroImageLayer} aria-hidden="true" />
         <div className={styles.heroContent} data-testid="hero-copy">
           <div className={styles.heroEyebrow}>{content.hero.eyebrow}</div>
           <h1 id="hero-title">{content.hero.title}</h1>

@@ -13,6 +13,14 @@ test.describe("VITHELO premium UI phase 1", () => {
     await expect(dosageForms).toHaveAttribute("data-ui-stage", "editorial-format-field");
   });
 
+  test("hero keeps the full background image without an empty glass block", async ({ page }) => {
+    await page.goto("/");
+
+    const hero = page.locator("#hero");
+
+    await expect(hero.locator("[data-testid='hero-glass-layer']")).toHaveCount(0);
+  });
+
   test("eight product formats remain one section without horizontal slider semantics", async ({ page }) => {
     await page.goto("/");
 
