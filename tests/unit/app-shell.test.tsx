@@ -9,10 +9,10 @@ it("renders the VITHELO B2B homepage identity and eleven-section sequence", asyn
   expect(screen.getByRole("link", { name: "VITHELO home" })).toBeVisible();
   expect(
     within(hero!).getByRole("heading", {
-      name: "Your nutrition product, from first brief to finished batch.",
+      name: "Nutrition formats, built for private-label growth.",
     }),
   ).toBeVisible();
-  expect(screen.getByText("One factory. Eight product formats.")).toBeVisible();
+  expect(screen.getByText("One manufacturing system, eight product formats.")).toBeVisible();
 
   expect(Array.from(document.querySelectorAll("main > section")).map((section) => section.id)).toEqual([
     "hero",

@@ -17,19 +17,19 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
   ],
   hero: {
     eyebrow: "GUMMY-FIRST NUTRITION OEM / ODM",
-    title: "Your nutrition product, from first brief to finished batch.",
+    title: "Nutrition formats, built for private-label growth.",
     copy:
-      "VITHELO develops and manufactures gummies and seven other oral formats, with formula, sampling, packaging and production managed in one system.",
+      "VITHELO is a factory-owned overseas brand and export division for gummy-first nutrition OEM/ODM projects.",
     primaryAction: { label: "Start a Project", href: "/contact" },
     secondaryAction: {
       label: "Explore Formats",
       href: "/products",
     },
     media: {
-      status: "REQUIRED_REAL_ASSET",
-      label: "Hero image with left copy space and unbranded or VITHELO gummy samples",
+      status: "FREE_COMMERCIAL_OR_REAL",
+      label: "Premium supplement manufacturing atmosphere with copy-safe negative space",
       width: 2560,
-      height: 1120,
+      height: 1400,
       format: "WebP",
     },
   },
@@ -41,7 +41,7 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
   ],
   gummy: {
     kicker: "03 · Gummy Expertise",
-    title: "Gummies give your brand room to be distinctive.",
+    title: "A flexible format for daily nutrition brands.",
     media: {
       status: "FREE_COMMERCIAL_OR_REAL",
       label: "Real gummy macro asset",
@@ -52,11 +52,11 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
     features: [
       {
         title: "Formula Direction",
-        copy: "Ingredients, serving and audience considered together",
+        copy: "Ingredients, serving and use case planned together",
       },
       {
         title: "Shape System",
-        copy: "Standard molds or a custom shape",
+        copy: "Standard molds or a custom shape route",
       },
       {
         title: "Taste & Texture",
@@ -64,7 +64,7 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
       },
       {
         title: "Color & Flavor",
-        copy: "A recognizable expression for your brand",
+        copy: "A recognizable expression for the brand",
       },
       {
         title: "Packaging Fit",
@@ -159,7 +159,7 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
   },
   dosage: {
     kicker: "05 · Product Formats",
-    title: "One factory. Eight product formats.",
+    title: "One manufacturing system, eight product formats.",
     qualifier:
       "Flexible MOQ based on formula and packaging. Contact us for MOQ.",
     items: [

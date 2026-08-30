@@ -33,13 +33,10 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
         aria-labelledby="hero-title"
         className={styles.hero}
         data-media-status={content.hero.media.status}
+        data-ui-stage="image-led-hero"
         id="hero"
       >
-        <div className={styles.heroMaterial} aria-hidden="true">
-          <span />
-          <span />
-          <span />
-        </div>
+        <div className={styles.heroImageLayer} aria-hidden="true" />
         <div className={styles.heroContent} data-testid="hero-copy">
           <div className={styles.heroEyebrow}>{content.hero.eyebrow}</div>
           <h1 id="hero-title">{content.hero.title}</h1>
@@ -95,7 +92,8 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
       <section
         aria-labelledby="dosage-title"
         className={`${styles.section} ${styles.dosageSection}`}
-        data-layout="desktop-4x2"
+        data-layout="desktop-editorial-field"
+        data-ui-stage="editorial-format-field"
         id="dosage-forms"
       >
         <p className={styles.kicker}>{content.dosage.kicker}</p>
@@ -105,9 +103,17 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
         <p className={styles.copy}>{content.dosage.qualifier}</p>
         <div className={styles.dosageGrid} data-testid="dosage-grid">
           {content.dosage.items.map((item, index) => (
-            <article className={styles.dosageItem} data-testid="dosage-item" key={item.name}>
+            <article
+              className={styles.dosageItem}
+              data-format={item.name.toLowerCase().replaceAll(" ", "-")}
+              data-testid="dosage-item"
+              key={item.name}
+            >
+              <span className={styles.dosageIndex}>
+                {String(index + 1).padStart(2, "0")}
+              </span>
               <div aria-hidden="true" className={styles.dosageShape} data-shape={index + 1} />
-              <div>
+              <div className={styles.dosageCopy}>
                 <h3>{item.name}</h3>
                 <p>{item.moq}</p>
               </div>

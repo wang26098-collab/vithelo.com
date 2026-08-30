@@ -94,6 +94,7 @@ function VitheloMarketStage({ market }: VitheloMarketStageProps) {
       data-layout="image-background-panels"
       data-reduced-motion={reducedMotion}
       data-testid="market-stage"
+      data-ui-stage="image-led-product-directions"
       id="solutions"
       onKeyDown={(event) => {
         if (event.key === "ArrowUp" || event.key === "ArrowLeft") {

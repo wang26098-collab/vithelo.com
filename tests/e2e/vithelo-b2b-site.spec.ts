@@ -19,6 +19,10 @@ const insightSlugs = [
 
 test("shared navigation reaches every primary B2B destination", async ({ page, viewport }) => {
   await page.goto("/");
+  await expect(page.locator("#hero")).toBeVisible();
+  await expect(page.locator("#solutions")).toBeVisible();
+  await expect(page.locator("#dosage-forms")).toBeVisible();
+
   const navigation =
     viewport && viewport.width <= 900
       ? page.getByRole("navigation", { name: "Mobile primary navigation" })

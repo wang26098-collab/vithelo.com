@@ -32,7 +32,8 @@ it("keeps all eight dosage formats in one section without a horizontal rail", ()
   const dosage = document.getElementById("dosage-forms");
   expect(dosage).toBeInTheDocument();
   expect(within(dosage!).getAllByTestId("dosage-item")).toHaveLength(8);
-  expect(dosage).toHaveAttribute("data-layout", "desktop-4x2");
+  expect(dosage).toHaveAttribute("data-layout", "desktop-editorial-field");
+  expect(dosage).toHaveAttribute("data-ui-stage", "editorial-format-field");
   expect(dosage).not.toHaveAttribute("data-carousel");
 });
 
@@ -61,7 +62,7 @@ it("leaves shared navigation to the site frame and uses page routes", () => {
     "/products",
   );
   expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
-    "Your nutrition product, from first brief to finished batch.",
+    "Nutrition formats, built for private-label growth.",
   );
   expect(document.querySelector("main")?.textContent).not.toMatch(/[\u3400-\u9fff]/);
 });

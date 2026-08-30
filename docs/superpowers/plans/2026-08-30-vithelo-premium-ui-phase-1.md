@@ -115,7 +115,7 @@ test.describe("VITHELO premium UI phase 1", () => {
 Run:
 
 ```powershell
-pnpm.cmd exec playwright test tests/e2e/vithelo-premium-ui.spec.ts
+pnpm.cmd test:e2e -- tests/e2e/vithelo-premium-ui.spec.ts
 ```
 
 Expected result:
@@ -147,7 +147,7 @@ Place the assertions inside the existing homepage coverage block so this does no
 Run:
 
 ```powershell
-pnpm.cmd exec playwright test tests/e2e/vithelo-b2b-site.spec.ts tests/e2e/vithelo-premium-ui.spec.ts
+pnpm.cmd test:e2e -- tests/e2e/vithelo-b2b-site.spec.ts tests/e2e/vithelo-premium-ui.spec.ts
 ```
 
 Expected result before implementation:
@@ -428,7 +428,7 @@ In the existing `@media (max-width: 760px)` block, replace the mobile `.hero`, `
 Run:
 
 ```powershell
-pnpm.cmd exec playwright test tests/e2e/vithelo-premium-ui.spec.ts
+pnpm.cmd test:e2e -- tests/e2e/vithelo-premium-ui.spec.ts
 ```
 
 Expected result:
@@ -634,7 +634,7 @@ Inside `@media (max-width: 760px)`, add:
 Run:
 
 ```powershell
-pnpm.cmd exec playwright test tests/e2e/vithelo-premium-ui.spec.ts
+pnpm.cmd test:e2e -- tests/e2e/vithelo-premium-ui.spec.ts
 ```
 
 Expected result:
@@ -698,7 +698,7 @@ exit code 0
 Run:
 
 ```powershell
-pnpm.cmd exec playwright test tests/e2e/vithelo-b2b-site.spec.ts tests/e2e/vithelo-premium-ui.spec.ts
+pnpm.cmd test:e2e -- tests/e2e/vithelo-b2b-site.spec.ts tests/e2e/vithelo-premium-ui.spec.ts
 ```
 
 Expected result:

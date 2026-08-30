@@ -62,12 +62,14 @@ it("uses restrained international copy without direct American-market targeting"
   const publicContent = JSON.stringify(vitheloB2BHome);
 
   expect(vitheloB2BHome.hero.title).toBe(
-    "Your nutrition product, from first brief to finished batch.",
+    "Nutrition formats, built for private-label growth.",
   );
   expect(vitheloB2BHome.gummy.title).toBe(
-    "Gummies give your brand room to be distinctive.",
+    "A flexible format for daily nutrition brands.",
   );
-  expect(vitheloB2BHome.dosage.title).toBe("One factory. Eight product formats.");
+  expect(vitheloB2BHome.dosage.title).toBe(
+    "One manufacturing system, eight product formats.",
+  );
   expect(vitheloB2BHome.contact.title).toBe("Tell us what you want to make.");
   expect(publicContent).not.toMatch(
     /(?:\bU\.S\.|\bUSA\b|\bUnited States\b|\bAmerican\b|\bAmerica\b)/i,
