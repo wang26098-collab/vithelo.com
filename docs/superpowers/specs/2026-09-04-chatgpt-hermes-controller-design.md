@@ -1,4 +1,4 @@
-# ChatGPT Desktop × Hermes 受控网站开发系统设计规范
+# Codex Desktop × Hermes 受控网站开发系统设计规范
 
 > 日期：2026-09-04  
 > 状态：设计已逐节确认  
@@ -8,23 +8,29 @@
 
 ## 1. 执行摘要
 
-本方案建设一个本地、单项目、受控半自动的网站开发系统：ChatGPT Desktop 负责产品、设计、任务定义和最终验收；Hermes 使用自己的模型与额度，在 WSL2 与 Docker 隔离环境中执行代码修改、测试、浏览器检查和截图；二者之间由 Windows 主机上的本地 MCP Controller 连接。
+本方案建设一个本地、单项目、受控半自动的网站开发系统：Codex Desktop 负责产品、设计、任务定义和最终验收；Hermes 使用自己的模型与额度，在 WSL2 与 Docker 隔离环境中执行代码修改、测试、浏览器检查和截图；二者之间由 Windows 主机上的本地 MCP Controller 连接。
 
 Controller 是唯一可信控制面。它负责身份验证、任务 Schema 校验、风险分级、权限审批、任务状态、资源限制、结果脱敏、审计日志和紧急停止。Hermes 被视为不可信执行 Worker：即使模型受到提示词注入、发生推理错误或主动尝试越权，也只能使用任务明确授予的最小能力。
 
 第一版只服务当前 VITHELO 仓库。它不会建设多项目平台、远程公网控制、用户系统、无人值守发布或生产环境自动化。L0 只读与 L1 可恢复写入可在任务范围内自动运行；L2 敏感动作逐次人工批准；L3 外部副作用第一版默认禁用。
 
+### 1.1 控制端决策
+
+顶层控制端确定为 Codex Desktop，而不是 ChatGPT Desktop。根据 2026-09-04 查阅的 [OpenAI 官方文档](https://help.openai.com/en/articles/12584461-developer-mode-and-full-mcp-connectors-in-chatgpt)，ChatGPT 不能直接连接本地 MCP；完整读写 MCP 当前面向 Business、Enterprise/Edu 的 ChatGPT Web，本地服务需要 Secure MCP Tunnel。为了保持纯本地边界、避免远程隧道和额外账号依赖，本方案使用 Codex Desktop 的本地工具/插件接入路径。
+
+若未来重新要求使用 ChatGPT，必须把它作为一次架构变更处理：增加 Secure MCP Tunnel、远端认证、ChatGPT 工作区权限、工具快照更新和新的数据出境验收，不能沿用本规范中“纯本地 MCP”的安全结论。
+
 ## 2. 真实问题与设计原则
 
 ### 2.1 真实问题
 
-在不把整台电脑控制权交给 AI 的前提下，让 ChatGPT Desktop 负责网站总设计、产品判断与视觉验收，让 Hermes 在隔离环境中完成 VITHELO 网站的编码、测试、浏览器检查和截图反馈。
+在不把整台电脑控制权交给 AI 的前提下，让 Codex Desktop 负责网站总设计、产品判断与视觉验收，让 Hermes 在隔离环境中完成 VITHELO 网站的编码、测试、浏览器检查和截图反馈。
 
 ### 2.2 设计原则
 
 1. **最小权限**：能力由任务显式授予，不因模型声称需要而扩大。
 2. **默认拒绝**：路径、命令、网络、凭据或状态不确定时，停止而不是猜测。
-3. **控制与执行分离**：ChatGPT 不直接获得 Hermes Shell，Hermes 不获得审批能力。
+3. **控制与执行分离**：Codex 不直接获得 Hermes Shell，Hermes 不获得审批能力。
 4. **结构化边界**：自然语言在进入执行面前必须转换为通过 Schema 校验的任务包。
 5. **可恢复写入**：所有写入形成补丁、文件哈希和基线证据。
 6. **有证据的完成**：没有 diff、退出码、测试、截图或剩余风险说明，任务不能验收。
@@ -35,7 +41,7 @@ Controller 是唯一可信控制面。它负责身份验证、任务 Schema 校�
 
 ### 3.1 Must Have
 
-- ChatGPT Desktop 通过本地 MCP 访问 Controller。
+- Codex Desktop 通过本地 MCP 访问 Controller。
 - Controller 只监听 `127.0.0.1`，不开放局域网或公网。
 - Hermes Worker 运行在 WSL2 + Docker 隔离环境中。
 - 第一版只允许访问 VITHELO 仓库。
@@ -66,7 +72,7 @@ Controller 是唯一可信控制面。它负责身份验证、任务 Schema 校�
 
 - 多项目、多用户或云端任务平台。
 - 远程公网控制 Controller。
-- ChatGPT 或 Hermes 的通用主机 Shell。
+- Codex 或 Hermes 的通用主机 Shell。
 - 复用个人 Chrome 登录态或浏览器 Cookie。
 - 无人值守 Git push、部署、邮件、表单、CRM 或生产操作。
 - 自动读取 SSH、云凭据、密码管理器或 Windows 用户目录。
@@ -76,7 +82,7 @@ Controller 是唯一可信控制面。它负责身份验证、任务 Schema 校�
 采用“自建轻量 Controller”方案：
 
 ```text
-ChatGPT Desktop
+Codex Desktop
     │ MCP：窄工具、结构化参数
     ▼
 Hermes Controller（Windows 普通用户进程）
@@ -119,7 +125,7 @@ WSL2 + Docker
 
 ## 6. 组件设计
 
-### 6.1 ChatGPT Desktop
+### 6.1 Codex Desktop
 
 职责：
 
@@ -148,7 +154,7 @@ Controller 建议使用 TypeScript 实现，以便复用 Node.js 生态、MCP SD
 4. `Approval Service`：产生一次性、短时效、参数绑定的审批令牌。
 5. `Worker Supervisor`：创建容器、注入能力、监控资源、终止进程树和销毁 Worker。
 6. `Evidence Service`：采集 diff、哈希、命令输出、测试、截图和浏览器日志。
-7. `Redaction Service`：在结果进入日志或返回 ChatGPT 前删除敏感内容。
+7. `Redaction Service`：在结果进入日志或返回 Codex 前删除敏感内容。
 8. `Audit Service`：追加式 JSONL 审计日志、哈希链和安全事件。
 9. `Recovery Service`：Controller 重启后的任务对账、锁恢复和失联 Worker 处置。
 10. `Kill Switch`：撤销令牌、断网、终止 Worker、冻结工作卷和封存证据。
@@ -183,7 +189,7 @@ Hermes Adapter 不直接挂载凭据、不直接创建容器、不直接执行 S
 
 ## 7. MCP 工具面
 
-ChatGPT 可见的工具限定为：
+Codex 可见的工具限定为：
 
 | 工具 | 用途 | 是否产生副作用 |
 |---|---|---:|
@@ -290,7 +296,7 @@ Draft → Validated → Approved → Running → Evidence → Review → Accepte
 
 - `Rejected`：验收未通过，需要新建有界返修任务。
 - `Failed`：执行错误且允许重试已耗尽。
-- `Cancelled`：用户或 ChatGPT 主动取消。
+- `Cancelled`：用户或 Codex 主动取消。
 - `TimedOut`：命令、无进展或任务总时限耗尽。
 - `PolicyBlocked`：路径、命令、网络、凭据或提示词注入触发策略。
 - `ResourceExceeded`：CPU、内存、PID 或存储超过限制。
@@ -406,7 +412,7 @@ Worker 默认：
 - 第一版默认不给 Worker 任何密钥。
 - 如某个批准动作需要短期凭据，由 Controller 在动作层使用，不进入 Hermes 提示词、文件系统或普通日志。
 - 脱敏覆盖常见 API Key、Bearer、Cookie、Authorization、私钥、连接字符串、邮箱和个人路径。
-- 脱敏在持久化日志与返回 ChatGPT 之前执行。
+- 脱敏在持久化日志与返回 Codex 之前执行。
 - 截图和 OCR 也进入敏感信息扫描。
 - 疑似泄密时立即截断输出、撤销令牌、断网、销毁 Worker、封存安全事件，并提示轮换可能暴露的凭据。
 
@@ -465,7 +471,7 @@ Controller 的项目策略必须至少编码以下约束：
 ### 18.4 审查与收尾
 
 1. Controller 检查证据完整性和策略事件。
-2. ChatGPT 审查功能、内容、视觉和项目规则。
+2. Codex 审查功能、内容、视觉和项目规则。
 3. 通过则标记 `Accepted` 并封存证据。
 4. 未通过则创建新的有界返修任务，不允许原任务无限自我迭代。
 5. 销毁 Worker、浏览器 Profile 和临时能力。
@@ -497,7 +503,7 @@ Controller 的项目策略必须至少编码以下约束：
 7. 计算并保存现有文件哈希、diff、日志和安全事件。
 8. 释放项目锁前进行状态对账。
 
-Kill Switch 必须同时提供 MCP 工具和本机命令入口；本机入口不得依赖 ChatGPT 或 Hermes 正常运行。
+Kill Switch 必须同时提供 MCP 工具和本机命令入口；本机入口不得依赖 Codex 或 Hermes 正常运行。
 
 ## 21. 审计与可观测性
 
@@ -653,7 +659,7 @@ Kill Switch 必须同时提供 MCP 工具和本机命令入口；本机入口不
 
 ### 阶段 E：证据与验收
 
-交付 Evidence Bundle、测试摘要、六视口截图、VITHELO 项目策略和 ChatGPT 审查流程。
+交付 Evidence Bundle、测试摘要、六视口截图、VITHELO 项目策略和 Codex 审查流程。
 
 ### 阶段 F：对抗与试运行
 
@@ -693,6 +699,6 @@ Kill Switch 必须同时提供 MCP 工具和本机命令入口；本机入口不
 - 项目外读写、明文密钥泄露、未记录副作用均为零。
 - Worker 可终止率为 100%。
 - Kill Switch 与恢复演练通过。
-- ChatGPT 能完成“创建任务—审批—读取证据—验收/返修—取消”的完整闭环。
+- Codex 能完成“创建任务—审批—读取证据—验收/返修—取消”的完整闭环。
 - Hermes 能在 VITHELO 项目中完成一个真实、低风险、局部的网站修改，并提供最小 diff、完整测试、六视口截图、风险说明和可用回滚补丁。
 - 用户对系统安全边界、操作方式和首个真实任务结果明确签收。
