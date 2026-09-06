@@ -129,7 +129,7 @@ Expected: PASS for the content contract; component tests remain RED.
 - [ ] **Step 1: Copy the screened indoor image without altering the original**
 
 ```powershell
-Copy-Item -LiteralPath '独立站内容\01-工厂实力\室内现场\微信图片_202609052155406725_8.jpg' -Destination 'public\media\b2b\sanitized-factory-production-line.jpg'
+Copy-Item -LiteralPath '独立站内容\01-工厂实力\室内现场\工厂实力-室内现场-05.jpg' -Destination 'public\media\b2b\sanitized-factory-production-line.jpg'
 ```
 
 - [ ] **Step 2: Verify the output**
