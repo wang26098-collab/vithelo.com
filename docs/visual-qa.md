@@ -168,3 +168,29 @@ Acceptance notes:
 - Free stock imagery is labelled as product-form illustration and is not presented as factory evidence.
 - Contact remains visibly `NOT_CONFIGURED`; all eight fields and the submission control are disabled, and no email or WhatsApp target is invented.
 - Final B2B gate: **PASS — P0 = 0, P1 = 0.**
+
+---
+
+## 2026-09-01 首页结构与动效复核
+
+本节取代上文“首页十一屏”和“询盘渠道未配置”等已过期描述。
+
+- 首页当前为七屏：Hero、制造证明、软糖能力、产品方向、产品剂型、OEM / ODM 项目路径、询盘收口。
+- Hero 主图保持静止；产品方向保持纵向滚动且无页码、左右箭头或横向轮播。
+- 剂型屏在桌面使用五列、移动使用两列，没有横向溢出，口溶膜不再孤立。
+- 首页禁用表单已经移除；Email 与 WhatsApp 直接询盘路径可见。
+- 进入视口动效已经在软糖能力、产品剂型和项目路径上实现；Reduced Motion 显示完整静态状态。
+- 自动化结果：30 个单元测试文件、96 项测试通过；Lint 与 Typecheck 通过；E2E 225 项通过、15 项按视口条件跳过。
+
+### 当前视觉结论
+
+技术验收通过不等于视觉签收。用户明确认为首页第二屏及后续视觉仍一般，因此视觉完成状态重新打开，不再沿用此前“无剩余视觉阻塞”的结论。
+
+当前处理策略：
+
+1. 不整页推翻重做。
+2. Hero 和导航保持不变。
+3. 先完成第二屏，方向为 `V-A Editorial Proof Ledger`。
+4. 第二屏通过后再决定后续单屏，不预先把所有屏做成重复模板。
+
+当前视觉状态：**IN REVIEW — 第二屏待实施与用户验收。**

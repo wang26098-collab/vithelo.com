@@ -1,6 +1,19 @@
 # Repository Guidance
 
-This repository is the V6.1 high-fidelity demonstration for one Nutrition and Aesthetic Technology brand platform. The approved design specification is the authority. The current site is not production-ready because brand, product, science, market, provider, media, and policy inputs are still missing.
+This repository is the current VITHELO English B2B nutrition-manufacturing website. Historical V6.1 Nutrition and Aesthetic Technology specifications remain archived context, but they no longer describe the active public route structure or current homepage. Read `docs/current-status.md` before starting work. When historical documentation conflicts with the current status or the user's latest explicit instruction, the newer direction wins.
+
+## Current working memory
+
+- Public identity is `VITHELO` only. Never expose the source company's Chinese name, English name, or original logo in public copy, metadata, images, or alt text.
+- Source material is stored under `独立站内容/`. It may inform design and content only within the evidence boundaries recorded in `docs/current-status.md` and `docs/data-governance.md`.
+- The hero artwork is locked. Do not replace, regenerate, scale, translate, or apply parallax to it.
+- The current Home sequence has seven sections: Hero, manufacturing proof, gummy capability, product directions, product formats, OEM / ODM runway, and inquiry close.
+- Product directions remain vertically scroll-driven with no page count, left/right arrows, or horizontal carousel.
+- Eight dosage formats remain one section; Oral Films must not be isolated by the layout.
+- Motion is selective. The hero image stays static; meaningful facts remain visible with Reduced Motion.
+- Do not repeatedly redesign the whole homepage. Work one approved screen at a time and preserve accepted screens.
+- The immediate design task is Home screen two only. Its approved direction is `V-A Editorial Proof Ledger`; see `docs/superpowers/specs/2026-09-01-vithelo-home-screen-two-design.md`.
+- Project-facing design specifications, plans, progress notes, and acceptance summaries should be written in Chinese. Public website copy remains English.
 
 ## Repository structure
 
@@ -36,29 +49,43 @@ pnpm.cmd build
 
 `pnpm.cmd test:e2e` starts its own Next.js development server on `127.0.0.1:3100`. Do not start a second server on that port during the run.
 
+## VITHELO deployment memory
+
+- Formal domain: `vithelo.com`.
+- Deployment platform: Hostinger.
+- GitHub repository: `https://github.com/wang26098-collab/vithelo.com.git`.
+- Production branch: `main`.
+- Hostinger settings: Framework `Next.js`, Root Directory `./`, Node `20.x`, default Next.js output.
+- Package manager is pinned to `pnpm@10.34.5` in `package.json`; keep `pnpm-lock.yaml` committed.
+- Known Hostinger failure: cached `pnpm 11.24.0` can trigger `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING` on Node 20. If it returns, ensure Hostinger uses `pnpm@10.34.5` and clear the deploy cache before changing application code.
+- The deployable project is the Next.js app in this repository root. Do not deploy from or edit the frozen standalone HTML preview.
+- See `docs/deployment.md` before changing deployment, domain, build, Node, package-manager, or hosting settings.
+
 ## Hard Locks
 
-1. One master brand contains two product worlds. Do not build a Nutrition shop beside a separate device catalog.
-2. The governing brand formula is `HUMAN × MATERIAL × PRECISION`.
-3. The visual world is cold Ivory, Graphite, Titanium, and restrained Optical light. Nutrition is not a green channel. Aesthetic Technology is not a blue channel.
-4. The temporary `A PRIME` wordmark is replaceable. It is not an approved final brand identity.
-5. The dependency direction is Tokens -> Core Components -> Domain Components -> Page Patterns -> validated `DEMO_ONLY` data.
-6. Home orients, Landings support discovery, PDPs support decisions, Science explains evidence, Professional qualifies business fit, and Utility routes complete or recover tasks.
-7. PDPs are commerce-first. Price state, action state, key facts, use context, and Safety remain visible.
-8. Science explains first and archives later. Source, scope, supported-statement boundary, and limitation stay together.
-9. Motion follows `SCALE × REVEAL × RESPONSE` and must declare one of `ORIENT`, `RELATE`, `EXPLAIN`, `FOCUS`, or `CONFIRM`.
-10. Reduced Motion is a completion requirement. Meaningful facts may not exist only inside animation.
-11. Every unverified fixture and record remains visibly marked `DEMO_ONLY`; missing integrations or facts remain `NOT_CONFIGURED`.
-12. Completion requires P0 = 0 and P1 = 0 at all six acceptance viewports.
+1. Public identity is `VITHELO` only. The source company's names and original logo are not public assets.
+2. The active website is a Nutrition OEM / ODM B2B inquiry site. Do not restore the historical device catalog or commerce prototype unless the user explicitly reopens that scope.
+3. The approved hero artwork is locked and static.
+4. The visual world is cold Ivory, Graphite, Titanium, and restrained Optical light. Do not turn Nutrition into a green channel.
+5. The dependency direction is Tokens -> Core Components -> Domain Components -> Page Patterns -> validated content.
+6. Home orients and builds trust, Products supports format comparison, OEM / ODM explains the project path, Insights supports reading, and Contact completes direct inquiry routing.
+7. Home keeps the approved seven-section sequence. Screen four is vertical, not horizontal; screen five contains all eight formats in one balanced field.
+8. Motion follows `SCALE × REVEAL × RESPONSE` and declares `ORIENT`, `RELATE`, `EXPLAIN`, `FOCUS`, or `CONFIRM`. Motion is selective, not mandatory on every screen.
+9. Reduced Motion is a completion requirement. Meaningful facts may not exist only inside animation.
+10. User-provided manufacturing facts retain an explicit source boundary until production verification. Missing facts remain `NOT_CONFIGURED`.
+11. Email and WhatsApp are configured direct inquiry channels. Internal form submission, CRM, analytics, commerce, and identity remain unconfigured.
+12. Completion requires P0 = 0 and P1 = 0 at all six acceptance viewports, plus explicit user visual acceptance for the screen being changed.
 
 ## Do-not rules
 
 - Do not invent claims, efficacy, dosage, certifications, regulatory status, device mechanisms, parameters, warranty, MOQ, lead time, pricing, shipping, returns, or market policy.
 - Do not turn placeholder evidence into proof through visual treatment or confident copy.
-- Do not connect payment, inquiry submission, CMS, CRM, search, identity, or deployment without approved provider decisions and authorization.
+- Do not expose the source company's name, logo, or branded slide design in public VITHELO output.
+- Do not publish certification logos or certification claims from the supplied profile until the subject, scope, certificate, validity, and public-use approval are verified.
+- Do not connect payment, form submission, CMS, CRM, search, identity, analytics, or deployment without approved provider decisions and authorization.
 - Do not put product facts directly in route or page-pattern code. Add validated records and relationships through the content layer.
 - Do not replace `DEMO_ONLY` or `NOT_CONFIGURED` with plausible-sounding values.
-- Do not hide Safety, commerce state, evidence boundaries, or recovery actions in mobile-only disclosure.
+- Do not redesign already accepted screens when the current task targets one screen. Preserve the hero and navigation unless the user explicitly reopens them.
 - Do not copy Seed branding, copy, green microbiome styling, product logic, layout, motion, or code. The local mirror is a structural-quality reference only.
 - Do not restore generic shadcn styling, rounded-card grids, elevated shadows, channel-color themes, arbitrary motion durations, or page-local design values.
 - Do not use scroll-jacking. Do not let sticky resources cover Safety or remain visible above a modal.
@@ -79,6 +106,7 @@ A change is done only when all applicable items pass:
 
 ## Focused documentation
 
+- [Current project status](docs/current-status.md)
 - [Brand system](docs/brand-system.md)
 - [Design system](docs/design-system.md)
 - [Content model](docs/content-model.md)
@@ -86,6 +114,7 @@ A change is done only when all applicable items pass:
 - [Data governance](docs/data-governance.md)
 - [Motion system](docs/motion-system.md)
 - [Acceptance](docs/acceptance.md)
+- [Deployment](docs/deployment.md)
 - [Missing production inputs](docs/missing-production-inputs.md)
 - [Visual QA evidence](docs/visual-qa.md)
 - [Approved design specification](docs/superpowers/specs/2026-08-16-nutrition-aesthetic-brand-site-design.md)

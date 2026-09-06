@@ -4,7 +4,8 @@
   --b2b-ink: #171918;
   --b2b-muted: #646761;
   --b2b-line: rgb(23 25 24 / 18%);
-  --b2b-orange: #ec5b32;
+  --b2b-warm-signal: #a9503c;
+  --b2b-titanium-glass: rgb(225 223 216 / 48%);
   --b2b-navy: #102a43;
   min-height: 100dvh;
   overflow: clip;
@@ -32,22 +33,73 @@
 }
 
 .header {
-  position: sticky;
+  position: fixed;
   z-index: 20;
   top: 0;
+  right: 0;
+  left: 0;
   height: 5rem;
-  border-bottom: 1px solid var(--b2b-line);
-  background: rgb(250 248 242 / 92%);
-  backdrop-filter: blur(16px);
+  background: transparent;
+  color: var(--b2b-ink);
+  pointer-events: none;
 }
 
+.header:is([data-header-theme="dark-hero"], [data-header-theme="split-hero"])[data-navigation-state="top"] {
+  color: var(--b2b-ivory);
+}
+
+.header a,
+.header summary,
+.mobileMenu nav {
+  pointer-events: auto;
+}
+
+.site[data-frame-variant="internal"] [id] {
+  scroll-margin-top: 6rem;
+}
+
+.header a:focus-visible,
+.header summary:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
 .headerInner {
   width: min(calc(100% - 64px), 1280px);
   height: 100%;
   margin-inline: auto;
   display: flex;
   align-items: center;
-  gap: 2rem;
+  justify-content: space-between;
+  gap: 1.25rem;
+}
+
+.navigationGroup {
+  min-width: 0;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  transition: background-color 220ms ease-out, border-color 220ms ease-out,
+    color 220ms ease-out, padding 220ms ease-out, transform 220ms ease-out;
+}
+
+.browseGroup {
+  gap: clamp(1.25rem, 2.5vw, 2.25rem);
+}
+
+.conversionGroup {
+  gap: 0.5rem;
+}
+
+.header[data-navigation-state="scrolled"]
+  .navigationGroup:not(.mobileGroup) {
+  border: 1px solid rgb(255 255 255 / 55%);
+  border-radius: 999px;
+  padding-inline: 1.125rem;
+  background: var(--b2b-titanium-glass);
+  color: var(--b2b-ink);
+  box-shadow: 0 12px 30px rgb(15 18 16 / 9%);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
 }
 
 .brand {
@@ -61,17 +113,24 @@
   text-decoration: none;
 }
 
+.header:is([data-header-theme="dark-hero"], [data-header-theme="split-hero"])[data-navigation-state="top"] .brand {
+  color: var(--b2b-ivory) !important;
+}
+
+.header[data-navigation-state="scrolled"] .brand {
+  color: var(--b2b-ink) !important;
+}
+
 .desktopNav {
-  margin-left: auto;
   display: flex;
   align-items: center;
   gap: clamp(1.25rem, 3vw, 2.5rem);
-  color: #334e68;
+  color: inherit;
   font-size: 0.875rem;
 }
 
 .desktopNav a,
-.footer a,
+.contactLink,
 .mobileMenu a {
   min-height: 44px;
   display: inline-flex;
@@ -81,11 +140,22 @@
 
 .desktopNav a {
   border-bottom: 1px solid transparent;
+  min-width: 44px;
+  justify-content: center;
 }
 
+.desktopNav a[aria-current="page"],
+.contactLink[aria-current="page"],
 .desktopNav a:hover,
-.desktopNav a:focus-visible {
+.desktopNav a:focus-visible,
+.contactLink:hover,
+.contactLink:focus-visible {
   border-color: currentColor;
+}
+
+.contactLink {
+  border-bottom: 1px solid transparent;
+  font-size: 0.875rem;
 }
 
 .quote {
@@ -93,18 +163,32 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 6px;
+  border-radius: 999px;
   padding-inline: 1.5rem;
-  background: var(--b2b-orange);
+  background: var(--b2b-warm-signal);
   color: white !important;
   font-size: 0.875rem;
   font-weight: 650;
   text-decoration: none;
 }
 
+.mobileGroup,
 .mobileMenu {
   display: none;
-  margin-left: auto;
+}
+
+.mobileQuote {
+  min-width: 54px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--b2b-warm-signal);
+  color: white !important;
+  font-size: 0.75rem;
+  font-weight: 650;
+  text-decoration: none;
 }
 
 .mobileMenu summary {
@@ -132,47 +216,54 @@
   border-bottom: 1px solid var(--b2b-line);
 }
 
-.footer {
-  padding: 3.125rem clamp(22px, 6vw, 96px);
-  display: grid;
-  grid-template-columns: 1fr 1fr 1.25fr;
-  gap: 2.5rem;
-  background: #111312;
-  color: #eae8e1;
-}
-
-.footer strong {
-  font-size: 1.5rem;
-  letter-spacing: -0.04em;
-}
-
-.footer p,
-.footer small {
-  color: #adb0aa;
-}
-
-.footer nav {
-  display: flex;
-  flex-direction: column;
-}
-
-@media (max-width: 900px) {
-  .desktopNav,
-  .quote {
+@media (max-width: 1200px) {
+  .browseGroup,
+  .conversionGroup {
     display: none;
   }
 
+  .mobileGroup,
   .mobileMenu {
-    display: block;
+    display: flex;
   }
 
   .headerInner {
     width: calc(100% - 44px);
   }
 
-  .footer {
-    grid-template-columns: 1fr;
+  .mobileGroup {
+    position: relative;
+    width: 100%;
+    justify-content: space-between;
+    gap: 0.5rem;
   }
+
+  .header[data-navigation-state="scrolled"]
+    .mobileGroup {
+    border: 1px solid rgb(255 255 255 / 55%);
+    border-radius: 999px;
+    padding-inline: 0.75rem;
+    background: var(--b2b-titanium-glass);
+    color: var(--b2b-ink);
+    box-shadow: 0 12px 30px rgb(15 18 16 / 9%);
+    -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  }
+
+  .header[data-navigation-state="top"]
+    .mobileQuote {
+    display: none;
+  }
+
+  .header[data-navigation-state="scrolled"]
+    .mobileQuote {
+    display: inline-flex;
+  }
+
+  .mobileMenu {
+    margin-left: auto;
+  }
+
 }
 
 @media (max-width: 760px) {
@@ -183,4 +274,35 @@
   .disclosure {
     font-size: 0.625rem;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navigationGroup {
+    transition: none;
+  }
+}
+
+.mobileMenu nav {
+  color: var(--b2b-ink);
+  max-height: calc(100dvh - 6rem);
+  overflow-y: auto;
+  border: 1px solid var(--b2b-line);
+  border-radius: 22px;
+}
+
+.mobileMenu a[aria-current="page"] {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+@supports not ((backdrop-filter: blur(16px)) or (-webkit-backdrop-filter: blur(16px))) {
+  .header[data-navigation-state="scrolled"] .navigationGroup:not(.mobileGroup),
+  .header[data-navigation-state="scrolled"] .mobileGroup {
+    background: var(--b2b-paper);
+  }
+}
+
+.header[data-header-theme="split-hero"][data-navigation-state="top"] .contactLink,
+.header[data-header-theme="split-hero"][data-navigation-state="top"] summary {
+  color: var(--b2b-ink);
 }

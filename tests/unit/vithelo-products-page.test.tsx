@@ -12,5 +12,7 @@ it("renders eight formats as one ledger without a carousel", () => {
   expect(
     screen.getByText("Flexible MOQ based on formula and packaging."),
   ).toBeVisible();
-  expect(screen.getAllByText("Contact us for MOQ")).toHaveLength(2);
+  expect(
+    screen.getAllByText("Flexible MOQ based on formula and packaging. Contact us for MOQ."),
+  ).toHaveLength(8);
 });

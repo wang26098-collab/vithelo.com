@@ -7,6 +7,11 @@ export const metadata: Metadata = {
   title: "Insights | VITHELO",
   description:
     "Practical guidance for nutrition product development, formats, packaging and manufacturing decisions.",
+  alternates: { canonical: "/insights" },
+  openGraph: {
+    url: "/insights",
+    images: ["/media/vithelo-hero-composite.png"],
+  },
 };
 
 export default async function InsightsPage() {
@@ -16,7 +21,7 @@ export default async function InsightsPage() {
   ]);
 
   return (
-    <VitheloB2BSiteFrame content={site}>
+    <VitheloB2BSiteFrame content={site} headerTheme="split-hero">
       <VitheloInsightsPage content={content} />
     </VitheloB2BSiteFrame>
   );

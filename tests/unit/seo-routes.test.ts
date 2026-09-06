@@ -9,12 +9,18 @@ afterEach(() => {
   else process.env.NEXT_PUBLIC_SITE_URL = originalSiteUrl;
 });
 
-it("prevents indexing when the production origin is not configured", async () => {
+it("uses the approved production origin when no override is configured", async () => {
   delete process.env.NEXT_PUBLIC_SITE_URL;
 
-  expect(getSiteOrigin()).toBeNull();
-  expect(robots()).toEqual({ rules: { userAgent: "*", disallow: "/" } });
-  await expect(sitemap()).resolves.toEqual([]);
+  expect(getSiteOrigin()).toBe("https://vithelo.com");
+  expect(robots()).toEqual(
+    expect.objectContaining({ sitemap: "https://vithelo.com/sitemap.xml" }),
+  );
+  await expect(sitemap()).resolves.toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({ url: "https://vithelo.com/" }),
+    ]),
+  );
 });
 
 it("emits only the approved B2B discovery routes", async () => {
@@ -46,10 +52,28 @@ it("emits only the approved B2B discovery routes", async () => {
     "https://vithelo.example/",
     "https://vithelo.example/products",
     "https://vithelo.example/oem-odm",
-    "https://vithelo.example/insights",
+    "https://vithelo.example/manufacturing",
+    "https://vithelo.example/products/gummies",
+    "https://vithelo.example/products/hard-capsules",
+    "https://vithelo.example/products/softgels",
+    "https://vithelo.example/products/tablets",
+    "https://vithelo.example/products/powders",
+    "https://vithelo.example/products/liquids",
+    "https://vithelo.example/products/functional-gum",
+    "https://vithelo.example/products/oral-films",
     "https://vithelo.example/insights/choose-the-right-supplement-format",
     "https://vithelo.example/insights/prepare-for-an-oem-odm-project",
     "https://vithelo.example/insights/gummy-development-guide",
+    "https://vithelo.example/insights/how-to-evaluate-a-supplement-manufacturer",
+    "https://vithelo.example/insights/private-label-vs-custom-formulation",
+    "https://vithelo.example/insights/how-supplement-sampling-works",
+    "https://vithelo.example/insights/gummies-vs-hard-capsules",
+    "https://vithelo.example/insights/what-documents-buyers-should-ask-for",
+    "https://vithelo.example/insights/what-information-to-include-in-an-rfq",
+    "https://vithelo.example/insights/how-packaging-affects-moq-and-lead-time",
+    "https://vithelo.example/quality",
+    "https://vithelo.example/insights",
+    "https://vithelo.example/about",
     "https://vithelo.example/contact",
   ]);
 

@@ -8,14 +8,14 @@ export const siteConfig = SiteConfigSchema.parse({
   },
   contact: {
     email: {
-      status: "NOT_CONFIGURED",
-      value: null,
-      message: "Email inquiry address not configured",
+      status: "CONFIGURED",
+      value: "wang26098@gmail.com",
+      message: "Public business inquiry email",
     },
     whatsapp: {
-      status: "NOT_CONFIGURED",
-      e164: null,
-      message: "WhatsApp number not configured",
+      status: "CONFIGURED",
+      e164: "8618273669556",
+      message: "Public business inquiry WhatsApp",
     },
   },
 });

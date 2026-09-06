@@ -60,10 +60,15 @@ function InquiryActionPair({
           </Button>
         )}
       </div>
-      {showConfigurationMessages ? (
+      {showConfigurationMessages &&
+      (email.status === "NOT_CONFIGURED" || whatsapp.status === "NOT_CONFIGURED") ? (
         <div className="mt-3 space-y-1 text-sm text-[var(--color-muted)]">
-          <p><span className="font-mono text-[var(--color-foreground)]">NOT_CONFIGURED</span> · {email.message}</p>
-          <p><span className="font-mono text-[var(--color-foreground)]">NOT_CONFIGURED</span> · {whatsapp.message}</p>
+          {email.status === "NOT_CONFIGURED" ? (
+            <p><span className="font-mono text-[var(--color-foreground)]">NOT_CONFIGURED</span> · {email.message}</p>
+          ) : null}
+          {whatsapp.status === "NOT_CONFIGURED" ? (
+            <p><span className="font-mono text-[var(--color-foreground)]">NOT_CONFIGURED</span> · {whatsapp.message}</p>
+          ) : null}
         </div>
       ) : email.status === "NOT_CONFIGURED" || whatsapp.status === "NOT_CONFIGURED" ? (
         <p className="mt-2 text-center text-xs text-[var(--color-muted)]">

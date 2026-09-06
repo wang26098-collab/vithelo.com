@@ -70,6 +70,12 @@
   --container-gutter: clamp(var(--space-20), 4vw, var(--space-64));
   --home-header-height: 4.75rem;
 
+  --inquiry-stage-height: max(100svh, 46rem);
+  --inquiry-scroll-distance: 85svh;
+  --inquiry-scene-shade: rgb(25 27 26 / 48%);
+  --inquiry-mask-font-size: 240px;
+  --inquiry-title-size: clamp(2.75rem, 5.5vw, 5rem);
+
   --z-p1: 10;
   --z-p2: 20;
   --z-p3: 30;
@@ -81,6 +87,13 @@
   --motion-immersive: 900ms;
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
   --focus-ring: 0 0 0 3px color-mix(in srgb, var(--color-focus) 70%, transparent);
+}
+
+@media (max-width: 600px) {
+  :root {
+    --inquiry-stage-height: max(100svh, 42rem);
+    --inquiry-scroll-distance: 45svh;
+  }
 }
 
 [data-theme="dark"] {

@@ -9,7 +9,7 @@ export function VitheloInsightsPage({
 }) {
   return (
     <main className={styles.page} data-content-status={content.dataStatus}>
-      <section className={styles.hero}>
+      <section data-header-hero className={styles.hero}>
         <p className={styles.kicker}>{content.hero.kicker}</p>
         <h1>{content.hero.title}</h1>
         <p className={styles.lede}>{content.hero.copy}</p>

@@ -1,34 +1,50 @@
 import type { VitheloB2BHomeContent } from "@/content/schema";
+import Link from "next/link";
 import { VitheloMarketStage } from "@/components/patterns/vithelo-market-stage";
+import { VitheloHomeMotion } from "@/components/motion/vithelo-home-motion";
+import { VitheloInquiryReveal } from "@/components/motion/vithelo-inquiry-reveal";
+import { VitheloHomeInquiryComposer } from "@/components/patterns/vithelo-home-inquiry-composer";
 import styles from "@/components/patterns/vithelo-b2b-home.module.css";
+import { siteConfig } from "@/content/site-config";
+import { buildEmailInquiryUrl, buildWhatsAppInquiryUrl } from "@/lib/inquiry";
 
 type VitheloB2BHomeProps = {
   content: VitheloB2BHomeContent;
 };
 
-type RequiredMedia = VitheloB2BHomeContent["gummy"]["media"];
-
-function MediaRequirement({ media }: { media: RequiredMedia }) {
-  return (
-    <div
-      aria-label={`${media.label}; ${media.width} by ${media.height} ${media.format}`}
-      className={styles.media}
-      data-media-status={media.status}
-      role="img"
-    >
-      <span>
-        {media.label} · {media.width} × {media.height} · {media.format}
-      </span>
-    </div>
-  );
+function DosageSection({ content }: VitheloB2BHomeProps) {
+  return (<section aria-labelledby="dosage-title" className={`${styles.section} ${styles.dosageSection}`} data-layout="desktop-editorial-field" data-ui-stage="editorial-format-field" data-motion-intent="RELATE" id="dosage-forms">
+    <p className={styles.kicker}>{content.dosage.kicker}</p><h2 className={styles.title} id="dosage-title">{content.dosage.title}</h2><p className={styles.copy}>{content.dosage.qualifier}</p>
+    <div className={styles.dosageGrid} data-testid="dosage-grid">{content.dosage.items.map((item, index) => <article className={styles.dosageItem} data-format={item.name.toLowerCase().replaceAll(" ", "-")} data-motion-index={index} data-motion-role="collection-item" data-testid="dosage-item" key={item.name}><span className={styles.dosageIndex}>{String(index + 1).padStart(2, "0")}</span><div aria-hidden="true" className={styles.dosageShape} data-shape={index + 1} /><div className={styles.dosageCopy}><h3><Link href={`/products/${item.name.toLowerCase().replaceAll(" ", "-")}`}>{item.name}</Link></h3><p>{item.moq}</p></div></article>)}</div>
+  </section>);
 }
 
 function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
-  const [formulaStrategy, sensoryDesign, packagingFit, projectReview] =
-    content.development.notes;
+  const inquiryContext = {
+    cooperationType: "OEM / ODM project",
+    productWorld: "Nutrition",
+    market: "Not provided",
+    summary: "Please share your format, formula, packaging, volume and target timing.",
+  };
+  const emailHref =
+    siteConfig.contact.email.status === "CONFIGURED"
+      ? buildEmailInquiryUrl(siteConfig.contact.email.value, inquiryContext)
+      : "#contact-pending";
+  const whatsappHref =
+    siteConfig.contact.whatsapp.status === "CONFIGURED"
+      ? buildWhatsAppInquiryUrl(siteConfig.contact.whatsapp.e164, inquiryContext)
+      : "#contact-pending";
+  const whatsappDisplay =
+    siteConfig.contact.whatsapp.status === "CONFIGURED"
+      ? siteConfig.contact.whatsapp.e164.replace(
+          /^86(\d{3})(\d{4})(\d{4})$/,
+          "+86 $1 $2 $3",
+        )
+      : "WhatsApp unavailable";
 
   return (
-    <main className={styles.homepage} data-content-status={content.dataStatus}>
+    <main className={styles.homepage} data-content-status={content.dataStatus} data-vithelo-home>
+      <VitheloHomeMotion />
       <section
         aria-labelledby="hero-title"
         className={styles.hero}
@@ -54,161 +70,125 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
         </p>
       </section>
 
-      <section aria-label="Manufacturing proof points" className={styles.proof} id="proof">
-        <dl className={styles.proofGrid}>
-          {content.proof.map((item) => (
-            <div className={styles.proofItem} key={item.label}>
+      <section aria-labelledby="proof-title" className={styles.proof} id="proof">
+        <div className={styles.proofIntro}>
+          <div className={styles.proofCopy}>
+            <p className={styles.kicker}>{content.proof.kicker}</p>
+            <h2 className={styles.title} id="proof-title">{content.proof.title}</h2>
+            <p className={styles.copy}>{content.proof.copy}</p>
+          </div>
+          <div className={styles.proofSource}>
+            <strong>{content.proof.summary}</strong>
+            <p>{content.proof.sourceBoundary}</p>
+          </div>
+        </div>
+        <div className={styles.proofLedger}>
+          {content.proof.items.map((item) => (
+            <article className={styles.proofItem} key={item.label}>
               <dt>{item.label}</dt>
-              <dd>
-                {item.value}
-                {item.suffix ? <span>{item.suffix}</span> : null}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </section>
-
-      <section aria-labelledby="gummy-title" className={styles.section} id="gummy-stage">
-        <p className={styles.kicker}>{content.gummy.kicker}</p>
-        <h2 className={styles.title} id="gummy-title">
-          {content.gummy.title}
-        </h2>
-        <div className={styles.rule} />
-        <MediaRequirement media={content.gummy.media} />
-        <div className={styles.featureRail}>
-          {content.gummy.features.map((feature, index) => (
-            <article key={feature.title}>
-              <span className={styles.index}>{String(index + 1).padStart(2, "0")}</span>
-              <h3>{feature.title}</h3>
-              <p>{feature.copy}</p>
+              <dd>{item.value}</dd>
             </article>
           ))}
+        </div>
+        <p className={styles.proofLinks}>
+          <Link href="/manufacturing">Explore Manufacturing</Link>
+          <Link href="/quality">Review Quality &amp; R&amp;D</Link>
+        </p>
+      </section>
+
+      <section
+        aria-labelledby="capacity-boundary-title"
+        className={`${styles.section} ${styles.capacityBoundarySection}`}
+        data-motion-intent="EXPLAIN"
+        data-ui-stage="capability-boundary-map"
+        id="capacity-boundary"
+      >
+        <div className={styles.capacityBoundaryIntro}>
+          <div>
+            <p className={styles.kicker}>{content.capacity.kicker}</p>
+            <h2 className={styles.title} id="capacity-boundary-title">{content.capacity.title}</h2>
+          </div>
+          <p className={styles.copy}>{content.capacity.sourceBoundary}</p>
+        </div>
+        <div className={styles.capabilityMap} data-motion-role="capacity-process">
+          {content.capacity.steps.map((step, index) => (
+            <article
+              className={styles.capabilityBoundaryItem}
+              data-testid="capability-boundary-item"
+              data-value-state="pending"
+              key={step.label}
+            >
+              <span className={styles.capabilityBoundaryIndex}>{String(index + 1).padStart(2, "0")}</span>
+              <h3>{step.label}</h3>
+              <p>{step.copy}</p>
+              <span className={styles.capabilityBoundaryStatus}>Pending verification</span>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="gummy-title"
+        className={`${styles.section} ${styles.gummySection}`}
+        data-media-status={content.gummy.media.status}
+        data-ui-stage="gummy-image-atelier"
+        data-motion-intent="RELATE"
+        id="gummy-stage"
+      >
+        <div className={styles.centerHeader}>
+          <p className={styles.kicker}>{content.gummy.kicker}</p>
+          <h2 className={styles.title} id="gummy-title">
+            {content.gummy.title}
+          </h2>
+        </div>
+        <div className={styles.gummyAtelier}>
+          <div
+            aria-label={`${content.gummy.media.label}; ${content.gummy.media.width} by ${content.gummy.media.height} ${content.gummy.media.format}`}
+            className={styles.gummyImageStage}
+            data-media-status={content.gummy.media.status}
+            data-motion-role="media"
+            role="img"
+          >
+            <span>
+              {content.gummy.media.label} · {content.gummy.media.width} × {content.gummy.media.height}
+            </span>
+          </div>
+          <div className={styles.gummyFeatureRail}>
+            {content.gummy.features.map((feature, index) => (
+              <article data-motion-role="relation-item" key={feature.title}>
+                <span className={styles.index}>{String(index + 1).padStart(2, "0")}</span>
+                <h3>{feature.title}</h3>
+                <p>{feature.copy}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
       <VitheloMarketStage market={content.market} />
 
-      <section
-        aria-labelledby="dosage-title"
-        className={`${styles.section} ${styles.dosageSection}`}
-        data-layout="desktop-editorial-field"
-        data-ui-stage="editorial-format-field"
-        id="dosage-forms"
-      >
-        <p className={styles.kicker}>{content.dosage.kicker}</p>
-        <h2 className={styles.title} id="dosage-title">
-          {content.dosage.title}
-        </h2>
-        <p className={styles.copy}>{content.dosage.qualifier}</p>
-        <div className={styles.dosageGrid} data-testid="dosage-grid">
-          {content.dosage.items.map((item, index) => (
-            <article
-              className={styles.dosageItem}
-              data-format={item.name.toLowerCase().replaceAll(" ", "-")}
-              data-testid="dosage-item"
-              key={item.name}
-            >
-              <span className={styles.dosageIndex}>
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <div aria-hidden="true" className={styles.dosageShape} data-shape={index + 1} />
-              <div className={styles.dosageCopy}>
-                <h3>{item.name}</h3>
-                <p>{item.moq}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section
-        aria-labelledby="development-title"
-        className={`${styles.section} ${styles.darkSection}`}
-        id="custom-development"
-      >
-        <p className={styles.kicker}>{content.development.kicker}</p>
-        <h2 className={styles.title} id="development-title">
-          {content.development.title}
-        </h2>
-        <div className={styles.blueprint}>
-          <div>
-            {[formulaStrategy, sensoryDesign].map((note) => (
-              <article className={styles.note} key={note.title}>
-                <h3>{note.title}</h3>
-                <p>{note.copy}</p>
-              </article>
-            ))}
-          </div>
-          <div className={styles.blueprintCore}>
-            <div>
-              <span className={styles.index}>YOUR PRODUCT</span>
-              <h3>{content.development.coreTitle}</h3>
-              <p>{content.development.coreCopy}</p>
-            </div>
-          </div>
-          <div>
-            {[packagingFit, projectReview].map((note) => (
-              <article className={styles.note} key={note.title}>
-                <h3>{note.title}</h3>
-                <p>{note.copy}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section aria-labelledby="manufacturing-title" className={styles.section} id="manufacturing">
-        <p className={styles.kicker}>{content.manufacturing.kicker}</p>
-        <h2 className={styles.title} id="manufacturing-title">
-          {content.manufacturing.title}
-        </h2>
-        <MediaRequirement media={content.manufacturing.media} />
-        <div className={styles.ledger}>
-          {content.manufacturing.metrics.map((metric) => (
-            <article key={metric.label}>
-              <span>{metric.label}</span>
-              <strong>{metric.value}</strong>
-              <small>{metric.note}</small>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section aria-labelledby="quality-title" className={styles.section} id="quality">
-        <p className={styles.kicker}>{content.quality.kicker}</p>
-        <h2 className={styles.title} id="quality-title">
-          {content.quality.title}
-        </h2>
-        <div className={styles.qualityDocument}>
-          <div className={styles.qualityIntro}>
-            <p className={styles.kicker}>Batch Quality Record</p>
-            <h3>{content.quality.recordTitle}</h3>
-            <p className={styles.copy}>{content.quality.caveat}</p>
-          </div>
-          <div className={styles.qualityRows}>
-            {content.quality.rows.map((row) => (
-              <article className={styles.qualityRow} key={row.title}>
-                <strong>{row.title}</strong>
-                <span>{row.copy}</span>
-                <em>{row.state}</em>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <DosageSection content={content} />
 
       <section
         aria-labelledby="runway-title"
-        className={`${styles.section} ${styles.darkSection}`}
+        className={`${styles.section} ${styles.darkSection} ${styles.runwaySection}`}
+        data-ui-stage="runway-timeline-stage"
+        data-motion-intent="EXPLAIN"
         id="project-runway"
       >
-        <p className={styles.kicker}>{content.runway.kicker}</p>
-        <h2 className={styles.title} id="runway-title">
-          {content.runway.title}
-        </h2>
-        <div className={styles.runway}>
+        <div className={styles.centerHeader}>
+          <p className={styles.kicker}>{content.runway.kicker}</p>
+          <h2 className={styles.title} id="runway-title">
+            {content.runway.title}
+          </h2>
+        </div>
+        <div className={styles.runway} data-motion-role="process-line">
           {content.runway.steps.map((step, index) => (
-            <article key={step.title}>
+            <article
+              data-motion-index={index}
+              data-motion-role="process-step"
+              key={step.title}
+            >
               <span>{String(index + 1).padStart(2, "0")}</span>
               <h3>{step.title}</h3>
               <p>{step.copy}</p>
@@ -217,78 +197,67 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
         </div>
       </section>
 
-      <section aria-labelledby="channels-title" className={styles.section} id="company-fit">
-        <p className={styles.kicker}>{content.channels.kicker}</p>
-        <h2 className={styles.title} id="channels-title">
-          {content.channels.title}
-        </h2>
-        <div className={styles.channelNetwork}>
-          {content.channels.paths.map((path, index) => (
-            <article className={styles.channelPath} data-path={index + 1} key={path.label}>
-              <span className={styles.index}>{path.label}</span>
-              <h3>{path.title}</h3>
-              <p className={styles.copy}>{path.copy}</p>
-            </article>
-          ))}
-          <div className={styles.channelNode}>
-            VITHELO
-            <br />
-            Factory Partner
-          </div>
-        </div>
-      </section>
-
       <section
         aria-labelledby="contact-title"
-        className={`${styles.section} ${styles.contactSection}`}
-        data-contact-state={content.contact.status}
+        className={`${styles.contactSection} ${styles.contactRevealSection}`}
+        data-contact-state="CONFIGURED"
+        data-scene-status={content.contact.scene.status}
+        data-layout="editorial-channel-split"
         id="contact"
       >
-        <p className={styles.kicker}>{content.contact.kicker}</p>
-        <h2 className={styles.title} id="contact-title">
-          {content.contact.title}
-        </h2>
-        <div className={styles.contactGrid}>
-          <div>
+        <VitheloInquiryReveal image={content.contact.scene.src}>
+        <div className={styles.contactIntroGrid}>
+          <div className={styles.contactIntro}>
+            <p className={styles.kicker}>{content.contact.kicker}</p>
+            <h2 className={styles.title} id="contact-title">
+              {content.contact.title}
+            </h2>
             <p className={styles.copy}>{content.contact.copy}</p>
-            <form className={styles.projectForm}>
-              <div className={styles.formField}>
-                <label htmlFor="project-name">Name / Company</label>
-                <input id="project-name" name="name" placeholder="Your name and company" type="text" />
-              </div>
-              <div className={styles.formField}>
-                <label htmlFor="project-format">Dosage Format</label>
-                <select defaultValue={content.contact.formats[0]} id="project-format" name="format">
-                  {content.contact.formats.map((format) => (
-                    <option key={format}>{format}</option>
-                  ))}
-                </select>
-              </div>
-              <div className={styles.formField}>
-                <label htmlFor="project-brief">Project Brief</label>
-                <input
-                  id="project-brief"
-                  name="brief"
-                  placeholder="Formula, packaging and estimated volume"
-                  type="text"
-                />
-              </div>
-              <button aria-describedby="contact-pending" disabled type="button">
-                Inquiry submission not configured
-              </button>
-            </form>
           </div>
-          <div>
-            <a aria-label="Email" className={styles.contactLink} href="#contact-pending">
-              Email <span aria-hidden="true">→</span>
+          <div
+            aria-label="Direct inquiry channels"
+            className={styles.contactChannels}
+          >
+            <a
+              aria-label={`Email ${siteConfig.contact.email.value}`}
+              className={styles.contactChannelCard}
+              href={emailHref}
+            >
+              <span className={styles.contactChannelIndex}>01 · Email</span>
+              <strong>{siteConfig.contact.email.value}</strong>
+              <span className={styles.contactChannelAction}>
+                Open mail <span aria-hidden="true">→</span>
+              </span>
             </a>
-            <a aria-label="WhatsApp" className={styles.contactLink} href="#contact-pending">
-              WhatsApp <span aria-hidden="true">→</span>
+            <a
+              aria-label={`WhatsApp ${whatsappDisplay}`}
+              className={styles.contactChannelCard}
+              href={whatsappHref}
+              rel="noreferrer"
+              target="_blank"
+            >
+              <span className={styles.contactChannelIndex}>02 · WhatsApp</span>
+              <strong>{whatsappDisplay}</strong>
+              <span className={styles.contactChannelAction}>
+                Open chat <span aria-hidden="true">→</span>
+              </span>
             </a>
-            <div className={styles.pending} id="contact-pending">
-              {content.contact.pendingMessage}
-            </div>
           </div>
+        </div>
+        </VitheloInquiryReveal>
+        <div className={styles.contactDetails}>
+        {siteConfig.contact.email.status === "CONFIGURED" &&
+        siteConfig.contact.whatsapp.status === "CONFIGURED" ? (
+          <VitheloHomeInquiryComposer
+            email={siteConfig.contact.email.value}
+            formats={content.contact.formats}
+            whatsapp={siteConfig.contact.whatsapp.e164}
+          />
+        ) : null}
+        <div className={styles.brandSignature} data-motion-role="signature">
+          <strong>Made for what comes next.</strong>
+          <span>VITHELO · PRIVATE-LABEL NUTRITION MANUFACTURING</span>
+        </div>
         </div>
       </section>
 

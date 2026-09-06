@@ -11,6 +11,8 @@ it("renders one six-step project path and four quality checkpoints", () => {
   expect(
     within(screen.getByTestId("quality-path")).getAllByRole("article"),
   ).toHaveLength(4);
-  expect(screen.getByText(/factory-owned overseas brand/i)).toBeVisible();
+  expect(
+    screen.getByText(/connects international nutrition projects with development and production support/i),
+  ).toBeVisible();
   expect(document.body.textContent).not.toMatch(/certified|FDA approved|guaranteed/i);
 });

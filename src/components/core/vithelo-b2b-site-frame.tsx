@@ -1,62 +1,34 @@
-import Link from "next/link";
 import type { ReactNode } from "react";
+import { VitheloB2BNavigation } from "@/components/core/vithelo-b2b-navigation";
 import styles from "@/components/core/vithelo-b2b-site-frame.module.css";
 import type { B2BSiteContent } from "@/content/schema";
 
 type VitheloB2BSiteFrameProps = {
   children: ReactNode;
   content: B2BSiteContent;
+  variant?: "home" | "internal";
+  headerTheme?: "dark-hero" | "light-hero" | "split-hero";
 };
-
-function NavigationLinks({
-  items,
-}: {
-  items: B2BSiteContent["navigation"];
-}) {
-  return items.map((item) => (
-    <Link href={item.href} key={item.href}>
-      {item.label}
-    </Link>
-  ));
-}
 
 export function VitheloB2BSiteFrame({
   children,
   content,
+  variant = "internal",
+  headerTheme = "dark-hero",
 }: VitheloB2BSiteFrameProps) {
   return (
-    <div className={styles.site} data-content-status={content.dataStatus}>
-      <div className={styles.disclosure}>{content.disclosure}</div>
-      <header className={styles.header}>
-        <div className={styles.headerInner}>
-          <Link aria-label="VITHELO home" className={styles.brand} href="/">
-            VITHELO
-          </Link>
-          <nav aria-label="Primary navigation" className={styles.desktopNav}>
-            <NavigationLinks items={content.navigation} />
-          </nav>
-          <Link className={styles.quote} href={content.requestQuote.href}>
-            {content.requestQuote.label}
-          </Link>
-          <details className={styles.mobileMenu}>
-            <summary>Menu</summary>
-            <nav aria-label="Mobile primary navigation">
-              <NavigationLinks items={content.navigation} />
-            </nav>
-          </details>
-        </div>
-      </header>
+    <div
+      className={styles.site}
+      data-content-status={content.dataStatus}
+      data-frame-variant={variant}
+    >
+      <VitheloB2BNavigation content={content} variant={variant} theme={headerTheme} />
       {children}
-      <footer className={styles.footer}>
-        <div>
-          <strong>VITHELO</strong>
-          <p>{content.identity}</p>
+      {variant === "internal" ? (
+        <div className={styles.disclosure} data-site-disclosure="footer">
+          {content.disclosure}
         </div>
-        <nav aria-label="Footer navigation">
-          <NavigationLinks items={content.footerLinks} />
-        </nav>
-        <small>{content.disclosure}</small>
-      </footer>
+      ) : null}
     </div>
   );
 }

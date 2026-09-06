@@ -206,6 +206,7 @@ export const HomeContentSchema = z.object({
 export const B2BHomeSectionIdSchema = z.enum([
   "hero",
   "proof",
+  "capacity-dashboard",
   "gummy-stage",
   "solutions",
   "dosage-forms",
@@ -233,7 +234,7 @@ const B2BLabelCopySchema = z.object({
 
 export const VitheloB2BHomeContentSchema = z.object({
   dataStatus: DataStatusSchema,
-  sectionOrder: z.array(B2BHomeSectionIdSchema).length(11),
+  sectionOrder: z.array(B2BHomeSectionIdSchema).length(12),
   hero: z.object({
     eyebrow: z.string().min(1),
     title: z.string().min(1),
@@ -248,15 +249,46 @@ export const VitheloB2BHomeContentSchema = z.object({
     }),
     media: B2BRequiredMediaSchema,
   }),
-  proof: z
-    .array(
+  proof: z.object({
+    kicker: z.string().min(1),
+    title: z.string().min(1),
+    copy: z.string().min(1),
+    summary: z.string().min(1),
+    sourceBoundary: z.string().min(1),
+    media: B2BRequiredMediaSchema,
+    items: z
+      .array(
       z.object({
         label: z.string().min(1),
         value: z.string().min(1),
         suffix: z.string().min(1).optional(),
       }),
     )
-    .length(4),
+      .length(4),
+  }),
+  capacity: z.object({
+    kicker: z.string().min(1),
+    title: z.string().min(1),
+    sourceBoundary: z.string().min(1),
+    metrics: z
+      .array(
+        z.object({
+          label: z.string().min(1),
+          value: z.number().nonnegative(),
+          prefix: z.string(),
+          suffix: z.string(),
+        }),
+      )
+      .length(4),
+    steps: z
+      .array(
+        z.object({
+          label: z.string().min(1),
+          copy: z.string().min(1),
+        }),
+      )
+      .length(4),
+  }),
   gummy: z.object({
     kicker: z.string().min(1),
     title: z.string().min(1),
@@ -344,6 +376,10 @@ export const VitheloB2BHomeContentSchema = z.object({
     copy: z.string().min(1),
     pendingMessage: z.string().min(1),
     formats: z.array(z.string().min(1)).length(8),
+    scene: z.object({
+      src: z.string().startsWith("/media/"),
+      status: z.literal("DEMO_ONLY"),
+    }),
   }),
 });
 
@@ -412,9 +448,9 @@ export const B2BPageMediaSchema = z.discriminatedUnion("status", [
 export const B2BSiteContentSchema = z.object({
   dataStatus: DataStatusSchema,
   identity: z.string().min(1),
-  navigation: z.array(B2BLinkSchema).length(4),
+  navigation: z.array(B2BLinkSchema).min(4).max(7),
   requestQuote: B2BLinkSchema,
-  footerLinks: z.array(B2BLinkSchema).length(4),
+  footerLinks: z.array(B2BLinkSchema).min(4).max(7),
   disclosure: z.string().min(1),
 });
 
@@ -494,7 +530,8 @@ const InsightBlockSchema = z.discriminatedUnion("type", [
     type: z.literal("cta"),
     title: z.string(),
     copy: z.string(),
-    href: z.literal("/contact"),
+    label: z.string().min(1),
+    href: B2BLinkSchema.shape.href,
   }),
   z.object({ type: z.literal("media"), media: B2BPageMediaSchema }),
   z.object({
@@ -520,9 +557,21 @@ export const B2BInsightArticleSchema = z.object({
   category: z.string().min(1),
   title: z.string().min(1),
   summary: z.string().min(1),
-  byline: z.string().min(1),
+  author: z.object({
+    name: z.literal("VITHELO Editorial Team"),
+    role: z.literal("Manufacturing Knowledge Editor"),
+  }),
+  publishedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   updatedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  reviewDue: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  evidenceStatus: z.enum(["C0_EDITORIAL_REVIEWED", "C1_SOURCED"]),
   contentFormat: z.string().min(1),
+  commercialDestinations: z.object({
+    primary: B2BLinkSchema,
+    secondary: B2BLinkSchema,
+  }),
+  relatedSlugs: z.array(z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)).max(3),
+  sources: z.array(z.object({ title: z.string().min(1), url: z.url() })).max(5),
   blocks: z.array(InsightBlockSchema).min(4),
 });
 
@@ -530,7 +579,7 @@ export const B2BInsightsPageSchema = z.object({
   dataStatus: DataStatusSchema,
   hero: B2BHeroSchema,
   categories: z.array(z.string().min(1)).length(5),
-  articles: z.array(B2BInsightArticleSchema).length(3),
+  articles: z.array(B2BInsightArticleSchema).min(4),
 });
 
 export const B2BContactPageSchema = z.object({

@@ -10,13 +10,19 @@ describe("VITHELO site configuration", () => {
     expect(parsed.brand.signature).toBe("PRECISION · SCIENCE · HUMAN");
   });
 
-  it("keeps unavailable contact channels explicit", () => {
+  it("uses the approved public inquiry channels", () => {
     const parsed = SiteConfigSchema.parse(siteConfig);
 
-    expect(parsed.contact.email.status).toBe("NOT_CONFIGURED");
-    expect(parsed.contact.email.value).toBeNull();
-    expect(parsed.contact.whatsapp.status).toBe("NOT_CONFIGURED");
-    expect(parsed.contact.whatsapp.e164).toBeNull();
+    expect(parsed.contact.email).toEqual({
+      status: "CONFIGURED",
+      value: "wang26098@gmail.com",
+      message: "Public business inquiry email",
+    });
+    expect(parsed.contact.whatsapp).toEqual({
+      status: "CONFIGURED",
+      e164: "8618273669556",
+      message: "Public business inquiry WhatsApp",
+    });
   });
 
   it("validates the B2B-first Home content", () => {

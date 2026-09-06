@@ -5,7 +5,7 @@ import type { B2BInsightArticle } from "@/content/schema";
 
 type InsightBlock = B2BInsightArticle["blocks"][number];
 
-function renderBlock(block: InsightBlock, contactHref: string, index: number) {
+function renderBlock(block: InsightBlock, index: number) {
   switch (block.type) {
     case "text":
       return (
@@ -71,7 +71,7 @@ function renderBlock(block: InsightBlock, contactHref: string, index: number) {
         <aside className={styles.articleCallout} key={`${block.type}-${index}`}>
           <h2>{block.title}</h2>
           <p>{block.copy}</p>
-          <Link href={contactHref}>Start a Project</Link>
+          <Link href={block.href}>{block.label}</Link>
         </aside>
       );
     case "media":
@@ -117,23 +117,72 @@ export function VitheloInsightArticle({
   relatedArticles: B2BInsightArticle[];
 }) {
   const contactHref = `/contact?subject=${encodeURIComponent(article.title)}`;
+  const articleUrl = `https://vithelo.com/insights/${article.slug}`;
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    description: article.summary,
+    datePublished: article.publishedAt,
+    dateModified: article.updatedAt,
+    mainEntityOfPage: articleUrl,
+    author: {
+      "@type": "Organization",
+      name: article.author.name,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "VITHELO",
+      url: "https://vithelo.com",
+    },
+  };
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://vithelo.com/" },
+      { "@type": "ListItem", position: 2, name: "Insights", item: "https://vithelo.com/insights" },
+      { "@type": "ListItem", position: 3, name: article.title, item: articleUrl },
+    ],
+  };
 
   return (
     <main className={styles.page} data-content-status={article.dataStatus}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <article className={styles.articleBody}>
+        <nav aria-label="Breadcrumb">
+          <Link href="/">Home</Link> / <Link href="/insights">Insights</Link> / <span>{article.title}</span>
+        </nav>
         <header>
           <p className={styles.kicker}>{article.category}</p>
           <h1>{article.title}</h1>
           <p className={styles.lede}>{article.summary}</p>
           <p className={styles.articleMeta}>
-            {article.byline} · {article.contentFormat} · Updated {article.updatedAt} ·
-            DEMO_ONLY
+            By {article.author.name} · {article.author.role} · Published {article.publishedAt} · Updated {article.updatedAt} · Review due {article.reviewDue}
           </p>
+          <p className={styles.articleMeta}>Evidence status: {article.evidenceStatus}</p>
         </header>
         {article.blocks.map((block, index) =>
-          renderBlock(block, contactHref, index),
+          renderBlock(block, index),
         )}
+        {article.sources.length > 0 ? (
+          <section>
+            <h2>Sources</h2>
+            <ul>
+              {article.sources.map((source) => (
+                <li key={source.url}><a href={source.url} rel="noreferrer">{source.title}</a></li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
       </article>
+
+      <section className={styles.relatedArticles}>
+        <p className={styles.kicker}>CONTINUE YOUR RESEARCH</p>
+        <Link href={article.commercialDestinations.primary.href}>{article.commercialDestinations.primary.label}</Link>
+        <Link href={article.commercialDestinations.secondary.href}>{article.commercialDestinations.secondary.label}</Link>
+      </section>
 
       <section className={styles.relatedArticles}>
         <p className={styles.kicker}>RELATED INSIGHTS</p>

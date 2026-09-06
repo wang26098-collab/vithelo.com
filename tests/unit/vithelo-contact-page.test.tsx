@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { VitheloContactPage } from "@/components/patterns/vithelo-contact-page";
 import { vitheloB2BContactPage } from "@/content/demo/vithelo-b2b-site";
 
-it("shows the complete disabled project form and no invented contact target", () => {
+it("shows the complete disabled project form with approved direct contact targets", () => {
   render(
     <VitheloContactPage
       content={vitheloB2BContactPage}
@@ -22,9 +22,13 @@ it("shows the complete disabled project form and no invented contact target", ()
       name: "Inquiry submission not configured",
     }),
   ).toBeDisabled();
-  expect(screen.queryByRole("link", { name: "Email" })).not.toBeInTheDocument();
-  expect(
-    screen.queryByRole("link", { name: "WhatsApp" }),
-  ).not.toBeInTheDocument();
-  expect(screen.getByText(vitheloB2BContactPage.pendingMessage)).toBeVisible();
+  expect(screen.getByRole("link", { name: "Email" })).toHaveAttribute(
+    "href",
+    expect.stringContaining("mailto:wang26098@gmail.com"),
+  );
+  expect(screen.getByRole("link", { name: "WhatsApp" })).toHaveAttribute(
+    "href",
+    expect.stringContaining("https://wa.me/8618273669556"),
+  );
+  expect(screen.getByText(/Email and WhatsApp are available/)).toBeVisible();
 });

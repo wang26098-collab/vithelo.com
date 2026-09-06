@@ -1,5 +1,7 @@
 # Deployment Environment Hardening Implementation Plan
 
+> Superseded deployment note, 2026-08-30: this historical plan mentions Vercel. The current VITHELO deployment platform is Hostinger, with formal domain `vithelo.com`, GitHub repository `wang26098-collab/vithelo.com`, branch `main`, Node `20.x`, root directory `./`, and pinned `pnpm@10.34.5`. Use `docs/deployment.md` as the active deployment source of truth.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development or superpowers:executing-plans. Steps use checkbox syntax.
 
 **Goal:** Make the existing vithelo.com V6.1 Demo reproducibly verifiable and deployable from GitHub `main` without changing its product architecture or inventing production configuration.

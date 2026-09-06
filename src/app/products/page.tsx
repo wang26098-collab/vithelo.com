@@ -7,6 +7,11 @@ export const metadata: Metadata = {
   title: "Product Capabilities | VITHELO",
   description:
     "Gummy-first nutrition OEM and ODM capabilities across eight oral product formats.",
+  alternates: { canonical: "/products" },
+  openGraph: {
+    url: "/products",
+    images: ["/media/vithelo-hero-composite.png"],
+  },
 };
 
 export default async function ProductsPage() {
@@ -16,7 +21,7 @@ export default async function ProductsPage() {
   ]);
 
   return (
-    <VitheloB2BSiteFrame content={site}>
+    <VitheloB2BSiteFrame content={site} headerTheme="split-hero">
       <VitheloProductsPage content={content} />
     </VitheloB2BSiteFrame>
   );

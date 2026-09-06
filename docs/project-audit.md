@@ -130,7 +130,7 @@ Domain 组件已覆盖：
 已进入 Git 的核心文档：
 
 - `docs/superpowers/specs/2026-08-16-nutrition-aesthetic-brand-site-design.md`
-- `docs/superpowers/plans/2026-08-16-brand-site-implementation.md`
+- `docs/archive/plans/2026-08-16-brand-site-implementation.md`
 - `docs/visual-qa.md`
 
 审计时工作区存在但未跟踪的文档：
@@ -233,3 +233,20 @@ Playwright 本次运行在所有测试实例完成后停留在 Next WebServer te
 当前 Demo 的核心架构和页面实现不需要重建。下一步应优先解决仓库连接、分支对齐、文档纳入 Git、CI / Vercel 部署验证和 Playwright teardown，而不是继续扩展页面数量。
 
 审计完成后暂停，等待 GitHub URL 和阶段 2 执行确认。
+
+---
+
+## 12. 2026-09-01 当前状态补充
+
+本节取代本报告中与当前公开站结构、首页屏数、询盘状态和部署平台冲突的旧结论。完整状态见 [current-status.md](current-status.md)。
+
+- 当前公开站已经收敛为 VITHELO 英文营养健康产品 B2B 网站，路由为 Home、Products、OEM / ODM、Insights、Contact。
+- 首页已从十一屏收为七屏，删除重复的制造、质量、客户类型和禁用表单屏。
+- 产品方向保留纵向滚动，页码与左右箭头已删除。
+- 八种剂型同屏展示，桌面五列、移动两列，口溶膜不再单独占据整行。
+- Email `wang26098@gmail.com` 与 WhatsApp `+86 182 7366 9556` 已配置为直接询盘渠道；站内提交仍未配置。
+- 选择性进入视口动效已经实现，Hero 图片保持静止，Reduced Motion 保留完整内容。
+- 最近验证结果：96 项单元测试通过，Lint 通过，Typecheck 通过，225 项 E2E 通过、15 项按视口条件跳过。
+- 用户尚未对首页视觉做最终签收。目前只重做第二屏，已选 `V-A Editorial Proof Ledger`，其他屏不动。
+- 用户提供的制造资料位于 `独立站内容/森酷企业介绍(2).pdf`。公开页面只允许使用 `VITHELO`，不得出现资料来源公司的名称、原品牌标识或未经核验的认证。
+- 正式上线仍需要 Node 20.x 干净构建、法律主体资料、隐私联系邮箱确认、SEO 收口、GitHub `main` 提交、Hostinger 部署及 DNS/SSL 验收。

@@ -8,6 +8,13 @@ const routes = [
   "/insights/choose-the-right-supplement-format",
   "/insights/prepare-for-an-oem-odm-project",
   "/insights/gummy-development-guide",
+  "/insights/how-to-evaluate-a-supplement-manufacturer",
+  "/insights/private-label-vs-custom-formulation",
+  "/insights/how-supplement-sampling-works",
+  "/insights/gummies-vs-hard-capsules",
+  "/insights/what-documents-buyers-should-ask-for",
+  "/insights/what-information-to-include-in-an-rfq",
+  "/insights/how-packaging-affects-moq-and-lead-time",
   "/contact",
 ] as const;
 
@@ -17,7 +24,11 @@ test("demo facts are visibly disclosed", async ({ page }) => {
     await expect(
       page.locator(".demo-disclosure:visible, [data-content-status='DEMO_ONLY']:visible").first(),
     ).toBeVisible();
-    await expect(page.locator("body")).toContainText(/DEMO_ONLY|NOT_CONFIGURED|not configured/i);
+    await expect(page.locator("body")).toContainText(
+      route === "/"
+        ? /user-provided manufacturing profile.*production verification.*pending/i
+        : /DEMO_ONLY|NOT_CONFIGURED|not configured/i,
+    );
   }
 });
 

@@ -21,7 +21,7 @@ test("keyboard focus is visible and mobile navigation restores focus", async ({ 
       Boolean(focusStyle && focusStyle.boxShadow !== "none"),
   ).toBe(true);
 
-  if (viewport && viewport.width < 1024) {
+  if (viewport && viewport.width <= 1200) {
     await page.goto("/products");
     const menuButton = page.getByText("Menu", { exact: true });
     await menuButton.focus();
@@ -67,12 +67,21 @@ test("reduced motion keeps meaningful content static and visible", async ({ page
 
   await expect(
     page.locator("#hero").getByRole("heading", {
-    name: "Your nutrition product, from first brief to finished batch.",
+    name: "Nutrition formats, built for private-label growth.",
     }),
   ).toBeVisible();
   await expect(
     page.locator("#hero").getByRole("link", { name: "Start a Project" }),
   ).toBeVisible();
+  await expect(page.locator("main[data-vithelo-home]")).toHaveAttribute(
+    "data-motion-mode",
+    "static",
+  );
+  await expect(page.locator("#proof")).toBeVisible();
+  await expect(page.locator("#dosage-forms")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Email wang26098@gmail.com" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "WhatsApp +86 182 7366 9556" })).toBeVisible();
+  await expect(page.getByText("Made for what comes next.")).toBeVisible();
   for (const heading of [
     "Women’s Wellness",
     "Sleep, Stress & Mood",
@@ -88,17 +97,12 @@ test("reduced motion keeps meaningful content static and visible", async ({ page
   await expect(page.getByTestId("format-ledger")).toBeVisible();
 });
 
-test("market direction controls keep pointer and keyboard focus in parity", async ({ page, viewport }) => {
-  test.skip(!viewport || viewport.width <= 760, "Desktop market-stage controls");
+test("market directions use vertical progression without pagination controls", async ({ page, viewport }) => {
+  test.skip(!viewport || viewport.width <= 760, "Desktop market-stage progression");
 
   await page.goto("/");
 
-  await page.getByRole("button", { name: "Next market direction" }).click();
-  await expect(page.locator("[aria-live='polite']")).toHaveText("02 / 06");
-
-  const stage = page.getByTestId("market-stage");
-  await stage.focus();
-  await page.keyboard.press("ArrowRight");
-  await expect(page.locator("[aria-live='polite']")).toHaveText("03 / 06");
-  await expect(page.getByRole("heading", { name: "Beauty From Within" })).toBeVisible();
+  await expect(page.getByRole("button", { name: /market direction/i })).toHaveCount(0);
+  await expect(page.getByText(/\d{2} \/ \d{2}/)).toHaveCount(0);
+  await expect(page.getByTestId("market-stage")).toHaveAttribute("data-layout", "vertical-editorial-sequence");
 });

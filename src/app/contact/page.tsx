@@ -6,6 +6,11 @@ import { localContentAdapter } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Start a Project | VITHELO",
   description: "Prepare a nutrition OEM or ODM project brief for VITHELO.",
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    url: "/contact",
+    images: ["/media/vithelo-hero-composite.png"],
+  },
 };
 
 type ContactPageProps = {
@@ -28,7 +33,7 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
   const initialSubject = firstValue(query.subject)?.trim().slice(0, 120) ?? "";
 
   return (
-    <VitheloB2BSiteFrame content={site}>
+    <VitheloB2BSiteFrame content={site} headerTheme="split-hero">
       <VitheloContactPage
         content={content}
         initialFormat={initialFormat}

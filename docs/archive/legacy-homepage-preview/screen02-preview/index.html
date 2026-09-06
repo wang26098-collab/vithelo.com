@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>VITHELO — Screen 02 preview picker</title>
+<style>
+  :root {
+    color-scheme: light;
+    --color-ivory: #f4f4f0;
+    --color-ivory-deep: #e5e7e2;
+    --color-graphite: #191b1a;
+    --color-graphite-soft: #626762;
+    --color-titanium: #a7aca8;
+    --color-titanium-light: #d4d8d5;
+    --color-optical: #b8d0c8;
+    --color-optical-strong: #58756c;
+    --color-ruby-material: #9b2831;
+    --font-precision: ui-sans-serif, Aptos, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --motion-standard: 240ms;
+    --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #1d2120;
+    color: #d8dad6;
+    font-family: var(--font-precision);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  header.picker-bar {
+    padding: 28px 36px 20px;
+    display: flex; align-items: baseline; gap: 16px; justify-content: space-between;
+    border-bottom: 1px solid #2c3130;
+    position: sticky; top: 0; background: #1d2120; z-index: 10;
+  }
+  header .title { font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: #9aa09c; }
+  header .meta  { font-size: 12px; color: #6f7671; }
+  header .meta b { color: #cfd3cd; font-weight: 600; }
+
+  .compare {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    padding: 22px 28px 60px;
+  }
+  @media (max-width: 1280px) {
+    .compare { grid-template-columns: 1fr; }
+  }
+  .card {
+    background: #111413;
+    border: 1px solid #2c3130;
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .card-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 18px; border-bottom: 1px solid #232825;
+  }
+  .card-head .label {
+    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #cfd3cd;
+  }
+  .card-head .pill {
+    font-size: 11px; padding: 3px 9px; border-radius: 999px;
+    border: 1px solid #3a4039; color: #b6bcb5;
+  }
+  .card-head .pill.A { color: #d6dad4; border-color: #6b716e; }
+  .card-head .pill.B { color: #b8d0c8; border-color: #58756c; }
+  .card-head .pill.C { color: #cfb9bd; border-color: #9b6c75; }
+  .frame {
+    width: 100%;
+    border: 0; background: var(--color-ivory); display: block;
+    aspect-ratio: 16 / 9;
+  }
+  .card-foot {
+    padding: 14px 18px 18px;
+    font-size: 12px; line-height: 1.6; color: #8f9590;
+  }
+  .card-foot b { color: #d2d6d0; font-weight: 600; }
+</style>
+</head>
+<body>
+<header class="picker-bar">
+  <div class="title">VITHELO · Screen 02 — three directions side by side</div>
+  <div class="meta">
+    Token contract · <b>Ivory / Graphite / Titanium</b> · No channel color · <b>DEMO_ONLY</b> boundary preserved
+  </div>
+</header>
+
+<section class="compare">
+  <article class="card">
+    <div class="card-head">
+      <span class="label">V-A — Reserved Split</span>
+      <span class="pill A">Aesop / Acura MDX type</span>
+    </div>
+    <iframe class="frame" src="variant-a.html" title="Screen 02 V-A Reserved Split"></iframe>
+    <div class="card-foot">
+      <b>What it tries to fix:</b> overflow anxiety on screen 01 hero. Single sentence carries the brand. Factory micro-image as second voice. Big white space — no figures, no proof yet.
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-head">
+      <span class="label">V-B — Evidence Anchor</span>
+      <span class="pill B">Henkel / national lab type</span>
+    </div>
+    <iframe class="frame" src="variant-b.html" title="Screen 02 V-B Evidence Anchor"></iframe>
+    <div class="card-foot">
+      <b>What it tries to fix:</b> trust gap before screen 03 product cards. Four blocks: dosage formats, market footprint, certifications, partner labs. Each as one line + one number.
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-head">
+      <span class="label">V-C — Immersive Cut</span>
+      <span class="pill C">Aesop-meets-cold factory</span>
+    </div>
+    <iframe class="frame" src="variant-c.html" title="Screen 02 V-C Immersive Cut"></iframe>
+    <div class="card-foot">
+      <b>What it tries to fix:</b> mismatch between consumer softness (screen 01 gummy) and B2B seriousness. Full-bleed cool factory plate, single stark claim top-right, certification row bottom-left.
+    </div>
+  </article>
+</section>
+
+</body>
+</html>

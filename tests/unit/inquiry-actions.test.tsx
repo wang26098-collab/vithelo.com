@@ -2,14 +2,18 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { InquiryActionPair } from "@/components/core/inquiry-action-pair";
 import { ProjectIntake } from "@/components/domain/project-intake";
 
-it("does not invent contact targets when both channels are missing", () => {
+it("exposes the approved contact targets", () => {
   render(<InquiryActionPair />);
 
-  expect(screen.getByRole("button", { name: "Email Inquiry" })).toBeDisabled();
-  expect(screen.getByRole("button", { name: "WhatsApp" })).toBeDisabled();
-  expect(screen.getByText(/email inquiry address not configured/i)).toBeVisible();
-  expect(screen.getByText(/whatsapp number not configured/i)).toBeVisible();
-  expect(screen.getAllByText("NOT_CONFIGURED")).toHaveLength(2);
+  expect(screen.getByRole("link", { name: "Email Inquiry" })).toHaveAttribute(
+    "href",
+    expect.stringContaining("mailto:wang26098@gmail.com"),
+  );
+  expect(screen.getByRole("link", { name: "WhatsApp" })).toHaveAttribute(
+    "href",
+    expect.stringContaining("https://wa.me/8618273669556"),
+  );
+  expect(screen.queryByText("NOT_CONFIGURED")).not.toBeInTheDocument();
 });
 
 it("preserves validated context supplied by an inquiry link", () => {
@@ -34,6 +38,6 @@ it("collects local context before exposing channel state", () => {
   expect(screen.getByLabelText("Product world")).toBeVisible();
   expect(screen.getByLabelText("Country or market")).toBeVisible();
   expect(screen.getByLabelText("Project summary")).toBeVisible();
-  expect(screen.getByRole("button", { name: "Email Inquiry" })).toBeDisabled();
-  expect(screen.getByRole("button", { name: "WhatsApp" })).toBeDisabled();
+  expect(screen.getByRole("link", { name: "Email Inquiry" })).toBeVisible();
+  expect(screen.getByRole("link", { name: "WhatsApp" })).toBeVisible();
 });

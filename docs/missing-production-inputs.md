@@ -1,13 +1,16 @@
-# Missing Production Inputs
+# 缺失的生产资料
 
-The implemented site is a complete demonstration, not a production launch. The following inputs are required before the corresponding placeholders, adapters, or disabled tasks can become live.
+当前网站已经具备公开站结构，但尚未完成生产上线。以下资料必须在对应内容、声明或功能上线前补齐。
 
-## VITHELO inquiry launch blockers
+## VITHELO 询盘与法律信息
 
-- VITHELO inquiry email address, owner, and expected response policy.
-- VITHELO WhatsApp number in E.164 format, account owner, supported hours, and privacy handling.
-- Approved desktop and mobile nutrition Hero imagery, including art direction, crop, focal point, alt text, and usage rights.
-- Approved product sheets, capability statements, market eligibility, and inquiry-routing rules.
+- 询盘邮箱 `wang26098@gmail.com` 的回复责任人和响应政策。
+- WhatsApp `+86 182 7366 9556` 的账号责任人、服务时间和隐私处理规则。
+- 公司法定英文名称。
+- 公司注册地址或可公开联系地址。
+- 隐私事务联系邮箱；`wang26098@gmail.com` 是否兼用仍需明确确认。
+- 正式隐私政策、条款、Cookie/同意说明和页脚法律信息。
+- 已完成的 Hero 主图继续使用，不再将 Hero 图片列为待补项；仍需保留最终使用权、alt 文本和发布批准记录。
 
 ## Brand identity
 
@@ -42,6 +45,16 @@ The implemented site is a complete demonstration, not a production launch. The f
 - Certification, testing, quality-system, facility, manufacturing, and traceability evidence where applicable.
 - Named content owner and approval workflow for Science, Claims, Quality, and Safety.
 
+## 用户提供的制造资料
+
+资料来源：`独立站内容/森酷企业介绍(2).pdf`。
+
+- 确认 2008、5,000+ 客户、50+ 国家和地区等数据的正式对外使用授权。
+- 确认软胶囊、软糖、片剂、硬胶囊、口服液、粉剂和植物提取物产能数字的统计口径、时间范围和责任人。
+- 提供可公开使用且不含来源公司名称、原品牌标识的工厂、实验室和生产线原图。
+- 提供 GMP、HACCP、Halal、ISO 22000、ISO 9001、FDA、COA 和第三方检测的证书编号、主体、有效期、范围和核验材料；在核验前不得公开为 VITHELO 认证。
+- 确认资料中的产品形态、包装规格和客户覆盖是否允许以 VITHELO 名义公开。
+
 ## Market and locale
 
 - Launch markets, languages, locale rules, currencies, units, and tax context.
@@ -49,11 +62,20 @@ The implemented site is a complete demonstration, not a production launch. The f
 - Required legal, consent, accessibility, and regulated-product review for each market.
 - Translation ownership and review process.
 
+## 部署与域名
+
+- Hostinger DNS binding for `vithelo.com`.
+- SSL certificate status for `https://vithelo.com`.
+- Canonical-domain decision for `vithelo.com` versus `www.vithelo.com`.
+- 正式 `metadataBase`、canonical、Open Graph、sitemap 和 robots 的生产复核。
+- Post-deploy smoke-test evidence for `/`, `/products`, `/oem-odm`, `/insights`, and `/contact`.
+
 ## Commerce, CMS, and CRM
 
 - Commerce provider and contracts for catalog, price, inventory, cart, checkout, payment, tax, shipping, orders, and returns.
 - CMS choice and content lifecycle for product, evidence, Safety, media, and editorial records.
 - CRM or inquiry provider, qualification fields, consent, routing, retention, and response ownership.
+- 上线准备接近完成时提醒用户升级“方案 3：真正的站内提交表单”。升级前必须确认表单接收服务、隐私与同意文本、字段处理范围、保存期限、责任人、反垃圾策略、成功/失败状态、通知和 CRM 路由；当前预填 Email / WhatsApp 方案不在网站保存输入。
 - Search provider, indexing scope, ranking rules, and empty/error behavior.
 - Identity provider and requirements for account, saved items, addresses, orders, and owned products.
 - Analytics and consent requirements if tracking is authorized.
@@ -66,7 +88,7 @@ The implemented site is a complete demonstration, not a production launch. The f
 - Approved diagrams, manuals, evidence figures, and Safety illustrations.
 - Policy for replacing the current demonstration images in `public/media/`.
 
-## Policies and operations
+## 政策与运营
 
 - Shipping regions, methods, rates, delivery estimates, and restrictions.
 - Returns, refunds, exchanges, cancellation, and damaged-item policies.
@@ -76,12 +98,13 @@ The implemented site is a complete demonstration, not a production launch. The f
 - Support providers, hours, service levels, contact channels, and ownership.
 - Professional MOQ, lead time, capacity, project stages, commercial terms, and inquiry response process if approved.
 
-## Transition rule
+## 过渡规则
 
-Do not fill these gaps with assumptions. Keep `DEMO_ONLY` and `NOT_CONFIGURED` until each value has a source, owner, market context, approval state, schema mapping, adapter pathway, and acceptance evidence.
+不得用推测填补这些缺口。用户提供资料可以记录为来源事实，但在具备责任人、核验状态、适用市场、对外授权、schema 映射和验收证据前，不得包装成已核实的 VITHELO 证明；其他缺失项继续使用 `DEMO_ONLY` 或 `NOT_CONFIGURED`。
 
 ## Related
 
 - [Content model](content-model.md)
 - [Data governance](data-governance.md)
+- [Deployment](deployment.md)
 - [Acceptance](acceptance.md)

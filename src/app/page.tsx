@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   title: "VITHELO | Nutrition OEM ODM Manufacturing Partner",
   description:
     "Gummy-first nutrition OEM and ODM manufacturing across gummies, capsules, tablets, powders, liquids, functional gum and oral films.",
+  alternates: { canonical: "/" },
+  openGraph: { url: "/", images: ["/media/vithelo-hero-composite.png"] },
 };
 
 export default async function HomePage() {
@@ -16,7 +18,7 @@ export default async function HomePage() {
   ]);
 
   return (
-    <VitheloB2BSiteFrame content={site}>
+    <VitheloB2BSiteFrame content={site} variant="home">
       <VitheloB2BHome content={content} />
     </VitheloB2BSiteFrame>
   );

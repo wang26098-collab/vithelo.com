@@ -1,5 +1,6 @@
 import { StatePanel } from "@/components/core/state-panel";
 import { UtilityPage } from "@/components/patterns/utility-page";
+import { InquiryActionPair } from "@/components/core/inquiry-action-pair";
 
 export default function Loading() {
   return (
@@ -9,6 +10,12 @@ export default function Loading() {
         state="loading"
         title="Loading the requested page"
       />
+      <noscript>
+        <div className="mt-8">
+          <h2 className="mb-4">Contact VITHELO directly</h2>
+          <InquiryActionPair />
+        </div>
+      </noscript>
     </UtilityPage>
   );
 }

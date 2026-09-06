@@ -13,7 +13,7 @@ export default defineConfig({
       ...configDefaults.exclude,
       "tests/e2e/**",
       "tests/unit/deployment-runtime.test.mjs",
-      "vithelo-homepage-work/tests/**",
+      "docs/archive/legacy-homepage-preview/tests/**",
     ],
     globals: true,
     setupFiles: ["./vitest.setup.ts"],

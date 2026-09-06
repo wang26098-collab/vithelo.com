@@ -7,6 +7,11 @@ export const metadata: Metadata = {
   title: "OEM / ODM | VITHELO",
   description:
     "A clear nutrition product path from requirement review and sampling to production and release.",
+  alternates: { canonical: "/oem-odm" },
+  openGraph: {
+    url: "/oem-odm",
+    images: ["/media/vithelo-hero-composite.png"],
+  },
 };
 
 export default async function OemOdmPage() {

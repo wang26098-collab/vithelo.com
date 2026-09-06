@@ -19,20 +19,24 @@ test("B2B hero keeps its decision content inside the hero stage", async ({
 
   const hero = page.locator("#hero");
   const title = hero.getByRole("heading", {
-    name: "Your nutrition product, from first brief to finished batch.",
+    name: "Nutrition formats, built for private-label growth.",
   });
   const action = hero.getByRole("link", { name: "Start a Project" });
 
   await expect(title).toBeVisible();
   await expect(action).toBeVisible();
   await expect
-    .poll(() => hero.evaluate((element) => getComputedStyle(element).backgroundImage))
+    .poll(() => hero.evaluate((element) => getComputedStyle(element, "::before").backgroundImage))
     .not.toBe("none");
 
   const [heroBox, actionBox] = await Promise.all([hero.boundingBox(), action.boundingBox()]);
   expect(heroBox).not.toBeNull();
   expect(actionBox).not.toBeNull();
   if (heroBox && actionBox) {
+    const expectedHeroHeight = Math.min((viewport?.height ?? 0) - 56, 900);
+    expect(
+      Math.abs(heroBox.height - expectedHeroHeight),
+    ).toBeLessThanOrEqual(1);
     expect(actionBox.y + actionBox.height).toBeLessThanOrEqual(heroBox.y + heroBox.height + 1);
   }
 
@@ -43,7 +47,7 @@ test("B2B hero keeps its decision content inside the hero stage", async ({
   }
 });
 
-test("desktop navigation and hero fit inside a short viewport", async ({ page, viewport }) => {
+test("desktop navigation overlays the hero and fits inside a short viewport", async ({ page, viewport }) => {
   test.skip(!viewport || viewport.width < 1024, "Desktop hero height check");
 
   await page.setViewportSize({ width: 1440, height: 720 });
@@ -58,9 +62,47 @@ test("desktop navigation and hero fit inside a short viewport", async ({ page, v
   expect(headerBox).not.toBeNull();
   expect(heroBox).not.toBeNull();
   if (headerBox && heroBox) {
-    expect(heroBox.y).toBeCloseTo(headerBox.y + headerBox.height, 0);
+    expect(headerBox.y).toBe(0);
+    expect(heroBox.y).toBe(0);
+    expect(headerBox.height).toBeLessThan(heroBox.height);
     expect(heroBox.y + heroBox.height).toBeLessThanOrEqual(721);
   }
+});
+
+test("homepage navigation changes state at the hero boundary and internal navigation shares the same states", async ({ page }) => {
+  await page.goto("/");
+
+  const header = page.locator("header").first();
+  await expect(header).toHaveAttribute("data-navigation-variant", "home");
+  await expect(header).toHaveAttribute("data-navigation-state", "top");
+  await expect(page.locator("[data-site-disclosure='top']")).toHaveCount(0);
+
+  await page.evaluate(() => window.scrollTo({ top: 240, behavior: "instant" }));
+  await expect(header).toHaveAttribute("data-navigation-state", "scrolled");
+
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+  await expect(header).toHaveAttribute("data-navigation-state", "top");
+
+  await page.goto("/products");
+  await expect(page.locator("header").first()).toHaveAttribute(
+    "data-navigation-variant",
+    "internal",
+  );
+  await expect(page.locator("[data-site-disclosure='top']")).toHaveCount(0);
+  await expect(page.locator("[data-site-disclosure='footer']")).toHaveCount(1);
+});
+
+test("mobile homepage uses one navigation group without overflow", async ({ page, viewport }) => {
+  test.skip(!viewport || viewport.width > 900, "Mobile navigation structure");
+  await page.goto("/");
+
+  await expect(page.locator("[data-mobile-navigation-group]")).toHaveCount(1);
+  await expect(page.locator("[data-mobile-navigation-group]")).toBeVisible();
+  const dimensions = await page.locator("header").evaluate((element) => ({
+    clientWidth: element.clientWidth,
+    scrollWidth: element.scrollWidth,
+  }));
+  expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth + 1);
 });
 
 test("homepage headings use the approved editorial scale", async ({ page, viewport }) => {
@@ -101,14 +143,11 @@ test("content-heavy homepage sections stay within the approved desktop height ra
   await page.goto("/");
 
   const limits = {
+    "#proof": 1800,
     "#gummy-stage": 1050,
     "#solutions": 800,
-    "#custom-development": 820,
-    "#manufacturing": 1050,
-    "#quality": 800,
     "#project-runway": 800,
-    "#company-fit": 900,
-    "#contact": 800,
+    "#contact": 1600,
   } as const;
 
   for (const [selector, maximumHeight] of Object.entries(limits)) {
@@ -119,7 +158,7 @@ test("content-heavy homepage sections stay within the approved desktop height ra
   }
 });
 
-test("dosage spectrum uses four desktop columns and two mobile columns without overflow", async ({ page, viewport }) => {
+test("dosage spectrum uses five desktop columns and two mobile columns without overflow", async ({ page, viewport }) => {
   await page.goto("/");
 
   const grid = page.getByTestId("dosage-grid");
@@ -131,7 +170,7 @@ test("dosage spectrum uses four desktop columns and two mobile columns without o
     return { columns, clientWidth: element.clientWidth, scrollWidth: element.scrollWidth };
   });
 
-  expect(layout.columns).toBe(viewport && viewport.width <= 760 ? 2 : 4);
+  expect(layout.columns).toBe(viewport && viewport.width <= 900 ? 2 : 5);
   expect(layout.scrollWidth).toBeLessThanOrEqual(layout.clientWidth + 1);
 });
 

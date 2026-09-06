@@ -3,10 +3,10 @@ import { VitheloInsightArticle } from "@/components/patterns/vithelo-insight-art
 import { VitheloInsightsPage } from "@/components/patterns/vithelo-insights-page";
 import { vitheloB2BInsightsPage } from "@/content/demo/vithelo-b2b-site";
 
-it("renders three published buyer resources with article links", () => {
+it("renders ten published buyer resources with article links", () => {
   render(<VitheloInsightsPage content={vitheloB2BInsightsPage} />);
 
-  expect(screen.getAllByRole("article")).toHaveLength(3);
+  expect(screen.getAllByRole("article")).toHaveLength(10);
   expect(
     screen.getByRole("link", {
       name: "How to Choose the Right Supplement Format",

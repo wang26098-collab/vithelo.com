@@ -5,6 +5,7 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
   sectionOrder: [
     "hero",
     "proof",
+    "capacity-dashboard",
     "gummy-stage",
     "solutions",
     "dosage-forms",
@@ -16,10 +17,10 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
     "contact",
   ],
   hero: {
-    eyebrow: "GUMMY-FIRST NUTRITION OEM / ODM",
-    title: "Nutrition formats, built for private-label growth.",
+    eyebrow: "NUTRITION OEM / ODM MANUFACTURING",
+    title: "VITHELO — Nutrition OEM / ODM Manufacturer",
     copy:
-      "VITHELO is a factory-owned overseas brand and export division for gummy-first nutrition OEM/ODM projects.",
+      "A manufacturing partner for nutrition brands exploring private-label and OEM / ODM products across formats, formulas and packaging.",
     primaryAction: { label: "Start a Project", href: "/contact" },
     secondaryAction: {
       label: "Explore Formats",
@@ -33,14 +34,49 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
       format: "WebP",
     },
   },
-  proof: [
-    { label: "Manufacturing since", value: "2008" },
-    { label: "Clients served", value: "5,000+" },
-    { label: "Countries and markets", value: "50+" },
-    { label: "Custom gummy projects from", value: "500", suffix: "bottles" },
-  ],
+  proof: {
+    kicker: "03 · Manufacturing environment",
+    title: "Manufacturing, made visible.",
+    copy:
+      "A closer view of the environment, materials and coordinated work behind a nutrition product.",
+    summary: "A working environment for nutrition products and project teams.",
+    sourceBoundary:
+      "Scene-led brand expression; specific site and production claims remain subject to the approved evidence boundary.",
+    media: {
+      status: "FREE_COMMERCIAL_OR_REAL",
+      src: "/media/b2b/gummies-pexels-14027295.jpg",
+      label: "Material and product handling scene",
+      width: 2400,
+      height: 1600,
+      format: "WebP",
+    },
+    items: [
+      { label: "Environment", value: "Material-led work" },
+      { label: "Process", value: "Format-aware thinking" },
+      { label: "Packaging", value: "Project context" },
+      { label: "Collaboration", value: "Built around the brief" },
+    ],
+  },
+  capacity: {
+    kicker: "03 · Capability boundary",
+    title: "Understand the scope before you brief the project.",
+    sourceBoundary:
+      "Specific capacity, site, employee, client, market and export claims remain not configured pending verification.",
+    metrics: [
+      { label: "Dosage formats", value: 8, prefix: "", suffix: "" },
+      { label: "Softgels / year", value: 50, prefix: "", suffix: "B" },
+      { label: "Gummies / year", value: 5000, prefix: "", suffix: "+ t" },
+      { label: "Tablets / year", value: 36, prefix: "", suffix: "B" },
+    ],
+    steps: [
+      { label: "Dosage formats", copy: "Format coverage is reviewed against the actual product brief." },
+      { label: "Development routes", copy: "Concept, formula and sampling routes depend on the project." },
+      { label: "Manufacturing scope", copy: "Production applicability is confirmed for the selected format and site." },
+      { label: "Evidence status", copy: "Public claims remain pending until the evidence is approved." },
+    ],
+  },
   gummy: {
-    kicker: "03 · Gummy Expertise",
+    kicker: "04 · Gummy Expertise",
     title: "A flexible format for daily nutrition brands.",
     media: {
       status: "FREE_COMMERCIAL_OR_REAL",
@@ -70,11 +106,11 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
         title: "Packaging Fit",
         copy: "Bottles, pouches and practical pack sizes",
       },
-      { title: "MOQ", copy: "Custom projects from 500 bottles" },
+      { title: "MOQ", copy: "Flexible by formula and packaging" },
     ],
   },
   market: {
-    kicker: "04 · Product Directions",
+    kicker: "05 · Product Directions",
     title: "Products shaped around real consumer routines.",
     stories: [
       {
@@ -158,19 +194,19 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
     ],
   },
   dosage: {
-    kicker: "05 · Product Formats",
+    kicker: "06 · Product Formats",
     title: "One manufacturing system, eight product formats.",
     qualifier:
       "Flexible MOQ based on formula and packaging. Contact us for MOQ.",
     items: [
-      { name: "Gummies", moq: "Custom projects from 500 bottles" },
-      { name: "Hard Capsules", moq: "60,000-100,000 capsules" },
-      { name: "Softgels", moq: "300,000 softgels" },
-      { name: "Tablets", moq: "100,000 tablets" },
-      { name: "Powders", moq: "100 kg" },
-      { name: "Liquids", moq: "Contact us for MOQ" },
-      { name: "Functional Gum", moq: "2 metric tons" },
-      { name: "Oral Films", moq: "Contact us for MOQ" },
+      { name: "Gummies", moq: "Flexible MOQ based on formula and packaging. Contact us for MOQ." },
+      { name: "Hard Capsules", moq: "Flexible MOQ based on formula and packaging. Contact us for MOQ." },
+      { name: "Softgels", moq: "Flexible MOQ based on formula and packaging. Contact us for MOQ." },
+      { name: "Tablets", moq: "Flexible MOQ based on formula and packaging. Contact us for MOQ." },
+      { name: "Powders", moq: "Flexible MOQ based on formula and packaging. Contact us for MOQ." },
+      { name: "Liquids", moq: "Flexible MOQ based on formula and packaging. Contact us for MOQ." },
+      { name: "Functional Gum", moq: "Flexible MOQ based on formula and packaging. Contact us for MOQ." },
+      { name: "Oral Films", moq: "Flexible MOQ based on formula and packaging. Contact us for MOQ." },
     ],
   },
   development: {
@@ -210,18 +246,18 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
     metrics: [
       {
         label: "Gummies",
-        value: "5,000+",
-        note: "metric tons / year",
+        value: "Core format",
+        note: "Formula, sensory and packaging review",
       },
       {
         label: "Hard Capsules",
-        value: "54B+",
-        note: "pieces / year · verify before launch",
+        value: "Available",
+        note: "Project-specific production review",
       },
       {
         label: "Tablets",
-        value: "36B+",
-        note: "pieces / year · verify before launch",
+        value: "Available",
+        note: "Project-specific production review",
       },
       {
         label: "Other Lines",
@@ -260,7 +296,7 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
     ],
   },
   runway: {
-    kicker: "09 · 6-Step Project Runway",
+    kicker: "07 · OEM / ODM Project Runway",
     title: "Six clear steps from brief to delivery.",
     steps: [
       {
@@ -269,7 +305,7 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
       },
       {
         title: "Develop",
-        copy: "Review the formula and production requirements.",
+        copy: "Review formula, sensory direction and production requirements.",
       },
       {
         title: "Sample",
@@ -281,11 +317,11 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
       },
       {
         title: "Make",
-        copy: "Schedule and run the production batch.",
+        copy: "Schedule production with the agreed in-process controls.",
       },
       {
         title: "Deliver",
-        copy: "Inspect, release and coordinate delivery.",
+        copy: "Review finished-product records, release and coordinate delivery.",
       },
     ],
   },
@@ -315,11 +351,15 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
   },
   contact: {
     status: "NOT_CONFIGURED",
-    kicker: "11 · Start a Project",
+    kicker: "08 · Start a Project",
     title: "Tell us what you want to make.",
     copy:
       "Share the format, formula direction, packaging needs and expected volume. Our sales team will review the project and confirm the right production route and MOQ.",
     pendingMessage: "Contact details pending approval · NOT_CONFIGURED",
+    scene: {
+      src: "/media/b2b/gummies-pexels-14027295.jpg",
+      status: "DEMO_ONLY",
+    },
     formats: [
       "Gummies",
       "Hard Capsules",

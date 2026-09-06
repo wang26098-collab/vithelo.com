@@ -7,6 +7,7 @@ import { VitheloB2BHomeContentSchema } from "@/content/schema";
 const approvedSectionOrder = [
   "hero",
   "proof",
+  "capacity-dashboard",
   "gummy-stage",
   "solutions",
   "dosage-forms",
@@ -18,7 +19,7 @@ const approvedSectionOrder = [
   "contact",
 ];
 
-it("validates the approved English eleven-section homepage record", () => {
+it("validates the approved English homepage record", () => {
   const parsed = VitheloB2BHomeContentSchema.parse(vitheloB2BHome);
 
   expect(parsed.sectionOrder).toEqual(approvedSectionOrder);
@@ -46,23 +47,48 @@ it("keeps the approved MOQ qualifications", () => {
 
   expect(content).toContain("Flexible MOQ based on formula and packaging.");
   expect(content).toContain("Contact us for MOQ");
-  for (const value of [
-    "500 bottles",
-    "60,000-100,000",
-    "300,000",
-    "100,000",
-    "100 kg",
-    "2 metric tons",
-  ]) {
-    expect(content).toContain(value);
-  }
+  expect(content).not.toMatch(/\d[\d,.]*(?:\s|-)*(?:bottles|capsules|softgels|tablets|kg|metric tons)/i);
+});
+
+it("defines the source-bounded capacity dashboard without invented trend claims", () => {
+  const parsed = VitheloB2BHomeContentSchema.parse(vitheloB2BHome);
+
+  expect(parsed.sectionOrder.slice(0, 4)).toEqual([
+    "hero",
+    "proof",
+    "capacity-dashboard",
+    "gummy-stage",
+  ]);
+  expect(parsed.capacity.title).toBe("Understand the scope before you brief the project.");
+  expect(parsed.capacity.metrics).toHaveLength(4);
+  expect(parsed.capacity.steps.map((step) => step.label)).toEqual([
+    "Dosage formats",
+    "Development routes",
+    "Manufacturing scope",
+    "Evidence status",
+  ]);
+  expect(parsed.capacity.sourceBoundary).toContain("not configured");
+  expect(JSON.stringify(parsed.capacity)).not.toMatch(/audited|2020|2025|annual growth/i);
+});
+
+it("publishes a customer-facing manufacturing scene without invented trend claims", () => {
+  expect(vitheloB2BHome.proof.title).toBe("Manufacturing, made visible.");
+  expect(vitheloB2BHome.proof.items).toEqual([
+    { label: "Environment", value: "Material-led work" },
+    { label: "Process", value: "Format-aware thinking" },
+    { label: "Packaging", value: "Project context" },
+    { label: "Collaboration", value: "Built around the brief" },
+  ]);
+  expect(vitheloB2BHome.proof.summary).toBe("A working environment for nutrition products and project teams.");
+  expect(vitheloB2BHome.proof.sourceBoundary).toContain("specific site and production claims");
+  expect(JSON.stringify(vitheloB2BHome.proof)).not.toMatch(/audited|annual growth|2020|2025/i);
 });
 
 it("uses restrained international copy without direct American-market targeting", () => {
   const publicContent = JSON.stringify(vitheloB2BHome);
 
   expect(vitheloB2BHome.hero.title).toBe(
-    "Nutrition formats, built for private-label growth.",
+    "VITHELO — Nutrition OEM / ODM Manufacturer",
   );
   expect(vitheloB2BHome.gummy.title).toBe(
     "A flexible format for daily nutrition brands.",
@@ -78,7 +104,9 @@ it("uses restrained international copy without direct American-market targeting"
 
 it("does not mutate the approved standalone preview", () => {
   const html = readFileSync(
-    resolve("vithelo-homepage-work/VITHELO_Homepage_FullPreview_V1.html"),
+    resolve(
+      "docs/archive/legacy-homepage-preview/VITHELO_Homepage_FullPreview_V1.html",
+    ),
   );
 
   expect(createHash("sha256").update(html).digest("hex").toUpperCase()).toBe(

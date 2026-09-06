@@ -17,7 +17,18 @@ export async function generateMetadata(
   const article = await localContentAdapter.getB2BInsightBySlug(slug);
 
   return article
-    ? { title: `${article.title} | VITHELO`, description: article.summary }
+    ? {
+        title: `${article.title} | VITHELO`,
+        description: article.summary,
+        alternates: { canonical: `/insights/${article.slug}` },
+        openGraph: {
+          url: `/insights/${article.slug}`,
+          type: "article",
+          publishedTime: article.publishedAt,
+          modifiedTime: article.updatedAt,
+          images: ["/media/vithelo-hero-composite.png"],
+        },
+      }
     : { title: "Insight Not Found | VITHELO" };
 }
 
@@ -33,12 +44,14 @@ export default async function InsightPage(
 
   if (!article) notFound();
 
-  const relatedArticles = publishedArticles.filter(
-    (item) => item.slug !== article.slug,
-  );
+  const relatedArticles = article.relatedSlugs
+    .map((relatedSlug) =>
+      publishedArticles.find((item) => item.slug === relatedSlug),
+    )
+    .filter((item): item is NonNullable<typeof item> => Boolean(item));
 
   return (
-    <VitheloB2BSiteFrame content={site}>
+    <VitheloB2BSiteFrame content={site} headerTheme="light-hero">
       <VitheloInsightArticle
         article={article}
         relatedArticles={relatedArticles}

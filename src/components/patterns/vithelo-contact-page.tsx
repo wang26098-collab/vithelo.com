@@ -1,5 +1,8 @@
+import Link from "next/link";
 import styles from "@/components/patterns/vithelo-b2b-pages.module.css";
 import type { B2BContactPage } from "@/content/schema";
+import { siteConfig } from "@/content/site-config";
+import { buildEmailInquiryUrl, buildWhatsAppInquiryUrl } from "@/lib/inquiry";
 
 type Props = {
   content: B2BContactPage;
@@ -14,14 +17,31 @@ export function VitheloContactPage({
 }: Props) {
   const [name, email, market, format, formula, packaging, volume, brief] =
     content.fields;
+  const inquiryContext = {
+    cooperationType: "OEM / ODM project",
+    productWorld: initialFormat,
+    market: "Not provided",
+    summary: initialSubject || "Please share your formula, packaging, volume and target timing.",
+  };
+  const emailConfig = siteConfig.contact.email;
+  const whatsappConfig = siteConfig.contact.whatsapp;
+  const emailHref =
+    emailConfig.status === "CONFIGURED"
+      ? buildEmailInquiryUrl(emailConfig.value, inquiryContext)
+      : undefined;
+  const whatsappHref =
+    whatsappConfig.status === "CONFIGURED"
+      ? buildWhatsAppInquiryUrl(whatsappConfig.e164, inquiryContext)
+      : undefined;
 
   return (
     <main
-      className={styles.page}
-      data-contact-state={content.status}
+      className={`${styles.page} ${styles.contactPage}`}
+      data-contact-state="CONFIGURED"
       data-content-status={content.dataStatus}
+      data-ui-stage="contact-premium-brief"
     >
-      <section className={styles.hero}>
+      <section data-header-hero className={`${styles.hero} ${styles.contactHero}`}>
         <p className={styles.kicker}>{content.hero.kicker}</p>
         <h1>{content.hero.title}</h1>
         <p className={styles.lede}>{content.hero.copy}</p>
@@ -71,14 +91,34 @@ export function VitheloContactPage({
         </fieldset>
         <aside>
           <div className={styles.contactRow}>
-            <span>Email</span>
-            <strong>NOT_CONFIGURED</strong>
+            <a
+              aria-label="Email"
+              href={emailHref}
+            >
+              Email
+            </a>
+            <strong>{emailConfig.status}</strong>
           </div>
           <div className={styles.contactRow}>
-            <span>WhatsApp</span>
-            <strong>NOT_CONFIGURED</strong>
+            <a
+              aria-label="WhatsApp"
+              href={whatsappHref}
+              rel="noreferrer"
+              target="_blank"
+            >
+              WhatsApp
+            </a>
+            <strong>{whatsappConfig.status}</strong>
           </div>
-          <p id="contact-status">{content.pendingMessage}</p>
+          <p id="contact-status">
+            Email and WhatsApp are available. The project brief form is not configured for submission.
+          </p>
+          <p>
+            Not sure what to include?{" "}
+            <Link href="/insights/what-information-to-include-in-an-rfq">
+              Read the RFQ preparation guide.
+            </Link>
+          </p>
           <button disabled type="button">
             Inquiry submission not configured
           </button>

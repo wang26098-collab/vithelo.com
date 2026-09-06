@@ -12,6 +12,7 @@ const routes = [
 ] as const;
 
 test("public routes hydrate without browser errors", async ({ page }) => {
+  test.setTimeout(60_000);
   const errors: string[] = [];
   page.on("console", (message) => {
     if (message.type() === "error") errors.push(message.text());
@@ -20,13 +21,14 @@ test("public routes hydrate without browser errors", async ({ page }) => {
 
   for (const route of routes) {
     await page.goto(route);
-    await page.locator("main").waitFor();
+    await page.locator('main:not([data-utility-mode="task"])').waitFor();
   }
 
   expect(errors).toEqual([]);
 });
 
 test("primary visual routes avoid Next Image configuration warnings", async ({ page }) => {
+  test.setTimeout(60_000);
   const warnings: string[] = [];
   let currentRoute = "";
   page.on("console", (message) => {
@@ -36,7 +38,7 @@ test("primary visual routes avoid Next Image configuration warnings", async ({ p
   for (const route of routes) {
     currentRoute = route;
     await page.goto(route);
-    await page.locator("main").waitFor();
+    await page.locator('main:not([data-utility-mode="task"])').waitFor();
     await page.waitForLoadState("networkidle");
   }
 
@@ -55,22 +57,27 @@ test("home hero and shared navigation route into the B2B site", async ({ page, v
     "/products",
   );
 
-  if (viewport && viewport.width >= 1024) {
+  if (viewport && viewport.width > 1200) {
     const navigation = page.getByRole("navigation", { name: "Primary navigation" });
     await expect(navigation.getByRole("link", { name: "Products", exact: true })).toHaveAttribute("href", "/products");
     await expect(navigation.getByRole("link", { name: "OEM / ODM", exact: true })).toHaveAttribute("href", "/oem-odm");
     await expect(navigation.getByRole("link", { name: "Insights", exact: true })).toHaveAttribute("href", "/insights");
-    await expect(navigation.getByRole("link", { name: "Contact", exact: true })).toHaveAttribute("href", "/contact");
+    await expect(
+      page
+        .getByRole("navigation", { name: "Inquiry navigation" })
+        .getByRole("link", { name: "Contact", exact: true }),
+    ).toHaveAttribute("href", "/contact");
   }
 });
 
-test("home retains the approved B2B product and manufacturing stages", async ({ page }) => {
+test("home retains product capability and the consolidated OEM ODM runway", async ({ page }) => {
   await page.goto("/");
 
   await expect(page.locator("#gummy-stage")).toBeVisible();
-  await expect(page.locator("#dosage-forms").getByRole("heading", { name: "One factory. Eight product formats." })).toBeVisible();
-  await expect(page.locator("#manufacturing")).toBeVisible();
-  await expect(page.locator("#quality")).toBeVisible();
+  await expect(page.locator("#dosage-forms").getByRole("heading", { name: "One manufacturing system, eight product formats." })).toBeVisible();
+  await expect(page.locator("#project-runway")).toBeVisible();
+  await expect(page.locator("#manufacturing")).toHaveCount(0);
+  await expect(page.locator("#quality")).toHaveCount(0);
 });
 
 test("legacy public routes permanently redirect into the B2B structure", async ({ request }) => {

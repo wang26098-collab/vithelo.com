@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>VITHELO · Screen 02 · V-A — Reserved Split</title>
+<style>
+  :root {
+    --color-ivory: #f4f4f0;
+    --color-ivory-deep: #e5e7e2;
+    --color-graphite: #191b1a;
+    --color-graphite-soft: #626762;
+    --color-titanium: #a7aca8;
+    --color-titanium-light: #d4d8d5;
+    --color-optical: #b8d0c8;
+    --color-optical-strong: #58756c;
+    --font-precision: ui-sans-serif, Aptos, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --motion-standard: 240ms;
+    --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--color-ivory); color: var(--color-graphite); }
+  body {
+    font-family: var(--font-precision);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    min-height: 100vh;
+  }
+  /* Demo boundary; never omitted on preview either */
+  .demo-strip {
+    background: var(--color-ivory-deep);
+    color: var(--color-graphite-soft);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 9px 28px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-titanium) 50%, transparent);
+  }
+  .scene {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    min-height: calc(100vh - 36px);
+  }
+  @media (max-width: 880px) {
+    .scene { grid-template-columns: 1fr; }
+    .visual { order: 2; min-height: 38vh; }
+  }
+  .copy {
+    padding: clamp(48px, 8vw, 96px) clamp(24px, 5vw, 72px);
+    display: flex; flex-direction: column; justify-content: center; gap: 28px;
+  }
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-graphite-soft);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .eyebrow::before {
+    content: ""; display: block; width: 36px; height: 1px; background: var(--color-graphite-soft);
+  }
+  h1 {
+    font-size: clamp(40px, 5.4vw, 76px);
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+    font-weight: 500;
+    margin: 0;
+    color: var(--color-graphite);
+  }
+  h1 em {
+    font-style: normal;
+    color: var(--color-optical-strong);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-optical-strong) 40%, transparent);
+    padding-bottom: 4px;
+  }
+  .lede {
+    font-size: clamp(15px, 1.4vw, 17px);
+    line-height: 1.65;
+    color: var(--color-graphite-soft);
+    max-width: 34rem;
+    margin: 0;
+  }
+  .meta-line {
+    font-size: 13px;
+    color: var(--color-graphite-soft);
+    display: flex; align-items: center; gap: 16px;
+    padding-top: 18px; margin-top: 8px;
+    border-top: 1px solid color-mix(in srgb, var(--color-titanium) 55%, transparent);
+  }
+  .meta-line .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--color-titanium); }
+  /* Right column — single statement image */
+  .visual {
+    position: relative;
+    background:
+      radial-gradient(140% 80% at 30% 25%, color-mix(in srgb, var(--color-titanium-light) 50%, transparent) 0%, transparent 55%),
+      linear-gradient(180deg, #ecedea 0%, #d8dbd7 100%);
+    overflow: hidden;
+    display: flex; align-items: flex-end;
+  }
+  .visual::after {
+    /* abstract "factory micro" — three layered blurred glass slabs */
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(120deg, color-mix(in srgb, var(--color-graphite) 12%, transparent) 0%, transparent 60%),
+      repeating-linear-gradient(90deg, color-mix(in srgb, var(--color-titanium) 12%, transparent) 0 2px, transparent 2px 60px);
+    mix-blend-mode: multiply;
+    opacity: 0.55;
+  }
+  .visual-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, color-mix(in srgb, var(--color-graphite) 6%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--color-graphite) 6%, transparent) 1px, transparent 1px);
+    background-size: 64px 64px;
+    pointer-events: none;
+74:    opacity: 0.5;
+  }
+  .visual-mark {
+    position: relative;
+    margin: 0 0 clamp(24px, 5vw, 56px) clamp(24px, 5vw, 56px);
+    z-index: 2;
+    max-width: 80%;
+  }
+  .visual-mark .stack {
+    display: flex; flex-direction: column; gap: 4px;
+    font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-graphite-soft);
+  }
+  .visual-mark .stack span:first-child { color: var(--color-graphite); }
+  /* 'image' substitute — three depth slabs */
+  .slab {
+    position: absolute;
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--color-graphite) 22%, transparent);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.08);
+  }
+  .slab.s1 { width: 58%; height: 14%; left: 18%; top: 22%; transform: rotate(-3deg); background: color-mix(in srgb, var(--color-titanium) 35%, transparent); }
+  .slab.s2 { width: 48%; height: 12%; left: 28%; top: 38%; transform: rotate(2deg); background: color-mix(in srgb, var(--color-optical) 60%, transparent); }
+  .slab.s3 { width: 38%; height: 10%; left: 36%; top: 54%; transform: rotate(-1deg); background: color-mix(in srgb, var(--color-graphite) 12%, transparent); }
+  /* Focusable demo for keyboard a11y check */
+  a.cta {
+    align-self: flex-start;
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-top: 6px;
+    color: var(--color-graphite);
+    font-size: 14px; letter-spacing: 0.06em;
+    text-decoration: none;
+    padding: 12px 22px;
+    border: 1px solid var(--color-graphite);
+    border-radius: 999px;
+    transition: background var(--motion-standard) var(--ease-standard), color var(--motion-standard) var(--ease-standard);
+  }
+  a.cta:hover, a.cta:focus-visible { background: var(--color-graphite); color: var(--color-ivory); outline: none; }
+  a.cta:focus-visible { box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-optical-strong) 70%, transparent); }
+</style>
+</head>
+<body>
+
+<div class="demo-strip" role="note" aria-label="Demo boundary">
+  <span>Demo preview · VITHELO Screen 02 · V-A Reserved Split</span>
+  <span>DEMO_ONLY · no figures fabricated</span>
+</div>
+
+<section class="scene" aria-labelledby="screen02-a-title">
+  <div class="copy">
+    <div class="eyebrow"><span>02 · Brand voice</span></div>
+    <h1 id="screen02-a-title">
+      Form, material, and the <em>discipline</em> that sits between them.
+    </h1>
+    <p class="lede">
+      VITHELO is a gummy-first nutrition OEM and ODM partner. Soft material, clean lines, no marketing
+      varnish. The work is to translate a brand brief into a formula that survives production — without
+      crossing into claims a contract manufacturer should not make.
+    </p>
+    <a class="cta" href="#cta-handling" aria-label="Continue to product discovery">
+      Continue
+      <span aria-hidden="true">→</span>
+    </a>
+    <div class="meta-line">
+      <span>World: Nutrition</span>
+      <span class="dot"></span>
+      <span>Lead: Studio + Manufacturing</span>
+      <span class="dot"></span>
+      <span>Memory continues on scroll</span>
+    </div>
+  </div>
+
+  <aside class="visual" aria-hidden="true">
+    <div class="visual-grid"></div>
+    <div class="slab s1"></div>
+    <div class="slab s2"></div>
+    <div class="slab s3"></div>
+    <div class="visual-mark">
+      <div class="stack">
+        <span>Picture stand-in</span>
+        <span>factory micro · cool light</span>
+      </div>
+    </div>
+  </aside>
+</section>
+
+</body>
+</html>

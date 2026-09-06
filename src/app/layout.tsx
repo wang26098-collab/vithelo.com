@@ -5,6 +5,7 @@ import { MobileInquiryBar } from "@/components/core/mobile-inquiry-bar";
 import { RouteShell } from "@/components/core/route-shell";
 import { SiteHeader } from "@/components/core/site-header";
 import { getSiteOrigin } from "@/lib/site-origin";
+import { localContentAdapter } from "@/lib/content";
 import "./globals.css";
 
 const siteOrigin = getSiteOrigin();
@@ -20,12 +21,15 @@ export const metadata: Metadata = {
     siteName: "VITHELO",
     type: "website",
     url: "/",
+    images: ["/media/vithelo-hero-composite.png"],
   },
   ...(siteOrigin
     ? {
         metadataBase: new URL(siteOrigin),
-        alternates: { canonical: "/" },
-        twitter: { card: "summary" as const },
+        twitter: {
+          card: "summary_large_image" as const,
+          images: ["/media/vithelo-hero-composite.png"],
+        },
       }
     : { robots: { index: false, follow: false } }),
 };
@@ -37,7 +41,8 @@ FIRST VIEWPORT: VITHELO leads a calm nutrition material field with product disco
 FORM: Swiss precision and Scientific Material Humanism for a B2B-first brand experience.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md`;
 
-export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+  const siteContent = await localContentAdapter.getB2BSiteContent();
   const insertDirectionContract = `document.body.insertBefore(document.createComment(${JSON.stringify(directionContract)}),document.body.firstChild);`;
 
   return (
@@ -45,6 +50,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
       <body>
         <script dangerouslySetInnerHTML={{ __html: insertDirectionContract }} />
         <RouteShell
+          siteContent={siteContent}
           disclosure={<DemoDisclosure />}
           header={<SiteHeader />}
           mobileResource={<MobileInquiryBar />}

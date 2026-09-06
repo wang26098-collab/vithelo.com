@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>VITHELO · Screen 02 · V-C — Immersive Cut</title>
+<style>
+  :root {
+    --color-ivory: #f4f4f0;
+    --color-ivory-deep: #e5e7e2;
+    --color-graphite: #191b1a;
+    --color-graphite-soft: #626762;
+    --color-titanium: #a7aca8;
+    --color-titanium-light: #d4d8d5;
+    --color-optical: #b8d0c8;
+    --color-optical-strong: #58756c;
+    --font-precision: ui-sans-serif, Aptos, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --motion-narrative: 500ms;
+    --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-precision);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    background: #1a1d1b;
+    color: var(--color-ivory);
+    min-height: 100vh;
+    overflow: hidden;
+  }
+  /* Stage — full bleed */
+  .stage {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    background:
+      radial-gradient(120% 70% at 75% 50%, #2a302d 0%, #16191a 60%),
+      linear-gradient(180deg, #1d2120 0%, #111413 100%);
+    overflow: hidden;
+  }
+  /* abstract factory plate — generated from CSS gradient layers (no fabricated photo) */
+  .plate {
+    position: absolute; inset: 0; overflow: hidden;
+  }
+  .plate::before {
+    content: ""; position: absolute; inset: -8%;
+    background:
+      radial-gradient(60% 35% at 25% 38%, color-mix(in srgb, var(--color-titanium) 30%, transparent) 0%, transparent 70%),
+      radial-gradient(40% 40% at 65% 70%, color-mix(in srgb, var(--color-optical) 18%, transparent) 0%, transparent 70%),
+      radial-gradient(20% 25% at 80% 25%, color-mix(in srgb, var(--color-ivory) 12%, transparent) 0%, transparent 70%);
+    filter: blur(8px) contrast(105%);
+  }
+  .plate::after {
+    /* coarse vertical 'shaft of cold light' lines */
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--color-ivory) 4%, transparent) 30%, transparent 60%);
+    mix-blend-mode: screen;
+    opacity: 0.45;
+  }
+  .horizon {
+    position: absolute; left: 0; right: 0; top: 56%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--color-titanium) 60%, transparent) 50%, transparent 100%);
+  }
+  /* foreground mark — top-right claim */
+  .claim {
+    position: absolute;
+    top: clamp(72px, 12vh, 130px);
+    right: clamp(28px, 6vw, 80px);
+    text-align: right;
+    max-width: 28rem;
+    z-index: 2;
+  }
+  .claim .eyebrow {
+    font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--color-titanium-light);
+    margin-bottom: 18px;
+    display: inline-flex; align-items: center; gap: 12px;
+  }
+  .claim .eyebrow::after { content: ""; width: 36px; height: 1px; background: var(--color-titanium-light); }
+  .claim h1 {
+    font-size: clamp(32px, 4vw, 52px);
+    line-height: 1.1; letter-spacing: -0.025em; font-weight: 500;
+    color: var(--color-ivory);
+    margin: 0;
+  }
+  .claim h1 em {
+    font-style: normal;
+    color: var(--color-optical);
+  }
+  .claim .sub {
+    margin-top: 18px;
+    font-size: 14px; line-height: 1.7; color: color-mix(in srgb, var(--color-titanium-light) 80%, transparent);
+    max-width: 30rem;
+    margin-left: auto;
+  }
+  /* certification row bottom-left, minimal */
+  .creds {
+    position: absolute;
+    left: clamp(28px, 6vw, 80px);
+    bottom: clamp(36px, 8vh, 80px);
+    display: flex; gap: clamp(20px, 3vw, 36px); flex-wrap: wrap;
+    z-index: 2;
+  }
+  .creds .item {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-titanium);
+    border-left: 1px solid color-mix(in srgb, var(--color-titanium) 60%, transparent);
+    padding: 4px 0 4px 12px;
+  }
+  /* Right-bottom CTA */
+  .next {
+    position: absolute;
+    right: clamp(28px, 6vw, 80px);
+    bottom: clamp(36px, 8vh, 80px);
+    z-index: 2;
+  }
+  a.cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 14px; letter-spacing: 0.06em;
+    text-decoration: none;
+    color: var(--color-ivory);
+    padding: 13px 22px;
+    border: 1px solid color-mix(in srgb, var(--color-titanium-light) 80%, transparent);
+    border-radius: 999px;
+    transition: background var(--motion-narrative) var(--ease-standard), color var(--motion-narrative) var(--ease-standard);
+  }
+  a.cta:hover, a.cta:focus-visible { background: var(--color-ivory); color: var(--color-graphite); outline: none; }
+  a.cta:focus-visible { box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-optical) 80%, transparent); }
+  /* Demo strip on dark — still required by Hard-Lock #11 */
+  .demo-strip {
+    position: absolute; top: 0; left: 0; right: 0;
+    background: color-mix(in srgb, var(--color-graphite) 80%, #000);
+    color: var(--color-titanium);
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 9px 28px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-titanium) 30%, transparent);
+    z-index: 3;
+  }
+  @media (max-width: 720px) {
+    .claim { right: 24px; left: 24px; max-width: none; text-align: left; top: 96px; }
+    .claim h1 { font-size: 32px; }
+    .creds { left: 24px; right: 24px; }
+    .next  { right: 24px; bottom: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<section class="stage" aria-labelledby="screen02-c-title">
+  <div class="demo-strip" role="note" aria-label="Demo boundary">
+    <span>Demo preview · VITHELO Screen 02 · V-C Immersive Cut</span>
+    <span>No certification / no number fabricated</span>
+  </div>
+
+  <div class="plate" aria-hidden="true"></div>
+  <div class="horizon"></div>
+
+  <div class="claim">
+    <div class="eyebrow">02 · Manufacturing voice</div>
+    <h1 id="screen02-c-title">
+      Quiet lines, cold light, and a <em>formula</em> that ships.
+    </h1>
+    <p class="sub">
+      After the consumer-facing first screen, this one resets the room. No celebration. VITHELO is a
+      manufacturing partner; the visual language shifts to the room where the work actually happens.
+    </p>
+  </div>
+
+  <ul class="creds" aria-label="Operating scope, identifiers pending verification">
+    <li class="item">DOSAGE FORMS · 8</li>
+    <li class="item">GMP-aligned SYSTEM</li>
+    <li class="item">3RD-PARTY TEST</li>
+  </ul>
+
+  <div class="next">
+    <a class="cta" href="#cta-handling" aria-label="Continue to product discovery">
+      Continue <span aria-hidden="true">→</span>
+    </a>
+  </div>
+</section>
+
+</body>
+</html>

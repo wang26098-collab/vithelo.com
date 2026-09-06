@@ -5,6 +5,8 @@ import { generateMetadata as generateInsightMetadata } from "@/app/insights/[slu
 import { metadata as layoutMetadata } from "@/app/layout";
 import { metadata as oemOdmMetadata } from "@/app/oem-odm/page";
 import { metadata as productsMetadata } from "@/app/products/page";
+import { vitheloB2BHome } from "@/content/demo/vithelo-b2b-home";
+import { vitheloB2BSite } from "@/content/demo/vithelo-b2b-site";
 
 const staticMetadata = [
   layoutMetadata,
@@ -40,6 +42,64 @@ it("uses the approved international OEM and ODM site metadata", () => {
       siteName: "VITHELO",
       type: "website",
       url: "/",
+      images: ["/media/vithelo-hero-composite.png"],
     }),
   );
+  expect(layoutMetadata.twitter).toEqual({
+    card: "summary_large_image",
+    images: ["/media/vithelo-hero-composite.png"],
+  });
+});
+
+it("does not publish an unverified factory-owned identity claim", () => {
+  const publicCopy = JSON.stringify({
+    identity: vitheloB2BSite.identity,
+    hero: vitheloB2BHome.hero.copy,
+  });
+
+  expect(publicCopy.toLowerCase()).not.toContain("factory-owned");
+  expect(publicCopy.toLowerCase()).not.toContain("export division");
+});
+
+it("gives every public route a self-referencing canonical", async () => {
+  const insightMetadata = await generateInsightMetadata({
+    params: Promise.resolve({ slug: "gummy-development-guide" }),
+    searchParams: Promise.resolve({}),
+  });
+
+  expect(homeMetadata.alternates).toEqual({ canonical: "/" });
+  expect(homeMetadata.openGraph).toEqual({
+    url: "/",
+    images: ["/media/vithelo-hero-composite.png"],
+  });
+  expect(productsMetadata.alternates).toEqual({ canonical: "/products" });
+  expect(productsMetadata.openGraph).toEqual({
+    url: "/products",
+    images: ["/media/vithelo-hero-composite.png"],
+  });
+  expect(oemOdmMetadata.alternates).toEqual({ canonical: "/oem-odm" });
+  expect(oemOdmMetadata.openGraph).toEqual({
+    url: "/oem-odm",
+    images: ["/media/vithelo-hero-composite.png"],
+  });
+  expect(insightsMetadata.alternates).toEqual({ canonical: "/insights" });
+  expect(insightsMetadata.openGraph).toEqual({
+    url: "/insights",
+    images: ["/media/vithelo-hero-composite.png"],
+  });
+  expect(contactMetadata.alternates).toEqual({ canonical: "/contact" });
+  expect(contactMetadata.openGraph).toEqual({
+    url: "/contact",
+    images: ["/media/vithelo-hero-composite.png"],
+  });
+  expect(insightMetadata.alternates).toEqual({
+    canonical: "/insights/gummy-development-guide",
+  });
+  expect(insightMetadata.openGraph).toEqual({
+    url: "/insights/gummy-development-guide",
+    type: "article",
+    publishedTime: "2026-08-27",
+    modifiedTime: "2026-08-27",
+    images: ["/media/vithelo-hero-composite.png"],
+  });
 });

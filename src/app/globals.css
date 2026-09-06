@@ -59,6 +59,142 @@ body {
   max-width: var(--container-data);
 }
 
+.informationPage {
+  min-height: 100dvh;
+  background: var(--color-background);
+  color: var(--color-foreground);
+}
+
+.informationHero {
+  position: relative;
+  min-height: clamp(38rem, 78svh, 52rem);
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  overflow: hidden;
+  background: #e8e3d8;
+}
+
+.informationHero__copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(8rem, 15vw, 12rem) clamp(1.5rem, 8vw, 8rem) 5rem;
+  background: linear-gradient(115deg, #f3f0e8 0%, rgb(243 240 232 / 0.96) 68%, rgb(243 240 232 / 0.62) 100%);
+}
+
+.informationHero__eyebrow,
+.informationHero__meta {
+  margin: 0;
+  color: #586b65;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.informationHero h1 {
+  max-width: 12ch;
+  margin: 1.25rem 0 0;
+  font-size: clamp(3rem, 5.2vw, 6.25rem);
+  font-weight: 500;
+  letter-spacing: -0.065em;
+  line-height: 0.95;
+}
+
+.informationHero__lede {
+  max-width: 33rem;
+  margin: 2rem 0 0;
+  color: rgb(23 25 24 / 0.7);
+  font-size: clamp(1rem, 1.35vw, 1.2rem);
+}
+
+.informationHero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2.25rem;
+}
+
+.informationHero__actions a {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.15rem;
+  border: 1px solid rgb(23 25 24 / 35%);
+  color: var(--color-foreground);
+  font-size: 0.78rem;
+  text-decoration: none;
+}
+
+.informationHero__actions a:last-child {
+  border-color: #a9503c;
+  background: #a9503c;
+  color: #fff;
+}
+
+.informationHero__meta {
+  margin-top: 4rem;
+  font-size: 0.62rem;
+}
+
+.informationHero__media {
+  min-height: 100%;
+  background-position: center;
+  background-size: cover;
+  filter: saturate(0.68) contrast(1.02);
+}
+
+.informationPage--manufacturingHero .informationHero__media {
+  background-position: 58% center;
+}
+
+.informationPage--qualityHero .informationHero__media {
+  background-position: center 42%;
+  filter: saturate(0.45) contrast(1.05);
+}
+
+.informationPage--aboutHero .informationHero__media {
+  background-position: 62% center;
+}
+
+.informationPage__body {
+  padding-block: clamp(4rem, 8vw, 8rem);
+}
+
+@media (max-width: 760px) {
+  .informationHero {
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .informationHero__copy {
+    min-height: 34rem;
+    padding: 8rem 1.375rem 3rem;
+    background: linear-gradient(180deg, #f3f0e8 0%, rgb(243 240 232 / 0.94) 72%, rgb(243 240 232 / 0.6) 100%);
+  }
+
+  .informationHero h1 {
+    max-width: 11ch;
+    font-size: clamp(3rem, 13vw, 4.5rem);
+  }
+
+  .informationHero__media {
+    min-height: 18rem;
+    order: 2;
+  }
+
+  .informationHero__meta {
+    margin-top: 2.5rem;
+  }
+
+  .informationPage__body {
+    padding-block: 4rem;
+  }
+}
+
 .section-space {
   padding-block: clamp(var(--space-64), 8vw, var(--space-120));
 }

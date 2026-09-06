@@ -11,14 +11,18 @@ export function VitheloProductsPage({
   const media = content.gummy.media;
 
   return (
-    <main className={styles.page} data-content-status={content.dataStatus}>
-      <section className={styles.hero}>
+    <main
+      className={`${styles.page} ${styles.productsPage}`}
+      data-content-status={content.dataStatus}
+      data-ui-stage="products-premium-catalog"
+    >
+      <section data-header-hero className={`${styles.hero} ${styles.productsHero}`}>
         <p className={styles.kicker}>{content.hero.kicker}</p>
         <h1>{content.hero.title}</h1>
         <p className={styles.lede}>{content.hero.copy}</p>
       </section>
 
-      <section className={styles.splitSection}>
+      <section className={`${styles.splitSection} ${styles.gummyPlatform}`}>
         <div>
           <p className={styles.kicker}>GUMMY PLATFORM</p>
           <h2>{content.gummy.title}</h2>
@@ -48,7 +52,7 @@ export function VitheloProductsPage({
         </div>
       </section>
 
-      <section className={styles.section}>
+      <section className={`${styles.section} ${styles.formatsSection}`}>
         <p className={styles.kicker}>EIGHT FORMATS</p>
         <h2>One manufacturing system, eight product formats.</h2>
         <div
@@ -78,7 +82,7 @@ export function VitheloProductsPage({
         </div>
       </section>
 
-      <section className={styles.section}>
+      <section className={`${styles.section} ${styles.decisionSection}`}>
         <p className={styles.kicker}>FORMAT DECISIONS</p>
         <h2>Choose by project fit, not appearance alone.</h2>
         <div className={styles.simpleTable}>
@@ -91,7 +95,7 @@ export function VitheloProductsPage({
         </div>
       </section>
 
-      <section className={styles.section}>
+      <section className={`${styles.section} ${styles.packagingSection}`}>
         <p className={styles.kicker}>PACKAGING</p>
         <h2>Align the pack with the product route.</h2>
         <div className={styles.detailLedger}>
@@ -109,6 +113,8 @@ export function VitheloProductsPage({
         <h2>{content.cta.title}</h2>
         <p>{content.cta.copy}</p>
         <Link href={content.cta.href}>Start a Project</Link>
+        <Link href="/insights/choose-the-right-supplement-format">Read the format selection guide</Link>
+        <Link href="/insights/how-packaging-affects-moq-and-lead-time">Understand packaging, MOQ and timing variables</Link>
       </section>
     </main>
   );

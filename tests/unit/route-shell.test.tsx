@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { RouteShell } from "@/components/core/route-shell";
+import { vitheloB2BSite } from "@/content/demo/vithelo-b2b-site";
 
 const navigationState = vi.hoisted(() => ({ pathname: "/" }));
 
@@ -10,6 +11,7 @@ vi.mock("next/navigation", () => ({
 function renderShell() {
   return render(
     <RouteShell
+      siteContent={vitheloB2BSite}
       disclosure={<div>Disclosure</div>}
       header={<div>Global header</div>}
       mobileResource={<div>Mobile resource</div>}
@@ -35,6 +37,18 @@ it.each([
   expect(screen.queryByText("Global header")).not.toBeInTheDocument();
   expect(screen.queryByText("Mobile resource")).not.toBeInTheDocument();
 });
+
+it.each(["/products/gummies", "/manufacturing", "/quality", "/about"])(
+  "uses the shared B2B header instead of legacy chrome on %s", (pathname) => {
+    navigationState.pathname = pathname;
+    renderShell();
+    expect(screen.getAllByRole("banner")).toHaveLength(1);
+    expect(screen.getByRole("banner")).toHaveAttribute("data-header-theme", "light-hero");
+    expect(screen.getByRole("banner")).toHaveAttribute("data-navigation-state", "top");
+    expect(screen.queryByText("Global header")).not.toBeInTheDocument();
+    expect(screen.queryByText("Mobile resource")).not.toBeInTheDocument();
+  },
+);
 
 it("preserves the existing global chrome on non-home routes", () => {
   navigationState.pathname = "/nutrition";
