@@ -12,7 +12,9 @@ it("renders the VITHELO B2B homepage identity and consolidated sequence", async 
       name: "VITHELO — Nutrition OEM / ODM Manufacturer",
     }),
   ).toBeVisible();
-  expect(screen.getByText("One manufacturing system, eight product formats.")).toBeVisible();
+  expect(
+    screen.getByRole("heading", { name: "One system. Eight expressions." }),
+  ).toBeVisible();
 
   expect(Array.from(document.querySelectorAll("main > section")).map((section) => section.id)).toEqual([
     "hero",

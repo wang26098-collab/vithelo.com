@@ -27,7 +27,7 @@ it("keeps rendered homepage imagery explicit without exposing asset metadata", a
 
   expect(document.querySelectorAll('[data-media-status="FREE_COMMERCIAL_OR_REAL"]')).not.toHaveLength(0);
   expect(screen.queryByText(/Lifestyle asset/)).not.toBeInTheDocument();
-  expect(document.querySelectorAll("img")).toHaveLength(7);
+  expect(document.querySelectorAll("img")).toHaveLength(19);
 });
 
 it("uses a labelled mobile fallback in the independent legacy hero component", () => {

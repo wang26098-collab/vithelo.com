@@ -23,7 +23,7 @@ it("validates the approved English homepage record", () => {
   const parsed = VitheloB2BHomeContentSchema.parse(vitheloB2BHome);
 
   expect(parsed.sectionOrder).toEqual(approvedSectionOrder);
-  expect(parsed.market.stories).toHaveLength(6);
+  expect(parsed.market.stories).toHaveLength(3);
   expect(parsed.dosage.items).toHaveLength(8);
   expect(parsed.dosage.items.slice(-3).map((item) => item.name)).toEqual([
     "Liquids",
@@ -50,38 +50,115 @@ it("keeps the approved MOQ qualifications", () => {
   expect(content).not.toMatch(/\d[\d,.]*(?:\s|-)*(?:bottles|capsules|softgels|tablets|kg|metric tons)/i);
 });
 
-it("defines the source-bounded capacity dashboard without invented trend claims", () => {
-  const parsed = VitheloB2BHomeContentSchema.parse(vitheloB2BHome);
-
-  expect(parsed.sectionOrder.slice(0, 4)).toEqual([
-    "hero",
-    "proof",
-    "capacity-dashboard",
-    "gummy-stage",
+it("keeps only the approved sleep, active and women product directions", () => {
+  expect(vitheloB2BHome.market.stories.map((story) => story.title)).toEqual([
+    "Sleep, Stress & Mood",
+    "Active Nutrition",
+    "Women’s Wellness",
   ]);
-  expect(parsed.capacity.title).toBe("Understand the scope before you brief the project.");
-  expect(parsed.capacity.metrics).toHaveLength(4);
-  expect(parsed.capacity.steps.map((step) => step.label)).toEqual([
-    "Dosage formats",
-    "Development routes",
-    "Manufacturing scope",
-    "Evidence status",
+  expect(vitheloB2BHome.market.stories.map((story) => story.media.src)).toEqual([
+    "/media/vithelo-product-card-sleep.png",
+    "/media/vithelo-product-card-active.png",
+    "/media/vithelo-product-card-womens.png",
   ]);
-  expect(parsed.capacity.sourceBoundary).toContain("not configured");
-  expect(JSON.stringify(parsed.capacity)).not.toMatch(/audited|2020|2025|annual growth/i);
 });
 
-it("publishes a customer-facing manufacturing scene without invented trend claims", () => {
-  expect(vitheloB2BHome.proof.title).toBe("Manufacturing, made visible.");
-  expect(vitheloB2BHome.proof.items).toEqual([
-    { label: "Environment", value: "Material-led work" },
-    { label: "Process", value: "Format-aware thinking" },
-    { label: "Packaging", value: "Project context" },
-    { label: "Collaboration", value: "Built around the brief" },
+it("defines the approved featured product runway", () => {
+  const parsed = VitheloB2BHomeContentSchema.parse(vitheloB2BHome);
+
+  expect(parsed.capacity.kicker).toBe("03 · FEATURED PRODUCTS");
+  expect(parsed.capacity.action).toEqual({
+    label: "View All Products",
+    href: "/products",
+  });
+  expect(parsed.capacity.products.map((product) => product.title)).toEqual([
+    "Sleep Health",
+    "Active Nutrition",
+    "Women’s Health",
   ]);
-  expect(vitheloB2BHome.proof.summary).toBe("A working environment for nutrition products and project teams.");
-  expect(vitheloB2BHome.proof.sourceBoundary).toContain("specific site and production claims");
-  expect(JSON.stringify(vitheloB2BHome.proof)).not.toMatch(/audited|annual growth|2020|2025/i);
+  expect(parsed.capacity.products.map((product) => product.media.src)).toEqual([
+    "/media/vithelo-product-card-sleep.png",
+    "/media/vithelo-product-card-active.png",
+    "/media/vithelo-product-card-womens.png",
+  ]);
+  expect(
+    parsed.capacity.products.every((product) => product.action.href === "/contact"),
+  ).toBe(true);
+  expect(JSON.stringify(parsed.capacity)).not.toMatch(/Shop Now|price|MOQ|Seed/i);
+});
+
+it("publishes the approved PDF-backed manufacturing proof record", () => {
+  expect(vitheloB2BHome.proof.title).toBe("From Formula to Finished Product");
+  expect(vitheloB2BHome.proof.metrics).toEqual([
+    { value: "2008", label: "Established" },
+    { value: "5,000+", label: "Customers served" },
+    { value: "50+", label: "Countries & regions" },
+    { value: "7", label: "Production categories" },
+  ]);
+  expect(vitheloB2BHome.proof.capabilities).toHaveLength(4);
+  expect(vitheloB2BHome.proof.action).toEqual({
+    label: "Explore Our Factory",
+    href: "/manufacturing",
+  });
+  expect(vitheloB2BHome.proof.media.src).toBe(
+    "/media/b2b/sanitized-factory-production-line.jpg",
+  );
+  expect(JSON.stringify(vitheloB2BHome.proof)).not.toMatch(
+    /森酷|Sencool|GMP|HACCP|Halal|ISO|FDA|annual growth|2020|2025/i,
+  );
+});
+
+it("defines the approved customization constellation", () => {
+  const parsed = VitheloB2BHomeContentSchema.parse(vitheloB2BHome);
+
+  expect(parsed.customization.kicker).toBe("04 · CUSTOMIZATION");
+  expect(parsed.customization.title).toBe("Tailored to Your Brand.");
+  expect(parsed.customization.nodes.map((node) => node.title)).toEqual([
+    "Formula",
+    "Dosage Form",
+    "Flavor & Taste",
+    "Packaging",
+  ]);
+  expect(parsed.customization.benefits.map((benefit) => benefit.title)).toEqual([
+    "OEM / ODM",
+    "Flexible MOQ",
+    "Multi-format Production",
+    "Packaging Coordination",
+  ]);
+  expect(parsed.customization.media.src).toBe(
+    "/media/b2b/vithelo-customization-constellation.png",
+  );
+  expect(
+    JSON.stringify([
+      parsed.customization.nodes,
+      parsed.customization.benefits,
+      parsed.customization.media.label,
+    ]),
+  ).not.toMatch(
+    /Fast Sampling|Confidential|certified|Shop Now/i,
+  );
+});
+
+it("defines the approved featured format wall", () => {
+  const parsed = VitheloB2BHomeContentSchema.parse(vitheloB2BHome);
+
+  expect(parsed.dosage.title).toBe("One system. Eight expressions.");
+  expect(parsed.dosage.items.map((item) => item.slug)).toEqual([
+    "gummies",
+    "hard-capsules",
+    "softgels",
+    "tablets",
+    "powders",
+    "liquids",
+    "functional-gum",
+    "oral-films",
+  ]);
+  expect(new Set(parsed.dosage.items.map((item) => item.media.src)).size).toBe(8);
+  expect(parsed.dosage.items.every((item) => item.media.width > 0)).toBe(true);
+  expect(parsed.dosage.items.every((item) => item.media.height > 0)).toBe(true);
+  expect(JSON.stringify(parsed.dosage)).not.toMatch(
+    /price|fast sampling|confidential|certified|GMP|HACCP|FDA|ISO/i,
+  );
 });
 
 it("uses restrained international copy without direct American-market targeting", () => {
@@ -90,11 +167,9 @@ it("uses restrained international copy without direct American-market targeting"
   expect(vitheloB2BHome.hero.title).toBe(
     "VITHELO — Nutrition OEM / ODM Manufacturer",
   );
-  expect(vitheloB2BHome.gummy.title).toBe(
-    "A flexible format for daily nutrition brands.",
-  );
+  expect(vitheloB2BHome.customization.title).toBe("Tailored to Your Brand.");
   expect(vitheloB2BHome.dosage.title).toBe(
-    "One manufacturing system, eight product formats.",
+    "One system. Eight expressions.",
   );
   expect(vitheloB2BHome.contact.title).toBe("Tell us what you want to make.");
   expect(publicContent).not.toMatch(

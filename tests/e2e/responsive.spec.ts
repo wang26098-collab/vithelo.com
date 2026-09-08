@@ -111,15 +111,17 @@ test("homepage headings use the approved editorial scale", async ({ page, viewpo
   const heroSize = await page.locator("#hero h1").evaluate((element) =>
     Number.parseFloat(getComputedStyle(element).fontSize),
   );
-  const sectionSize = await page.locator("#gummy-stage h2").evaluate((element) =>
+  const customizationSize = await page.locator("#gummy-stage h2").evaluate((element) =>
     Number.parseFloat(getComputedStyle(element).fontSize),
   );
 
   expect(heroSize).toBeLessThanOrEqual(viewport && viewport.width <= 760 ? 44 : 48);
-  expect(sectionSize).toBeLessThanOrEqual(viewport && viewport.width <= 760 ? 36 : 48);
+  expect(customizationSize).toBeLessThanOrEqual(viewport && viewport.width <= 760 ? 56 : 86);
 
   const supportingSizes = await page.locator("main h3").evaluateAll((elements) =>
-    elements.map((element) => Number.parseFloat(getComputedStyle(element).fontSize)),
+    elements
+      .filter((element) => !element.closest("#solutions"))
+      .map((element) => Number.parseFloat(getComputedStyle(element).fontSize)),
   );
   const paragraphSizes = await page.locator("main p").evaluateAll((elements) =>
     elements.map((element) => Number.parseFloat(getComputedStyle(element).fontSize)),
@@ -145,7 +147,6 @@ test("content-heavy homepage sections stay within the approved desktop height ra
   const limits = {
     "#proof": 1800,
     "#gummy-stage": 1050,
-    "#solutions": 800,
     "#project-runway": 800,
     "#contact": 1600,
   } as const;
@@ -156,6 +157,122 @@ test("content-heavy homepage sections stay within the approved desktop height ra
     );
     expect(height, `${selector} is ${height}px tall`).toBeLessThanOrEqual(maximumHeight);
   }
+});
+
+test("desktop product directions switch inside one sticky viewport", async ({
+  page,
+  viewport,
+}) => {
+  test.skip(!viewport || viewport.width < 1024, "Desktop product direction check");
+
+  await page.setViewportSize({ width: 1440, height: 720 });
+  await page.goto("/");
+
+  const stage = page.locator("#solutions");
+  const stories = stage.getByTestId("market-story");
+  await expect(stories).toHaveCount(3);
+  await expect(stage).toHaveAttribute("data-layout", "sticky-product-switcher");
+  await expect(stage.getByRole("button")).toHaveCount(0);
+
+  const layout = await stage.evaluate((element) => {
+    const stories = Array.from(element.querySelectorAll<HTMLElement>("[data-testid='market-story']"));
+    return {
+      height: Math.round(element.getBoundingClientRect().height),
+      storyTops: stories.map((story) => story.offsetTop),
+      stickyPosition: getComputedStyle(element.children[1]).position,
+      top: element.getBoundingClientRect().top + window.scrollY,
+    };
+  });
+  expect(layout.height).toBe(2160);
+  expect(new Set(layout.storyTops).size).toBe(1);
+  expect(layout.stickyPosition).toBe("sticky");
+
+  for (let index = 0; index < 3; index += 1) {
+    await page.evaluate(
+      ({ stageTop, step }) => window.scrollTo({ top: stageTop + step, behavior: "instant" }),
+      { stageTop: layout.top, step: index * 720 },
+    );
+    await expect
+      .poll(() =>
+        stories.evaluateAll((elements) =>
+          elements.findIndex((element) => {
+            const style = getComputedStyle(element);
+            return style.visibility === "visible" && Number.parseFloat(style.opacity) > 0.9;
+          }),
+        ),
+      )
+      .toBe(index);
+  }
+});
+
+test("featured products form three, two and one column layouts without overflow", async ({ page, viewport }) => {
+  await page.goto("/");
+
+  const grid = page.getByTestId("featured-product-grid");
+  await grid.scrollIntoViewIfNeeded();
+  const layout = await grid.evaluate((element) => ({
+    columns: getComputedStyle(element).gridTemplateColumns.split(" ").filter(Boolean).length,
+    clientWidth: element.clientWidth,
+    scrollWidth: element.scrollWidth,
+  }));
+
+  const expectedColumns = viewport && viewport.width <= 760 ? 1 : viewport && viewport.width <= 900 ? 2 : 3;
+  expect(layout.columns).toBe(expectedColumns);
+  expect(layout.scrollWidth).toBeLessThanOrEqual(layout.clientWidth + 1);
+});
+
+test("customization constellation adapts without leaving the viewport", async ({ page, viewport }) => {
+  await page.goto("/");
+
+  const customization = page.locator("#gummy-stage");
+  await customization.evaluate((element) => element.scrollIntoView({ block: "start" }));
+  await expect(customization).toHaveAttribute("data-layout", "customization-constellation");
+
+  const layout = await customization.evaluate((element) => {
+    const visual = element.querySelector<HTMLElement>("[data-testid='customization-visual']");
+    const firstNode = element.querySelector<HTMLElement>("[data-testid='customization-node']");
+    const benefits = Array.from(
+      element.querySelectorAll<HTMLElement>("[data-testid='customization-benefit']"),
+    );
+    return {
+      benefitBottom: Math.max(...benefits.map((benefit) => benefit.getBoundingClientRect().bottom)),
+      clientWidth: element.clientWidth,
+      firstNodePosition: firstNode ? getComputedStyle(firstNode).position : "missing",
+      scrollWidth: element.scrollWidth,
+      visualPosition: visual ? getComputedStyle(visual).position : "missing",
+      viewportHeight: window.innerHeight,
+    };
+  });
+
+  expect(layout.scrollWidth).toBeLessThanOrEqual(layout.clientWidth + 1);
+  if (viewport && viewport.width >= 1200) {
+    expect(layout.benefitBottom).toBeLessThanOrEqual(layout.viewportHeight + 1);
+  } else if (viewport && viewport.width <= 760) {
+    expect(layout.firstNodePosition).toBe("relative");
+    expect(layout.visualPosition).toBe("relative");
+  }
+});
+
+test("desktop featured product cards fit inside one viewport", async ({ page, viewport }) => {
+  test.skip(!viewport || viewport.width < 1024, "Desktop featured product composition");
+
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+  const runway = page.locator("#capacity-boundary");
+  await runway.evaluate((element) => element.scrollIntoView({ block: "start" }));
+  await expect(runway).toHaveAttribute("data-motion-state", "visible");
+
+  const layout = await runway.evaluate((element) => {
+    const cards = Array.from(element.querySelectorAll<HTMLElement>("[data-testid='featured-product-card']"));
+    return {
+      background: getComputedStyle(element).backgroundColor,
+      cardBottom: Math.max(...cards.map((card) => card.getBoundingClientRect().bottom)),
+      viewportHeight: window.innerHeight,
+    };
+  });
+
+  expect(layout.background).toBe("rgb(23, 27, 25)");
+  expect(layout.cardBottom).toBeLessThanOrEqual(layout.viewportHeight + 1);
 });
 
 test("dosage spectrum uses five desktop columns and two mobile columns without overflow", async ({ page, viewport }) => {
@@ -228,7 +345,7 @@ test("core routes do not overflow the viewport", async ({ page }, testInfo) => {
   });
 });
 
-test("mobile market stories remain sequential and never capture document layout", async ({
+test("mobile market stories switch inside one sticky viewport", async ({
   page,
   viewport,
 }) => {
@@ -236,14 +353,16 @@ test("mobile market stories remain sequential and never capture document layout"
 
   await page.goto("/");
 
-  const stories = page.getByTestId("market-story");
-  await expect(stories).toHaveCount(6);
-  for (let index = 0; index < 6; index += 1) {
-    await expect(stories.nth(index)).toBeVisible();
-  }
-
-  const positions = await stories.evaluateAll((elements) =>
-    elements.map((element) => element.getBoundingClientRect().top + window.scrollY),
-  );
-  expect(positions).toEqual([...positions].sort((a, b) => a - b));
+  const stage = page.getByTestId("market-stage");
+  const stories = stage.getByTestId("market-story");
+  await expect(stories).toHaveCount(3);
+  await expect(stage.getByTestId("market-step")).toHaveCount(3);
+  await expect(stage).toHaveAttribute("data-layout", "sticky-product-switcher");
+  await expect
+    .poll(() =>
+      stories.evaluateAll((elements) =>
+        elements.map((element) => getComputedStyle(element).visibility),
+      ),
+    )
+    .toEqual(["visible", "hidden", "hidden"]);
 });

@@ -1,7 +1,10 @@
 import type { VitheloB2BHomeContent } from "@/content/schema";
+import Image from "next/image";
 import Link from "next/link";
+import { Fragment, type CSSProperties } from "react";
 import { VitheloMarketStage } from "@/components/patterns/vithelo-market-stage";
 import { VitheloHomeMotion } from "@/components/motion/vithelo-home-motion";
+import { VitheloFormatWallMotion } from "@/components/motion/vithelo-format-wall-motion";
 import { VitheloInquiryReveal } from "@/components/motion/vithelo-inquiry-reveal";
 import { VitheloHomeInquiryComposer } from "@/components/patterns/vithelo-home-inquiry-composer";
 import styles from "@/components/patterns/vithelo-b2b-home.module.css";
@@ -12,11 +15,182 @@ type VitheloB2BHomeProps = {
   content: VitheloB2BHomeContent;
 };
 
+function ProofCapabilityIcon({ index }: { index: number }) {
+  const glyphs = [
+    <g key="research">
+      <path d="M9 3v6l-5 9a2 2 0 0 0 1.7 3h12.6a2 2 0 0 0 1.7-3l-5-9V3" />
+      <path d="M8 14h8" />
+    </g>,
+    <g key="production">
+      <circle cx="12" cy="12" r="3" />
+      <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1" />
+    </g>,
+    <g key="quality">
+      <path d="M12 3 4 6v6c0 5 3.4 8 8 9 4.6-1 8-4 8-9V6l-8-3Z" />
+      <path d="m9 12 2 2 4-4" />
+    </g>,
+    <g key="delivery">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
+    </g>,
+  ];
+
+  return (
+    <svg
+      aria-hidden="true"
+      className={styles.proofCapabilityIcon}
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.4"
+      viewBox="0 0 24 24"
+    >
+      {glyphs[index]}
+    </svg>
+  );
+}
+
+function CustomizationIcon({ index }: { index: number }) {
+  const glyphs = [
+    <g key="formula">
+      <path d="M12 3c0 5.2-2.8 8.2-7 9 1.1 5.2 4.1 8 9 8 0-4.8-2.5-7.8-7-9 4.8-.8 7.6-3.8 8-8-1.2 0-2.2.2-3 .7" />
+      <path d="M7 15c2-2.4 4.5-4.3 8-5.5" />
+    </g>,
+    <g key="format">
+      <path d="m7.2 15.8 8.6-8.6a3.4 3.4 0 0 1 4.8 4.8L12 20.6a3.4 3.4 0 0 1-4.8-4.8Z" />
+      <path d="m12.3 10.7 4.8 4.8M4.2 4.2l5.6 5.6M7 3l4 4M3 7l4 4" />
+    </g>,
+    <g key="taste">
+      <path d="M12 3s6 6.8 6 11a6 6 0 0 1-12 0c0-4.2 6-11 6-11Z" />
+      <path d="M9 14c.4 1.5 1.4 2.3 3 2.5" />
+    </g>,
+    <g key="packaging">
+      <path d="m4 8 8-4 8 4v9l-8 4-8-4V8Z" />
+      <path d="m4 8 8 4 8-4M12 12v9M8 6l8 4" />
+    </g>,
+  ];
+
+  return (
+    <svg
+      aria-hidden="true"
+      className={styles.customizationNodeIcon}
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.35"
+      viewBox="0 0 24 24"
+    >
+      {glyphs[index]}
+    </svg>
+  );
+}
+
 function DosageSection({ content }: VitheloB2BHomeProps) {
-  return (<section aria-labelledby="dosage-title" className={`${styles.section} ${styles.dosageSection}`} data-layout="desktop-editorial-field" data-ui-stage="editorial-format-field" data-motion-intent="RELATE" id="dosage-forms">
-    <p className={styles.kicker}>{content.dosage.kicker}</p><h2 className={styles.title} id="dosage-title">{content.dosage.title}</h2><p className={styles.copy}>{content.dosage.qualifier}</p>
-    <div className={styles.dosageGrid} data-testid="dosage-grid">{content.dosage.items.map((item, index) => <article className={styles.dosageItem} data-format={item.name.toLowerCase().replaceAll(" ", "-")} data-motion-index={index} data-motion-role="collection-item" data-testid="dosage-item" key={item.name}><span className={styles.dosageIndex}>{String(index + 1).padStart(2, "0")}</span><div aria-hidden="true" className={styles.dosageShape} data-shape={index + 1} /><div className={styles.dosageCopy}><h3><Link href={`/products/${item.name.toLowerCase().replaceAll(" ", "-")}`}>{item.name}</Link></h3><p>{item.moq}</p></div></article>)}</div>
-  </section>);
+  const formatTitleWords = content.dosage.title.split(" ");
+
+  return (
+    <section
+      aria-labelledby="dosage-title"
+      className={`${styles.section} ${styles.dosageSection}`}
+      data-layout="featured-format-wall"
+      data-motion-intent="RELATE"
+      data-ui-stage="featured-format-wall"
+      id="dosage-forms"
+    >
+      <div className={styles.formatIntro} data-format-intro>
+        <p className={styles.kicker}>{content.dosage.kicker}</p>
+        <h2
+          aria-label={content.dosage.title}
+          className={styles.title}
+          data-format-title
+          id="dosage-title"
+        >
+          {formatTitleWords.map((word, wordIndex) => {
+            const characterOffset = formatTitleWords
+              .slice(0, wordIndex)
+              .reduce((total, previousWord) => total + previousWord.length + 1, 0);
+
+            return (
+              <Fragment key={`${word}-${wordIndex}`}>
+                <span aria-hidden="true" className={styles.formatWord} data-format-word>
+                  {Array.from(word).map((character, characterIndex) => {
+                    const index = characterOffset + characterIndex;
+                    return (
+                      <span className={styles.formatCharClip} key={`${character}-${index}`}>
+                        <span
+                          className={styles.formatChar}
+                          data-format-char
+                          style={{ "--format-char-index": index } as CSSProperties}
+                        >
+                          {character}
+                        </span>
+                      </span>
+                    );
+                  })}
+                </span>
+                {wordIndex < formatTitleWords.length - 1 ? (
+                  <span aria-hidden="true" className={styles.formatCharClip}>
+                    <span
+                      className={styles.formatChar}
+                      data-format-char
+                      style={{ "--format-char-index": characterOffset + word.length } as CSSProperties}
+                    >
+                      {"\u00a0"}
+                    </span>
+                  </span>
+                ) : null}
+              </Fragment>
+            );
+          })}
+        </h2>
+        <p className={styles.formatQualifier}>{content.dosage.qualifier}</p>
+      </div>
+      <div className={styles.formatWall} data-testid="format-wall">
+        {content.dosage.items.map((item, index) => (
+          <article
+            className={styles.formatProject}
+            data-media-status={item.media.status}
+            data-format-project
+            data-motion-index={index}
+            data-motion-role="collection-item"
+            data-testid="format-project"
+            key={item.slug}
+          >
+            <Link
+              aria-label={`Explore ${item.name}`}
+              className={styles.formatLink}
+              href={`/products/${item.slug}`}
+            >
+              <figure
+                className={styles.formatFigure}
+                data-format-media
+                data-testid="format-media"
+              >
+                <span className={styles.formatMediaPlane} data-testid="format-media-plane">
+                  <Image
+                    alt={item.media.label}
+                    fill
+                    sizes="(max-width: 760px) 100vw, 50vw"
+                    src={item.media.src!}
+                  />
+                </span>
+              </figure>
+              <div className={styles.formatMeta}>
+                <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                <h3 aria-label={item.name} data-format-label={item.name}>
+                  {item.name}
+                </h3>
+                <span aria-hidden="true">↗</span>
+              </div>
+            </Link>
+          </article>
+        ))}
+      </div>
+      <VitheloFormatWallMotion />
+    </section>
+  );
 }
 
 function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
@@ -70,98 +244,198 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
         </p>
       </section>
 
-      <section aria-labelledby="proof-title" className={styles.proof} id="proof">
-        <div className={styles.proofIntro}>
-          <div className={styles.proofCopy}>
+      <section
+        aria-labelledby="proof-title"
+        className={styles.proof}
+        data-layout="manufacturing-editorial-split"
+        data-motion-intent="EXPLAIN"
+        id="proof"
+      >
+        <div className={styles.proofPrimary}>
+          <div className={styles.proofNarrative}>
             <p className={styles.kicker}>{content.proof.kicker}</p>
             <h2 className={styles.title} id="proof-title">{content.proof.title}</h2>
             <p className={styles.copy}>{content.proof.copy}</p>
+            <div className={styles.proofMetrics}>
+              {content.proof.metrics.map((metric) => (
+                <article
+                  data-motion-role="proof-value"
+                  data-testid="manufacturing-metric"
+                  key={metric.label}
+                >
+                  <strong>{metric.value}</strong>
+                  <span>{metric.label}</span>
+                </article>
+              ))}
+            </div>
+            <Link className={styles.proofAction} href={content.proof.action.href}>
+              {content.proof.action.label}
+              <span aria-hidden="true">→</span>
+            </Link>
           </div>
-          <div className={styles.proofSource}>
-            <strong>{content.proof.summary}</strong>
-            <p>{content.proof.sourceBoundary}</p>
-          </div>
+          <figure
+            className={styles.proofVisual}
+            data-motion-role="media"
+            data-testid="manufacturing-scene"
+          >
+            <Image
+              alt={content.proof.media.label}
+              fill
+              sizes="(max-width: 900px) 100vw, 52vw"
+              src={content.proof.media.src!}
+            />
+            <figcaption>Nutrition manufacturing · OEM / ODM</figcaption>
+          </figure>
         </div>
-        <div className={styles.proofLedger}>
-          {content.proof.items.map((item) => (
-            <article className={styles.proofItem} key={item.label}>
-              <dt>{item.label}</dt>
-              <dd>{item.value}</dd>
+        <div className={styles.proofCapabilities} data-motion-role="proof-ledger">
+          {content.proof.capabilities.map((capability, index) => (
+            <article
+              data-motion-role="proof-value"
+              data-testid="manufacturing-capability"
+              key={capability.title}
+            >
+              <ProofCapabilityIcon index={index} />
+              <div>
+                <h3>{capability.title}</h3>
+                <p>{capability.copy}</p>
+              </div>
             </article>
           ))}
         </div>
-        <p className={styles.proofLinks}>
-          <Link href="/manufacturing">Explore Manufacturing</Link>
-          <Link href="/quality">Review Quality &amp; R&amp;D</Link>
-        </p>
       </section>
 
       <section
         aria-labelledby="capacity-boundary-title"
         className={`${styles.section} ${styles.capacityBoundarySection}`}
-        data-motion-intent="EXPLAIN"
-        data-ui-stage="capability-boundary-map"
+        data-layout="editorial-product-runway"
+        data-motion-intent="RELATE"
+        data-ui-stage="featured-product-runway"
         id="capacity-boundary"
       >
-        <div className={styles.capacityBoundaryIntro}>
+        <div className={styles.featuredIntro}>
           <div>
             <p className={styles.kicker}>{content.capacity.kicker}</p>
             <h2 className={styles.title} id="capacity-boundary-title">{content.capacity.title}</h2>
           </div>
-          <p className={styles.copy}>{content.capacity.sourceBoundary}</p>
+          <p className={styles.featuredIntroCopy}>{content.capacity.copy}</p>
+          <Link className={styles.featuredAllLink} href={content.capacity.action.href}>
+            {content.capacity.action.label}
+            <span aria-hidden="true">→</span>
+          </Link>
         </div>
-        <div className={styles.capabilityMap} data-motion-role="capacity-process">
-          {content.capacity.steps.map((step, index) => (
+        <div className={styles.featuredProductGrid} data-testid="featured-product-grid">
+          {content.capacity.products.map((product, index) => (
             <article
-              className={styles.capabilityBoundaryItem}
-              data-testid="capability-boundary-item"
-              data-value-state="pending"
-              key={step.label}
+              className={styles.featuredProductCard}
+              data-featured={product.id === "sleep"}
+              data-motion-index={index}
+              data-motion-role="collection-item"
+              data-testid="featured-product-card"
+              key={product.id}
             >
-              <span className={styles.capabilityBoundaryIndex}>{String(index + 1).padStart(2, "0")}</span>
-              <h3>{step.label}</h3>
-              <p>{step.copy}</p>
-              <span className={styles.capabilityBoundaryStatus}>Pending verification</span>
+              <div className={styles.featuredProductVisual}>
+                <Image
+                  alt={product.media.label}
+                  data-testid="featured-product-image"
+                  fill
+                  sizes="(max-width: 760px) 100vw, (max-width: 1100px) 50vw, 34vw"
+                  src={product.media.src!}
+                />
+                <span className={styles.featuredProductIndex}>
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+              </div>
+              <div className={styles.featuredProductBody}>
+                <h3>{product.title}</h3>
+                <p>{product.copy}</p>
+                <Link className={styles.featuredProductAction} href={product.action.href}>
+                  {product.action.label}
+                  <span aria-hidden="true">→</span>
+                </Link>
+              </div>
             </article>
           ))}
         </div>
       </section>
 
       <section
-        aria-labelledby="gummy-title"
-        className={`${styles.section} ${styles.gummySection}`}
-        data-media-status={content.gummy.media.status}
-        data-ui-stage="gummy-image-atelier"
-        data-motion-intent="RELATE"
+        aria-labelledby="customization-title"
+        className={`${styles.section} ${styles.customizationSection}`}
+        data-layout="customization-constellation"
+        data-media-status={content.customization.media.status}
+        data-motion-intent="EXPLAIN"
+        data-ui-stage="customization-constellation"
         id="gummy-stage"
       >
-        <div className={styles.centerHeader}>
-          <p className={styles.kicker}>{content.gummy.kicker}</p>
-          <h2 className={styles.title} id="gummy-title">
-            {content.gummy.title}
-          </h2>
-        </div>
-        <div className={styles.gummyAtelier}>
-          <div
-            aria-label={`${content.gummy.media.label}; ${content.gummy.media.width} by ${content.gummy.media.height} ${content.gummy.media.format}`}
-            className={styles.gummyImageStage}
-            data-media-status={content.gummy.media.status}
-            data-motion-role="media"
-            role="img"
-          >
-            <span>
-              {content.gummy.media.label} · {content.gummy.media.width} × {content.gummy.media.height}
-            </span>
+        <div className={styles.customizationLayout}>
+          <div className={styles.customizationIntro}>
+            <p className={styles.kicker}>{content.customization.kicker}</p>
+            <h2 className={styles.title} id="customization-title">
+              {content.customization.title}
+            </h2>
+            <p className={styles.customizationCopy}>{content.customization.copy}</p>
+            <Link
+              className={styles.customizationPrimaryAction}
+              href={content.customization.primaryAction.href}
+            >
+              <span aria-hidden="true">→</span>
+              {content.customization.primaryAction.label}
+            </Link>
           </div>
-          <div className={styles.gummyFeatureRail}>
-            {content.gummy.features.map((feature, index) => (
-              <article data-motion-role="relation-item" key={feature.title}>
-                <span className={styles.index}>{String(index + 1).padStart(2, "0")}</span>
-                <h3>{feature.title}</h3>
-                <p>{feature.copy}</p>
+
+          <div className={styles.customizationConstellation}>
+            <figure
+              className={styles.customizationVisual}
+              data-motion-role="media"
+              data-testid="customization-visual"
+            >
+              <Image
+                alt={content.customization.media.label}
+                fill
+                sizes="(max-width: 760px) 100vw, 62vw"
+                src={content.customization.media.src!}
+              />
+            </figure>
+            <div aria-hidden="true" className={styles.customizationOrbit} />
+            {content.customization.nodes.map((node, index) => (
+              <article
+                className={styles.customizationNode}
+                data-motion-role="relation-item"
+                data-node-index={index + 1}
+                data-testid="customization-node"
+                key={node.title}
+              >
+                <div className={styles.customizationNodeMark}>
+                  <CustomizationIcon index={index} />
+                </div>
+                <div>
+                  <h3>{node.title}</h3>
+                  <p>{node.copy}</p>
+                </div>
               </article>
             ))}
           </div>
+        </div>
+
+        <div className={styles.customizationBenefitRail}>
+          {content.customization.benefits.map((benefit, index) => (
+            <article
+              data-motion-role="proof-value"
+              data-testid="customization-benefit"
+              key={benefit.title}
+            >
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <h3>{benefit.title}</h3>
+              <p>{benefit.copy}</p>
+            </article>
+          ))}
+          <Link
+            className={styles.customizationSecondaryAction}
+            href={content.customization.secondaryAction.href}
+          >
+            <span aria-hidden="true">→</span>
+            {content.customization.secondaryAction.label}
+          </Link>
         </div>
       </section>
 

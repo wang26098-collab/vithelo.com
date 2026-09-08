@@ -1,24 +1,40 @@
 # VITHELO 上线准备状态
 
-## TECHNICAL READY
+最后更新：2026-09-06
 
-- Next.js production build、TypeScript、lint、unit tests
-- 核心路由、8 个剂型深链、导航与 sitemap
-- 语义 HTML、表单标签、公开事实边界
-- Email / WhatsApp fallback（无站内存储）
-- Public-claim guard：未发现未经授权的认证、设施、员工、市场或产能数字出现在公开页面
-- Browser QA baseline：READY；核心路由、404、首页语义顺序与代表性剂型路径已验证
+## 发布结论
 
-## PARTIAL / POST-LAUNCH
+`HOLD — 当前版本已实现，但尚未达到发布就绪。`
 
-- Products Hub：8-format discovery 已成立，筛选与更深上下文仍可优化
-- RFQ：统一 schema 已建立；当前仍由浏览器渠道承接
-- Analytics：provider-neutral 事件契约与 no-op adapter 已建立；页面触发、consent 与 provider 仍未接入
-- Mobile / desktop：READY baseline；后续仅保留常规回归
+最近本地提交为 `a58a4a6`（`main`），尚未推送或部署。
 
-## BUSINESS / DEPLOYMENT BLOCKED
+## 已完成并有当前证据
 
-- Node 20 clean install：Environment Compatibility Verification Pending（不阻止当前发布）
-- Production canonical hostname：正式部署环境尚未最终验证
-- 法定主体、地址、认证与产能公开授权：业务事实未确认
-- Server-side RFQ provider / CRM / anti-spam service：无授权凭据，不阻止当前 Email / WhatsApp fallback 上线
+- 核心公开路由、8 个剂型深链、导航与 sitemap 已实现。
+- Email / WhatsApp 询盘回退可用，页面不在站内存储询盘数据。
+- 第八屏询盘揭示已覆盖原生滚动、Reduced Motion、锚点跳转、键盘聚焦和无 JavaScript 回退。
+- 询盘揭示相关 42 项 E2E 在 6 个验收视口通过。
+- `pnpm.cmd typecheck` 通过。
+- `pnpm.cmd build` 在 Node 24.16.0 下通过。
+
+## 发布前必须关闭
+
+- 保持已基本锁定的八屏首页视觉基线，后续仅处理明确提出的单屏问题。
+- 完整单元测试已恢复为 123 项通过、0 项失败。
+- 修复完整 E2E 中的 50 个失败；当前结果为 271 项通过、50 项失败、15 项跳过。
+- 调整 lint 输入范围，避免扫描 `独立站内容/` 的本地参考脚本，并恢复产品代码全量 lint 通过。
+- 在 Node 20.x 下完成干净安装、测试和生产构建，验证 Hostinger 目标运行时。
+- 复核生产 canonical、DNS、SSL、核心页面和全部询盘路径。
+
+## 业务与外部配置
+
+- 公司法定英文名称、注册地址或公开联系地址尚未确认。
+- 隐私事务联系邮箱尚未确认。
+- 认证、检测、产能和客户覆盖数据仍需正式公开授权与证明材料。
+- 服务端 RFQ provider、CRM、反垃圾、数据保存政策和分析 provider 均未配置。
+
+这些缺失项必须继续显示为 `NOT_CONFIGURED` 或保持在公开页面之外，不能用推测值补齐。
+
+## 发布动作
+
+推送 GitHub、合并远程分支或部署 Hostinger 只在用户明确要求后执行。

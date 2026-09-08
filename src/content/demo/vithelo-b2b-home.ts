@@ -35,78 +35,134 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
     },
   },
   proof: {
-    kicker: "03 · Manufacturing environment",
-    title: "Manufacturing, made visible.",
+    kicker: "02 · Manufacturing Capability",
+    title: "From Formula to Finished Product",
     copy:
-      "A closer view of the environment, materials and coordinated work behind a nutrition product.",
-    summary: "A working environment for nutrition products and project teams.",
-    sourceBoundary:
-      "Scene-led brand expression; specific site and production claims remain subject to the approved evidence boundary.",
+      "A manufacturing partner for nutrition products, bringing development, multi-format production and delivery into one coordinated system.",
+    action: {
+      label: "Explore Our Factory",
+      href: "/manufacturing",
+    },
     media: {
       status: "FREE_COMMERCIAL_OR_REAL",
-      src: "/media/b2b/gummies-pexels-14027295.jpg",
-      label: "Material and product handling scene",
-      width: 2400,
-      height: 1600,
-      format: "WebP",
+      src: "/media/b2b/sanitized-factory-production-line.jpg",
+      label: "Clean indoor nutrition production line",
+      width: 960,
+      height: 1280,
+      format: "JPEG",
     },
-    items: [
-      { label: "Environment", value: "Material-led work" },
-      { label: "Process", value: "Format-aware thinking" },
-      { label: "Packaging", value: "Project context" },
-      { label: "Collaboration", value: "Built around the brief" },
+    metrics: [
+      { value: "2008", label: "Established" },
+      { value: "5,000+", label: "Customers served" },
+      { value: "50+", label: "Countries & regions" },
+      { value: "7", label: "Production categories" },
+    ],
+    capabilities: [
+      {
+        title: "R&D Support",
+        copy: "Formula development and sample coordination",
+      },
+      {
+        title: "Multi-format Production",
+        copy: "Gummies, capsules, tablets, powders and liquids",
+      },
+      {
+        title: "Quality Control",
+        copy: "Process control, batch inspection and traceability",
+      },
+      {
+        title: "OEM / ODM Delivery",
+        copy: "Packaging coordination and production delivery",
+      },
     ],
   },
   capacity: {
-    kicker: "03 · Capability boundary",
-    title: "Understand the scope before you brief the project.",
-    sourceBoundary:
-      "Specific capacity, site, employee, client, market and export claims remain not configured pending verification.",
-    metrics: [
-      { label: "Dosage formats", value: 8, prefix: "", suffix: "" },
-      { label: "Softgels / year", value: 50, prefix: "", suffix: "B" },
-      { label: "Gummies / year", value: 5000, prefix: "", suffix: "+ t" },
-      { label: "Tablets / year", value: 36, prefix: "", suffix: "B" },
-    ],
-    steps: [
-      { label: "Dosage formats", copy: "Format coverage is reviewed against the actual product brief." },
-      { label: "Development routes", copy: "Concept, formula and sampling routes depend on the project." },
-      { label: "Manufacturing scope", copy: "Production applicability is confirmed for the selected format and site." },
-      { label: "Evidence status", copy: "Public claims remain pending until the evidence is approved." },
+    kicker: "03 · FEATURED PRODUCTS",
+    title: "Three directions. Built into flagship products.",
+    copy:
+      "A focused starting range for brands developing daily nutrition products across distinct consumer routines.",
+    action: { label: "View All Products", href: "/products" },
+    products: [
+      {
+        id: "sleep",
+        title: "Sleep Health",
+        copy: "Evening-format concepts shaped around a clear daily routine.",
+        media: {
+          status: "FREE_COMMERCIAL_OR_REAL",
+          src: "/media/vithelo-product-card-sleep.png",
+          label: "VITHELO Sleep Health bottle in a quiet evening setting",
+          width: 443,
+          height: 550,
+          format: "PNG",
+        },
+        action: { label: "Discuss This Product", href: "/contact" },
+      },
+      {
+        id: "active",
+        title: "Active Nutrition",
+        copy: "Portable product concepts for energy, hydration and recovery routines.",
+        media: {
+          status: "FREE_COMMERCIAL_OR_REAL",
+          src: "/media/vithelo-product-card-active.png",
+          label: "VITHELO Active Nutrition bottle in a training-inspired setting",
+          width: 1127,
+          height: 1396,
+          format: "PNG",
+        },
+        action: { label: "Discuss This Product", href: "/contact" },
+      },
+      {
+        id: "women",
+        title: "Women’s Health",
+        copy:
+          "Daily nutrition concepts developed around a defined life-stage or wellness brief.",
+        media: {
+          status: "FREE_COMMERCIAL_OR_REAL",
+          src: "/media/vithelo-product-card-womens.png",
+          label: "VITHELO Women’s Health bottle in a soft sculptural setting",
+          width: 571,
+          height: 609,
+          format: "PNG",
+        },
+        action: { label: "Discuss This Product", href: "/contact" },
+      },
     ],
   },
-  gummy: {
-    kicker: "04 · Gummy Expertise",
-    title: "A flexible format for daily nutrition brands.",
+  customization: {
+    kicker: "04 · CUSTOMIZATION",
+    title: "Tailored to Your Brand.",
+    copy:
+      "From formula and format to taste and packaging, VITHELO coordinates the key decisions behind a distinctive nutrition product.",
+    primaryAction: { label: "Start Your Customization", href: "/contact" },
+    secondaryAction: { label: "Explore Customization", href: "/oem-odm" },
     media: {
       status: "FREE_COMMERCIAL_OR_REAL",
-      label: "Real gummy macro asset",
-      width: 2400,
-      height: 1400,
-      format: "WebP",
+      src: "/media/b2b/vithelo-customization-constellation.png",
+      label: "VITHELO custom nutrition bottle with capsule, softgel, tablet, gummy and powder",
+      width: 1536,
+      height: 1024,
+      format: "PNG",
     },
-    features: [
+    nodes: [
+      { title: "Formula", copy: "Ingredients · Serving · Product brief" },
       {
-        title: "Formula Direction",
-        copy: "Ingredients, serving and use case planned together",
+        title: "Dosage Form",
+        copy: "Gummies · Capsules · Tablets · Powders · Liquids",
+      },
+      { title: "Flavor & Taste", copy: "Flavor · Sweetness · Texture · Color" },
+      { title: "Packaging", copy: "Bottles · Pouches · Boxes · Labels" },
+    ],
+    benefits: [
+      { title: "OEM / ODM", copy: "Flexible development routes" },
+      { title: "Flexible MOQ", copy: "Based on formula and packaging" },
+      {
+        title: "Multi-format Production",
+        copy: "One coordinated manufacturing system",
       },
       {
-        title: "Shape System",
-        copy: "Standard molds or a custom shape route",
+        title: "Packaging Coordination",
+        copy: "From container to finished presentation",
       },
-      {
-        title: "Taste & Texture",
-        copy: "Pectin or gelatin, balanced for the formula",
-      },
-      {
-        title: "Color & Flavor",
-        copy: "A recognizable expression for the brand",
-      },
-      {
-        title: "Packaging Fit",
-        copy: "Bottles, pouches and practical pack sizes",
-      },
-      { title: "MOQ", copy: "Flexible by formula and packaging" },
     ],
   },
   market: {
@@ -114,68 +170,16 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
     title: "Products shaped around real consumer routines.",
     stories: [
       {
-        title: "Women’s Wellness",
-        copy:
-          "Daily nutrition, life-stage support and beauty routines, developed around a clear use case.",
-        media: {
-          status: "FREE_COMMERCIAL_OR_REAL",
-          src: "/media/b2b/gummies-pexels-14027295.jpg",
-          label: "Lifestyle asset",
-          width: 2000,
-          height: 1500,
-          format: "WebP",
-        },
-      },
-      {
         title: "Sleep, Stress & Mood",
         copy:
           "Gummies, capsules and powders designed for evening routines and everyday support.",
         media: {
           status: "FREE_COMMERCIAL_OR_REAL",
-          src: "/media/b2b/gummies-pexels-14027295.jpg",
-          label: "Night routine asset",
-          width: 2000,
-          height: 1500,
-          format: "WebP",
-        },
-      },
-      {
-        title: "Beauty From Within",
-        copy:
-          "Collagen, antioxidants and supporting nutrients in formats made for daily use.",
-        media: {
-          status: "FREE_COMMERCIAL_OR_REAL",
-          src: "/media/b2b/gummies-pexels-14027295.jpg",
-          label: "Beauty nutrition asset",
-          width: 2000,
-          height: 1500,
-          format: "WebP",
-        },
-      },
-      {
-        title: "Gut & Digestive Health",
-        copy:
-          "Prebiotics, fiber and digestive ingredients matched with practical serving formats.",
-        media: {
-          status: "FREE_COMMERCIAL_OR_REAL",
-          src: "/media/b2b/gummies-pexels-14027295.jpg",
-          label: "Ingredient asset",
-          width: 2000,
-          height: 1500,
-          format: "WebP",
-        },
-      },
-      {
-        title: "Daily Essentials",
-        copy:
-          "Straightforward vitamin and mineral products for everyday nutrition.",
-        media: {
-          status: "FREE_COMMERCIAL_OR_REAL",
-          src: "/media/b2b/gummies-pexels-14027295.jpg",
-          label: "Daily ritual asset",
-          width: 2000,
-          height: 1500,
-          format: "WebP",
+          src: "/media/vithelo-product-card-sleep.png",
+          label: "VITHELO sleep health product composition",
+          width: 443,
+          height: 550,
+          format: "PNG",
         },
       },
       {
@@ -184,29 +188,42 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
           "Energy, hydration and recovery products in portable formats.",
         media: {
           status: "FREE_COMMERCIAL_OR_REAL",
-          src: "/media/b2b/gummies-pexels-14027295.jpg",
-          label: "Active lifestyle asset",
-          width: 2000,
-          height: 1500,
-          format: "WebP",
+          src: "/media/vithelo-product-card-active.png",
+          label: "VITHELO active nutrition product composition",
+          width: 1127,
+          height: 1396,
+          format: "PNG",
+        },
+      },
+      {
+        title: "Women’s Wellness",
+        copy:
+          "Daily nutrition, life-stage support and beauty routines, developed around a clear use case.",
+        media: {
+          status: "FREE_COMMERCIAL_OR_REAL",
+          src: "/media/vithelo-product-card-womens.png",
+          label: "VITHELO women’s wellness product composition",
+          width: 571,
+          height: 609,
+          format: "PNG",
         },
       },
     ],
   },
   dosage: {
     kicker: "06 · Product Formats",
-    title: "One manufacturing system, eight product formats.",
+    title: "One system. Eight expressions.",
     qualifier:
-      "Flexible MOQ based on formula and packaging. Contact us for MOQ.",
+      "Explore eight product formats through one coordinated manufacturing system. Flexible MOQ based on formula and packaging. Contact us for MOQ.",
     items: [
-      { name: "Gummies", moq: "Flexible MOQ based on formula and packaging. Contact us for MOQ." },
-      { name: "Hard Capsules", moq: "Flexible MOQ based on formula and packaging. Contact us for MOQ." },
-      { name: "Softgels", moq: "Flexible MOQ based on formula and packaging. Contact us for MOQ." },
-      { name: "Tablets", moq: "Flexible MOQ based on formula and packaging. Contact us for MOQ." },
-      { name: "Powders", moq: "Flexible MOQ based on formula and packaging. Contact us for MOQ." },
-      { name: "Liquids", moq: "Flexible MOQ based on formula and packaging. Contact us for MOQ." },
-      { name: "Functional Gum", moq: "Flexible MOQ based on formula and packaging. Contact us for MOQ." },
-      { name: "Oral Films", moq: "Flexible MOQ based on formula and packaging. Contact us for MOQ." },
+      { name: "Gummies", slug: "gummies", media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-gummies.png", label: "VITHELO gummy product format", width: 1536, height: 1024, format: "PNG" } },
+      { name: "Hard Capsules", slug: "hard-capsules", media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-hard-capsules.png", label: "VITHELO hard capsule product format", width: 1536, height: 1024, format: "PNG" } },
+      { name: "Softgels", slug: "softgels", media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-softgels.png", label: "VITHELO softgel product format", width: 1536, height: 1024, format: "PNG" } },
+      { name: "Tablets", slug: "tablets", media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-tablets.png", label: "VITHELO tablet product format", width: 1536, height: 1024, format: "PNG" } },
+      { name: "Powders", slug: "powders", media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-powders.png", label: "VITHELO powder product format", width: 1536, height: 1024, format: "PNG" } },
+      { name: "Liquids", slug: "liquids", media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-liquids.png", label: "VITHELO liquid product format", width: 1536, height: 1024, format: "PNG" } },
+      { name: "Functional Gum", slug: "functional-gum", media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-functional-gum.png", label: "VITHELO functional gum product format", width: 1536, height: 1024, format: "PNG" } },
+      { name: "Oral Films", slug: "oral-films", media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-oral-films.png", label: "VITHELO oral film product format", width: 1536, height: 1024, format: "PNG" } },
     ],
   },
   development: {

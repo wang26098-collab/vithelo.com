@@ -10,7 +10,7 @@ test.describe("VITHELO premium UI phase 1", () => {
 
     await expect(hero).toHaveAttribute("data-ui-stage", "image-led-hero");
     await expect(productDirections).toHaveAttribute("data-ui-stage", "image-led-product-directions");
-    await expect(dosageForms).toHaveAttribute("data-ui-stage", "editorial-format-field");
+    await expect(dosageForms).toHaveAttribute("data-ui-stage", "featured-format-wall");
   });
 
   test("hero keeps the full background image without an empty glass block", async ({ page }) => {
@@ -33,19 +33,21 @@ test.describe("VITHELO premium UI phase 1", () => {
     await expect(header).toHaveAttribute("data-navigation-state", "scrolled");
   });
 
-  test("gummy section avoids generic placeholder media after consolidation", async ({ page }) => {
+  test("customization section uses the approved product constellation", async ({ page }) => {
     await page.goto("/");
 
-    const gummy = page.locator("#gummy-stage");
-    await expect(gummy).toHaveAttribute("data-ui-stage", "gummy-image-atelier");
-    await expect(gummy.locator("[data-testid='media-requirement']")).toHaveCount(0);
+    const customization = page.locator("#gummy-stage");
+    await expect(customization).toHaveAttribute("data-ui-stage", "customization-constellation");
+    await expect(customization.getByTestId("customization-visual")).toBeVisible();
+    await expect(customization.getByTestId("customization-node")).toHaveCount(4);
+    await expect(customization.locator("[data-testid='media-requirement']")).toHaveCount(0);
     await expect(page.locator("#manufacturing")).toHaveCount(0);
   });
 
   test("retained homepage sections declare semantic motion intent", async ({ page }) => {
     await page.goto("/");
 
-    await expect(page.locator("#gummy-stage")).toHaveAttribute("data-motion-intent", "RELATE");
+    await expect(page.locator("#gummy-stage")).toHaveAttribute("data-motion-intent", "EXPLAIN");
     await expect(page.locator("#dosage-forms")).toHaveAttribute("data-motion-intent", "RELATE");
     await expect(page.locator("#project-runway")).toHaveAttribute("data-motion-intent", "EXPLAIN");
     await expect(page.locator("#custom-development, #quality, #company-fit")).toHaveCount(0);
@@ -73,6 +75,38 @@ test.describe("VITHELO premium UI phase 1", () => {
     await expect(dosageItems).toHaveCount(8);
     await expect(dosageForms.locator("[role='tablist']")).toHaveCount(0);
     await expect(dosageForms.locator("[aria-roledescription*='carousel']")).toHaveCount(0);
+  });
+
+  test("product format wall uses directional motion and pointer-responsive media", async ({ page }) => {
+    await page.goto("/#dosage-forms");
+
+    const dosageForms = page.locator("#dosage-forms");
+    const firstProject = dosageForms.locator("[data-format-project]").first();
+    const firstMedia = firstProject.locator("[data-format-media]");
+
+    await expect(dosageForms).toHaveAttribute("data-format-motion", "enhanced");
+    await expect(dosageForms).toHaveAttribute("data-format-intro-visible", "true");
+    await firstProject.scrollIntoViewIfNeeded();
+    await expect(firstProject).toHaveAttribute("data-format-visible", "true");
+    await firstMedia.hover({ position: { x: 80, y: 80 } });
+    await expect
+      .poll(() =>
+        firstProject.evaluate((element) =>
+          element.style.getPropertyValue("--format-pointer-x"),
+        ),
+      )
+      .not.toBe("0");
+    await expect(firstProject.locator("[data-format-label]")).toHaveText("Gummies");
+  });
+
+  test("product format wall exposes its final state with reduced motion", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/#dosage-forms");
+
+    const dosageForms = page.locator("#dosage-forms");
+    await expect(dosageForms).toHaveAttribute("data-format-motion", "static");
+    await expect(dosageForms.locator("[data-format-visible='true']")).toHaveCount(8);
+    await expect(dosageForms.getByRole("heading", { name: "One system. Eight expressions." })).toBeVisible();
   });
 
   test("homepage copy stays English and does not name a single target country", async ({ page }) => {

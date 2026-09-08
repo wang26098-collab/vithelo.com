@@ -1,59 +1,53 @@
 # VITHELO 项目状态
 
-最后更新：2026-09-04
+最后更新：2026-09-06
 
 ## 当前阶段
 
-第六阶段最终收口：Core Site Closure / Release Readiness。
+首页八屏视觉与交互基线已基本锁定，正在进行全量回归收口。
 
 ## Core Site Status
 
-CORE SITE STATUS: GROWTH-READY
+`IMPLEMENTED / REVIEW REQUIRED`
+
+当前实现可以本地预览，尚不满足“完整技术就绪”或“可直接发布”的声明条件。
 
 ## 当前实现
 
-- Next.js App Router + TypeScript + Zod 内容适配层。
-- 公开核心路由：`/`、`/products`、`/oem-odm`、`/manufacturing`、`/quality`、`/about`、`/insights`、`/contact`。
-- 首页已包含 Hero、八种剂型、单一制造证明区、软糖能力、项目路径和 Start a Project。
-- 询盘采用浏览器生成预填 Email / WhatsApp，不在站内保存数据。
+- Next.js App Router、TypeScript 与 Zod 内容适配层。
+- 公开核心路由：`/`、`/products`、8 个 `/products/[slug]`、`/oem-odm`、`/manufacturing`、`/quality`、`/about`、`/insights`、`/insights/[slug]`、`/contact`。
+- 首页已形成八屏采购叙事，并保留锁定的静态 Hero。
+- 第八屏使用 VITHELO 字标遮罩揭示软糖场景图，支持原生滚动、Reduced Motion、锚点跳转、键盘聚焦和无 JavaScript 回退。
+- 询盘采用浏览器生成预填 Email / WhatsApp 的无存储方案，服务端 provider 尚未配置。
+- 公开资料继续遵守 VITHELO 单一身份和用户提供事实的证据边界。
 
-## 当前事实
+## 版本状态
 
-- 移除未核实的 “factory-owned / export division” 公开身份表述。
-- 增加回归测试，防止该类身份表述再次进入公开 demo 内容。
-- 本地预览已验证：首页标题为 `Nutrition formats, built for private-label growth.`。
-- 新增 Manufacturing、Quality、About 核心页面及 metadata/canonical。
-- 导航与 sitemap 已接入三条核心入口；首页制造证据区新增 contextual links。
-- 内容 schema 已从固定 4 项导航扩展为 4–7 项，保留最小约束。
-- Products Hub 已接入共享动态路由 `/products/[slug]`，8 个剂型均生成静态页面、独立 metadata、breadcrumb 与 BreadcrumbList。
+- 最近本地提交：`a58a4a6`，位于 `main`。
+- 该提交尚未推送 GitHub，也未部署 Hostinger。
+- 工作区当前包含本次文档同步修改，尚未提交。
 
-## 当前状态
+## 验证状态
 
-- Manufacturing、Quality、About 独立入口：DONE。
-- 导航与 sitemap 核心入口：DONE。
-- Products Hub：DONE；8-format discovery 满足当前核心采购任务。
-- Products dosage-form routes：DONE；页面内容基于已验证格式记录，未生成成分或功效差异。
-- 首页顺序与 Manufacturing Proof / Capacity 合并：DONE；JSX/DOM 顺序与视觉采购顺序一致，已移除整页 CSS order。
-- Start a Project RFQ：PARTIAL；浏览器预填 Email / WhatsApp，无服务端 provider。
-- RFQ domain schema：DONE；统一 Zod schema 与 trim normalization 已建立，provider adapter 仍未接入。
-- Node 20.x clean install：BLOCKED；当前环境仅有 Node 24.16.0。
+- 询盘揭示相关 42 项 E2E：通过，覆盖 6 个验收视口。
+- TypeScript：通过。
+- 生产构建：在 Node 24.16.0 下通过。
+- 完整单元测试：123 项通过、0 项失败。
+- 完整 E2E：271 项通过、50 项失败、15 项跳过，需要同步旧版页面预期。
+- 完整 lint：因扫描 `独立站内容/` 中的本地参考脚本而失败；询盘相关文件定向 lint 通过。
+- Node 20.x 干净安装与完整构建：尚未验证。
 
-## Open Core-Site P0/P1
+## P0 / P1 状态
 
-None.
+- 询盘揭示的聚焦测试未发现 P0/P1 缺陷。
+- 第八屏尚未获得用户视觉签收，全站回归也未恢复全绿，因此全站 P0/P1 不能标记为 `None`。
 
-## Next Highest-Leverage Task
+## 当前最高优先级
 
-SEO / GEO Growth Engine Phase 1：商业主题地图、Buyer Questions backlog、Insights 架构与证据模型。
+1. 保持当前八屏首页锁定基线，仅做明确批准的单屏调整。
+2. 修正与当前八屏首页不一致的 E2E 测试预期。
+3. 收紧 lint 范围并完成 Node 20.x 构建验证。
 
-## 最近验证
+## 外部输入
 
-- `pnpm.cmd test tests/unit/metadata-brand.test.ts --run`：4 项通过。
-- 本地 `pnpm.cmd dev`：`http://localhost:3000/` 可访问。
-- `pnpm.cmd build`：29 条路由生成成功。
-- `pnpm.cmd lint`、`pnpm.cmd typecheck`：通过。
-- `docs/RELEASE_READINESS.md`：已建立技术上线 / 商业完整 / 外部阻塞分层。
-
-## External / Post-launch
-
-公司法定主体、地址、认证范围、产能和客户覆盖数字的正式公开授权仍待确认。
+公司法定主体、地址、隐私联系、认证范围、产能和客户覆盖数字的正式公开授权仍待确认。服务端 RFQ、CRM、分析与部署操作也仍需明确配置或授权。

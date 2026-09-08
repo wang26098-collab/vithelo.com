@@ -1,6 +1,6 @@
 # vithelo.com
 
-VITHELO 英文 B2B 营养健康产品独立站，面向 OEM / ODM、私人标签、产品剂型浏览和项目询盘。当前公开结构包含 Home、Products、OEM / ODM、Insights 与 Contact。
+VITHELO 英文 B2B 营养健康产品独立站，面向 OEM / ODM、私人标签、产品剂型浏览和项目询盘。当前核心结构包含 Home、Products、OEM / ODM、Manufacturing、Quality、About、Insights 与 Contact；八种剂型均有独立动态详情路由。
 
 当前项目进度、已确认设计决策和上线阻塞项统一记录在 [项目当前状态](docs/current-status.md)。历史 V6.1 规范保留为过程资料，不再代表当前公开路由或首页结构。
 
@@ -9,6 +9,8 @@ VITHELO 英文 B2B 营养健康产品独立站，面向 OEM / ODM、私人标签
 未经生产核验的本地内容保持 `DEMO_ONLY`、来源说明或 `NOT_CONFIGURED`。不得用推测替代缺失的产品、产能、认证、法规、市场、政策或公司主体信息。
 
 Email `wang26098@gmail.com` 与 WhatsApp `+86 182 7366 9556` 已作为直接询盘路径配置。网站仍不连接支付、CMS、CRM、搜索、身份、分析或站内表单提交；这些集成需要明确的供应商、责任人和验收证据。
+
+首页最后一屏使用 VITHELO 字形穿越进入询盘场景。该效果不拦截原生滚动；Reduced Motion、键盘焦点、`#contact` 直达和无 JavaScript 状态均保留直接联系方式。
 
 公开品牌只使用 `VITHELO`。`独立站内容/` 中的资料可作为来源，但不得公开其中的公司名称、原品牌标识或未经核验的认证。
 
@@ -78,3 +80,5 @@ The current demonstration requires no environment variables. Do not add placehol
 - `docs/`: design, data governance, deployment, acceptance, audit, and visual QA records
 
 See [current status](docs/current-status.md), [deployment notes](docs/deployment.md), [the repository audit](docs/project-audit.md), [acceptance checklist](docs/acceptance.md), and [visual QA record](docs/visual-qa.md) before changing architecture, hosting, or production services.
+
+当前质量状态不是全绿。最新准确结果见 [项目当前状态](docs/current-status.md) 和 [上线准备状态](docs/RELEASE_READINESS.md)。

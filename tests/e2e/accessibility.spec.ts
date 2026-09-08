@@ -67,42 +67,49 @@ test("reduced motion keeps meaningful content static and visible", async ({ page
 
   await expect(
     page.locator("#hero").getByRole("heading", {
-    name: "Nutrition formats, built for private-label growth.",
+    name: "VITHELO — Nutrition OEM / ODM Manufacturer",
     }),
   ).toBeVisible();
   await expect(
     page.locator("#hero").getByRole("link", { name: "Start a Project" }),
   ).toBeVisible();
-  await expect(page.locator("main[data-vithelo-home]")).toHaveAttribute(
-    "data-motion-mode",
-    "static",
-  );
   await expect(page.locator("#proof")).toBeVisible();
   await expect(page.locator("#dosage-forms")).toBeVisible();
   await expect(page.getByRole("link", { name: "Email wang26098@gmail.com" })).toBeVisible();
   await expect(page.getByRole("link", { name: "WhatsApp +86 182 7366 9556" })).toBeVisible();
   await expect(page.getByText("Made for what comes next.")).toBeVisible();
-  for (const heading of [
-    "Women’s Wellness",
-    "Sleep, Stress & Mood",
-    "Beauty From Within",
-    "Gut & Digestive Health",
-    "Daily Essentials",
-    "Active Nutrition",
-  ]) {
-    await expect(page.getByRole("heading", { name: heading })).toBeVisible();
+  const customization = page.locator("#gummy-stage");
+  await expect(
+    customization.getByRole("heading", { name: "Tailored to Your Brand." }),
+  ).toBeVisible();
+  await expect(customization.getByTestId("customization-visual")).toBeVisible();
+  await expect(customization.getByTestId("customization-node")).toHaveCount(4);
+  await expect(customization.getByTestId("customization-benefit")).toHaveCount(4);
+  const customizationTransform = await customization
+    .getByTestId("customization-visual")
+    .evaluate((element) => getComputedStyle(element).transform);
+  expect(customizationTransform).toBe("none");
+  const featuredProducts = page.locator("#capacity-boundary");
+  await expect(featuredProducts.getByTestId("featured-product-card")).toHaveCount(3);
+  for (const heading of ["Sleep Health", "Active Nutrition", "Women’s Health"]) {
+    await expect(featuredProducts.getByRole("heading", { name: heading })).toBeVisible();
+  }
+  await expect(page.getByTestId("market-story")).toHaveCount(3);
+  const marketStage = page.locator("#solutions");
+  for (const heading of ["Sleep, Stress & Mood", "Active Nutrition", "Women’s Wellness"]) {
+    await expect(marketStage.getByRole("heading", { name: heading })).toBeVisible();
   }
 
   await page.goto("/products");
   await expect(page.getByTestId("format-ledger")).toBeVisible();
 });
 
-test("market directions use vertical progression without pagination controls", async ({ page, viewport }) => {
+test("market directions use a sticky viewport switcher without pagination controls", async ({ page, viewport }) => {
   test.skip(!viewport || viewport.width <= 760, "Desktop market-stage progression");
 
   await page.goto("/");
 
   await expect(page.getByRole("button", { name: /market direction/i })).toHaveCount(0);
   await expect(page.getByText(/\d{2} \/ \d{2}/)).toHaveCount(0);
-  await expect(page.getByTestId("market-stage")).toHaveAttribute("data-layout", "vertical-editorial-sequence");
+  await expect(page.getByTestId("market-stage")).toHaveAttribute("data-layout", "sticky-product-switcher");
 });

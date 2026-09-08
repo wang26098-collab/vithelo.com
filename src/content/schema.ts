@@ -220,11 +220,11 @@ export const B2BHomeSectionIdSchema = z.enum([
 
 const B2BRequiredMediaSchema = z.object({
   status: z.enum(["REQUIRED_REAL_ASSET", "FREE_COMMERCIAL_OR_REAL"]),
-  src: z.string().regex(/^\/media\/b2b\/[\w.-]+$/).optional(),
+  src: z.string().regex(/^\/media\/(?:b2b\/)?[\w.-]+$/).optional(),
   label: z.string().min(1),
   width: z.number().int().positive(),
   height: z.number().int().positive(),
-  format: z.enum(["WebP", "transparent WebP"]),
+  format: z.enum(["WebP", "transparent WebP", "PNG", "JPEG"]),
 });
 
 const B2BLabelCopySchema = z.object({
@@ -253,47 +253,66 @@ export const VitheloB2BHomeContentSchema = z.object({
     kicker: z.string().min(1),
     title: z.string().min(1),
     copy: z.string().min(1),
-    summary: z.string().min(1),
-    sourceBoundary: z.string().min(1),
+    action: z.object({
+      label: z.string().min(1),
+      href: z.string().regex(/^\//),
+    }),
     media: B2BRequiredMediaSchema,
-    items: z
-      .array(
-      z.object({
-        label: z.string().min(1),
-        value: z.string().min(1),
-        suffix: z.string().min(1).optional(),
-      }),
-    )
-      .length(4),
-  }),
-  capacity: z.object({
-    kicker: z.string().min(1),
-    title: z.string().min(1),
-    sourceBoundary: z.string().min(1),
     metrics: z
       .array(
         z.object({
+          value: z.string().min(1),
           label: z.string().min(1),
-          value: z.number().nonnegative(),
-          prefix: z.string(),
-          suffix: z.string(),
         }),
       )
       .length(4),
-    steps: z
+    capabilities: z
       .array(
         z.object({
-          label: z.string().min(1),
+          title: z.string().min(1),
           copy: z.string().min(1),
         }),
       )
       .length(4),
   }),
-  gummy: z.object({
+  capacity: z.object({
     kicker: z.string().min(1),
     title: z.string().min(1),
+    copy: z.string().min(1),
+    action: z.object({
+      label: z.literal("View All Products"),
+      href: z.literal("/products"),
+    }),
+    products: z
+      .array(
+        z.object({
+          id: z.enum(["sleep", "active", "women"]),
+          title: z.string().min(1),
+          copy: z.string().min(1),
+          media: B2BRequiredMediaSchema,
+          action: z.object({
+            label: z.literal("Discuss This Product"),
+            href: z.literal("/contact"),
+          }),
+        }),
+      )
+      .length(3),
+  }),
+  customization: z.object({
+    kicker: z.literal("04 · CUSTOMIZATION"),
+    title: z.literal("Tailored to Your Brand."),
+    copy: z.string().min(1),
+    primaryAction: z.object({
+      label: z.literal("Start Your Customization"),
+      href: z.literal("/contact"),
+    }),
+    secondaryAction: z.object({
+      label: z.literal("Explore Customization"),
+      href: z.literal("/oem-odm"),
+    }),
     media: B2BRequiredMediaSchema,
-    features: z.array(B2BLabelCopySchema).length(6),
+    nodes: z.array(B2BLabelCopySchema).length(4),
+    benefits: z.array(B2BLabelCopySchema).length(4),
   }),
   market: z.object({
     kicker: z.string().min(1),
@@ -304,17 +323,27 @@ export const VitheloB2BHomeContentSchema = z.object({
           media: B2BRequiredMediaSchema,
         }),
       )
-      .length(6),
+      .length(3),
   }),
   dosage: z.object({
-    kicker: z.string().min(1),
-    title: z.string().min(1),
+    kicker: z.literal("06 · Product Formats"),
+    title: z.literal("One system. Eight expressions."),
     qualifier: z.string().min(1),
     items: z
       .array(
         z.object({
           name: z.string().min(1),
-          moq: z.string().min(1),
+          slug: z.enum([
+            "gummies",
+            "hard-capsules",
+            "softgels",
+            "tablets",
+            "powders",
+            "liquids",
+            "functional-gum",
+            "oral-films",
+          ]),
+          media: B2BRequiredMediaSchema,
         }),
       )
       .length(8),
