@@ -1,120 +1,25 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useMemo, useState } from "react";
 import styles from "@/components/patterns/vithelo-b2b-pages.module.css";
+import { filterProductDiscovery } from "@/lib/product-discovery";
 import type { B2BProductsPage } from "@/content/schema";
 
-export function VitheloProductsPage({
-  content,
-}: {
-  content: B2BProductsPage;
-}) {
-  const media = content.gummy.media;
+export function VitheloProductsPage({ content }: { content: B2BProductsPage }) {
+  const [format, setFormat] = useState<(typeof content.discovery.formats)[number]["slug"] | "all">("all");
+  const [directions, setDirections] = useState<(typeof content.discovery.healthDirections)[number]["slug"][]>([]);
+  const results = useMemo(() => filterProductDiscovery(content.discovery.items, { format, healthDirections: directions }), [content.discovery.items, directions, format]);
+  const toggleDirection = (slug: (typeof content.discovery.healthDirections)[number]["slug"]) => setDirections((current) => current.includes(slug) ? current.filter((item) => item !== slug) : [...current, slug]);
 
   return (
-    <main
-      className={`${styles.page} ${styles.productsPage}`}
-      data-content-status={content.dataStatus}
-      data-ui-stage="products-premium-catalog"
-    >
-      <section data-header-hero className={`${styles.hero} ${styles.productsHero}`}>
-        <p className={styles.kicker}>{content.hero.kicker}</p>
-        <h1>{content.hero.title}</h1>
-        <p className={styles.lede}>{content.hero.copy}</p>
-      </section>
-
-      <section className={`${styles.splitSection} ${styles.gummyPlatform}`}>
-        <div>
-          <p className={styles.kicker}>GUMMY PLATFORM</p>
-          <h2>{content.gummy.title}</h2>
-          <p>{content.gummy.copy}</p>
-        </div>
-        {media.status === "FREE_COMMERCIAL" ? (
-          <figure className={styles.media}>
-            <Image
-              alt={media.alt}
-              fill
-              loading="eager"
-              sizes="(max-width: 760px) 100vw, 50vw"
-              src={media.src}
-            />
-            <figcaption>
-              Product-form illustration · free commercial stock
-            </figcaption>
-          </figure>
-        ) : null}
-        <div className={styles.detailLedger}>
-          {content.gummy.dimensions.map((item) => (
-            <article key={item.title}>
-              <h3>{item.title}</h3>
-              <p>{item.copy}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className={`${styles.section} ${styles.formatsSection}`}>
-        <p className={styles.kicker}>EIGHT FORMATS</p>
-        <h2>One manufacturing system, eight product formats.</h2>
-        <div
-          className={styles.formatLedger}
-          data-layout="showcase-directory"
-          data-testid="format-ledger"
-        >
-          {content.formats.map((format, index) => (
-            <article id={format.id} key={format.id}>
-              <div className={styles.formatIdentity}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <h3>{format.name}</h3>
-                <p>{format.fit}</p>
-              </div>
-              <div aria-hidden="true" className={styles.formatSignal} data-format={index + 1} />
-              <div className={styles.formatDetails}>
-                <ul>
-                  {format.customization.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-                <p>{format.packaging}</p>
-              </div>
-              <strong>{format.moq}</strong>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className={`${styles.section} ${styles.decisionSection}`}>
-        <p className={styles.kicker}>FORMAT DECISIONS</p>
-        <h2>Choose by project fit, not appearance alone.</h2>
-        <div className={styles.simpleTable}>
-          {content.comparison.map((row) => (
-            <article key={row.criterion}>
-              <h3>{row.criterion}</h3>
-              <p>{row.guidance}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className={`${styles.section} ${styles.packagingSection}`}>
-        <p className={styles.kicker}>PACKAGING</p>
-        <h2>Align the pack with the product route.</h2>
-        <div className={styles.detailLedger}>
-          {content.packaging.map((item) => (
-            <article key={item.title}>
-              <h3>{item.title}</h3>
-              <p>{item.copy}</p>
-            </article>
-          ))}
-        </div>
-        <p className={styles.moqNote}>{content.moqNote}</p>
-      </section>
-
-      <section className={styles.cta}>
-        <h2>{content.cta.title}</h2>
-        <p>{content.cta.copy}</p>
-        <Link href={content.cta.href}>Start a Project</Link>
-        <Link href="/insights/choose-the-right-supplement-format">Read the format selection guide</Link>
-        <Link href="/insights/how-packaging-affects-moq-and-lead-time">Understand packaging, MOQ and timing variables</Link>
+    <main className={`${styles.page} ${styles.productsPage}`} data-content-status={content.dataStatus} data-ui-stage="products-left-filter">
+      <section className={`${styles.hero} ${styles.productsHero}`} data-header-hero><p className={styles.kicker}>{content.hero.kicker}</p><h1>Find the format for what comes next.</h1><p className={styles.lede}>Explore product formats and market directions, then move into the format detail that fits your next nutrition line.</p></section>
+      <div className={styles.healthDirectionBar}>{content.discovery.healthDirections.map((item) => <button key={item.slug} type="button" aria-pressed={directions.includes(item.slug)} onClick={() => toggleDirection(item.slug)}>{item.name}</button>)}</div>
+      <section className={styles.discoveryLayout} aria-label="Product discovery">
+        <aside className={styles.discoveryRail} aria-label="Product filters"><h2>Format</h2><fieldset><legend>Choose one</legend><div className={styles.formatList}><button type="button" aria-pressed={format === "all"} onClick={() => setFormat("all")}>All formats</button>{content.discovery.formats.map((item) => <button type="button" key={item.slug} aria-pressed={format === item.slug} onClick={() => setFormat(item.slug)}>{item.name}</button>)}</div></fieldset><button type="button" className={styles.discoveryClear} onClick={() => { setFormat("all"); setDirections([]); }}>Clear all filters</button></aside>
+        <div className={styles.discoveryResults}><div className={styles.discoveryHeader}><div><p className={styles.kicker}>PRODUCT DISCOVERY</p><h2>Matching directions</h2></div><span aria-live="polite">{results.length} results · DEMO_ONLY</span></div>{results.length ? <div className={styles.discoveryGrid}>{results.map((item) => <Link key={item.id} href={`/products/${item.formatSlug}`} className={styles.discoveryCard}><div className={styles.discoveryMedia}>{item.media?.status === "FREE_COMMERCIAL" ? <Image src={item.media.src} alt={item.media.alt} fill sizes="(max-width: 760px) 100vw, 28vw" /> : <span>IMAGE PLACEHOLDER<br />{item.formatName} product / lifestyle still</span>}</div><p className={styles.kicker}>{item.formatName} · {item.dataStatus}</p><h3>{item.title}</h3><p>{item.descriptor}</p><span className={styles.discoveryCardAction}>Explore format →</span></Link>)}</div> : <div className={styles.discoveryEmpty} role="status"><h3>No current route matches.</h3><p>Clear a filter to view the available demonstration directions.</p><button type="button" onClick={() => { setFormat("all"); setDirections([]); }}>Clear filters</button></div>}<div className={styles.discoveryCta}><span>Have a specific product direction in mind?</span><Link href="/contact">Start an OEM / ODM inquiry →</Link></div></div>
       </section>
     </main>
   );

@@ -8,7 +8,6 @@ const publicRoutes = [
   "/products",
   "/oem-odm",
   "/manufacturing",
-  "/quality",
   "/insights",
   "/about",
   "/contact",

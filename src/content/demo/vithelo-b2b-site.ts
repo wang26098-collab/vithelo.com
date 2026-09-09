@@ -8,6 +8,26 @@ import {
 
 const pexelsLicense = "https://www.pexels.com/license/";
 
+const discoveryFormatExamples = [
+  ["gummies", "Gummies"], ["jelly", "Jelly"], ["hard-capsules", "Capsules"], ["tablets", "Tablets"], ["powders", "Powders"],
+  ["softgels", "Softgels"], ["liquids", "Liquid Drops"], ["oral-films", "Oral Films"], ["other", "Other"], ["sachets", "Sachets"],
+] as const;
+const discoveryHealthExamples = [
+  ["sports-performance", "Sports Performance"], ["womens-health", "Women’s Health"], ["sleep-rest", "Sleep & Rest"], ["cognitive-focus", "Cognitive Focus"],
+  ["beauty-from-within", "Beauty From Within"], ["pet-health", "Pet Health"], ["daily-wellness", "Daily Wellness"], ["immune-support", "Immune Support"],
+  ["digestive-wellness", "Digestive Wellness"], ["hydration", "Hydration"],
+] as const;
+const discoveryMatrix = discoveryFormatExamples.flatMap(([formatSlug, formatName]) => discoveryHealthExamples.map(([directionSlug, directionName], index) => ({
+  id: `${formatSlug}-${directionSlug}`,
+  formatSlug,
+  formatName,
+  healthDirections: [directionSlug],
+  title: `${directionName} ${String(index + 1).padStart(2, "0")}`,
+  descriptor: `${formatName} demonstration route for ${directionName.toLowerCase()}.`,
+  dataStatus: "DEMO_ONLY" as const,
+  media: index === 0 && formatSlug === "gummies" ? { status: "FREE_COMMERCIAL" as const, src: "/media/b2b/format-gummies.png", alt: "Gummy format demonstration image", sourceUrl: pexelsLicense, creator: "VITHELO demo asset", licenseUrl: pexelsLicense, width: 1200, height: 900 } : undefined,
+})));
+
 export const vitheloB2BSite = B2BSiteContentSchema.parse({
   dataStatus: "DEMO_ONLY",
   identity: "Nutrition OEM / ODM manufacturing partner",
@@ -15,7 +35,6 @@ export const vitheloB2BSite = B2BSiteContentSchema.parse({
     { label: "Products", href: "/products" },
     { label: "OEM / ODM", href: "/oem-odm" },
     { label: "Manufacturing", href: "/manufacturing" },
-    { label: "Quality", href: "/quality" },
     { label: "Insights", href: "/insights" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
@@ -25,7 +44,6 @@ export const vitheloB2BSite = B2BSiteContentSchema.parse({
     { label: "Products", href: "/products" },
     { label: "OEM / ODM", href: "/oem-odm" },
     { label: "Manufacturing", href: "/manufacturing" },
-    { label: "Quality", href: "/quality" },
     { label: "Insights", href: "/insights" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
@@ -129,7 +147,50 @@ export const vitheloB2BProductsPage = B2BProductsPageSchema.parse({
       packaging: "Individual sachets and cartons",
       moq: "Flexible MOQ based on formula and packaging. Contact us for MOQ.",
     },
+    {
+      id: "jelly",
+      name: "Jelly",
+      fit: "Demonstration format route requiring approved production inputs",
+      customization: ["Formula direction", "Texture", "Pack direction"],
+      packaging: "Packaging direction to be confirmed",
+      moq: "DEMO_ONLY · MOQ requires approved project inputs.",
+    },
+    {
+      id: "sachets",
+      name: "Sachets",
+      fit: "Portable single-serve format",
+      customization: ["Formula direction", "Flavor", "Pack format"],
+      packaging: "Individual sachets and cartons",
+      moq: "DEMO_ONLY · MOQ requires approved project inputs.",
+    },
   ],
+  discovery: {
+    formats: [
+      { slug: "gummies", name: "Gummies" },
+      { slug: "jelly", name: "Jelly" },
+      { slug: "hard-capsules", name: "Capsules" },
+      { slug: "tablets", name: "Tablets" },
+      { slug: "powders", name: "Powders" },
+      { slug: "softgels", name: "Softgels" },
+      { slug: "liquids", name: "Liquid Drops" },
+      { slug: "oral-films", name: "Oral Films" },
+      { slug: "other", name: "Other" },
+      { slug: "sachets", name: "Sachets" },
+    ],
+    healthDirections: [
+      { slug: "sports-performance", name: "Sports Performance" },
+      { slug: "womens-health", name: "Women’s Health" },
+      { slug: "sleep-rest", name: "Sleep & Rest" },
+      { slug: "cognitive-focus", name: "Cognitive Focus" },
+      { slug: "beauty-from-within", name: "Beauty From Within" },
+      { slug: "pet-health", name: "Pet Health" },
+      { slug: "daily-wellness", name: "Daily Wellness" },
+      { slug: "immune-support", name: "Immune Support" },
+      { slug: "digestive-wellness", name: "Digestive Wellness" },
+      { slug: "hydration", name: "Hydration" },
+    ],
+    items: discoveryMatrix,
+  },
   comparison: [
     {
       criterion: "Use experience",

@@ -64,7 +64,7 @@
   outline-offset: 4px;
 }
 .headerInner {
-  width: min(calc(100% - 64px), 1280px);
+  width: min(calc(100% - 96px), 1720px);
   height: 100%;
   margin-inline: auto;
   display: flex;

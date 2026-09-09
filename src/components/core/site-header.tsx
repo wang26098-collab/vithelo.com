@@ -12,7 +12,7 @@ const utilityIcons = {
 function SiteHeader() {
   return (
     <header className="border-b border-[var(--color-border)] bg-[var(--color-background)]">
-      <div className="container-standard flex min-h-16 items-center gap-6 py-2">
+      <div className="vithelo-site-header-inner flex min-h-16 items-center gap-6 py-2">
         <BrandMark showSignature />
 
         <div className="hidden min-w-0 flex-1 items-center justify-center lg:flex">

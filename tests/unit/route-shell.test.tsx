@@ -38,7 +38,7 @@ it.each([
   expect(screen.queryByText("Mobile resource")).not.toBeInTheDocument();
 });
 
-it.each(["/products/gummies", "/manufacturing", "/quality", "/about"])(
+it.each(["/products/gummies", "/manufacturing", "/about"])(
   "uses the shared B2B header instead of legacy chrome on %s", (pathname) => {
     navigationState.pathname = pathname;
     renderShell();

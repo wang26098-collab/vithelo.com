@@ -268,10 +268,6 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
                 </article>
               ))}
             </div>
-            <Link className={styles.proofAction} href={content.proof.action.href}>
-              {content.proof.action.label}
-              <span aria-hidden="true">→</span>
-            </Link>
           </div>
           <figure
             className={styles.proofVisual}

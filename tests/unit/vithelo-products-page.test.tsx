@@ -1,18 +1,19 @@
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { VitheloProductsPage } from "@/components/patterns/vithelo-products-page";
 import { vitheloB2BProductsPage } from "@/content/demo/vithelo-b2b-site";
 
-it("renders eight formats as one ledger without a carousel", () => {
+it("renders the left filter rail and demo-only discovery results", () => {
   render(<VitheloProductsPage content={vitheloB2BProductsPage} />);
+  expect(screen.getByRole("complementary", { name: "Product filters" })).toBeVisible();
+  expect(screen.getByRole("button", { name: "Gummies" })).toBeVisible();
+  expect(screen.getByRole("button", { name: "Pet Health" })).toBeVisible();
+  expect(screen.getByText(/100 results/)).toBeVisible();
+});
 
-  const ledger = screen.getByTestId("format-ledger");
-  expect(within(ledger).getAllByRole("article")).toHaveLength(8);
-  expect(ledger).toHaveAttribute("data-layout", "showcase-directory");
-  expect(ledger).not.toHaveAttribute("data-carousel");
-  expect(
-    screen.getByText("Flexible MOQ based on formula and packaging."),
-  ).toBeVisible();
-  expect(
-    screen.getAllByText("Flexible MOQ based on formula and packaging. Contact us for MOQ."),
-  ).toHaveLength(8);
+it("filters the result cards by selected health direction", () => {
+  render(<VitheloProductsPage content={vitheloB2BProductsPage} />);
+  fireEvent.click(screen.getByRole("button", { name: "Sleep & Rest" }));
+  expect(screen.getByText(/10 results/)).toBeVisible();
+  expect(screen.getAllByRole("heading", { name: /^Sleep & Rest/ })).toHaveLength(10);
+  expect(screen.queryByRole("heading", { name: "Pet Health" })).not.toBeInTheDocument();
 });

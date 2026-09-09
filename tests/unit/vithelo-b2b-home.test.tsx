@@ -59,10 +59,7 @@ it("renders manufacturing as the approved editorial split with facts and capabil
   expect(within(proof).getByTestId("manufacturing-scene")).toBeInTheDocument();
   expect(within(proof).getAllByTestId("manufacturing-metric")).toHaveLength(4);
   expect(within(proof).getAllByTestId("manufacturing-capability")).toHaveLength(4);
-  expect(within(proof).getByRole("link", { name: "Explore Our Factory" })).toHaveAttribute(
-    "href",
-    "/manufacturing",
-  );
+  expect(within(proof).queryByRole("link", { name: "Explore Our Factory" })).not.toBeInTheDocument();
   expect(proof).not.toHaveTextContent(
     /NOT_CONFIGURED|DEMO_ONLY|森酷|Sencool|GMP|HACCP|Halal|ISO|FDA/i,
   );

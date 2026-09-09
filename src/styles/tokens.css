@@ -70,8 +70,8 @@
   --container-gutter: clamp(var(--space-20), 4vw, var(--space-64));
   --home-header-height: 4.75rem;
 
-  --inquiry-stage-height: max(100svh, 46rem);
-  --inquiry-scroll-distance: 85svh;
+  --inquiry-stage-height: max(72svh, 38rem);
+  --inquiry-scroll-distance: 68svh;
   --inquiry-scene-shade: rgb(25 27 26 / 48%);
   --inquiry-mask-font-size: 240px;
   --inquiry-title-size: clamp(2.75rem, 5.5vw, 5rem);

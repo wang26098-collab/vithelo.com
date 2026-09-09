@@ -34,7 +34,7 @@ function RouteShell({
 
   const isLightHeroRoute =
     pathname.startsWith("/products/") ||
-    ["/manufacturing", "/quality", "/about"].includes(pathname);
+    ["/manufacturing", "/about"].includes(pathname);
 
   if (isLightHeroRoute && siteContent) {
     return (

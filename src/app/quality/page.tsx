@@ -1,8 +1,0 @@
-import type { Metadata } from "next";
-import { VitheloInformationPage } from "@/components/patterns/vithelo-information-page";
-
-export const metadata: Metadata = { title: "Quality & R&D | VITHELO", description: "Quality review and sample development structure for VITHELO nutrition OEM / ODM projects.", alternates: { canonical: "/quality" } };
-
-export default function QualityPage() {
-  return <VitheloInformationPage eyebrow="QUALITY & R&D" title="Quality is recorded through the project." directAnswer="VITHELO organizes raw-material review, in-process control, finished-product documentation and sample development around the confirmed product brief." sections={[{ title: "Quality system", items: ["Quality checkpoints are defined by the product and confirmed production process.", "Documentation availability depends on current records and destination requirements."] }, { title: "Raw materials & testing", items: ["Identity, specification and supplier documentation are reviewed as applicable.", "Third-party testing is configured only when the project and approved provider require it."] }, { title: "R&D & samples", items: ["Formula direction, sensory decisions and dosage format are reviewed together.", "Sample scope and adjustments are confirmed after requirement review."] }, { title: "Certifications & documents", items: ["Certification subject, scope, validity and public-use approval remain to be verified.", "Ask through Start a Project for the documents relevant to your brief."] }]} relatedInsights={[{ label: "What documents should supplement buyers ask for?", href: "/insights/what-documents-buyers-should-ask-for" }, { label: "How to Evaluate a Supplement Manufacturer", href: "/insights/how-to-evaluate-a-supplement-manufacturer" }]} />;
-}

@@ -498,6 +498,25 @@ const DosageFormatCapabilitySchema = z.object({
   moq: z.string().min(1),
 });
 
+const ProductFormatSlugSchema = z.enum([
+  "gummies", "jelly", "hard-capsules", "tablets", "powders",
+  "softgels", "liquids", "oral-films", "other", "sachets",
+]);
+const HealthDirectionSlugSchema = z.enum([
+  "sports-performance", "womens-health", "sleep-rest",
+  "cognitive-focus", "beauty-from-within", "pet-health", "daily-wellness", "immune-support", "digestive-wellness", "hydration",
+]);
+const ProductDiscoveryItemSchema = z.object({
+  id: z.string().min(1),
+  formatSlug: ProductFormatSlugSchema,
+  formatName: z.string().min(1),
+  healthDirections: z.array(HealthDirectionSlugSchema).min(1),
+  title: z.string().min(1),
+  descriptor: z.string().min(1),
+  dataStatus: z.literal("DEMO_ONLY"),
+  media: B2BPageMediaSchema.optional(),
+});
+
 export const B2BProductsPageSchema = z.object({
   dataStatus: DataStatusSchema,
   hero: B2BHeroSchema,
@@ -507,7 +526,12 @@ export const B2BProductsPageSchema = z.object({
     media: B2BPageMediaSchema,
     dimensions: z.array(B2BTextItemSchema).length(6),
   }),
-  formats: z.array(DosageFormatCapabilitySchema).length(8),
+  formats: z.array(DosageFormatCapabilitySchema).length(10),
+  discovery: z.object({
+    formats: z.array(z.object({ slug: ProductFormatSlugSchema, name: z.string().min(1) })).length(10),
+    healthDirections: z.array(z.object({ slug: HealthDirectionSlugSchema, name: z.string().min(1) })).length(10),
+    items: z.array(ProductDiscoveryItemSchema).min(1),
+  }),
   comparison: z
     .array(z.object({ criterion: z.string(), guidance: z.string() }))
     .min(4),
