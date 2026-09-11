@@ -71,7 +71,7 @@
   background-image:
     linear-gradient(90deg, rgb(12 15 13 / 64%) 0%, rgb(12 15 13 / 38%) 38%, rgb(12 15 13 / 6%) 72%),
     linear-gradient(180deg, rgb(12 15 13 / 6%), rgb(12 15 13 / 20%)),
-    url("/media/b2b/gummies-pexels-14027295.jpg");
+    url("/media/b2b/vithelo-home-hero-products.png");
   background-size: cover;
   background-position: 62% center;
   transform: none;
@@ -113,6 +113,15 @@
 .secondaryAction:focus-visible { background: white; color: var(--navy) !important; }
 
 .heroAssetNote { position: absolute; z-index: 2; right: 2rem; bottom: 1rem; max-width: 44ch; margin: 0; color: rgb(255 255 255 / 62%); font-size: 0.625rem; letter-spacing: 0.1em; text-align: right; text-transform: uppercase; }
+
+@media (min-width: 901px) {
+  .hero::before {
+    background-size: auto, auto, contain;
+    background-position: center, center, center;
+    background-repeat: no-repeat;
+    background-color: #111512;
+  }
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .homepage[data-motion-mode="enhanced"] .heroContent {
@@ -881,6 +890,23 @@
     0%, 62.5% { opacity: 0; visibility: hidden; transform: scale(0.985); }
     68.75%, 100% { opacity: 1; visibility: visible; transform: scale(1); }
   }
+}
+
+@supports not (animation-timeline: view()) {
+  .marketStage { min-height: auto; }
+  .marketStories { height: auto; }
+  .marketStickyStage { position: relative; height: auto; overflow: visible; }
+  .marketStory,
+  .marketStory:first-child {
+    position: relative;
+    inset: auto;
+    padding-block: clamp(2.5rem, 6vw, 5rem);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+  }
+  .marketScrollTrack { display: none; }
 }
 
 .dosageSection {

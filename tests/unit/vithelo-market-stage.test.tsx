@@ -10,6 +10,7 @@ it("renders three product directions in one sticky viewport without controls", (
 
   expect(stage).toHaveAttribute("data-layout", "sticky-product-switcher");
   expect(stage).toHaveAttribute("data-motion-intent", "RELATE");
+  expect(stage).toHaveAttribute("data-motion-fallback", "stacked");
   expect(stories).toHaveLength(3);
   expect(screen.getAllByTestId("market-story-image")).toHaveLength(3);
   expect(screen.getAllByTestId("market-step")).toHaveLength(3);
