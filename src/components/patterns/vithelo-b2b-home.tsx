@@ -96,6 +96,7 @@ function DosageSection({ content }: VitheloB2BHomeProps) {
       className={`${styles.section} ${styles.dosageSection}`}
       data-layout="featured-format-wall"
       data-motion-intent="RELATE"
+      data-narrative-role="format-options"
       data-ui-stage="featured-format-wall"
       id="dosage-forms"
     >
@@ -154,7 +155,7 @@ function DosageSection({ content }: VitheloB2BHomeProps) {
             data-media-status={item.media.status}
             data-format-project
             data-motion-index={index}
-            data-motion-role="collection-item"
+            data-motion-role="format-item"
             data-testid="format-project"
             key={item.slug}
           >
@@ -223,6 +224,7 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
         aria-labelledby="hero-title"
         className={styles.hero}
         data-media-status={content.hero.media.status}
+        data-narrative-role="positioning"
         data-ui-stage="image-led-hero"
         id="hero"
       >
@@ -249,6 +251,7 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
         className={styles.proof}
         data-layout="manufacturing-editorial-split"
         data-motion-intent="EXPLAIN"
+        data-narrative-role="manufacturing-proof"
         id="proof"
       >
         <div className={styles.proofPrimary}>
@@ -305,6 +308,7 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
         className={`${styles.section} ${styles.capacityBoundarySection}`}
         data-layout="editorial-product-runway"
         data-motion-intent="RELATE"
+        data-narrative-role="finished-outcomes"
         data-ui-stage="featured-product-runway"
         id="capacity-boundary"
       >
@@ -360,6 +364,7 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
         data-layout="customization-constellation"
         data-media-status={content.customization.media.status}
         data-motion-intent="EXPLAIN"
+        data-narrative-role="customization-system"
         data-ui-stage="customization-constellation"
         id="gummy-stage"
       >
@@ -444,6 +449,7 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
         className={`${styles.section} ${styles.darkSection} ${styles.runwaySection}`}
         data-ui-stage="runway-timeline-stage"
         data-motion-intent="EXPLAIN"
+        data-narrative-role="project-path"
         id="project-runway"
       >
         <div className={styles.centerHeader}>
@@ -473,6 +479,7 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
         data-contact-state="CONFIGURED"
         data-scene-status={content.contact.scene.status}
         data-layout="editorial-channel-split"
+        data-narrative-role="inquiry"
         id="contact"
       >
         <VitheloInquiryReveal image={content.contact.scene.src}>

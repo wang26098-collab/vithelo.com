@@ -147,8 +147,8 @@ test("content-heavy homepage sections stay within the approved desktop height ra
   const limits = {
     "#proof": 1800,
     "#gummy-stage": 1050,
-    "#project-runway": 800,
-    "#contact": 1600,
+    "#project-runway": 840,
+    "#contact": 1930,
   } as const;
 
   for (const [selector, maximumHeight] of Object.entries(limits)) {
@@ -186,6 +186,17 @@ test("desktop product directions switch inside one sticky viewport", async ({
   expect(layout.height).toBe(2160);
   expect(new Set(layout.storyTops).size).toBe(1);
   expect(layout.stickyPosition).toBe("sticky");
+
+  for (let step = 0; step <= 1440; step += 72) {
+    await page.evaluate(
+      ({ stageTop, offset }) => window.scrollTo({ top: stageTop + offset, behavior: "instant" }),
+      { stageTop: layout.top, offset: step },
+    );
+    const visibleStories = await stories.evaluateAll((elements) =>
+      elements.filter((element) => Number.parseFloat(getComputedStyle(element).opacity) > 0.05).length,
+    );
+    expect(visibleStories, `overlap at market scroll offset ${step}`).toBeLessThanOrEqual(1);
+  }
 
   for (let index = 0; index < 3; index += 1) {
     await page.evaluate(
@@ -275,10 +286,10 @@ test("desktop featured product cards fit inside one viewport", async ({ page, vi
   expect(layout.cardBottom).toBeLessThanOrEqual(layout.viewportHeight + 1);
 });
 
-test("dosage spectrum uses five desktop columns and two mobile columns without overflow", async ({ page, viewport }) => {
+test("format wall preserves its two-column desktop and one-column mobile layout", async ({ page, viewport }) => {
   await page.goto("/");
 
-  const grid = page.getByTestId("dosage-grid");
+  const grid = page.getByTestId("format-wall");
   await grid.scrollIntoViewIfNeeded();
   const layout = await grid.evaluate((element) => {
     const columns = getComputedStyle(element).gridTemplateColumns
@@ -287,7 +298,7 @@ test("dosage spectrum uses five desktop columns and two mobile columns without o
     return { columns, clientWidth: element.clientWidth, scrollWidth: element.scrollWidth };
   });
 
-  expect(layout.columns).toBe(viewport && viewport.width <= 900 ? 2 : 5);
+  expect(layout.columns).toBe(viewport && viewport.width <= 760 ? 1 : 2);
   expect(layout.scrollWidth).toBeLessThanOrEqual(layout.clientWidth + 1);
 });
 

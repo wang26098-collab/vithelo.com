@@ -51,16 +51,20 @@ it("keeps the approved MOQ qualifications", () => {
 });
 
 it("keeps only the approved sleep, active and women product directions", () => {
+  expect(vitheloB2BHome.market.title).toBe("From routine to product brief.");
   expect(vitheloB2BHome.market.stories.map((story) => story.title)).toEqual([
     "Sleep, Stress & Mood",
     "Active Nutrition",
     "Women’s Wellness",
   ]);
   expect(vitheloB2BHome.market.stories.map((story) => story.media.src)).toEqual([
-    "/media/vithelo-product-card-sleep.png",
-    "/media/vithelo-product-card-active.png",
-    "/media/vithelo-product-card-womens.png",
+    "/media/nutrition-ritual.png",
+    "/media/home-membrane.png",
+    "/media/vithelo-womens-gummy-hero-desktop.png",
   ]);
+  expect(vitheloB2BHome.market.stories.map((story) => story.media.src)).not.toEqual(
+    vitheloB2BHome.capacity.products.map((product) => product.media.src),
+  );
 });
 
 it("defines the approved featured product runway", () => {

@@ -43,7 +43,7 @@
   font-size: 0.875rem;
   font-weight: 650;
   text-decoration: none;
-  transition: background-color 180ms ease-out, color 180ms ease-out, border-color 180ms ease-out, transform 180ms ease-out;
+  transition: background-color var(--motion-fast) var(--ease-standard), color var(--motion-fast) var(--ease-standard), border-color var(--motion-fast) var(--ease-standard), transform var(--motion-fast) var(--ease-standard);
 }
 
 .primaryAction { background: var(--orange); color: white !important; }
@@ -121,17 +121,6 @@
     background-repeat: no-repeat;
     background-color: #111512;
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .homepage[data-motion-mode="enhanced"] .heroContent {
-    animation: hero-copy-arrive 640ms var(--ease-standard) both;
-  }
-}
-
-@keyframes hero-copy-arrive {
-  from { opacity: 0.72; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 .proof {
@@ -313,7 +302,7 @@
 
 @media (hover: hover) and (pointer: fine) {
   .proofVisual img {
-    transition: filter 500ms ease-out, transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition: filter var(--motion-standard) var(--ease-standard), transform var(--motion-narrative) var(--ease-standard);
   }
 
   .proofVisual:hover img {
@@ -352,11 +341,11 @@
 .featuredAllLink span,
 .featuredProductAction span { transition: transform var(--motion-fast) var(--ease-standard); }
 .featuredProductGrid { width: 100%; margin: clamp(2.25rem, 4vw, 3.75rem) auto 0; display: grid; grid-template-columns: minmax(0, 1.15fr) repeat(2, minmax(0, 1fr)); gap: clamp(0.65rem, 1vw, 0.9rem); }
-.featuredProductCard { min-width: 0; min-height: clamp(395px, 48svh, 500px); overflow: hidden; display: grid; grid-template-rows: minmax(0, 1fr) auto; border: 1px solid rgb(243 240 232 / 17%); background: #d9d6ce; color: var(--ink); transition: background-color 420ms var(--ease-standard), border-color 420ms var(--ease-standard); }
+.featuredProductCard { min-width: 0; min-height: clamp(395px, 48svh, 500px); overflow: hidden; display: grid; grid-template-rows: minmax(0, 1fr) auto; border: 1px solid rgb(243 240 232 / 17%); background: #d9d6ce; color: var(--ink); transition: background-color var(--motion-standard) var(--ease-standard), border-color var(--motion-standard) var(--ease-standard); }
 .featuredProductCard[data-featured="true"] { background: #cbc8bf; border-color: rgb(243 240 232 / 32%); }
 .featuredProductVisual { position: relative; min-height: clamp(250px, 32svh, 350px); overflow: hidden; background: #d7d3ca; }
 .featuredProductVisual::after { position: absolute; inset: auto 0 0; height: 22%; content: ""; background: linear-gradient(180deg, transparent, rgb(19 22 20 / 12%)); pointer-events: none; }
-.featuredProductVisual img { object-fit: cover; object-position: center; transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1), filter 420ms ease-out; }
+.featuredProductVisual img { object-fit: cover; object-position: center; transition: transform var(--motion-narrative) var(--ease-standard), filter var(--motion-standard) var(--ease-standard); }
 .featuredProductCard[data-featured="true"] .featuredProductVisual img { object-position: center 48%; }
 .featuredProductIndex { position: absolute; z-index: 1; top: 1rem; right: 1rem; display: grid; width: 2.5rem; height: 2.5rem; place-items: center; border: 1px solid rgb(23 25 24 / 28%); border-radius: 50%; background: rgb(243 240 232 / 72%); font-size: 0.65rem; font-weight: 650; letter-spacing: 0.08em; backdrop-filter: blur(8px); }
 .featuredProductBody { min-height: 145px; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "title title" "copy action"; gap: 0.65rem 1.25rem; align-items: end; padding: clamp(1.1rem, 1.65vw, 1.5rem); border-top: 1px solid rgb(23 25 24 / 14%); }
@@ -555,7 +544,7 @@
   overflow: hidden;
   -webkit-mask-image: radial-gradient(ellipse 62% 72% at 50% 52%, #000 55%, transparent 82%);
   mask-image: radial-gradient(ellipse 62% 72% at 50% 52%, #000 55%, transparent 82%);
-  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform var(--motion-standard) var(--ease-standard);
 }
 
 .customizationVisual img {
@@ -668,25 +657,30 @@
 
 .marketIntro {
   position: absolute;
+  top: 4rem;
+  z-index: 4;
   width: 1px;
   height: 1px;
   margin: -1px;
   padding: 0;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  pointer-events: none;
 }
 
 .marketIntro .kicker {
+  width: max-content;
   margin: 0;
   padding-top: 0.7rem;
 }
 
 .marketIntro .title {
-  max-width: 12ch;
+  width: min(8ch, 14vw);
+  max-width: 8ch;
   margin: 0;
-  font-size: clamp(3rem, 5.7vw, 5.75rem);
-  line-height: 0.96;
+  font-size: clamp(1.35rem, 2.2vw, 2rem);
+  line-height: 1.05;
 }
 
 .marketStories {
@@ -714,11 +708,7 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: scale(0.985);
-  transition:
-    opacity 420ms ease-out,
-    transform 650ms cubic-bezier(0.22, 1, 0.36, 1),
-    visibility 0s linear 480ms;
+  transform: translateY(12px);
 }
 
 .marketStory:first-child {
@@ -726,7 +716,7 @@
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transform: scale(1);
+  transform: translateY(0);
   transition-delay: 0s;
 }
 
@@ -753,28 +743,17 @@
   isolation: isolate;
 }
 
-.marketStoryBackdrop {
-  z-index: 0;
-  object-fit: cover;
-  filter: blur(28px) saturate(0.84);
-  opacity: 0.72;
-  transform: scale(1.12);
-}
-
 .marketStoryImage {
   z-index: 1;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
-  transform: scale(1.002);
-  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1), filter 360ms ease-out;
+  transform: scale(1);
+  transition: transform var(--motion-standard) var(--ease-standard), filter var(--motion-standard) var(--ease-standard);
 }
 
-.marketStory[data-story="1"] .marketStoryImage,
-.marketStory[data-story="2"] .marketStoryImage {
-  object-position: 50% 48%;
-}
-
-.marketStory[data-story="3"] .marketStoryImage { object-position: 56% center; }
+.marketStory[data-story="1"] .marketStoryImage { object-position: 68% center; }
+.marketStory[data-story="2"] .marketStoryImage { object-position: center; }
+.marketStory[data-story="3"] .marketStoryImage { object-position: 69% center; }
 
 .marketStoryShade {
   position: absolute;
@@ -802,7 +781,7 @@
   text-shadow: 0 2px 30px rgb(0 0 0 / 32%);
   text-wrap: balance;
   transform: translate(-50%, -50%);
-  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform var(--motion-fast) var(--ease-standard);
 }
 
 .marketStoryMark {
@@ -842,7 +821,7 @@
 
 @media (hover: hover) and (pointer: fine) {
   .marketStoryVisual:hover .marketStoryImage {
-    transform: scale(1.025);
+    transform: scale(1.012);
     filter: saturate(1.03) contrast(1.02);
   }
 
@@ -876,19 +855,19 @@
   }
 
   @keyframes market-story-one {
-    0%, 37.5% { opacity: 1; visibility: visible; transform: scale(1); }
-    43.75%, 100% { opacity: 0; visibility: hidden; transform: scale(0.985); }
+    0%, 34% { opacity: 1; visibility: visible; transform: translateY(0); }
+    39%, 100% { opacity: 0; visibility: hidden; transform: translateY(-12px); }
   }
 
   @keyframes market-story-two {
-    0%, 37.5% { opacity: 0; visibility: hidden; transform: scale(0.985); }
-    43.75%, 62.5% { opacity: 1; visibility: visible; transform: scale(1); }
-    68.75%, 100% { opacity: 0; visibility: hidden; transform: scale(0.985); }
+    0%, 42% { opacity: 0; visibility: hidden; transform: translateY(12px); }
+    47%, 53% { opacity: 1; visibility: visible; transform: translateY(0); }
+    58%, 100% { opacity: 0; visibility: hidden; transform: translateY(-12px); }
   }
 
   @keyframes market-story-three {
-    0%, 62.5% { opacity: 0; visibility: hidden; transform: scale(0.985); }
-    68.75%, 100% { opacity: 1; visibility: visible; transform: scale(1); }
+    0%, 61% { opacity: 0; visibility: hidden; transform: translateY(12px); }
+    66%, 100% { opacity: 1; visibility: visible; transform: translateY(0); }
   }
 }
 
@@ -951,13 +930,15 @@
 }
 
 .dosageSection[data-format-motion="enhanced"] .formatChar {
-  transform: translateY(112%) rotate(10deg);
-  transition: transform 1.05s cubic-bezier(0.16, 1, 0.3, 1);
-  transition-delay: calc(var(--format-char-index, 0) * 24ms);
+  opacity: 0;
+  transform: translateY(48%);
+  transition: opacity var(--motion-narrative) var(--ease-standard), transform var(--motion-narrative) var(--ease-standard);
+  transition-delay: calc(var(--format-char-index, 0) * 12ms);
 }
 
 .dosageSection[data-format-motion="enhanced"][data-format-intro-visible="true"] .formatChar {
-  transform: translateY(0) rotate(0deg);
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .formatQualifier {
@@ -969,15 +950,13 @@
 }
 
 .dosageSection[data-format-motion="enhanced"] .formatQualifier {
-  clip-path: inset(0 0 100% 0);
-  transform: translateY(22px);
-  transition:
-    clip-path 900ms cubic-bezier(0.16, 1, 0.3, 1) 420ms,
-    transform 900ms cubic-bezier(0.16, 1, 0.3, 1) 420ms;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity var(--motion-narrative) var(--ease-standard), transform var(--motion-narrative) var(--ease-standard);
 }
 
 .dosageSection[data-format-motion="enhanced"][data-format-intro-visible="true"] .formatQualifier {
-  clip-path: inset(0);
+  opacity: 1;
   transform: translateY(0);
 }
 
@@ -989,28 +968,23 @@
 }
 
 .formatProject {
-  --format-entry-x: -8vw;
+  --format-entry-y: 32px;
   min-width: 0;
 }
 
 .formatProject:nth-child(even) {
-  --format-entry-x: 8vw;
   translate: 0 clamp(3rem, 7vw, 7rem);
 }
 
 .homepage[data-motion-mode="enhanced"] .dosageSection .formatProject {
-  opacity: 1;
-  transform: translate3d(var(--format-entry-x), 56px, 0) rotate(-2.4deg);
-  transform-origin: 50% 70%;
-  transition: transform 1.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.homepage[data-motion-mode="enhanced"] .dosageSection .formatProject:nth-child(even) {
-  transform: translate3d(var(--format-entry-x), 56px, 0) rotate(2.4deg);
+  opacity: 0;
+  transform: translate3d(0, var(--format-entry-y), 0);
+  transition: opacity var(--motion-narrative) var(--ease-standard), transform var(--motion-narrative) var(--ease-standard);
 }
 
 .homepage[data-motion-mode="enhanced"] .dosageSection .formatProject[data-format-visible="true"] {
-  transform: translate3d(0, 0, 0) rotate(0deg);
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
 }
 
 .formatLink {
@@ -1032,43 +1006,24 @@
   inset: 0;
   z-index: 1;
   content: "";
-  opacity: calc(0.04 + var(--format-scroll-velocity-abs, 0) * 0.1);
-  background:
-    radial-gradient(
-      circle at calc(50% + var(--format-pointer-x, 0) * 24%),
-      calc(50% + var(--format-pointer-y, 0) * 24%),
-      rgb(255 255 255 / 28%),
-      transparent 42%
-    );
+  opacity: 0.04;
+  background: radial-gradient(circle at 50% 50%, rgb(255 255 255 / 28%), transparent 42%);
   mix-blend-mode: screen;
   pointer-events: none;
-  transition: opacity 180ms linear;
 }
 
 .formatMediaPlane {
   position: absolute;
   inset: -5%;
   display: block;
-  will-change: transform;
-  transform:
-    perspective(1000px)
-    translate3d(
-      calc(var(--format-pointer-x, 0) * -12px),
-      calc(var(--format-pointer-y, 0) * -8px + var(--format-scroll-velocity, 0) * 14px),
-      0
-    )
-    rotateX(calc(var(--format-pointer-y, 0) * -1.6deg))
-    rotateY(calc(var(--format-pointer-x, 0) * 2deg))
-    rotateZ(calc(var(--format-scroll-velocity, 0) * 0.75deg))
-    scaleY(calc(1 + var(--format-scroll-velocity-abs, 0) * 0.018));
-  transition: transform 160ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: none;
 }
 
 .formatMediaPlane img {
   object-fit: cover;
-  scale: 1.08;
-  translate: 0 calc((var(--format-view-progress, 0.5) - 0.5) * -8%);
-  transition: scale 700ms var(--ease-standard), filter 700ms var(--ease-standard);
+  scale: 1.06;
+  translate: none;
+  transition: scale var(--motion-standard) var(--ease-standard), filter var(--motion-standard) var(--ease-standard);
 }
 
 .formatMeta {
@@ -1451,8 +1406,8 @@
 .homepage[data-motion-mode="enhanced"] [data-motion-role="collection-item"],
 .homepage[data-motion-mode="enhanced"] [data-motion-role="process-step"] {
   transition:
-    opacity 500ms var(--ease-standard),
-    transform 620ms var(--ease-standard);
+    opacity var(--motion-narrative) var(--ease-standard),
+    transform var(--motion-narrative) var(--ease-standard);
 }
 
 .homepage[data-motion-mode="enhanced"] [data-motion-state="visible"] > .centerHeader,
@@ -1480,8 +1435,8 @@
 .homepage[data-motion-mode="enhanced"] [data-motion-role="capacity-process"],
 .homepage[data-motion-mode="enhanced"] [data-motion-role="media"] {
   transition:
-    opacity 420ms var(--ease-standard),
-    clip-path 700ms var(--ease-standard);
+    opacity var(--motion-narrative) var(--ease-standard),
+    clip-path var(--motion-narrative) var(--ease-standard);
 }
 
 .homepage[data-motion-mode="enhanced"] [data-motion-state="visible"] [data-motion-role="proof-ledger"],
@@ -1508,12 +1463,18 @@
 }
 
 .homepage[data-motion-mode="enhanced"] .customizationIntro,
-.homepage[data-motion-mode="enhanced"] .customizationVisual,
 .homepage[data-motion-mode="enhanced"] .customizationBenefitRail {
   transition:
-    opacity 520ms var(--ease-standard),
-    transform 760ms cubic-bezier(0.22, 1, 0.36, 1),
-    clip-path 760ms var(--ease-standard);
+    opacity var(--motion-narrative) var(--ease-standard),
+    transform var(--motion-narrative) var(--ease-standard),
+    clip-path var(--motion-narrative) var(--ease-standard);
+}
+
+.homepage[data-motion-mode="enhanced"] .customizationVisual {
+  transition:
+    opacity var(--motion-narrative) var(--ease-standard),
+    transform var(--motion-immersive) var(--ease-standard),
+    clip-path var(--motion-immersive) var(--ease-standard);
 }
 
 .homepage[data-motion-mode="enhanced"] .customizationSection[data-motion-state="visible"] .customizationIntro,
@@ -1712,9 +1673,10 @@
   }
 
   .marketIntro .title {
-    max-width: 12ch;
+    width: min(20ch, 82vw);
+    max-width: 20ch;
     margin-top: 1.25rem;
-    font-size: clamp(2.5rem, 12vw, 3.75rem);
+    font-size: clamp(1.2rem, 5.2vw, 1.55rem);
   }
 
   .marketStory {
@@ -1758,17 +1720,13 @@
   .formatFigure { aspect-ratio: 6 / 5; }
   .homepage[data-motion-mode="enhanced"] .dosageSection .formatProject,
   .homepage[data-motion-mode="enhanced"] .dosageSection .formatProject:nth-child(even) {
-    --format-entry-x: 0px;
-    transform: translate3d(0, 48px, 0);
+    --format-entry-y: 32px;
+    transform: translate3d(0, var(--format-entry-y), 0);
   }
   .homepage[data-motion-mode="enhanced"] .dosageSection .formatProject[data-format-visible="true"] {
     transform: translate3d(0, 0, 0);
   }
-  .formatMediaPlane {
-    transform:
-      translate3d(0, calc(var(--format-scroll-velocity, 0) * 7px), 0)
-      rotateZ(calc(var(--format-scroll-velocity, 0) * 0.35deg));
-  }
+  .formatMediaPlane { transform: none; }
   .qualityDocument,
   .contactGrid { grid-template-columns: 1fr; }
   .contactChecklist { grid-template-columns: 1fr; }

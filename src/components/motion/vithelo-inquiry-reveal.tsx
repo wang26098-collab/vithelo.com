@@ -36,9 +36,9 @@ export function VitheloInquiryReveal({ children, image }: VitheloInquiryRevealPr
       const progress = staticMode || focused ? 1 : clamp(-bounds.top / Math.max(1, distance));
       // Exponential scale makes crossing the letter feel continuous at every size.
       element.style.setProperty("--reveal-scale", String(Math.pow(22, progress)));
-      element.style.setProperty("--reveal-mask-opacity", String(1 - clamp((progress - 0.62) / 0.25)));
-      element.style.setProperty("--reveal-copy-opacity", String(clamp((progress - 0.67) / 0.23)));
-      element.dataset.revealComplete = String(progress >= 0.9);
+      element.style.setProperty("--reveal-mask-opacity", String(1 - clamp((progress - 0.42) / 0.21)));
+      element.style.setProperty("--reveal-copy-opacity", String(clamp((progress - 0.5) / 0.22)));
+      element.dataset.revealComplete = String(progress >= 0.72);
     };
     const schedule = () => {
       if (!frame) frame = window.requestAnimationFrame(update);

@@ -167,44 +167,44 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
   },
   market: {
     kicker: "05 · Product Directions",
-    title: "Products shaped around real consumer routines.",
+    title: "From routine to product brief.",
     stories: [
       {
         title: "Sleep, Stress & Mood",
         copy:
-          "Gummies, capsules and powders designed for evening routines and everyday support.",
+          "Begin with the evening routine, then define the format, flavor and packaging around the intended use case.",
         media: {
           status: "FREE_COMMERCIAL_OR_REAL",
-          src: "/media/vithelo-product-card-sleep.png",
-          label: "VITHELO sleep health product composition",
-          width: 443,
-          height: 550,
+          src: "/media/nutrition-ritual.png",
+          label: "Hand reaching for a glass of water in a quiet daily routine",
+          width: 1536,
+          height: 1024,
           format: "PNG",
         },
       },
       {
         title: "Active Nutrition",
         copy:
-          "Energy, hydration and recovery products in portable formats.",
+          "Begin with where the product is used, then shape portability, format and packaging around that routine.",
         media: {
           status: "FREE_COMMERCIAL_OR_REAL",
-          src: "/media/vithelo-product-card-active.png",
-          label: "VITHELO active nutrition product composition",
-          width: 1127,
-          height: 1396,
+          src: "/media/home-membrane.png",
+          label: "Abstract flowing material suggesting an active product direction",
+          width: 1536,
+          height: 1024,
           format: "PNG",
         },
       },
       {
         title: "Women’s Wellness",
         copy:
-          "Daily nutrition, life-stage support and beauty routines, developed around a clear use case.",
+          "Begin with a defined life-stage or wellness use case, then translate it into a focused development brief.",
         media: {
           status: "FREE_COMMERCIAL_OR_REAL",
-          src: "/media/vithelo-product-card-womens.png",
-          label: "VITHELO women’s wellness product composition",
-          width: 571,
-          height: 609,
+          src: "/media/vithelo-womens-gummy-hero-desktop.png",
+          label: "Woman beside a VITHELO gummy concept in a bright daily setting",
+          width: 1536,
+          height: 1024,
           format: "PNG",
         },
       },

@@ -14,6 +14,12 @@ test("inquiry wordmark reveals the channels with native scrolling", async ({ pag
   await page.evaluate((top) => window.scrollTo(0, top), bounds.top + bounds.distance * 0.5);
   await expect.poll(() => reveal.evaluate((element) => Number(element.style.getPropertyValue("--reveal-scale")))).toBeGreaterThan(3);
   await page.screenshot({ path: testInfo.outputPath("inquiry-middle.png") });
+  await page.evaluate((top) => window.scrollTo(0, top), bounds.top + bounds.distance * 0.75);
+  await expect(reveal).toHaveAttribute("data-reveal-complete", "true");
+  await expect
+    .poll(() => reveal.evaluate((element) => Number(element.style.getPropertyValue("--reveal-copy-opacity"))))
+    .toBe(1);
+  await expect(reveal.getByRole("link", { name: "Email wang26098@gmail.com" })).toBeInViewport();
   await page.evaluate((top) => window.scrollTo(0, top), bounds.top + bounds.distance);
   await expect(reveal).toHaveAttribute("data-reveal-complete", "true");
   const email = reveal.getByRole("link", { name: "Email wang26098@gmail.com" });

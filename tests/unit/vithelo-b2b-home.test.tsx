@@ -1,4 +1,6 @@
 import { render, screen, within } from "@testing-library/react";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { VitheloB2BHome } from "@/components/patterns/vithelo-b2b-home";
 import { vitheloB2BHome } from "@/content/demo/vithelo-b2b-home";
 
@@ -13,11 +15,21 @@ const sectionIds = [
   "contact",
 ];
 
-it("renders the consolidated seven sections once and in order", () => {
+it("renders the eight narrative sections once and in order", () => {
   render(<VitheloB2BHome content={vitheloB2BHome} />);
 
   const sections = Array.from(document.querySelectorAll("main > section"));
   expect(sections.map((section) => section.id)).toEqual(sectionIds);
+  expect(sections.map((section) => section.getAttribute("data-narrative-role"))).toEqual([
+    "positioning",
+    "manufacturing-proof",
+    "finished-outcomes",
+    "customization-system",
+    "need-to-brief",
+    "format-options",
+    "project-path",
+    "inquiry",
+  ]);
   for (const id of sectionIds) {
     expect(document.querySelectorAll(`section#${id}`)).toHaveLength(1);
   }
@@ -43,6 +55,7 @@ it("renders all eight formats as one featured format wall", () => {
   expect(dosage.querySelectorAll("[data-format-project]")).toHaveLength(8);
   expect(dosage.querySelectorAll("[data-format-media]")).toHaveLength(8);
   expect(dosage.querySelectorAll("[data-format-label]")).toHaveLength(8);
+  expect(dosage.querySelectorAll("[data-motion-role='format-item']")).toHaveLength(8);
   expect(dosage).toHaveAttribute("data-format-motion", "static");
   expect(dosage).toHaveAttribute("data-layout", "featured-format-wall");
   expect(dosage).toHaveAttribute("data-ui-stage", "featured-format-wall");
@@ -73,6 +86,8 @@ it("renders three product directions inside one sticky product switcher", () => 
   expect(within(directions!).getAllByTestId("market-story")).toHaveLength(3);
   expect(within(directions!).getAllByTestId("market-story-image")).toHaveLength(3);
   expect(within(directions!).getAllByTestId("market-step")).toHaveLength(3);
+  expect(within(directions!).getByTestId("market-intro")).toBeInTheDocument();
+  expect(within(directions!).getByRole("heading", { name: "From routine to product brief." })).toBeInTheDocument();
   expect(within(directions!).queryByRole("button")).not.toBeInTheDocument();
   expect(directions).not.toHaveTextContent(/\d{2} \/ \d{2}/);
 });
@@ -181,8 +196,19 @@ it("maps homepage content to semantic motion roles", () => {
   );
   expect(document.querySelector("[data-motion-role='proof-ledger']")).toBeInTheDocument();
   expect(document.querySelector("[data-motion-role='media']")).toBeInTheDocument();
-  expect(document.querySelectorAll("[data-motion-role='collection-item']")).toHaveLength(11);
+  expect(document.querySelectorAll("[data-motion-role='collection-item']")).toHaveLength(3);
+  expect(document.querySelectorAll("[data-motion-role='format-item']")).toHaveLength(8);
   expect(document.querySelectorAll("[data-motion-role='process-step']")).toHaveLength(6);
+});
+
+it("keeps the hero and manufacturing facts static", () => {
+  const css = readFileSync(
+    join(process.cwd(), "src/components/patterns/vithelo-b2b-home.module.css"),
+    "utf8",
+  );
+
+  expect(css).not.toContain("hero-copy-arrive");
+  expect(css).not.toContain(".homepage[data-motion-mode=\"enhanced\"] .heroContent");
 });
 
 it("reveals each motion section once and disconnects on unmount", () => {
@@ -231,6 +257,8 @@ it("reveals each motion section once and disconnects on unmount", () => {
     observer as unknown as IntersectionObserver,
   );
   expect(proof).toHaveAttribute("data-motion-state", "visible");
+  expect(within(proof).getByText("2008")).toBeInTheDocument();
+  expect(within(proof).getByText("5,000+")).toBeInTheDocument();
   expect(unobserve).toHaveBeenCalledWith(proof);
 
   unmount();

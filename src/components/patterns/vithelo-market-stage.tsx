@@ -15,6 +15,7 @@ function VitheloMarketStage({ market }: VitheloMarketStageProps) {
       data-layout="sticky-product-switcher"
       data-motion-fallback="stacked"
       data-motion-intent="RELATE"
+      data-narrative-role="need-to-brief"
       data-testid="market-stage"
       data-ui-stage="image-led-product-directions"
       id="solutions"
@@ -24,7 +25,7 @@ function VitheloMarketStage({ market }: VitheloMarketStageProps) {
         } as CSSProperties
       }
     >
-      <div className={styles.marketIntro}>
+      <div className={styles.marketIntro} data-testid="market-intro">
         <p className={styles.kicker}>{market.kicker}</p>
         <h2 className={styles.title} id="solutions-title">
           {market.title}
@@ -48,14 +49,6 @@ function VitheloMarketStage({ market }: VitheloMarketStageProps) {
                   data-testid="market-story-image"
                   role="img"
                 >
-                  <Image
-                    alt=""
-                    aria-hidden="true"
-                    className={styles.marketStoryBackdrop}
-                    fill
-                    sizes="(max-width: 760px) 92vw, 66vw"
-                    src={story.media.src ?? "/media/b2b/gummies-pexels-14027295.jpg"}
-                  />
                   <Image
                     alt=""
                     aria-hidden="true"
