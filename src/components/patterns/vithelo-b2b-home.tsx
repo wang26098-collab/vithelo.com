@@ -199,7 +199,8 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
     cooperationType: "OEM / ODM project",
     productWorld: "Nutrition",
     market: "Not provided",
-    summary: "Please share your format, formula, packaging, volume and target timing.",
+    summary:
+      "Please share your product direction, preferred format, customization priorities, expected volume and target market.",
   };
   const emailHref =
     siteConfig.contact.email.status === "CONFIGURED"
@@ -251,7 +252,7 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
         className={styles.proof}
         data-layout="manufacturing-editorial-split"
         data-motion-intent="EXPLAIN"
-        data-narrative-role="manufacturing-proof"
+        data-narrative-role="manufacturing-system"
         id="proof"
       >
         <div className={styles.proofPrimary}>
@@ -259,18 +260,10 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
             <p className={styles.kicker}>{content.proof.kicker}</p>
             <h2 className={styles.title} id="proof-title">{content.proof.title}</h2>
             <p className={styles.copy}>{content.proof.copy}</p>
-            <div className={styles.proofMetrics}>
-              {content.proof.metrics.map((metric) => (
-                <article
-                  data-motion-role="proof-value"
-                  data-testid="manufacturing-metric"
-                  key={metric.label}
-                >
-                  <strong>{metric.value}</strong>
-                  <span>{metric.label}</span>
-                </article>
-              ))}
-            </div>
+            <Link className={styles.editorialAction} href={content.proof.action.href}>
+              {content.proof.action.label}
+              <span aria-hidden="true">→</span>
+            </Link>
           </div>
           <figure
             className={styles.proofVisual}
@@ -280,23 +273,24 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
             <Image
               alt={content.proof.media.label}
               fill
+              loading="eager"
               sizes="(max-width: 900px) 100vw, 52vw"
               src={content.proof.media.src!}
             />
             <figcaption>Nutrition manufacturing · OEM / ODM</figcaption>
           </figure>
         </div>
-        <div className={styles.proofCapabilities} data-motion-role="proof-ledger">
-          {content.proof.capabilities.map((capability, index) => (
+        <div className={styles.proofCapabilities} data-motion-role="workstream-ledger">
+          {content.proof.workstreams.map((workstream, index) => (
             <article
               data-motion-role="proof-value"
-              data-testid="manufacturing-capability"
-              key={capability.title}
+              data-testid="manufacturing-workstream"
+              key={workstream.title}
             >
               <ProofCapabilityIcon index={index} />
               <div>
-                <h3>{capability.title}</h3>
-                <p>{capability.copy}</p>
+                <h3>{workstream.title}</h3>
+                <p>{workstream.copy}</p>
               </div>
             </article>
           ))}
@@ -306,53 +300,35 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
       <section
         aria-labelledby="capacity-boundary-title"
         className={`${styles.section} ${styles.capacityBoundarySection}`}
-        data-layout="editorial-product-runway"
+        data-layout="project-entry-routes"
         data-motion-intent="RELATE"
-        data-narrative-role="finished-outcomes"
-        data-ui-stage="featured-product-runway"
+        data-narrative-role="project-entry"
+        data-ui-stage="project-entry-routes"
         id="capacity-boundary"
       >
         <div className={styles.featuredIntro}>
           <div>
-            <p className={styles.kicker}>{content.capacity.kicker}</p>
-            <h2 className={styles.title} id="capacity-boundary-title">{content.capacity.title}</h2>
+            <p className={styles.kicker}>{content.entryRoutes.kicker}</p>
+            <h2 className={styles.title} id="capacity-boundary-title">{content.entryRoutes.title}</h2>
           </div>
-          <p className={styles.featuredIntroCopy}>{content.capacity.copy}</p>
-          <Link className={styles.featuredAllLink} href={content.capacity.action.href}>
-            {content.capacity.action.label}
+          <p className={styles.featuredIntroCopy}>{content.entryRoutes.copy}</p>
+          <Link className={styles.featuredAllLink} href={content.entryRoutes.action.href}>
+            {content.entryRoutes.action.label}
             <span aria-hidden="true">→</span>
           </Link>
         </div>
-        <div className={styles.featuredProductGrid} data-testid="featured-product-grid">
-          {content.capacity.products.map((product, index) => (
+        <div className={styles.entryRouteGrid} data-testid="project-entry-routes">
+          {content.entryRoutes.routes.map((route, index) => (
             <article
-              className={styles.featuredProductCard}
-              data-featured={product.id === "sleep"}
+              className={styles.entryRoute}
               data-motion-index={index}
-              data-motion-role="collection-item"
-              data-testid="featured-product-card"
-              key={product.id}
+              data-motion-role="entry-route"
+              data-testid="project-entry-route"
+              key={route.title}
             >
-              <div className={styles.featuredProductVisual}>
-                <Image
-                  alt={product.media.label}
-                  data-testid="featured-product-image"
-                  fill
-                  sizes="(max-width: 760px) 100vw, (max-width: 1100px) 50vw, 34vw"
-                  src={product.media.src!}
-                />
-                <span className={styles.featuredProductIndex}>
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-              </div>
-              <div className={styles.featuredProductBody}>
-                <h3>{product.title}</h3>
-                <p>{product.copy}</p>
-                <Link className={styles.featuredProductAction} href={product.action.href}>
-                  {product.action.label}
-                  <span aria-hidden="true">→</span>
-                </Link>
-              </div>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <h3>{route.title}</h3>
+              <p>{route.copy}</p>
             </article>
           ))}
         </div>
@@ -364,7 +340,7 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
         data-layout="customization-constellation"
         data-media-status={content.customization.media.status}
         data-motion-intent="EXPLAIN"
-        data-narrative-role="customization-system"
+        data-narrative-role="product-definition"
         data-ui-stage="customization-constellation"
         id="gummy-stage"
       >
@@ -377,10 +353,10 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
             <p className={styles.customizationCopy}>{content.customization.copy}</p>
             <Link
               className={styles.customizationPrimaryAction}
-              href={content.customization.primaryAction.href}
+              href={content.customization.action.href}
             >
               <span aria-hidden="true">→</span>
-              {content.customization.primaryAction.label}
+              {content.customization.action.label}
             </Link>
           </div>
 
@@ -418,26 +394,6 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
           </div>
         </div>
 
-        <div className={styles.customizationBenefitRail}>
-          {content.customization.benefits.map((benefit, index) => (
-            <article
-              data-motion-role="proof-value"
-              data-testid="customization-benefit"
-              key={benefit.title}
-            >
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <h3>{benefit.title}</h3>
-              <p>{benefit.copy}</p>
-            </article>
-          ))}
-          <Link
-            className={styles.customizationSecondaryAction}
-            href={content.customization.secondaryAction.href}
-          >
-            <span aria-hidden="true">→</span>
-            {content.customization.secondaryAction.label}
-          </Link>
-        </div>
       </section>
 
       <VitheloMarketStage market={content.market} />
@@ -457,6 +413,7 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
           <h2 className={styles.title} id="runway-title">
             {content.runway.title}
           </h2>
+          <p className={styles.runwayCopy}>{content.runway.copy}</p>
         </div>
         <div className={styles.runway} data-motion-role="process-line">
           {content.runway.steps.map((step, index) => (
@@ -471,6 +428,10 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
             </article>
           ))}
         </div>
+        <Link className={styles.runwayAction} href={content.runway.action.href}>
+          {content.runway.action.label}
+          <span aria-hidden="true">→</span>
+        </Link>
       </section>
 
       <section
@@ -523,6 +484,11 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
         </div>
         </VitheloInquiryReveal>
         <div className={styles.contactDetails}>
+        <ul className={styles.contactPrompts} aria-label="Useful details to prepare">
+          {content.contact.prompts.map((prompt) => (
+            <li key={prompt}>{prompt}</li>
+          ))}
+        </ul>
         {siteConfig.contact.email.status === "CONFIGURED" &&
         siteConfig.contact.whatsapp.status === "CONFIGURED" ? (
           <VitheloHomeInquiryComposer

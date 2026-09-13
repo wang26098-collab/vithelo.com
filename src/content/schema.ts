@@ -206,15 +206,11 @@ export const HomeContentSchema = z.object({
 export const B2BHomeSectionIdSchema = z.enum([
   "hero",
   "proof",
-  "capacity-dashboard",
+  "capacity-boundary",
   "gummy-stage",
   "solutions",
   "dosage-forms",
-  "custom-development",
-  "manufacturing",
-  "quality",
   "project-runway",
-  "company-fit",
   "contact",
 ]);
 
@@ -234,7 +230,7 @@ const B2BLabelCopySchema = z.object({
 
 export const VitheloB2BHomeContentSchema = z.object({
   dataStatus: DataStatusSchema,
-  sectionOrder: z.array(B2BHomeSectionIdSchema).length(12),
+  sectionOrder: z.array(B2BHomeSectionIdSchema).length(8),
   hero: z.object({
     eyebrow: z.string().min(1),
     title: z.string().min(1),
@@ -250,73 +246,41 @@ export const VitheloB2BHomeContentSchema = z.object({
     media: B2BRequiredMediaSchema,
   }),
   proof: z.object({
-    kicker: z.string().min(1),
-    title: z.string().min(1),
+    kicker: z.literal("02 · MANUFACTURING SYSTEM"),
+    title: z.literal("Built to connect development with production."),
     copy: z.string().min(1),
     action: z.object({
-      label: z.string().min(1),
-      href: z.string().regex(/^\//),
+      label: z.literal("Explore Manufacturing"),
+      href: z.literal("/manufacturing"),
     }),
     media: B2BRequiredMediaSchema,
-    metrics: z
-      .array(
-        z.object({
-          value: z.string().min(1),
-          label: z.string().min(1),
-        }),
-      )
-      .length(4),
-    capabilities: z
-      .array(
-        z.object({
-          title: z.string().min(1),
-          copy: z.string().min(1),
-        }),
-      )
-      .length(4),
+    workstreams: z.array(B2BLabelCopySchema).length(4),
   }),
-  capacity: z.object({
-    kicker: z.string().min(1),
-    title: z.string().min(1),
+  entryRoutes: z.object({
+    kicker: z.literal("03 · WAYS TO START"),
+    title: z.literal("Start from where your product is today."),
     copy: z.string().min(1),
     action: z.object({
-      label: z.literal("View All Products"),
-      href: z.literal("/products"),
+      label: z.literal("Find Your Starting Route"),
+      href: z.literal("/oem-odm"),
     }),
-    products: z
-      .array(
-        z.object({
-          id: z.enum(["sleep", "active", "women"]),
-          title: z.string().min(1),
-          copy: z.string().min(1),
-          media: B2BRequiredMediaSchema,
-          action: z.object({
-            label: z.literal("Discuss This Product"),
-            href: z.literal("/contact"),
-          }),
-        }),
-      )
-      .length(3),
+    routes: z.array(B2BLabelCopySchema).length(3),
   }),
   customization: z.object({
-    kicker: z.literal("04 · CUSTOMIZATION"),
-    title: z.literal("Tailored to Your Brand."),
+    kicker: z.literal("04 · PRODUCT DEFINITION"),
+    title: z.literal("Four decisions shape one finished product."),
     copy: z.string().min(1),
-    primaryAction: z.object({
-      label: z.literal("Start Your Customization"),
-      href: z.literal("/contact"),
-    }),
-    secondaryAction: z.object({
-      label: z.literal("Explore Customization"),
+    action: z.object({
+      label: z.literal("Explore OEM / ODM"),
       href: z.literal("/oem-odm"),
     }),
     media: B2BRequiredMediaSchema,
     nodes: z.array(B2BLabelCopySchema).length(4),
-    benefits: z.array(B2BLabelCopySchema).length(4),
   }),
   market: z.object({
-    kicker: z.string().min(1),
-    title: z.string().min(1),
+    kicker: z.literal("05 · PRODUCT DIRECTION"),
+    title: z.literal("Begin with the routine, not the ingredient list."),
+    intro: z.string().min(1),
     stories: z
       .array(
         B2BLabelCopySchema.extend({
@@ -326,8 +290,8 @@ export const VitheloB2BHomeContentSchema = z.object({
       .length(3),
   }),
   dosage: z.object({
-    kicker: z.literal("06 · Product Formats"),
-    title: z.literal("One system. Eight expressions."),
+    kicker: z.literal("06 · PRODUCT FORMATS"),
+    title: z.literal("One brief. Eight ways to deliver it."),
     qualifier: z.string().min(1),
     items: z
       .array(
@@ -348,62 +312,21 @@ export const VitheloB2BHomeContentSchema = z.object({
       )
       .length(8),
   }),
-  development: z.object({
-    kicker: z.string().min(1),
-    title: z.string().min(1),
-    coreTitle: z.string().min(1),
-    coreCopy: z.string().min(1),
-    notes: z.array(B2BLabelCopySchema).length(4),
-  }),
-  manufacturing: z.object({
-    kicker: z.string().min(1),
-    title: z.string().min(1),
-    media: B2BRequiredMediaSchema,
-    metrics: z
-      .array(
-        z.object({
-          label: z.string().min(1),
-          value: z.string().min(1),
-          note: z.string().min(1),
-        }),
-      )
-      .length(4),
-  }),
-  quality: z.object({
-    kicker: z.string().min(1),
-    title: z.string().min(1),
-    recordTitle: z.string().min(1),
-    caveat: z.string().min(1),
-    rows: z
-      .array(
-        B2BLabelCopySchema.extend({
-          state: z.string().min(1),
-        }),
-      )
-      .length(4),
-  }),
   runway: z.object({
-    kicker: z.string().min(1),
-    title: z.string().min(1),
+    kicker: z.literal("07 · PROJECT PATH"),
+    title: z.literal("A clear path from first brief to finished-project review."),
+    copy: z.string().min(1),
+    action: z.object({
+      label: z.literal("See the OEM / ODM Process"),
+      href: z.literal("/oem-odm"),
+    }),
     steps: z.array(B2BLabelCopySchema).length(6),
   }),
-  channels: z.object({
-    kicker: z.string().min(1),
-    title: z.string().min(1),
-    paths: z
-      .array(
-        B2BLabelCopySchema.extend({
-          label: z.string().min(1),
-        }),
-      )
-      .length(3),
-  }),
   contact: z.object({
-    status: z.literal("NOT_CONFIGURED"),
-    kicker: z.string().min(1),
-    title: z.string().min(1),
+    kicker: z.literal("08 · START A PROJECT"),
+    title: z.literal("Turn your idea into a useful first conversation."),
     copy: z.string().min(1),
-    pendingMessage: z.string().min(1),
+    prompts: z.array(z.string().min(1)).length(4),
     formats: z.array(z.string().min(1)).length(8),
     scene: z.object({
       src: z.string().startsWith("/media/"),

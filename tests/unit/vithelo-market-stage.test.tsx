@@ -11,8 +11,9 @@ it("renders three product directions in one sticky viewport without controls", (
   expect(stage).toHaveAttribute("data-layout", "sticky-product-switcher");
   expect(stage).toHaveAttribute("data-motion-intent", "RELATE");
   expect(stage).toHaveAttribute("data-motion-fallback", "stacked");
-  expect(stage).toHaveAttribute("data-narrative-role", "need-to-brief");
+  expect(stage).toHaveAttribute("data-narrative-role", "routine-to-brief");
   expect(screen.getByTestId("market-intro")).toBeInTheDocument();
+  expect(stage).toHaveTextContent("A stronger brief begins with a clear moment of use");
   expect(stories).toHaveLength(3);
   expect(screen.getAllByTestId("market-story-image")).toHaveLength(3);
   expect(screen.getAllByTestId("market-step")).toHaveLength(3);

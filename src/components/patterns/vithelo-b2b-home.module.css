@@ -11,6 +11,14 @@
   --home-screen-min-height: auto;
   --home-screen-space-y: clamp(72px, 8vh, 112px);
   --home-screen-02-height: clamp(835px, calc(92svh + 15px), 995px);
+  --home-layer-radius: 40px;
+  --home-overlap-02: 40px;
+  --home-overlap-03: 32px;
+  --home-overlap-04: 28px;
+  --home-overlap-05: 24px;
+  --home-overlap-06: 24px;
+  --home-overlap-07: 32px;
+  --home-overlap-08: 32px;
   width: 100%;
   overflow: clip;
   background: var(--ivory);
@@ -18,6 +26,7 @@
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
+  isolation: isolate;
 }
 
 .homepage *,
@@ -53,6 +62,7 @@
 
 .hero {
   position: relative;
+  z-index: 1;
   height: var(--vithelo-page-hero-height);
   min-height: var(--vithelo-page-hero-height);
   overflow: hidden;
@@ -124,6 +134,9 @@
 }
 
 .proof {
+  position: relative;
+  z-index: 2;
+  margin-top: calc(var(--home-overlap-02) * -1);
   height: var(--home-screen-02-height);
   min-height: var(--home-screen-02-height);
   padding: var(--home-screen-space-y) max(var(--home-frame-gutter), calc((100vw - var(--home-frame-width)) / 2));
@@ -135,6 +148,17 @@
     radial-gradient(circle at 20% 12%, rgb(255 255 255 / 58%), transparent 32%),
     var(--ivory);
   color: var(--ink);
+}
+
+.proof,
+.capacityBoundarySection,
+.customizationSection,
+.marketStage,
+.dosageSection,
+.runwaySection,
+.contactRevealSection {
+  border-radius: var(--home-layer-radius) var(--home-layer-radius) 0 0;
+  box-shadow: 0 -1px 0 rgb(255 255 255 / 38%);
 }
 
 .proofPrimary {
@@ -173,6 +197,20 @@
   color: var(--muted);
   font-size: clamp(0.95rem, 1.05vw, 1.08rem);
   line-height: 1.55;
+}
+
+.editorialAction { min-height: 44px;
+  width: max-content;
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid currentColor;
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
 .proofMetrics {
@@ -313,6 +351,8 @@
 
 .section.capacityBoundarySection {
   position: relative;
+  z-index: 3;
+  margin-top: calc(var(--home-overlap-03) * -1);
   height: var(--home-screen-02-height);
   min-height: var(--home-screen-02-height);
   overflow: hidden;
@@ -322,6 +362,27 @@
     #171b19;
   color: var(--ivory);
 }
+
+.entryRouteGrid {
+  width: 100%;
+  margin-top: clamp(3rem, 7vw, 6.5rem);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid rgb(243 240 232 / 28%);
+  border-bottom: 1px solid rgb(243 240 232 / 28%);
+}
+
+.entryRoute { min-height: clamp(250px, 31svh, 330px); padding: clamp(1.5rem, 2.8vw, 2.75rem);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid rgb(243 240 232 / 18%);
+}
+
+.entryRoute:first-child { border-left: 0; padding-left: 0; }
+.entryRoute > span { color: rgb(243 240 232 / 48%); font-size: 0.68rem; letter-spacing: 0.16em; }
+.entryRoute h3 { max-width: 12ch; margin: auto 0 1rem; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2rem, 3.2vw, 3.5rem); font-weight: 500; letter-spacing: -0.045em; line-height: 0.98; }
+.entryRoute p { max-width: 34ch; margin: 0; color: rgb(243 240 232 / 66%); font-size: 0.85rem; line-height: 1.55; }
 
 .featuredIntro {
   width: 100%;
@@ -455,6 +516,8 @@
 }
 
 .section.customizationSection {
+  z-index: 4;
+  margin-top: calc(var(--home-overlap-04) * -1);
   height: var(--home-screen-02-height);
   min-height: var(--home-screen-02-height);
   padding-block: var(--home-screen-space-y);
@@ -647,12 +710,22 @@
 
 .marketStage {
   position: relative;
+  z-index: 5;
+  margin-top: calc(var(--home-overlap-05) * -1);
   min-height: var(--market-stage-height, 300svh);
   overflow: visible;
   padding-block: 0;
   padding-inline: max(var(--home-frame-gutter), calc((100vw - var(--home-frame-width)) / 2));
   background: var(--paper);
   color: var(--ink);
+}
+
+.marketIntroCopy {
+  width: min(38ch, 32vw);
+  margin: 1rem 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.5;
 }
 
 .marketIntro {
@@ -889,6 +962,8 @@
 }
 
 .dosageSection {
+  z-index: 6;
+  margin-top: calc(var(--home-overlap-06) * -1);
   min-height: auto;
   overflow: clip;
   padding-block: 0 clamp(5rem, 9vw, 9rem);
@@ -1248,6 +1323,8 @@
 .qualityRow em { color: var(--muted); font-style: normal; text-align: right; }
 
 .runwaySection {
+  z-index: 7;
+  margin-top: calc(var(--home-overlap-07) * -1);
   height: var(--home-screen-02-height);
   min-height: var(--home-screen-02-height);
   padding-block: var(--home-screen-space-y);
@@ -1259,6 +1336,27 @@
     url("/media/vithelo-home-screen-02-background.png");
   background-size: cover;
   background-position: center;
+}
+
+.runwayCopy {
+  max-width: 62ch;
+  margin: 1.25rem auto 0;
+  color: #adb0aa;
+}
+
+.runwayAction { min-height: 44px;
+  width: max-content;
+  margin: 2rem auto 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid rgb(243 240 232 / 58%);
+  color: var(--ivory);
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
 .runway {
@@ -1358,11 +1456,13 @@
 }
 
 .contactSection { background: #171918; color: #f3f0e8; }
-.contactRevealSection { background: var(--color-graphite); color: var(--color-ivory); }
+.contactRevealSection { position: relative; z-index: 8; margin-top: calc(var(--home-overlap-08) * -1); background: var(--color-graphite); color: var(--color-ivory); }
 .contactRevealSection .contactIntroGrid { max-width: var(--container-standard); margin-inline: auto; grid-template-columns: 1fr; gap: var(--space-48); text-align: center; }
 .contactRevealSection .contactIntro { max-width: var(--container-reading); margin-inline: auto; }
 .contactRevealSection .title { font-size: var(--inquiry-title-size); line-height: var(--line-height-tight); letter-spacing: var(--letter-spacing-display); }
 .contactRevealSection .copy { max-width: var(--container-reading); margin: var(--space-24) auto 0; color: var(--color-titanium-light); }
+.contactPrompts { max-width: var(--container-reading); margin: var(--space-24) auto 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem 1.5rem; color: var(--color-titanium-light); font-size: 0.78rem; text-align: left; list-style: none; }
+.contactPrompts li { padding-top: 0.6rem; border-top: 1px solid rgb(243 240 232 / 22%); }
 .contactRevealSection .contactChannels { width: min(100%, var(--container-reading)); margin-inline: auto; gap: var(--space-32); text-align: left; }
 .contactRevealSection .contactChannelCard { min-height: var(--space-160); padding: var(--space-24) 0; border: 0; border-top: 1px solid var(--color-titanium); background: transparent; color: var(--color-ivory); }
 .contactRevealSection .contactChannelIndex { color: var(--color-titanium-light); }
@@ -1391,7 +1491,7 @@
 .homepage[data-motion-mode="enhanced"] [data-motion-intent]:not([data-motion-state="visible"]) > .copy,
 .homepage[data-motion-mode="enhanced"] [data-motion-intent]:not([data-motion-state="visible"]) [data-motion-role="proof-value"],
 .homepage[data-motion-mode="enhanced"] [data-motion-intent]:not([data-motion-state="visible"]) [data-motion-role="relation-item"],
-.homepage[data-motion-mode="enhanced"] [data-motion-intent]:not([data-motion-state="visible"]) [data-motion-role="collection-item"],
+.homepage[data-motion-mode="enhanced"] [data-motion-intent]:not([data-motion-state="visible"]) [data-motion-role="entry-route"],
 .homepage[data-motion-mode="enhanced"] [data-motion-intent]:not([data-motion-state="visible"]) [data-motion-role="process-step"] {
   opacity: 0;
   transform: translateY(18px);
@@ -1403,7 +1503,7 @@
 .homepage[data-motion-mode="enhanced"] [data-motion-intent] > .copy,
 .homepage[data-motion-mode="enhanced"] [data-motion-role="proof-value"],
 .homepage[data-motion-mode="enhanced"] [data-motion-role="relation-item"],
-.homepage[data-motion-mode="enhanced"] [data-motion-role="collection-item"],
+.homepage[data-motion-mode="enhanced"] [data-motion-role="entry-route"],
 .homepage[data-motion-mode="enhanced"] [data-motion-role="process-step"] {
   transition:
     opacity var(--motion-narrative) var(--ease-standard),
@@ -1416,13 +1516,13 @@
 .homepage[data-motion-mode="enhanced"] [data-motion-state="visible"] > .copy,
 .homepage[data-motion-mode="enhanced"] [data-motion-state="visible"] [data-motion-role="proof-value"],
 .homepage[data-motion-mode="enhanced"] [data-motion-state="visible"] [data-motion-role="relation-item"],
-.homepage[data-motion-mode="enhanced"] [data-motion-state="visible"] [data-motion-role="collection-item"],
+.homepage[data-motion-mode="enhanced"] [data-motion-state="visible"] [data-motion-role="entry-route"],
 .homepage[data-motion-mode="enhanced"] [data-motion-state="visible"] [data-motion-role="process-step"] {
   opacity: 1;
   transform: translateY(0);
 }
 
-.homepage[data-motion-mode="enhanced"] [data-motion-intent]:not([data-motion-state="visible"]) [data-motion-role="proof-ledger"],
+.homepage[data-motion-mode="enhanced"] [data-motion-intent]:not([data-motion-state="visible"]) [data-motion-role="workstream-ledger"],
 .homepage[data-motion-mode="enhanced"] [data-motion-intent]:not([data-motion-state="visible"]) [data-motion-role="capacity-metrics"],
 .homepage[data-motion-mode="enhanced"] [data-motion-intent]:not([data-motion-state="visible"]) [data-motion-role="capacity-process"],
 .homepage[data-motion-mode="enhanced"] [data-motion-intent]:not([data-motion-state="visible"]) [data-motion-role="media"] {
@@ -1430,7 +1530,7 @@
   clip-path: inset(0 100% 0 0);
 }
 
-.homepage[data-motion-mode="enhanced"] [data-motion-role="proof-ledger"],
+.homepage[data-motion-mode="enhanced"] [data-motion-role="workstream-ledger"],
 .homepage[data-motion-mode="enhanced"] [data-motion-role="capacity-metrics"],
 .homepage[data-motion-mode="enhanced"] [data-motion-role="capacity-process"],
 .homepage[data-motion-mode="enhanced"] [data-motion-role="media"] {
@@ -1439,7 +1539,7 @@
     clip-path var(--motion-narrative) var(--ease-standard);
 }
 
-.homepage[data-motion-mode="enhanced"] [data-motion-state="visible"] [data-motion-role="proof-ledger"],
+.homepage[data-motion-mode="enhanced"] [data-motion-state="visible"] [data-motion-role="workstream-ledger"],
 .homepage[data-motion-mode="enhanced"] [data-motion-state="visible"] [data-motion-role="capacity-metrics"],
 .homepage[data-motion-mode="enhanced"] [data-motion-state="visible"] [data-motion-role="capacity-process"],
 .homepage[data-motion-mode="enhanced"] [data-motion-state="visible"] [data-motion-role="media"] {
@@ -1457,13 +1557,7 @@
   transform: translateY(18px) rotate(2deg);
 }
 
-.homepage[data-motion-mode="enhanced"] .customizationSection:not([data-motion-state="visible"]) .customizationBenefitRail {
-  opacity: 0;
-  clip-path: inset(0 100% 0 0);
-}
-
-.homepage[data-motion-mode="enhanced"] .customizationIntro,
-.homepage[data-motion-mode="enhanced"] .customizationBenefitRail {
+.homepage[data-motion-mode="enhanced"] .customizationIntro {
   transition:
     opacity var(--motion-narrative) var(--ease-standard),
     transform var(--motion-narrative) var(--ease-standard),
@@ -1478,8 +1572,7 @@
 }
 
 .homepage[data-motion-mode="enhanced"] .customizationSection[data-motion-state="visible"] .customizationIntro,
-.homepage[data-motion-mode="enhanced"] .customizationSection[data-motion-state="visible"] .customizationVisual,
-.homepage[data-motion-mode="enhanced"] .customizationSection[data-motion-state="visible"] .customizationBenefitRail {
+.homepage[data-motion-mode="enhanced"] .customizationSection[data-motion-state="visible"] .customizationVisual {
   opacity: 1;
   clip-path: inset(0);
   transform: none;
@@ -1494,9 +1587,8 @@
 .customizationNode:nth-of-type(2) { transition-delay: 70ms; }
 .customizationNode:nth-of-type(3) { transition-delay: 140ms; }
 .customizationNode:nth-of-type(4) { transition-delay: 210ms; }
-.customizationBenefitRail { transition-delay: 280ms; }
-.featuredProductCard:nth-child(2) { transition-delay: 80ms; }
-.featuredProductCard:nth-child(3) { transition-delay: 160ms; }
+.entryRoute:nth-child(2) { transition-delay: 80ms; }
+.entryRoute:nth-child(3) { transition-delay: 160ms; }
 .runway article:nth-child(2) { transition-delay: 70ms; }
 .runway article:nth-child(3) { transition-delay: 140ms; }
 .runway article:nth-child(4) { transition-delay: 210ms; }
@@ -1525,6 +1617,19 @@
 .brandSignature strong { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(3rem, 7vw, 7rem); font-style: italic; font-weight: 500; letter-spacing: -0.045em; line-height: 0.95; }
 .brandSignature span { margin-top: 1.5rem; color: rgb(243 240 232 / 56%); font-size: 0.7rem; letter-spacing: 0.18em; }
 
+@media (max-width: 1100px) {
+  .homepage {
+    --home-layer-radius: 32px;
+    --home-overlap-02: 32px;
+    --home-overlap-03: 24px;
+    --home-overlap-04: 22px;
+    --home-overlap-05: 20px;
+    --home-overlap-06: 20px;
+    --home-overlap-07: 24px;
+    --home-overlap-08: 24px;
+  }
+}
+
 @media (max-width: 900px) {
   .contactIntroGrid { grid-template-columns: 1fr; gap: 2.5rem; }
   .proofPrimary { grid-template-columns: 1fr; }
@@ -1540,6 +1645,9 @@
   .featuredIntroCopy { grid-column: 1 / -1; grid-row: 2; margin-top: 0.5rem; }
   .featuredAllLink { grid-column: 2; grid-row: 1; }
   .featuredProductGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .entryRouteGrid { grid-template-columns: 1fr; }
+  .entryRoute { min-height: 220px; border-left: 0; border-top: 1px solid rgb(243 240 232 / 18%); padding-inline: 0; }
+  .entryRoute:first-child { border-top: 0; }
   .featuredProductCard[data-featured="true"] { grid-column: 1 / -1; }
   .featuredProductCard[data-featured="true"] .featuredProductVisual { min-height: 430px; }
   .capacityPanels { grid-template-columns: 1fr; }
@@ -1569,6 +1677,14 @@
   .homepage {
     --home-frame-gutter: 16px;
     --home-screen-02-height: auto;
+    --home-layer-radius: 20px;
+    --home-overlap-02: 20px;
+    --home-overlap-03: 16px;
+    --home-overlap-04: 14px;
+    --home-overlap-05: 12px;
+    --home-overlap-06: 12px;
+    --home-overlap-07: 16px;
+    --home-overlap-08: 16px;
   }
   .contactChannels,
   .inquiryFields { grid-template-columns: 1fr; }
@@ -1612,6 +1728,8 @@
   .featuredAllLink { grid-column: auto; grid-row: auto; }
   .featuredAllLink { width: max-content; }
   .featuredProductGrid { width: 100%; grid-template-columns: 1fr; gap: 0.875rem; }
+  .entryRouteGrid { margin-top: 2.5rem; }
+  .entryRoute { min-height: 190px; }
   .featuredProductCard,
   .featuredProductCard[data-featured="true"] { grid-column: auto; min-height: 520px; }
   .featuredProductCard[data-featured="true"] .featuredProductVisual,
@@ -1679,6 +1797,11 @@
     font-size: clamp(1.2rem, 5.2vw, 1.55rem);
   }
 
+  .marketIntroCopy {
+    width: min(36ch, 82vw);
+    font-size: 0.72rem;
+  }
+
   .marketStory {
     padding-block: clamp(4rem, 10vh, 5.5rem) clamp(2.5rem, 6vh, 3.5rem);
   }
@@ -1730,6 +1853,7 @@
   .qualityDocument,
   .contactGrid { grid-template-columns: 1fr; }
   .contactChecklist { grid-template-columns: 1fr; }
+  .contactPrompts { grid-template-columns: 1fr; }
   .contactChecklist li:nth-child(odd) { padding-right: 0; }
   .inquiryFields { grid-template-columns: 1fr; }
   .inquirySummaryField { grid-column: auto; }

@@ -80,23 +80,22 @@ test("reduced motion keeps meaningful content static and visible", async ({ page
   await expect(page.getByText("Made for what comes next.")).toBeVisible();
   const customization = page.locator("#gummy-stage");
   await expect(
-    customization.getByRole("heading", { name: "Tailored to Your Brand." }),
+    customization.getByRole("heading", { name: "Four decisions shape one finished product." }),
   ).toBeVisible();
   await expect(customization.getByTestId("customization-visual")).toBeVisible();
   await expect(customization.getByTestId("customization-node")).toHaveCount(4);
-  await expect(customization.getByTestId("customization-benefit")).toHaveCount(4);
   const customizationTransform = await customization
     .getByTestId("customization-visual")
     .evaluate((element) => getComputedStyle(element).transform);
   expect(customizationTransform).toBe("none");
-  const featuredProducts = page.locator("#capacity-boundary");
-  await expect(featuredProducts.getByTestId("featured-product-card")).toHaveCount(3);
-  for (const heading of ["Sleep Health", "Active Nutrition", "Women’s Health"]) {
-    await expect(featuredProducts.getByRole("heading", { name: heading })).toBeVisible();
+  const entryRoutes = page.locator("#capacity-boundary");
+  await expect(entryRoutes.getByTestId("project-entry-route")).toHaveCount(3);
+  for (const heading of ["Private Label", "Adapt & Differentiate", "Custom Development"]) {
+    await expect(entryRoutes.getByRole("heading", { name: heading })).toBeVisible();
   }
   await expect(page.getByTestId("market-story")).toHaveCount(3);
   const marketStage = page.locator("#solutions");
-  for (const heading of ["Sleep, Stress & Mood", "Active Nutrition", "Women’s Wellness"]) {
+  for (const heading of ["Evening Routines", "Active Routines", "Life-stage Routines"]) {
     await expect(marketStage.getByRole("heading", { name: heading })).toBeVisible();
   }
 

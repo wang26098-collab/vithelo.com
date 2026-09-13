@@ -22,10 +22,10 @@ it("renders the eight narrative sections once and in order", () => {
   expect(sections.map((section) => section.id)).toEqual(sectionIds);
   expect(sections.map((section) => section.getAttribute("data-narrative-role"))).toEqual([
     "positioning",
-    "manufacturing-proof",
-    "finished-outcomes",
-    "customization-system",
-    "need-to-brief",
+    "manufacturing-system",
+    "project-entry",
+    "product-definition",
+    "routine-to-brief",
     "format-options",
     "project-path",
     "inquiry",
@@ -45,13 +45,13 @@ it("renders all eight formats as one featured format wall", () => {
   expect(within(dosage).getAllByTestId("format-media-plane")).toHaveLength(8);
   expect(within(dosage).getAllByRole("link")).toHaveLength(8);
   const title = within(dosage).getByRole("heading", {
-    name: "One system. Eight expressions.",
+    name: "One brief. Eight ways to deliver it.",
   });
   expect(title).toHaveAttribute("data-format-title");
   expect(title.querySelectorAll("[data-format-char]")).toHaveLength(
-    Array.from("One system. Eight expressions.").length,
+    Array.from("One brief. Eight ways to deliver it.").length,
   );
-  expect(title.querySelectorAll("[data-format-word]")).toHaveLength(4);
+  expect(title.querySelectorAll("[data-format-word]")).toHaveLength(7);
   expect(dosage.querySelectorAll("[data-format-project]")).toHaveLength(8);
   expect(dosage.querySelectorAll("[data-format-media]")).toHaveLength(8);
   expect(dosage.querySelectorAll("[data-format-label]")).toHaveLength(8);
@@ -63,18 +63,20 @@ it("renders all eight formats as one featured format wall", () => {
   expect(within(dosage).queryByRole("tablist")).not.toBeInTheDocument();
 });
 
-it("renders manufacturing as the approved editorial split with facts and capabilities", () => {
+it("renders manufacturing as four workstreams without unsupported facts", () => {
   render(<VitheloB2BHome content={vitheloB2BHome} />);
 
   const proof = document.getElementById("proof")!;
   expect(proof).toBeInTheDocument();
   expect(proof).toHaveAttribute("data-layout", "manufacturing-editorial-split");
   expect(within(proof).getByTestId("manufacturing-scene")).toBeInTheDocument();
-  expect(within(proof).getAllByTestId("manufacturing-metric")).toHaveLength(4);
-  expect(within(proof).getAllByTestId("manufacturing-capability")).toHaveLength(4);
-  expect(within(proof).queryByRole("link", { name: "Explore Our Factory" })).not.toBeInTheDocument();
+  expect(within(proof).getAllByTestId("manufacturing-workstream")).toHaveLength(4);
+  expect(within(proof).getByRole("link", { name: /Explore Manufacturing/i })).toHaveAttribute(
+    "href",
+    "/manufacturing",
+  );
   expect(proof).not.toHaveTextContent(
-    /NOT_CONFIGURED|DEMO_ONLY|森酷|Sencool|GMP|HACCP|Halal|ISO|FDA/i,
+    /2008|5,000\+|50\+|NOT_CONFIGURED|DEMO_ONLY|森酷|Sencool|GMP|HACCP|Halal|ISO|FDA/i,
   );
 });
 
@@ -87,27 +89,27 @@ it("renders three product directions inside one sticky product switcher", () => 
   expect(within(directions!).getAllByTestId("market-story-image")).toHaveLength(3);
   expect(within(directions!).getAllByTestId("market-step")).toHaveLength(3);
   expect(within(directions!).getByTestId("market-intro")).toBeInTheDocument();
-  expect(within(directions!).getByRole("heading", { name: "From routine to product brief." })).toBeInTheDocument();
+  expect(within(directions!).getByRole("heading", { name: "Begin with the routine, not the ingredient list." })).toBeInTheDocument();
+  expect(within(directions!).getByText(/A stronger brief begins with a clear moment of use/i)).toBeVisible();
   expect(within(directions!).queryByRole("button")).not.toBeInTheDocument();
   expect(directions).not.toHaveTextContent(/\d{2} \/ \d{2}/);
 });
 
-it("renders the third screen as a three-product editorial runway", () => {
+it("renders the third screen as three project entry routes", () => {
   render(<VitheloB2BHome content={vitheloB2BHome} />);
 
   const runway = document.getElementById("capacity-boundary")!;
   expect(runway).toBeInTheDocument();
-  expect(runway).toHaveAttribute("data-layout", "editorial-product-runway");
-  expect(within(runway).getAllByTestId("featured-product-card")).toHaveLength(3);
-  expect(within(runway).getAllByTestId("featured-product-image")).toHaveLength(3);
-  expect(within(runway).getByRole("link", { name: /View All Products/i })).toHaveAttribute(
+  expect(runway).toHaveAttribute("data-layout", "project-entry-routes");
+  expect(within(runway).getAllByTestId("project-entry-route")).toHaveLength(3);
+  expect(within(runway).getByRole("link", { name: /Find Your Starting Route/i })).toHaveAttribute(
     "href",
-    "/products",
+    "/oem-odm",
   );
-  expect(within(runway).getAllByRole("link", { name: /Discuss This Product/i })).toHaveLength(3);
-  expect(runway).toHaveTextContent("Sleep Health");
-  expect(runway).toHaveTextContent("Active Nutrition");
-  expect(runway).toHaveTextContent("Women’s Health");
+  expect(runway).toHaveTextContent("Private Label");
+  expect(runway).toHaveTextContent("Adapt & Differentiate");
+  expect(runway).toHaveTextContent("Custom Development");
+  expect(runway).not.toHaveTextContent(/Sleep Health|Active Nutrition|Women’s Health/);
   expect(runway).not.toHaveTextContent(/Shop Now|price|MOQ|Seed|Pending verification/i);
 });
 
@@ -118,11 +120,9 @@ it("renders the fourth screen as a customization constellation", () => {
   expect(stage).toHaveAttribute("data-layout", "customization-constellation");
   expect(within(stage).getByTestId("customization-visual")).toBeInTheDocument();
   expect(within(stage).getAllByTestId("customization-node")).toHaveLength(4);
-  expect(within(stage).getAllByTestId("customization-benefit")).toHaveLength(4);
   expect(
-    within(stage).getByRole("link", { name: /Start Your Customization/i }),
-  ).toHaveAttribute("href", "/contact");
-  expect(within(stage).getByRole("link", { name: /Explore Customization/i })).toHaveAttribute(
+    within(stage).getByRole("link", { name: /Explore OEM \/ ODM/i }),
+  ).toHaveAttribute(
     "href",
     "/oem-odm",
   );
@@ -169,13 +169,13 @@ it("leaves shared navigation to the site frame and uses page routes", () => {
   expect(document.querySelector("main")?.textContent).not.toMatch(/[\u3400-\u9fff]/);
 });
 
-it("presents manufacturing as a customer-facing capability story", () => {
+it("presents manufacturing as a customer-facing project system", () => {
   render(<VitheloB2BHome content={vitheloB2BHome} />);
 
   const proof = document.getElementById("proof");
-  expect(within(proof!).getByRole("heading", { name: "From Formula to Finished Product" })).toBeVisible();
-  expect(proof).toHaveTextContent("5,000+");
-  expect(proof).toHaveTextContent("Multi-format Production");
+  expect(within(proof!).getByRole("heading", { name: "Built to connect development with production." })).toBeVisible();
+  expect(proof).toHaveTextContent("Product Development");
+  expect(proof).toHaveTextContent("Quality Documentation");
   expect(proof).not.toHaveTextContent(/NOT_CONFIGURED|Evidence required|Pending|audited|annual growth/i);
 });
 
@@ -194,9 +194,9 @@ it("maps homepage content to semantic motion roles", () => {
     "data-motion-intent",
     "EXPLAIN",
   );
-  expect(document.querySelector("[data-motion-role='proof-ledger']")).toBeInTheDocument();
+  expect(document.querySelector("[data-motion-role='workstream-ledger']")).toBeInTheDocument();
   expect(document.querySelector("[data-motion-role='media']")).toBeInTheDocument();
-  expect(document.querySelectorAll("[data-motion-role='collection-item']")).toHaveLength(3);
+  expect(document.querySelectorAll("[data-motion-role='entry-route']")).toHaveLength(3);
   expect(document.querySelectorAll("[data-motion-role='format-item']")).toHaveLength(8);
   expect(document.querySelectorAll("[data-motion-role='process-step']")).toHaveLength(6);
 });
@@ -257,8 +257,8 @@ it("reveals each motion section once and disconnects on unmount", () => {
     observer as unknown as IntersectionObserver,
   );
   expect(proof).toHaveAttribute("data-motion-state", "visible");
-  expect(within(proof).getByText("2008")).toBeInTheDocument();
-  expect(within(proof).getByText("5,000+")).toBeInTheDocument();
+  expect(within(proof).getByText("Product Development")).toBeInTheDocument();
+  expect(within(proof).getByText("Quality Documentation")).toBeInTheDocument();
   expect(unobserve).toHaveBeenCalledWith(proof);
 
   unmount();

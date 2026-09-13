@@ -5,15 +5,11 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
   sectionOrder: [
     "hero",
     "proof",
-    "capacity-dashboard",
+    "capacity-boundary",
     "gummy-stage",
     "solutions",
     "dosage-forms",
-    "custom-development",
-    "manufacturing",
-    "quality",
     "project-runway",
-    "company-fit",
     "contact",
   ],
   hero: {
@@ -22,10 +18,7 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
     copy:
       "A manufacturing partner for nutrition brands exploring private-label and OEM / ODM products across formats, formulas and packaging.",
     primaryAction: { label: "Start a Project", href: "/contact" },
-    secondaryAction: {
-      label: "Explore Formats",
-      href: "/products",
-    },
+    secondaryAction: { label: "Explore Formats", href: "/products" },
     media: {
       status: "FREE_COMMERCIAL_OR_REAL",
       label: "Premium supplement manufacturing atmosphere with copy-safe negative space",
@@ -35,14 +28,11 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
     },
   },
   proof: {
-    kicker: "02 · Manufacturing Capability",
-    title: "From Formula to Finished Product",
+    kicker: "02 · MANUFACTURING SYSTEM",
+    title: "Built to connect development with production.",
     copy:
-      "A manufacturing partner for nutrition products, bringing development, multi-format production and delivery into one coordinated system.",
-    action: {
-      label: "Explore Our Factory",
-      href: "/manufacturing",
-    },
+      "VITHELO brings the core workstreams of a nutrition project into one manufacturing conversation — from product definition and production planning to quality documentation and finished presentation.",
+    action: { label: "Explore Manufacturing", href: "/manufacturing" },
     media: {
       status: "FREE_COMMERCIAL_OR_REAL",
       src: "/media/b2b/sanitized-factory-production-line.jpg",
@@ -51,90 +41,52 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
       height: 1280,
       format: "JPEG",
     },
-    metrics: [
-      { value: "2008", label: "Established" },
-      { value: "5,000+", label: "Customers served" },
-      { value: "50+", label: "Countries & regions" },
-      { value: "7", label: "Production categories" },
-    ],
-    capabilities: [
+    workstreams: [
       {
-        title: "R&D Support",
-        copy: "Formula development and sample coordination",
+        title: "Product Development",
+        copy: "Translate a commercial idea into clear development requirements.",
       },
       {
-        title: "Multi-format Production",
-        copy: "Gummies, capsules, tablets, powders and liquids",
+        title: "Manufacturing Planning",
+        copy: "Align the product brief with an appropriate production route.",
       },
       {
-        title: "Quality Control",
-        copy: "Process control, batch inspection and traceability",
+        title: "Quality Documentation",
+        copy: "Review records and requirements around the needs of the project.",
       },
       {
-        title: "OEM / ODM Delivery",
-        copy: "Packaging coordination and production delivery",
+        title: "Packaging Coordination",
+        copy: "Connect the product with its container, label and finished presentation.",
       },
     ],
   },
-  capacity: {
-    kicker: "03 · FEATURED PRODUCTS",
-    title: "Three directions. Built into flagship products.",
+  entryRoutes: {
+    kicker: "03 · WAYS TO START",
+    title: "Start from where your product is today.",
     copy:
-      "A focused starting range for brands developing daily nutrition products across distinct consumer routines.",
-    action: { label: "View All Products", href: "/products" },
-    products: [
+      "Not every project begins at the same point. The right route depends on what has already been decided — and what still needs to be shaped.",
+    action: { label: "Find Your Starting Route", href: "/oem-odm" },
+    routes: [
       {
-        id: "sleep",
-        title: "Sleep Health",
-        copy: "Evening-format concepts shaped around a clear daily routine.",
-        media: {
-          status: "FREE_COMMERCIAL_OR_REAL",
-          src: "/media/vithelo-product-card-sleep.png",
-          label: "VITHELO Sleep Health bottle in a quiet evening setting",
-          width: 443,
-          height: 550,
-          format: "PNG",
-        },
-        action: { label: "Discuss This Product", href: "/contact" },
+        title: "Private Label",
+        copy: "For projects beginning with an established product direction and a defined brand presentation.",
       },
       {
-        id: "active",
-        title: "Active Nutrition",
-        copy: "Portable product concepts for energy, hydration and recovery routines.",
-        media: {
-          status: "FREE_COMMERCIAL_OR_REAL",
-          src: "/media/vithelo-product-card-active.png",
-          label: "VITHELO Active Nutrition bottle in a training-inspired setting",
-          width: 1127,
-          height: 1396,
-          format: "PNG",
-        },
-        action: { label: "Discuss This Product", href: "/contact" },
+        title: "Adapt & Differentiate",
+        copy: "For projects refining selected parts of the formula direction, sensory experience, format or pack.",
       },
       {
-        id: "women",
-        title: "Women’s Health",
-        copy:
-          "Daily nutrition concepts developed around a defined life-stage or wellness brief.",
-        media: {
-          status: "FREE_COMMERCIAL_OR_REAL",
-          src: "/media/vithelo-product-card-womens.png",
-          label: "VITHELO Women’s Health bottle in a soft sculptural setting",
-          width: 571,
-          height: 609,
-          format: "PNG",
-        },
-        action: { label: "Discuss This Product", href: "/contact" },
+        title: "Custom Development",
+        copy: "For projects beginning with an audience, a use case and a commercial brief.",
       },
     ],
   },
   customization: {
-    kicker: "04 · CUSTOMIZATION",
-    title: "Tailored to Your Brand.",
+    kicker: "04 · PRODUCT DEFINITION",
+    title: "Four decisions shape one finished product.",
     copy:
-      "From formula and format to taste and packaging, VITHELO coordinates the key decisions behind a distinctive nutrition product.",
-    primaryAction: { label: "Start Your Customization", href: "/contact" },
-    secondaryAction: { label: "Explore Customization", href: "/oem-odm" },
+      "A product becomes distinctive when formula, delivery experience, sensory direction and packaging are developed as one connected brief.",
+    action: { label: "Explore OEM / ODM", href: "/oem-odm" },
     media: {
       status: "FREE_COMMERCIAL_OR_REAL",
       src: "/media/b2b/vithelo-customization-constellation.png",
@@ -144,35 +96,30 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
       format: "PNG",
     },
     nodes: [
-      { title: "Formula", copy: "Ingredients · Serving · Product brief" },
+      { title: "Formula", copy: "What should the product brief contain?" },
       {
         title: "Dosage Form",
-        copy: "Gummies · Capsules · Tablets · Powders · Liquids",
-      },
-      { title: "Flavor & Taste", copy: "Flavor · Sweetness · Texture · Color" },
-      { title: "Packaging", copy: "Bottles · Pouches · Boxes · Labels" },
-    ],
-    benefits: [
-      { title: "OEM / ODM", copy: "Flexible development routes" },
-      { title: "Flexible MOQ", copy: "Based on formula and packaging" },
-      {
-        title: "Multi-format Production",
-        copy: "One coordinated manufacturing system",
+        copy: "How should the product be experienced and used?",
       },
       {
-        title: "Packaging Coordination",
-        copy: "From container to finished presentation",
+        title: "Sensory Direction",
+        copy: "What should taste, texture, color and use feel like?",
+      },
+      {
+        title: "Packaging",
+        copy: "How should the product be protected, presented and recognised?",
       },
     ],
   },
   market: {
-    kicker: "05 · Product Directions",
-    title: "From routine to product brief.",
+    kicker: "05 · PRODUCT DIRECTION",
+    title: "Begin with the routine, not the ingredient list.",
+    intro:
+      "A stronger brief begins with a clear moment of use, a defined audience and the role the product should play in everyday life.",
     stories: [
       {
-        title: "Sleep, Stress & Mood",
-        copy:
-          "Begin with the evening routine, then define the format, flavor and packaging around the intended use case.",
+        title: "Evening Routines",
+        copy: "Define the moment, frequency and desired product experience before deciding how the concept should be delivered.",
         media: {
           status: "FREE_COMMERCIAL_OR_REAL",
           src: "/media/nutrition-ritual.png",
@@ -183,9 +130,8 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
         },
       },
       {
-        title: "Active Nutrition",
-        copy:
-          "Begin with where the product is used, then shape portability, format and packaging around that routine.",
+        title: "Active Routines",
+        copy: "Consider where the product is carried, prepared and used before shaping portability and presentation.",
         media: {
           status: "FREE_COMMERCIAL_OR_REAL",
           src: "/media/home-membrane.png",
@@ -196,9 +142,8 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
         },
       },
       {
-        title: "Women’s Wellness",
-        copy:
-          "Begin with a defined life-stage or wellness use case, then translate it into a focused development brief.",
+        title: "Life-stage Routines",
+        copy: "Start with a clearly defined audience and use context, then turn that understanding into a focused development brief.",
         media: {
           status: "FREE_COMMERCIAL_OR_REAL",
           src: "/media/vithelo-womens-gummy-hero-desktop.png",
@@ -211,10 +156,10 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
     ],
   },
   dosage: {
-    kicker: "06 · Product Formats",
-    title: "One system. Eight expressions.",
+    kicker: "06 · PRODUCT FORMATS",
+    title: "One brief. Eight ways to deliver it.",
     qualifier:
-      "Explore eight product formats through one coordinated manufacturing system. Flexible MOQ based on formula and packaging. Contact us for MOQ.",
+      "Format selection depends on the formula direction, intended experience, packaging requirements and project review.",
     items: [
       { name: "Gummies", slug: "gummies", media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-gummies.png", label: "VITHELO gummy product format", width: 1536, height: 1024, format: "PNG" } },
       { name: "Hard Capsules", slug: "hard-capsules", media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-hard-capsules.png", label: "VITHELO hard capsule product format", width: 1536, height: 1024, format: "PNG" } },
@@ -226,157 +171,32 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
       { name: "Oral Films", slug: "oral-films", media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-oral-films.png", label: "VITHELO oral film product format", width: 1536, height: 1024, format: "PNG" } },
     ],
   },
-  development: {
-    kicker: "06 · Custom Development",
-    title: "A formula has to work on paper and on the line.",
-    coreTitle: "Formula × Form × Pack",
-    coreCopy: "OEM / ODM Development Core",
-    notes: [
-      {
-        title: "Formula Strategy",
-        copy: "Ingredients, serving size and target use",
-      },
-      {
-        title: "Sensory Design",
-        copy: "Flavor, color, shape, and texture",
-      },
-      {
-        title: "Packaging Fit",
-        copy: "Container, label, shelf and transport needs",
-      },
-      {
-        title: "Project Review",
-        copy: "MOQ, timing, and manufacturing feasibility",
-      },
-    ],
-  },
-  manufacturing: {
-    kicker: "07 · Manufacturing Proof",
-    title: "Development and production under one manufacturing system.",
-    media: {
-      status: "REQUIRED_REAL_ASSET",
-      label: "Real clean-production panorama",
-      width: 2400,
-      height: 1350,
-      format: "WebP",
-    },
-    metrics: [
-      {
-        label: "Gummies",
-        value: "Core format",
-        note: "Formula, sensory and packaging review",
-      },
-      {
-        label: "Hard Capsules",
-        value: "Available",
-        note: "Project-specific production review",
-      },
-      {
-        label: "Tablets",
-        value: "Available",
-        note: "Project-specific production review",
-      },
-      {
-        label: "Other Lines",
-        value: "Multi-form",
-        note: "liquid, powder, softgel",
-      },
-    ],
-  },
-  quality: {
-    kicker: "08 · Quality & Compliance",
-    title: "Quality recorded at every stage.",
-    recordTitle: "From incoming material to finished-product release",
-    caveat:
-      "Certification scope, testing and export documents depend on current factory records and the requirements of each project.",
-    rows: [
-      {
-        title: "01 · Raw Material",
-        copy: "Identity, specification, and supplier documentation",
-        state: "Verification",
-      },
-      {
-        title: "02 · In Process",
-        copy: "Critical production and process controls",
-        state: "Production",
-      },
-      {
-        title: "03 · Finished Product",
-        copy: "Finished-product review and batch documentation",
-        state: "Release",
-      },
-      {
-        title: "04 · Export Support",
-        copy: "Documentation configured by market and project",
-        state: "Project-specific",
-      },
-    ],
-  },
   runway: {
-    kicker: "07 · OEM / ODM Project Runway",
-    title: "Six clear steps from brief to delivery.",
+    kicker: "07 · PROJECT PATH",
+    title: "A clear path from first brief to finished-project review.",
+    copy:
+      "Each stage resolves a different set of decisions. Requirements remain project-specific until they are reviewed and confirmed.",
+    action: { label: "See the OEM / ODM Process", href: "/oem-odm" },
     steps: [
-      {
-        title: "Brief",
-        copy: "Set the format, formula direction, pack and volume.",
-      },
-      {
-        title: "Develop",
-        copy: "Review formula, sensory direction and production requirements.",
-      },
-      {
-        title: "Sample",
-        copy: "Evaluate the sample and agree on adjustments.",
-      },
-      {
-        title: "Pack",
-        copy: "Confirm packaging specifications and artwork.",
-      },
-      {
-        title: "Make",
-        copy: "Schedule production with the agreed in-process controls.",
-      },
-      {
-        title: "Deliver",
-        copy: "Review finished-product records, release and coordinate delivery.",
-      },
-    ],
-  },
-  channels: {
-    kicker: "10 · Built for Your Channel",
-    title: "Built for brands, sellers and retail teams.",
-    paths: [
-      {
-        label: "PATH A",
-        title: "Nutrition Brands",
-        copy:
-          "Formula development, format selection and packaging built around your product brief.",
-      },
-      {
-        label: "PATH B",
-        title: "Cross-Border Sellers",
-        copy:
-          "Practical launch planning, packaging support and coordinated multi-SKU production.",
-      },
-      {
-        label: "PATH C",
-        title: "Retail & Supermarket",
-        copy:
-          "Stable supply planning, clear specifications and delivery support for larger retail programs.",
-      },
+      { title: "Align", copy: "Clarify the product direction, intended market, preferred format and expected volume." },
+      { title: "Develop", copy: "Translate the brief into formula, sensory and manufacturing requirements." },
+      { title: "Sample", copy: "Review the sample and identify the adjustments still required." },
+      { title: "Confirm", copy: "Confirm the agreed product and packaging specifications." },
+      { title: "Produce", copy: "Move the approved project into its coordinated production stage." },
+      { title: "Review & Release", copy: "Review the required finished-product records and coordinate the next delivery step." },
     ],
   },
   contact: {
-    status: "NOT_CONFIGURED",
-    kicker: "08 · Start a Project",
-    title: "Tell us what you want to make.",
+    kicker: "08 · START A PROJECT",
+    title: "Turn your idea into a useful first conversation.",
     copy:
-      "Share the format, formula direction, packaging needs and expected volume. Our sales team will review the project and confirm the right production route and MOQ.",
-    pendingMessage: "Contact details pending approval · NOT_CONFIGURED",
-    scene: {
-      src: "/media/b2b/gummies-pexels-14027295.jpg",
-      status: "DEMO_ONLY",
-    },
+      "Share what you already know. Product direction, preferred format, customization priorities and expected volume are enough to begin — details can remain open.",
+    prompts: [
+      "Product direction",
+      "Preferred format",
+      "Customization priorities",
+      "Expected volume and target market",
+    ],
     formats: [
       "Gummies",
       "Hard Capsules",
@@ -387,5 +207,9 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
       "Liquids",
       "Oral Films",
     ],
+    scene: {
+      src: "/media/b2b/gummies-pexels-14027295.jpg",
+      status: "DEMO_ONLY",
+    },
   },
 });

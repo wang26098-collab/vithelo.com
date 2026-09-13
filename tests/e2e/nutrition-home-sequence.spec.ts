@@ -27,42 +27,35 @@ test("production Home keeps the current sections in sequence", async ({ page }) 
 
   const proof = page.locator("#proof");
   await expect(proof).toHaveAttribute("data-layout", "manufacturing-editorial-split");
-  await expect(proof.getByRole("heading", { name: "From Formula to Finished Product" })).toBeVisible();
-  await expect(proof.getByTestId("manufacturing-metric")).toHaveCount(4);
-  await expect(proof.getByTestId("manufacturing-capability")).toHaveCount(4);
+  await expect(proof.getByRole("heading", { name: "Built to connect development with production." })).toBeVisible();
+  await expect(proof.getByTestId("manufacturing-workstream")).toHaveCount(4);
   await expect(proof.getByTestId("manufacturing-scene")).toBeVisible();
-  await expect(proof.getByRole("link", { name: "Explore Our Factory" })).toHaveAttribute(
+  await expect(proof.getByRole("link", { name: "Explore Manufacturing" })).toHaveAttribute(
     "href",
     "/manufacturing",
   );
   await expect(proof).not.toContainText(/Evidence required|Pending|Not configured/i);
-  const featuredProducts = page.locator("#capacity-boundary");
-  await expect(featuredProducts).toHaveAttribute("data-layout", "editorial-product-runway");
-  await expect(featuredProducts.getByTestId("featured-product-card")).toHaveCount(3);
-  await expect(featuredProducts.getByTestId("featured-product-image")).toHaveCount(3);
-  await expect(featuredProducts.getByRole("link", { name: /View All Products/i })).toHaveAttribute(
+  const entryRoutes = page.locator("#capacity-boundary");
+  await expect(entryRoutes).toHaveAttribute("data-layout", "project-entry-routes");
+  await expect(entryRoutes.getByTestId("project-entry-route")).toHaveCount(3);
+  await expect(entryRoutes.getByRole("link", { name: /Find Your Starting Route/i })).toHaveAttribute(
     "href",
-    "/products",
+    "/oem-odm",
   );
-  await expect(featuredProducts.getByRole("link", { name: /Discuss This Product/i })).toHaveCount(3);
-  await expect(featuredProducts).not.toContainText(/Shop Now|price|MOQ|Seed|Pending verification/i);
+  await expect(entryRoutes).not.toContainText(/Sleep Health|Active Nutrition|Women’s Health|Shop Now|price|MOQ|Seed/i);
   await expect(proof).not.toContainText(/森酷|Sencool|GMP|HACCP|Halal|ISO|FDA|annual growth|2020|2025/i);
 
   const customization = page.locator("#gummy-stage");
   await expect(customization).toHaveAttribute("data-layout", "customization-constellation");
   await expect(customization.getByTestId("customization-visual")).toBeVisible();
   await expect(customization.getByTestId("customization-node")).toHaveCount(4);
-  await expect(customization.getByTestId("customization-benefit")).toHaveCount(4);
   await expect(
-    customization.getByRole("link", { name: "Start Your Customization" }),
-  ).toHaveAttribute("href", "/contact");
-  await expect(
-    customization.getByRole("link", { name: "Explore Customization" }),
+    customization.getByRole("link", { name: "Explore OEM / ODM" }),
   ).toHaveAttribute("href", "/oem-odm");
   await expect(customization).not.toContainText(/Fast Sampling|Confidential/i);
 
   await expect(page.getByTestId("market-story")).toHaveCount(3);
-  await expect(page.getByTestId("dosage-item")).toHaveCount(8);
+  await expect(page.getByTestId("format-project")).toHaveCount(8);
   await expect(page.getByText(/\d{2} \/ \d{2}/)).toHaveCount(0);
   await expect(page.getByRole("button", { name: /market direction/i })).toHaveCount(0);
   await expect(page.locator("#contact form")).toHaveCount(1);
@@ -91,6 +84,7 @@ test("home motion preserves the locked hero and reveals semantic sections", asyn
   const proof = page.locator("#proof");
   await proof.evaluate((section) => section.scrollIntoView({ block: "center" }));
   await expect(proof).toHaveAttribute("data-motion-state", "visible");
-  await expect(page.locator("[data-motion-role='collection-item']")).toHaveCount(11);
+  await expect(page.locator("[data-motion-role='entry-route']")).toHaveCount(3);
+  await expect(page.locator("[data-motion-role='format-item']")).toHaveCount(8);
   await expect(page.locator("[data-motion-role='process-step']")).toHaveCount(6);
 });

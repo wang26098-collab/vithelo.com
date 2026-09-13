@@ -15,7 +15,7 @@ function VitheloMarketStage({ market }: VitheloMarketStageProps) {
       data-layout="sticky-product-switcher"
       data-motion-fallback="stacked"
       data-motion-intent="RELATE"
-      data-narrative-role="need-to-brief"
+      data-narrative-role="routine-to-brief"
       data-testid="market-stage"
       data-ui-stage="image-led-product-directions"
       id="solutions"
@@ -30,6 +30,7 @@ function VitheloMarketStage({ market }: VitheloMarketStageProps) {
         <h2 className={styles.title} id="solutions-title">
           {market.title}
         </h2>
+        <p className={styles.marketIntroCopy}>{market.intro}</p>
       </div>
 
       <div className={styles.marketStickyStage}>

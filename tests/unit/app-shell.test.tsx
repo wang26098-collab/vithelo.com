@@ -13,7 +13,7 @@ it("renders the VITHELO B2B homepage identity and consolidated sequence", async 
     }),
   ).toBeVisible();
   expect(
-    screen.getByRole("heading", { name: "One system. Eight expressions." }),
+    screen.getByRole("heading", { name: "One brief. Eight ways to deliver it." }),
   ).toBeVisible();
 
   expect(Array.from(document.querySelectorAll("main > section")).map((section) => section.id)).toEqual([
