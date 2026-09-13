@@ -11,14 +11,14 @@
   --home-screen-min-height: auto;
   --home-screen-space-y: clamp(72px, 8vh, 112px);
   --home-screen-02-height: clamp(835px, calc(92svh + 15px), 995px);
-  --home-layer-radius: 40px;
-  --home-overlap-02: 40px;
-  --home-overlap-03: 32px;
-  --home-overlap-04: 28px;
-  --home-overlap-05: 24px;
-  --home-overlap-06: 24px;
-  --home-overlap-07: 32px;
-  --home-overlap-08: 32px;
+  --home-layer-radius: 0px;
+  --home-overlap-02: 0px;
+  --home-overlap-03: 0px;
+  --home-overlap-04: 0px;
+  --home-overlap-05: 0px;
+  --home-overlap-06: 0px;
+  --home-overlap-07: 0px;
+  --home-overlap-08: 0px;
   width: 100%;
   overflow: clip;
   background: var(--ivory);
@@ -1617,16 +1617,36 @@
 .brandSignature strong { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(3rem, 7vw, 7rem); font-style: italic; font-weight: 500; letter-spacing: -0.045em; line-height: 0.95; }
 .brandSignature span { margin-top: 1.5rem; color: rgb(243 240 232 / 56%); font-size: 0.7rem; letter-spacing: 0.18em; }
 
+@media (min-width: 761px) {
+  .homepage > .hero,
+  .homepage > .proof,
+  .homepage > .capacityBoundarySection,
+  .homepage > .customizationSection,
+  .homepage > .runwaySection {
+    position: sticky;
+    top: 0;
+  }
+}
+
+.homepage[data-motion-mode="static"] > .hero,
+.homepage[data-motion-mode="static"] > .proof,
+.homepage[data-motion-mode="static"] > .capacityBoundarySection,
+.homepage[data-motion-mode="static"] > .customizationSection,
+.homepage[data-motion-mode="static"] > .runwaySection {
+  position: relative;
+  top: auto;
+}
+
 @media (max-width: 1100px) {
   .homepage {
-    --home-layer-radius: 32px;
-    --home-overlap-02: 32px;
-    --home-overlap-03: 24px;
-    --home-overlap-04: 22px;
-    --home-overlap-05: 20px;
-    --home-overlap-06: 20px;
-    --home-overlap-07: 24px;
-    --home-overlap-08: 24px;
+    --home-layer-radius: 0px;
+    --home-overlap-02: 0px;
+    --home-overlap-03: 0px;
+    --home-overlap-04: 0px;
+    --home-overlap-05: 0px;
+    --home-overlap-06: 0px;
+    --home-overlap-07: 0px;
+    --home-overlap-08: 0px;
   }
 }
 
@@ -1677,14 +1697,14 @@
   .homepage {
     --home-frame-gutter: 16px;
     --home-screen-02-height: auto;
-    --home-layer-radius: 20px;
-    --home-overlap-02: 20px;
-    --home-overlap-03: 16px;
-    --home-overlap-04: 14px;
-    --home-overlap-05: 12px;
-    --home-overlap-06: 12px;
-    --home-overlap-07: 16px;
-    --home-overlap-08: 16px;
+    --home-layer-radius: 0px;
+    --home-overlap-02: 0px;
+    --home-overlap-03: 0px;
+    --home-overlap-04: 0px;
+    --home-overlap-05: 0px;
+    --home-overlap-06: 0px;
+    --home-overlap-07: 0px;
+    --home-overlap-08: 0px;
   }
   .contactChannels,
   .inquiryFields { grid-template-columns: 1fr; }
