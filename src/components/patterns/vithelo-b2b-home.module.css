@@ -1214,8 +1214,12 @@
   padding-block: var(--home-screen-space-y);
 }
 
-.formatProject { --format-entry-y: 32px; min-width: 0; }
+.formatProject { --format-entry-y: 32px; min-width: 0; opacity: 1; transform: translate3d(0, 0, 0); }
 
+/* Motion-enhanced mode hides cards briefly so the IntersectionObserver can
+   reveal them on scroll. The base rule above keeps cards visible by default,
+   satisfying AGENTS.md "meaningful facts may not exist only inside animation"
+   — even with JS blocked or the observer failing, the imagery is reachable. */
 .homepage[data-motion-mode="enhanced"] .dosageSection .formatProject {
   opacity: 0;
   transform: translate3d(0, var(--format-entry-y), 0);
