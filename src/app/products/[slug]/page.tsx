@@ -19,14 +19,18 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export default async function DosageFormPage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ product?: string }> }) {
+export default async function DosageFormPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const { product: productId } = await searchParams;
   const format = vitheloB2BProductsPage.formats.find((item) => item.id === slug);
   if (!format) notFound();
-  const product = vitheloB2BProductsPage.discovery.items.find((item) => item.id === productId && item.formatSlug === format.id);
   const isInDiscovery = vitheloB2BProductsPage.discovery.formats.some(({ slug }) => slug === format.id);
-  if (isInDiscovery) return <VitheloDosageFormDetail format={format} product={product} />;
+  if (isInDiscovery) {
+    // Filtered once at build time so client-side search-param lookup is O(format-specific).
+    const formatProducts = vitheloB2BProductsPage.discovery.items.filter(
+      (item) => item.formatSlug === format.id,
+    );
+    return <VitheloDosageFormDetail format={format} products={formatProducts} />;
+  }
   return (
     <main className="container-standard pt-28 pb-12 sm:pb-20">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: "/" }, { "@type": "ListItem", position: 2, name: "Products", item: "/products" }, { "@type": "ListItem", position: 3, name: format.name, item: `/products/${format.id}` }] }) }} />
@@ -35,10 +39,9 @@ export default async function DosageFormPage({ params, searchParams }: { params:
       </nav>
       <header className="mt-10 max-w-3xl border-b border-[var(--color-border)] pb-12">
         <p className="text-xs tracking-[0.2em] text-[var(--color-muted)]">DOSAGE FORM MANUFACTURING</p>
-        <h1 className="mt-4 max-w-4xl text-4xl tracking-tight sm:text-6xl">{product?.title ?? `${format.name} for private-label nutrition.`}</h1>
-        <p className="mt-6 max-w-3xl text-lg text-[var(--color-muted)]">{product?.descriptor ?? `${format.fit}. VITHELO reviews formula, format and packaging together before confirming a production route.`}</p>
+        <h1 className="mt-4 max-w-4xl text-4xl tracking-tight sm:text-6xl">{`${format.name} for private-label nutrition.`}</h1>
+        <p className="mt-6 max-w-3xl text-lg text-[var(--color-muted)]">{`${format.fit}. VITHELO reviews formula, format and packaging together before confirming a production route.`}</p>
       </header>
-      {product && product.parameters && product.parameters.length > 0 ? <section className="mt-10 max-w-3xl border-t border-[var(--color-border)] pt-8"><p className="text-xs tracking-[0.2em] text-[var(--color-muted)]">PRODUCT PARAMETERS · DEMO_ONLY</p><dl className="mt-4 grid gap-3 sm:grid-cols-2">{product.parameters.map((parameter) => <div className="border-b border-[var(--color-border)] pb-3" key={parameter.label}><dt className="text-sm text-[var(--color-muted)]">{parameter.label}</dt><dd className="mt-1 text-base">{parameter.value}</dd></div>)}</dl></section> : null}
       <div className="mt-12 grid gap-10 sm:grid-cols-2">
         <section><h2 className="text-2xl">Customization options</h2><ul className="mt-4 space-y-2 text-[var(--color-muted)]">{format.customization.map((item) => <li key={item}>— {item}</li>)}</ul></section>
         <section><h2 className="text-2xl">Packaging direction</h2><p className="mt-4 text-[var(--color-muted)]">{format.packaging}</p><p className="mt-4 text-sm text-[var(--color-muted)]">{format.moq}</p></section>

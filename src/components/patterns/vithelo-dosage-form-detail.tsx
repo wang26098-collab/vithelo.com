@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import styles from "@/components/patterns/vithelo-b2b-pages.module.css";
 import type { B2BProductsPage } from "@/content/schema";
@@ -24,18 +25,32 @@ type GalleryItem = { src: string; alt: string };
 export function VitheloDosageFormDetail({
   format,
   product,
+  products,
 }: {
   format: B2BProductsPage["formats"][number];
+  /** Explicit product (tests, special embeds). Wins over URL lookup when provided. */
   product?: B2BProductsPage["discovery"]["items"][number];
+  /** All products belonging to this format. Used to resolve the `?product=` search param on the client. */
+  products?: B2BProductsPage["discovery"]["items"];
 }) {
+  // Resolve the active product: explicit prop > ?product= URL param (client-only, no SSR dynamic).
+  // Reading the URL here keeps the page route statically prerendered (CDN-friendly)
+  // while still letting `/products?product=xxx` style deep links work without a server round-trip.
+  const searchParams = useSearchParams();
+  const productIdFromUrl = searchParams?.get("product") ?? null;
+  const resolvedProduct =
+    product ?? (products && productIdFromUrl
+      ? products.find((item) => item.id === productIdFromUrl)
+      : undefined);
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [openPanel, setOpenPanel] = useState<string | null>("overview");
 
   const fallbackSrc = FALLBACK_FORMAT_IMAGE[format.id];
-  const hasProductMedia = Boolean(product?.media);
+  const hasProductMedia = Boolean(resolvedProduct?.media);
   const items: GalleryItem[] = useMemo(
-    () => buildGalleryItems(product, fallbackSrc),
-    [product, fallbackSrc],
+    () => buildGalleryItems(resolvedProduct, fallbackSrc),
+    [resolvedProduct, fallbackSrc],
   );
 
   // Clamp active index in case the gallery length shrinks (e.g. product change).
@@ -45,7 +60,7 @@ export function VitheloDosageFormDetail({
     alt: `${format.name} format demonstration image`,
   };
   const showPlaceholderMedia = !fallbackSrc && !hasProductMedia;
-  const detailSections = product?.detailSections ?? [
+  const detailSections = resolvedProduct?.detailSections ?? [
     {
       id: "overview" as const,
       title: "Functional features",
@@ -68,14 +83,14 @@ export function VitheloDosageFormDetail({
   ];
 
   const breadcrumb = useMemo(() => {
-    if (!product) {
+    if (!resolvedProduct) {
       return [
         { label: "Home", href: "/" },
         { label: "Products", href: "/products" },
         { label: format.name, href: undefined as string | undefined },
       ];
     }
-    const sequenceMatch = /-(\d+)$/.exec(product.id);
+    const sequenceMatch = /-(\d+)$/.exec(resolvedProduct.id);
     const sequenceLabel = sequenceMatch
       ? `Concept ${sequenceMatch[1].padStart(2, "0")}`
       : "Format detail";
@@ -84,9 +99,9 @@ export function VitheloDosageFormDetail({
       { label: "Products", href: "/products" },
       { label: format.name, href: `/products/${format.id}` },
       { label: sequenceLabel, href: undefined },
-      { label: product.title, href: undefined },
+      { label: resolvedProduct.title, href: undefined },
     ];
-  }, [format.id, format.name, product]);
+  }, [format.id, format.name, resolvedProduct]);
 
   const onPrev = () => setActiveIndex((index) => (index - 1 + items.length) % items.length);
   const onNext = () => setActiveIndex((index) => (index + 1) % items.length);
@@ -197,7 +212,7 @@ export function VitheloDosageFormDetail({
         <article className={styles.formatDetailInfo}>
           <p className={styles.kicker}>DOSAGE FORM MANUFACTURING</p>
           <h1>
-            {product?.title ?? (
+            {resolvedProduct?.title ?? (
               <>
                 {format.name}
                 <br />
@@ -206,24 +221,24 @@ export function VitheloDosageFormDetail({
             )}
           </h1>
           <p className={styles.formatSubhead}>
-            {product
+            {resolvedProduct
               ? "A private-label concept reviewed end-to-end before inquiry."
               : `A ${format.name.toLowerCase()} manufacturing route for your next line.`}
           </p>
           <aside className={styles.formatDescriptionCallout}>
             <p>
-              {product?.descriptor ??
+              {resolvedProduct?.descriptor ??
                 `${format.fit}. Align the intended experience, formula direction and packaging route before inquiry.`}
             </p>
           </aside>
-          {product?.sourceBoundary ? (
+          {resolvedProduct?.sourceBoundary ? (
             <p className={styles.formatSourceBoundary} role="note">
               Source-provided specifications · pending production verification.
             </p>
           ) : null}
-          {product?.parameters && product.parameters.length > 0 ? (
+          {resolvedProduct?.parameters && resolvedProduct.parameters.length > 0 ? (
             <dl className={styles.formatSpecs} data-testid="format-specs">
-              {product.parameters.map((parameter) => (
+              {resolvedProduct.parameters.map((parameter) => (
                 <div key={parameter.label}>
                   <dt>{parameter.label}</dt>
                   <dd>{parameter.value}</dd>

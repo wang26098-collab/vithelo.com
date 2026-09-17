@@ -3,6 +3,14 @@ import { VitheloProductsPage } from "@/components/patterns/vithelo-products-page
 import { VitheloDosageFormDetail } from "@/components/patterns/vithelo-dosage-form-detail";
 import { vitheloB2BProductsPage } from "@/content/demo/vithelo-b2b-site";
 
+// The detail page reads `?product=` on the client via useSearchParams.
+// Tests render without a router, so default to empty params; individual
+// tests can mutate `useSearchParamsState.params` to simulate deep links.
+const useSearchParamsState = vi.hoisted(() => ({ params: new URLSearchParams() }));
+vi.mock("next/navigation", () => ({
+  useSearchParams: () => useSearchParamsState.params,
+}));
+
 it("renders eight dosage formats and ten Gummies products by default", () => {
   render(<VitheloProductsPage content={vitheloB2BProductsPage} />);
   // The filter panel exposes eight format pills.
@@ -75,4 +83,57 @@ it("renders source boundaries and approved product-specific sections", () => {
   ).toBeVisible();
   fireEvent.click(screen.getByRole("button", { name: "Ingredients" }));
   expect(screen.getByText("Source-provided ingredient statement")).toBeVisible();
+});
+
+it("resolves the active product from ?product= when no explicit product prop is provided", () => {
+  const targetProduct = vitheloB2BProductsPage.discovery.items[0];
+  const formatProducts = vitheloB2BProductsPage.discovery.items.filter(
+    (item) => item.formatSlug === vitheloB2BProductsPage.formats[0].id,
+  );
+
+  // Simulate arriving at `/products/<slug>?product=<id>`.
+  useSearchParamsState.params = new URLSearchParams(
+    `product=${encodeURIComponent(targetProduct.id)}`,
+  );
+
+  render(
+    <VitheloDosageFormDetail
+      format={vitheloB2BProductsPage.formats[0]}
+      products={formatProducts}
+    />,
+  );
+
+  expect(screen.getByRole("heading", { name: targetProduct.title })).toBeVisible();
+  expect(screen.getByTestId("format-gallery-image")).toHaveAttribute(
+    "src",
+    expect.stringContaining("beauty-gummies-default"),
+  );
+
+  // Reset for downstream tests.
+  useSearchParamsState.params = new URLSearchParams();
+});
+
+it("falls back to the format overview when the ?product= id does not belong to the current format", () => {
+  // The first item is Gummies; asking for it on the Capsules page must not render its title.
+  const formatProducts = vitheloB2BProductsPage.discovery.items.filter(
+    (item) => item.formatSlug === vitheloB2BProductsPage.formats[2].id, // hard-capsules
+  );
+  const foreignProduct = vitheloB2BProductsPage.discovery.items[0];
+
+  useSearchParamsState.params = new URLSearchParams(
+    `product=${encodeURIComponent(foreignProduct.id)}`,
+  );
+
+  render(
+    <VitheloDosageFormDetail
+      format={vitheloB2BProductsPage.formats[2]}
+      products={formatProducts}
+    />,
+  );
+
+  // Foreign product must not show its title; the format overview heading appears instead.
+  expect(screen.queryByRole("heading", { name: foreignProduct.title })).not.toBeInTheDocument();
+  expect(screen.getByRole("heading", { name: /for your next line/i })).toBeVisible();
+
+  useSearchParamsState.params = new URLSearchParams();
 });
