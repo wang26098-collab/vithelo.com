@@ -12,10 +12,11 @@ const sectionIds = [
   "solutions",
   "dosage-forms",
   "project-runway",
+  "brand-statement",
   "contact",
 ];
 
-it("renders the eight narrative sections once and in order", () => {
+it("renders the nine narrative sections once and in order", () => {
   render(<VitheloB2BHome content={vitheloB2BHome} />);
 
   const sections = Array.from(document.querySelectorAll("main > section"));
@@ -28,6 +29,7 @@ it("renders the eight narrative sections once and in order", () => {
     "routine-to-brief",
     "format-options",
     "project-path",
+    "brand-statement",
     "inquiry",
   ]);
   for (const id of sectionIds) {
@@ -35,7 +37,7 @@ it("renders the eight narrative sections once and in order", () => {
   }
 });
 
-it("renders all eight formats as one featured format wall", () => {
+it("renders all eight formats as one editorial format grid", () => {
   render(<VitheloB2BHome content={vitheloB2BHome} />);
 
   const dosage = document.getElementById("dosage-forms")!;
@@ -43,22 +45,23 @@ it("renders all eight formats as one featured format wall", () => {
   expect(within(dosage).getAllByTestId("format-project")).toHaveLength(8);
   expect(within(dosage).getAllByTestId("format-media")).toHaveLength(8);
   expect(within(dosage).getAllByTestId("format-media-plane")).toHaveLength(8);
-  expect(within(dosage).getAllByRole("link")).toHaveLength(8);
+  expect(within(dosage).getAllByRole("link")).toHaveLength(9);
+  expect(within(dosage).getByRole("link", { name: "Explore all" })).toHaveAttribute(
+    "href",
+    "/products",
+  );
   const title = within(dosage).getByRole("heading", {
     name: "One brief. Eight ways to deliver it.",
   });
   expect(title).toHaveAttribute("data-format-title");
-  expect(title.querySelectorAll("[data-format-char]")).toHaveLength(
-    Array.from("One brief. Eight ways to deliver it.").length,
-  );
-  expect(title.querySelectorAll("[data-format-word]")).toHaveLength(7);
+  expect(title).toHaveTextContent("One brief. Eight ways to deliver it.");
   expect(dosage.querySelectorAll("[data-format-project]")).toHaveLength(8);
   expect(dosage.querySelectorAll("[data-format-media]")).toHaveLength(8);
   expect(dosage.querySelectorAll("[data-format-label]")).toHaveLength(8);
   expect(dosage.querySelectorAll("[data-motion-role='format-item']")).toHaveLength(8);
   expect(dosage).toHaveAttribute("data-format-motion", "static");
-  expect(dosage).toHaveAttribute("data-layout", "featured-format-wall");
-  expect(dosage).toHaveAttribute("data-ui-stage", "featured-format-wall");
+  expect(dosage).toHaveAttribute("data-layout", "editorial-format-grid");
+  expect(dosage).toHaveAttribute("data-ui-stage", "editorial-format-grid");
   expect(dosage).not.toHaveAttribute("data-carousel");
   expect(within(dosage).queryByRole("tablist")).not.toBeInTheDocument();
 });
@@ -69,7 +72,6 @@ it("renders manufacturing as four workstreams without unsupported facts", () => 
   const proof = document.getElementById("proof")!;
   expect(proof).toBeInTheDocument();
   expect(proof).toHaveAttribute("data-layout", "manufacturing-editorial-split");
-  expect(within(proof).getByTestId("manufacturing-scene")).toBeInTheDocument();
   expect(within(proof).getAllByTestId("manufacturing-workstream")).toHaveLength(4);
   expect(within(proof).getByRole("link", { name: /Explore Manufacturing/i })).toHaveAttribute(
     "href",
@@ -80,19 +82,19 @@ it("renders manufacturing as four workstreams without unsupported facts", () => 
   );
 });
 
-it("renders three product directions inside one sticky product switcher", () => {
+it("removes the dark direction intro while keeping all three product directions", () => {
   render(<VitheloB2BHome content={vitheloB2BHome} />);
 
   const directions = document.getElementById("solutions");
-  expect(directions).toHaveAttribute("data-layout", "sticky-product-switcher");
-  expect(within(directions!).getAllByTestId("market-story")).toHaveLength(3);
-  expect(within(directions!).getAllByTestId("market-story-image")).toHaveLength(3);
-  expect(within(directions!).getAllByTestId("market-step")).toHaveLength(3);
-  expect(within(directions!).getByTestId("market-intro")).toBeInTheDocument();
-  expect(within(directions!).getByRole("heading", { name: "Begin with the routine, not the ingredient list." })).toBeInTheDocument();
-  expect(within(directions!).getByText(/A stronger brief begins with a clear moment of use/i)).toBeVisible();
-  expect(within(directions!).queryByRole("button")).not.toBeInTheDocument();
-  expect(directions).not.toHaveTextContent(/\d{2} \/ \d{2}/);
+  expect(directions).toBeInTheDocument();
+  expect(within(directions!).getAllByTestId("market-scene")).toHaveLength(3);
+  expect(within(directions!).queryByTestId("market-intro")).not.toBeInTheDocument();
+  expect(screen.queryByText("05 · PRODUCT DIRECTION")).not.toBeInTheDocument();
+  expect(
+    screen.queryByRole("heading", {
+      name: "Begin with the routine, not the ingredient list.",
+    }),
+  ).not.toBeInTheDocument();
 });
 
 it("renders the third screen as three project entry routes", () => {
@@ -179,12 +181,33 @@ it("presents manufacturing as a customer-facing project system", () => {
   expect(proof).not.toHaveTextContent(/NOT_CONFIGURED|Evidence required|Pending|audited|annual growth/i);
 });
 
-it("keeps the signature close inside the seventh section", () => {
+it("keeps the signature close inside the ninth section", () => {
   render(<VitheloB2BHome content={vitheloB2BHome} />);
 
   const contact = document.getElementById("contact");
   expect(within(contact!).getByText("Made for what comes next.")).toBeVisible();
-  expect(document.querySelectorAll("main > section")).toHaveLength(8);
+  expect(document.querySelectorAll("main > section")).toHaveLength(9);
+});
+
+it("renders a non-interactive daybreak statement between runway and inquiry", () => {
+  render(<VitheloB2BHome content={vitheloB2BHome} />);
+
+  const statement = document.getElementById("brand-statement")!;
+  expect(statement).toHaveAttribute("data-narrative-role", "brand-statement");
+  expect(
+    within(statement).getByRole("heading", {
+      name: "From the fresh vitality of daybreak’s first light, to the quiet peace when all the world slips into night.",
+    }),
+  ).toBeVisible();
+  expect(
+    within(statement).getByText(
+      "Every dawn and dusk of yours, warmth and companionship stay close beside you.",
+    ),
+  ).toBeVisible();
+  expect(statement.querySelectorAll("[data-statement-line]")).toHaveLength(2);
+  expect(within(statement).queryByRole("link")).not.toBeInTheDocument();
+  expect(within(statement).queryByRole("button")).not.toBeInTheDocument();
+  expect(statement.nextElementSibling).toHaveAttribute("id", "contact");
 });
 
 it("maps homepage content to semantic motion roles", () => {

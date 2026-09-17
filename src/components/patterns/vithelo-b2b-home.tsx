@@ -1,7 +1,6 @@
-import type { VitheloB2BHomeContent } from "@/content/schema";
+import type { VitheloB2BHomeContent, VitheloB2BHeroVideo } from "@/content/schema";
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment, type CSSProperties } from "react";
 import { VitheloMarketStage } from "@/components/patterns/vithelo-market-stage";
 import { VitheloHomeMotion } from "@/components/motion/vithelo-home-motion";
 import { VitheloFormatWallMotion } from "@/components/motion/vithelo-format-wall-motion";
@@ -51,6 +50,25 @@ function ProofCapabilityIcon({ index }: { index: number }) {
   );
 }
 
+function HeroVideo({ video }: { video: VitheloB2BHeroVideo }) {
+  return (
+    <video
+      aria-hidden="true"
+      autoPlay
+      className={styles.heroVideo}
+      data-testid="hero-video"
+      data-hero-video-status={video.status}
+      loop
+      muted
+      playsInline
+      poster={video.poster}
+      preload="metadata"
+    >
+      <source src={video.src} type="video/mp4" />
+    </video>
+  );
+}
+
 function CustomizationIcon({ index }: { index: number }) {
   const glyphs = [
     <g key="formula">
@@ -88,106 +106,73 @@ function CustomizationIcon({ index }: { index: number }) {
 }
 
 function DosageSection({ content }: VitheloB2BHomeProps) {
-  const formatTitleWords = content.dosage.title.split(" ");
-
   return (
     <section
       aria-labelledby="dosage-title"
       className={`${styles.section} ${styles.dosageSection}`}
-      data-layout="featured-format-wall"
+      data-layout="editorial-format-grid"
       data-motion-intent="RELATE"
       data-narrative-role="format-options"
-      data-ui-stage="featured-format-wall"
+      data-ui-stage="editorial-format-grid"
       id="dosage-forms"
     >
-      <div className={styles.formatIntro} data-format-intro>
-        <p className={styles.kicker}>{content.dosage.kicker}</p>
-        <h2
-          aria-label={content.dosage.title}
-          className={styles.title}
-          data-format-title
-          id="dosage-title"
-        >
-          {formatTitleWords.map((word, wordIndex) => {
-            const characterOffset = formatTitleWords
-              .slice(0, wordIndex)
-              .reduce((total, previousWord) => total + previousWord.length + 1, 0);
-
-            return (
-              <Fragment key={`${word}-${wordIndex}`}>
-                <span aria-hidden="true" className={styles.formatWord} data-format-word>
-                  {Array.from(word).map((character, characterIndex) => {
-                    const index = characterOffset + characterIndex;
-                    return (
-                      <span className={styles.formatCharClip} key={`${character}-${index}`}>
-                        <span
-                          className={styles.formatChar}
-                          data-format-char
-                          style={{ "--format-char-index": index } as CSSProperties}
-                        >
-                          {character}
-                        </span>
-                      </span>
-                    );
-                  })}
-                </span>
-                {wordIndex < formatTitleWords.length - 1 ? (
-                  <span aria-hidden="true" className={styles.formatCharClip}>
-                    <span
-                      className={styles.formatChar}
-                      data-format-char
-                      style={{ "--format-char-index": characterOffset + word.length } as CSSProperties}
-                    >
-                      {"\u00a0"}
-                    </span>
-                  </span>
-                ) : null}
-              </Fragment>
-            );
-          })}
-        </h2>
-        <p className={styles.formatQualifier}>{content.dosage.qualifier}</p>
-      </div>
-      <div className={styles.formatWall} data-testid="format-wall">
-        {content.dosage.items.map((item, index) => (
-          <article
-            className={styles.formatProject}
-            data-media-status={item.media.status}
-            data-format-project
-            data-motion-index={index}
-            data-motion-role="format-item"
-            data-testid="format-project"
-            key={item.slug}
-          >
-            <Link
-              aria-label={`Explore ${item.name}`}
-              className={styles.formatLink}
-              href={`/products/${item.slug}`}
+      <div className={styles.formatShell}>
+        <div className={styles.formatIntro} data-format-intro>
+          <div className={styles.formatHeading}>
+            <p className={styles.kicker}>{content.dosage.kicker}</p>
+            <h2 className={styles.title} data-format-title id="dosage-title">
+              {content.dosage.title}
+            </h2>
+          </div>
+          <p className={styles.formatQualifier}>{content.dosage.qualifier}</p>
+          <Link className={styles.formatAllLink} href="/products">
+            Explore all <span aria-hidden="true">↗</span>
+          </Link>
+        </div>
+        <div className={styles.formatWall} data-testid="format-wall">
+          {content.dosage.items.map((item, index) => (
+            <article
+              className={styles.formatProject}
+              data-media-status={item.media.status}
+              data-format-project
+              data-motion-index={index}
+              data-motion-role="format-item"
+              data-testid="format-project"
+              key={item.slug}
             >
-              <figure
-                className={styles.formatFigure}
-                data-format-media
-                data-testid="format-media"
+              <Link
+                aria-label={`Explore ${item.name}`}
+                className={styles.formatLink}
+                href={`/products/${item.slug}`}
               >
-                <span className={styles.formatMediaPlane} data-testid="format-media-plane">
-                  <Image
-                    alt={item.media.label}
-                    fill
-                    sizes="(max-width: 760px) 100vw, 50vw"
-                    src={item.media.src!}
-                  />
-                </span>
-              </figure>
-              <div className={styles.formatMeta}>
-                <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-                <h3 aria-label={item.name} data-format-label={item.name}>
-                  {item.name}
-                </h3>
-                <span aria-hidden="true">↗</span>
-              </div>
-            </Link>
-          </article>
-        ))}
+                <figure
+                  className={styles.formatFigure}
+                  data-format-media
+                  data-testid="format-media"
+                >
+                  <span className={styles.formatMediaPlane} data-testid="format-media-plane">
+                    <Image
+                      alt={item.media.label}
+                      fill
+                      sizes="(max-width: 760px) calc(100vw - 48px), 50vw"
+                      src={item.media.src!}
+                    />
+                  </span>
+                </figure>
+                <div className={styles.formatMeta}>
+                  <h3 data-format-label={item.name}>{item.name}</h3>
+                  <div className={styles.formatTags} aria-hidden="true">
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <span>Dosage format</span>
+                  </div>
+                  <span className={styles.formatCardAction} aria-hidden="true">
+                    Explore <b>↗</b>
+                  </span>
+                </div>
+              </Link>
+            </article>
+          ))}
+        </div>
       </div>
       <VitheloFormatWallMotion />
     </section>
@@ -229,6 +214,8 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
         data-ui-stage="image-led-hero"
         id="hero"
       >
+        {content.hero.heroVideo ? <HeroVideo video={content.hero.heroVideo} /> : null}
+        <div aria-hidden="true" className={styles.heroVeil} data-testid="hero-veil" />
         <div className={styles.heroContent} data-testid="hero-copy">
           <div className={styles.heroEyebrow}>{content.hero.eyebrow}</div>
           <h1 id="hero-title">{content.hero.title}</h1>
@@ -243,7 +230,7 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
           </div>
         </div>
         <p className={styles.heroAssetNote}>
-          {content.hero.media.label} · {content.hero.media.width} × {content.hero.media.height} · {content.hero.media.format}
+          {content.hero.heroVideo?.label ?? content.hero.media.label} · {content.hero.heroVideo ? `${content.hero.heroVideo.width} × ${content.hero.heroVideo.height} · ${content.hero.heroVideo.durationSeconds}s loop · MP4` : `${content.hero.media.width} × ${content.hero.media.height} · ${content.hero.media.format}`}
         </p>
       </section>
 
@@ -265,20 +252,6 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
               <span aria-hidden="true">→</span>
             </Link>
           </div>
-          <figure
-            className={styles.proofVisual}
-            data-motion-role="media"
-            data-testid="manufacturing-scene"
-          >
-            <Image
-              alt={content.proof.media.label}
-              fill
-              loading="eager"
-              sizes="(max-width: 900px) 100vw, 52vw"
-              src={content.proof.media.src!}
-            />
-            <figcaption>Nutrition manufacturing · OEM / ODM</figcaption>
-          </figure>
         </div>
         <div className={styles.proofCapabilities} data-motion-role="workstream-ledger">
           {content.proof.workstreams.map((workstream, index) => (
@@ -432,6 +405,35 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
           {content.runway.action.label}
           <span aria-hidden="true">→</span>
         </Link>
+      </section>
+
+      <section
+        aria-labelledby="brand-statement-title"
+        className={`${styles.section} ${styles.brandStatementSection}`}
+        data-media-status={content.statement.media.status}
+        data-narrative-role="brand-statement"
+        id="brand-statement"
+      >
+        <Image
+          alt=""
+          aria-hidden="true"
+          className={styles.brandStatementMedia}
+          fill
+          sizes="100vw"
+          src={content.statement.media.src}
+        />
+        <div aria-hidden="true" className={styles.brandStatementVeil} />
+        <div className={styles.brandStatementCopy}>
+          <h2 id="brand-statement-title">
+            <span data-statement-line>
+              {content.statement.title.split(" to the quiet peace")[0]}{" "}
+            </span>
+            <span data-statement-line>
+              to the quiet peace{content.statement.title.split("to the quiet peace")[1]}
+            </span>
+          </h2>
+          <p>{content.statement.supportingText}</p>
+        </div>
       </section>
 
       <section

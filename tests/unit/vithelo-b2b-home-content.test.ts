@@ -12,10 +12,11 @@ const approvedSectionOrder = [
   "solutions",
   "dosage-forms",
   "project-runway",
+  "brand-statement",
   "contact",
 ];
 
-it("validates the eight-screen procurement narrative record", () => {
+it("validates the nine-section procurement narrative record", () => {
   const parsed = VitheloB2BHomeContentSchema.parse(vitheloB2BHome);
 
   expect(parsed.sectionOrder).toEqual(approvedSectionOrder);
@@ -104,17 +105,35 @@ it("defines four connected product decisions", () => {
   );
 });
 
-it("defines three routine-led directions and eight equal format options", () => {
+it("keeps three product directions without the removed dark intro content", () => {
   const parsed = VitheloB2BHomeContentSchema.parse(vitheloB2BHome);
 
-  expect(parsed.market.title).toBe(
-    "Begin with the routine, not the ingredient list.",
-  );
   expect(parsed.market.stories.map((story) => story.title)).toEqual([
     "Evening Routines",
     "Active Routines",
     "Life-stage Routines",
   ]);
+  expect(parsed.market).not.toHaveProperty("kicker");
+  expect(parsed.market).not.toHaveProperty("title");
+  expect(parsed.market).not.toHaveProperty("intro");
+  expect(parsed.dosage.kicker).toBe("06 · PRODUCT FORMATS");
+  expect(parsed.runway.kicker).toBe("07 · PROJECT PATH");
+  expect(parsed.statement).toEqual({
+    title:
+      "From the fresh vitality of daybreak’s first light, to the quiet peace when all the world slips into night.",
+    supportingText:
+      "Every dawn and dusk of yours, warmth and companionship stay close beside you.",
+    media: {
+      status: "DEMO_ONLY",
+      src: "/media/b2b/vithelo-daybreak-nightfall.png",
+      label:
+        "A continuous scene moving from soft daybreak into a quiet blue night with one warm illuminated window",
+      width: 1536,
+      height: 1024,
+      format: "PNG",
+    },
+  });
+  expect(parsed.contact.kicker).toBe("09 · START A PROJECT");
   expect(parsed.dosage.title).toBe("One brief. Eight ways to deliver it.");
   expect(parsed.dosage.items.map((item) => item.slug)).toEqual([
     "gummies",

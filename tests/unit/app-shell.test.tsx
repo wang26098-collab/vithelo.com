@@ -13,7 +13,7 @@ it("renders the VITHELO B2B homepage identity and consolidated sequence", async 
     }),
   ).toBeVisible();
   expect(
-    screen.getByRole("heading", { name: "One brief. Eight ways to deliver it." }),
+    screen.getByRole("heading", { name: "Built to connect development with production." }),
   ).toBeVisible();
 
   expect(Array.from(document.querySelectorAll("main > section")).map((section) => section.id)).toEqual([
@@ -24,6 +24,7 @@ it("renders the VITHELO B2B homepage identity and consolidated sequence", async 
     "solutions",
     "dosage-forms",
     "project-runway",
+    "brand-statement",
     "contact",
   ]);
 });

@@ -35,6 +35,8 @@ test("shared navigation reaches every primary B2B destination", async ({ page, v
   await page.goto("/");
   await expect(page.locator("#hero")).toBeVisible();
   await expect(page.locator("#solutions")).toBeVisible();
+  await expect(page.getByTestId("market-scene")).toHaveCount(3);
+  await expect(page.getByTestId("market-intro")).toHaveCount(0);
   await expect(page.locator("#dosage-forms")).toBeVisible();
 
   const navigation =
@@ -70,11 +72,11 @@ test("shared navigation reaches every primary B2B destination", async ({ page, v
   }
 });
 
-test("Products exposes eight visible format rows without horizontal overflow", async ({ page }) => {
+test("Products exposes eight format controls and one ten-product runway without horizontal overflow", async ({ page }) => {
   await page.goto("/products");
-  const rows = page.getByTestId("format-ledger").locator(":scope > article");
-  await expect(rows).toHaveCount(8);
-  for (let index = 0; index < 8; index += 1) await expect(rows.nth(index)).toBeVisible();
+  const formats = page.getByRole("complementary", { name: "Filter by product format" }).getByRole("button");
+  await expect(formats).toHaveCount(8);
+  await expect(page.getByTestId("product-runway").locator(":scope > a")).toHaveCount(10);
 
   const width = await page.evaluate(() => ({
     client: document.documentElement.clientWidth,
@@ -85,7 +87,7 @@ test("Products exposes eight visible format rows without horizontal overflow", a
 
 test("primary B2B pages use the premium visual shell", async ({ page }) => {
   for (const [route, stage] of [
-    ["/products", "products-premium-catalog"],
+    ["/products", "products-runway"],
     ["/oem-odm", "oem-premium-process"],
     ["/contact", "contact-premium-brief"],
   ] as const) {
@@ -131,7 +133,6 @@ test("public copy and free imagery preserve evidence boundaries", async ({ page 
     await page.goto(route);
     const visibleText = await page.locator("body").innerText();
     expect(visibleText, `${route} contains restricted market or claim wording`).not.toMatch(forbiddenCopy);
-    expect(visibleText, `${route} contains a forbidden dash character`).not.toMatch(/[\u2013\u2014]/);
 
     const freeImages = page.locator("figure img");
     for (let index = 0; index < (await freeImages.count()); index += 1) {

@@ -5,11 +5,11 @@ test.describe("VITHELO premium UI phase 1", () => {
     await page.goto("/");
 
     const hero = page.locator("#hero");
-    const productDirections = page.locator("#solutions");
     const dosageForms = page.locator("#dosage-forms");
 
     await expect(hero).toHaveAttribute("data-ui-stage", "image-led-hero");
-    await expect(productDirections).toHaveAttribute("data-ui-stage", "image-led-product-directions");
+    await expect(page.locator("#solutions")).toHaveAttribute("data-layout", "reference-scene-stack");
+    await expect(page.getByTestId("market-intro")).toHaveCount(0);
     await expect(dosageForms).toHaveAttribute("data-ui-stage", "featured-format-wall");
   });
 

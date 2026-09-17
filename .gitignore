@@ -8,3 +8,14 @@ test-results/
 
 .vercel
 .env*
+
+# Local references and generated review artifacts
+独立站内容/
+tmp/
+.superpowers/
+.workbuddy/
+debug.log
+vitest*.out.txt
+vitest*.meta.txt
+__pycache__/
+*.pyc

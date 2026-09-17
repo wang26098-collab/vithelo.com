@@ -1,28 +1,18 @@
 import { describe, expect, it } from "vitest";
-import { filterProductDiscovery } from "@/lib/product-discovery";
+import { selectFormatProducts } from "@/lib/product-discovery";
 
 const items = [
-  { id: "a", formatSlug: "gummies", healthDirections: ["sleep-rest", "cognitive-focus"] },
-  { id: "b", formatSlug: "capsules", healthDirections: ["sleep-rest"] },
-  { id: "c", formatSlug: "gummies", healthDirections: ["sports-performance"] },
+  { id: "a", formatSlug: "gummies" },
+  { id: "b", formatSlug: "hard-capsules" },
+  { id: "c", formatSlug: "gummies" },
 ] as const;
 
-describe("filterProductDiscovery", () => {
-  it("filters by format and any selected health direction", () => {
-    expect(
-      filterProductDiscovery(items, {
-        format: "gummies",
-        healthDirections: ["sleep-rest", "sports-performance"],
-      }).map((item) => item.id),
-    ).toEqual(["a", "c"]);
+describe("selectFormatProducts", () => {
+  it("returns only products from the selected dosage format", () => {
+    expect(selectFormatProducts(items, "gummies").map((item) => item.id)).toEqual(["a", "c"]);
   });
 
-  it("supports a direction-only filter", () => {
-    expect(
-      filterProductDiscovery(items, {
-        format: "all",
-        healthDirections: ["sleep-rest"],
-      }).map((item) => item.id),
-    ).toEqual(["a", "b"]);
+  it("returns an empty collection when the format has no products", () => {
+    expect(selectFormatProducts(items, "oral-films")).toEqual([]);
   });
 });

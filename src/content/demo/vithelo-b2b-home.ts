@@ -10,6 +10,7 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
     "solutions",
     "dosage-forms",
     "project-runway",
+    "brand-statement",
     "contact",
   ],
   hero: {
@@ -25,6 +26,16 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
       width: 2560,
       height: 1400,
       format: "WebP",
+    },
+    heroVideo: {
+      status: "DEMO_VIDEO",
+      src: "/media/b2b/hero-loop.mp4",
+      poster: "/media/b2b/hero-loop-poster.jpg",
+      width: 1280,
+      height: 720,
+      durationSeconds: 11,
+      alt: "Gummy bottling production line, sanitised internal reference",
+      label: "Gummy bottling production line · DEMO_VIDEO",
     },
   },
   proof: {
@@ -112,10 +123,6 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
     ],
   },
   market: {
-    kicker: "05 · PRODUCT DIRECTION",
-    title: "Begin with the routine, not the ingredient list.",
-    intro:
-      "A stronger brief begins with a clear moment of use, a defined audience and the role the product should play in everyday life.",
     stories: [
       {
         title: "Evening Routines",
@@ -186,8 +193,23 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
       { title: "Review & Release", copy: "Review the required finished-product records and coordinate the next delivery step." },
     ],
   },
+  statement: {
+    title:
+      "From the fresh vitality of daybreak’s first light, to the quiet peace when all the world slips into night.",
+    supportingText:
+      "Every dawn and dusk of yours, warmth and companionship stay close beside you.",
+    media: {
+      status: "DEMO_ONLY",
+      src: "/media/b2b/vithelo-daybreak-nightfall.png",
+      label:
+        "A continuous scene moving from soft daybreak into a quiet blue night with one warm illuminated window",
+      width: 1536,
+      height: 1024,
+      format: "PNG",
+    },
+  },
   contact: {
-    kicker: "08 · START A PROJECT",
+    kicker: "09 · START A PROJECT",
     title: "Turn your idea into a useful first conversation.",
     copy:
       "Share what you already know. Product direction, preferred format, customization priorities and expected volume are enough to begin — details can remain open.",

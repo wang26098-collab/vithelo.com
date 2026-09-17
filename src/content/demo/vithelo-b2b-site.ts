@@ -5,28 +5,92 @@ import {
   B2BProductsPageSchema,
   B2BSiteContentSchema,
 } from "@/content/schema";
+import {
+  generatedProductCatalog,
+  mergeProductCatalog,
+} from "@/content/catalog/product-catalog";
 
 const pexelsLicense = "https://www.pexels.com/license/";
 
 const discoveryFormatExamples = [
   ["gummies", "Gummies"], ["jelly", "Jelly"], ["hard-capsules", "Capsules"], ["tablets", "Tablets"], ["powders", "Powders"],
-  ["softgels", "Softgels"], ["liquids", "Liquid Drops"], ["oral-films", "Oral Films"], ["other", "Other"], ["sachets", "Sachets"],
+  ["softgels", "Softgels"], ["liquids", "Liquid Drops"], ["oral-films", "Oral Films"],
 ] as const;
-const discoveryHealthExamples = [
-  ["sports-performance", "Sports Performance"], ["womens-health", "Women’s Health"], ["sleep-rest", "Sleep & Rest"], ["cognitive-focus", "Cognitive Focus"],
-  ["beauty-from-within", "Beauty From Within"], ["pet-health", "Pet Health"], ["daily-wellness", "Daily Wellness"], ["immune-support", "Immune Support"],
-  ["digestive-wellness", "Digestive Wellness"], ["hydration", "Hydration"],
+const productMediaPairs = [
+  ["beauty-gummies-default.png", "beauty-gummies-detail.png"],
+  ["beauty-gummies-default.png", "beauty-gummies-hand.png"],
+  ["beauty-gummies-default.png", "beauty-gummies-closeup.png"],
+  ["beauty-gummies-default.png", "beauty-gummies-routine.png"],
+  ["beauty-gummies-default.png", "beauty-gummies-motion.png"],
+  ["beauty-gummies-default.png", "beauty-gummies-detail.png"],
+  ["beauty-gummies-default.png", "beauty-gummies-hand.png"],
+  ["beauty-gummies-default.png", "beauty-gummies-closeup.png"],
+  ["beauty-gummies-default.png", "beauty-gummies-routine.png"],
+  ["beauty-gummies-default.png", "beauty-gummies-motion.png"],
 ] as const;
-const discoveryMatrix = discoveryFormatExamples.flatMap(([formatSlug, formatName]) => discoveryHealthExamples.map(([directionSlug, directionName], index) => ({
-  id: `${formatSlug}-${directionSlug}`,
-  formatSlug,
-  formatName,
-  healthDirections: [directionSlug],
-  title: `${directionName} ${String(index + 1).padStart(2, "0")}`,
-  descriptor: `${formatName} demonstration route for ${directionName.toLowerCase()}.`,
-  dataStatus: "DEMO_ONLY" as const,
-  media: index === 0 && formatSlug === "gummies" ? { status: "FREE_COMMERCIAL" as const, src: "/media/b2b/format-gummies.png", alt: "Gummy format demonstration image", sourceUrl: pexelsLicense, creator: "VITHELO demo asset", licenseUrl: pexelsLicense, width: 1200, height: 900 } : undefined,
-})));
+
+const productRunwayMedia = (fileName: string, alt: string) => ({
+  status: "DEMO_ONLY" as const,
+  src: `/media/products/beauty-gummies/${fileName}`,
+  alt,
+  width: 1024,
+  height: 1024,
+});
+
+// Pool of secondary product shots cycled across concepts so every detail page
+// can show four additional angles (包裝 / 配方 / 场景 / 細節). DEMO_ONLY placeholders.
+const SECONDARY_SHOTS = [
+  "beauty-gummies-closeup.png",
+  "beauty-gummies-routine.png",
+  "beauty-gummies-hand.png",
+  "beauty-gummies-motion.png",
+  "beauty-gummies-detail.png",
+] as const;
+
+const discoveryMatrix = discoveryFormatExamples.flatMap(([formatSlug, formatName]) =>
+  productMediaPairs.map(([defaultImage, hoverImage], index) => {
+    const sequence = index + 1;
+    const paddedSequence = String(sequence).padStart(2, "0");
+    // Pick 4 secondary shots, skipping whichever images are already used as
+    // default/hover for this concept so every tile feels distinct.
+    const used = new Set([defaultImage, hoverImage]);
+    const gallery = SECONDARY_SHOTS.filter((file) => !used.has(file)).slice(0, 4);
+    return {
+      id: `${formatSlug}-concept-${paddedSequence}`,
+      formatSlug,
+      formatName,
+      sequence,
+      title: `Plant-Based ${formatName} Concept ${paddedSequence} for Private Label Nutrition`,
+      descriptor: `DEMO_ONLY ${formatName.toLowerCase()} product concept for private-label nutrition. Formula, flavor, packaging, and final specifications require approved project inputs before production.`,
+      dataStatus: "DEMO_ONLY" as const,
+      parameters: [
+        { label: "Product type", value: `${formatName} dietary supplement · DEMO_ONLY` },
+        { label: "Flavor", value: "DEMO_ONLY · Requires approved project inputs." },
+        { label: "Formula", value: "DEMO_ONLY · Requires approved project inputs." },
+        { label: "Net weight", value: "DEMO_ONLY · Requires approved project inputs." },
+        { label: "Quantity", value: "DEMO_ONLY · Requires approved project inputs." },
+        { label: "Packaging", value: "DEMO_ONLY · Requires approved project inputs." },
+        { label: "Color", value: "DEMO_ONLY · Requires approved project inputs." },
+        { label: "Storage", value: "Store in a cool, dry place" },
+        { label: "Shelf life", value: "DEMO_ONLY · Requires approved project inputs." },
+        { label: "Customization", value: "OEM / ODM" },
+      ],
+      ...(formatSlug === "gummies" ? { media: {
+        default: productRunwayMedia(
+          defaultImage,
+          `Temporary VITHELO Beauty Gummies demo image for ${formatName} concept ${paddedSequence}`,
+        ),
+        hover: productRunwayMedia(hoverImage, ""),
+      },
+      gallery: gallery.map((file, galleryIndex) =>
+        productRunwayMedia(
+          file,
+          `Secondary product shot ${galleryIndex + 1} for ${formatName} concept ${paddedSequence}`,
+        ),
+      ) } : {}),
+    };
+  }),
+);
 
 export const vitheloB2BSite = B2BSiteContentSchema.parse({
   dataStatus: "DEMO_ONLY",
@@ -174,22 +238,8 @@ export const vitheloB2BProductsPage = B2BProductsPageSchema.parse({
       { slug: "softgels", name: "Softgels" },
       { slug: "liquids", name: "Liquid Drops" },
       { slug: "oral-films", name: "Oral Films" },
-      { slug: "other", name: "Other" },
-      { slug: "sachets", name: "Sachets" },
     ],
-    healthDirections: [
-      { slug: "sports-performance", name: "Sports Performance" },
-      { slug: "womens-health", name: "Women’s Health" },
-      { slug: "sleep-rest", name: "Sleep & Rest" },
-      { slug: "cognitive-focus", name: "Cognitive Focus" },
-      { slug: "beauty-from-within", name: "Beauty From Within" },
-      { slug: "pet-health", name: "Pet Health" },
-      { slug: "daily-wellness", name: "Daily Wellness" },
-      { slug: "immune-support", name: "Immune Support" },
-      { slug: "digestive-wellness", name: "Digestive Wellness" },
-      { slug: "hydration", name: "Hydration" },
-    ],
-    items: discoveryMatrix,
+    items: mergeProductCatalog(discoveryMatrix, generatedProductCatalog),
   },
   comparison: [
     {

@@ -93,22 +93,14 @@ test("reduced motion keeps meaningful content static and visible", async ({ page
   for (const heading of ["Private Label", "Adapt & Differentiate", "Custom Development"]) {
     await expect(entryRoutes.getByRole("heading", { name: heading })).toBeVisible();
   }
-  await expect(page.getByTestId("market-story")).toHaveCount(3);
+  await expect(page.getByTestId("market-scene")).toHaveCount(3);
+  await expect(page.getByTestId("market-intro")).toHaveCount(0);
   const marketStage = page.locator("#solutions");
   for (const heading of ["Evening Routines", "Active Routines", "Life-stage Routines"]) {
     await expect(marketStage.getByRole("heading", { name: heading })).toBeVisible();
   }
 
   await page.goto("/products");
-  await expect(page.getByTestId("format-ledger")).toBeVisible();
-});
-
-test("market directions use a sticky viewport switcher without pagination controls", async ({ page, viewport }) => {
-  test.skip(!viewport || viewport.width <= 760, "Desktop market-stage progression");
-
-  await page.goto("/");
-
-  await expect(page.getByRole("button", { name: /market direction/i })).toHaveCount(0);
-  await expect(page.getByText(/\d{2} \/ \d{2}/)).toHaveCount(0);
-  await expect(page.getByTestId("market-stage")).toHaveAttribute("data-layout", "sticky-product-switcher");
+  await expect(page.getByRole("complementary", { name: "Filter by product format" })).toBeVisible();
+  await expect(page.getByTestId("product-runway").locator(":scope > a")).toHaveCount(10);
 });

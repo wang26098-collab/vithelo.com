@@ -8,6 +8,7 @@ const sectionIds = [
   "solutions",
   "dosage-forms",
   "project-runway",
+  "brand-statement",
   "contact",
 ] as const;
 
@@ -24,6 +25,15 @@ test("production Home keeps the current sections in sequence", async ({ page }) 
     sections.map((section) => section.id),
   );
   expect(renderedIds).toEqual(sectionIds);
+
+  const statement = page.locator("#brand-statement");
+  await expect(statement.locator("h2")).toContainText(
+    "From the fresh vitality of daybreak’s first light,",
+  );
+  await expect(statement.locator("h2")).toContainText(
+    "to the quiet peace when all the world slips into night.",
+  );
+  await expect(statement).not.toContainText(/Start a Project|Explore|Email|WhatsApp/i);
 
   const proof = page.locator("#proof");
   await expect(proof).toHaveAttribute("data-layout", "manufacturing-editorial-split");
@@ -54,7 +64,8 @@ test("production Home keeps the current sections in sequence", async ({ page }) 
   ).toHaveAttribute("href", "/oem-odm");
   await expect(customization).not.toContainText(/Fast Sampling|Confidential/i);
 
-  await expect(page.getByTestId("market-story")).toHaveCount(3);
+  await expect(page.getByTestId("market-scene")).toHaveCount(3);
+  await expect(page.getByTestId("market-intro")).toHaveCount(0);
   await expect(page.getByTestId("format-project")).toHaveCount(8);
   await expect(page.getByText(/\d{2} \/ \d{2}/)).toHaveCount(0);
   await expect(page.getByRole("button", { name: /market direction/i })).toHaveCount(0);

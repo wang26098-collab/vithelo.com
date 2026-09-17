@@ -1,5 +1,19 @@
 import { expect, test } from "@playwright/test";
 
+test("desktop inquiry content keeps one 190px viewport gutter", async ({ page, viewport }) => {
+  test.skip(!viewport || viewport.width <= 1200);
+  await page.goto("/");
+  const bounds = await page.locator("[data-inquiry-reveal] > div > div:nth-child(2)").evaluate((element) => {
+    const rect = element.getBoundingClientRect();
+    return {
+      left: rect.left,
+      right: document.documentElement.clientWidth - rect.right,
+    };
+  });
+  expect(bounds.left).toBeCloseTo(190, 0);
+  expect(bounds.right).toBeCloseTo(190, 0);
+});
+
 test("inquiry wordmark reveals the channels with native scrolling", async ({ page }, testInfo) => {
   await page.goto("/");
   const reveal = page.locator("[data-inquiry-reveal]");

@@ -211,6 +211,7 @@ export const B2BHomeSectionIdSchema = z.enum([
   "solutions",
   "dosage-forms",
   "project-runway",
+  "brand-statement",
   "contact",
 ]);
 
@@ -223,6 +224,17 @@ const B2BRequiredMediaSchema = z.object({
   format: z.enum(["WebP", "transparent WebP", "PNG", "JPEG"]),
 });
 
+const B2BHeroVideoSchema = z.object({
+  status: z.literal("DEMO_VIDEO"),
+  src: z.string().regex(/^\/media\/b2b\/[\w.-]+$/),
+  poster: z.string().regex(/^\/media\/b2b\/[\w.-]+$/),
+  width: z.number().int().positive(),
+  height: z.number().int().positive(),
+  durationSeconds: z.number().positive(),
+  alt: z.string().min(1),
+  label: z.string().min(1),
+});
+
 const B2BLabelCopySchema = z.object({
   title: z.string().min(1),
   copy: z.string().min(1),
@@ -230,7 +242,7 @@ const B2BLabelCopySchema = z.object({
 
 export const VitheloB2BHomeContentSchema = z.object({
   dataStatus: DataStatusSchema,
-  sectionOrder: z.array(B2BHomeSectionIdSchema).length(8),
+  sectionOrder: z.array(B2BHomeSectionIdSchema).length(9),
   hero: z.object({
     eyebrow: z.string().min(1),
     title: z.string().min(1),
@@ -244,6 +256,7 @@ export const VitheloB2BHomeContentSchema = z.object({
       href: z.literal("/products"),
     }),
     media: B2BRequiredMediaSchema,
+    heroVideo: B2BHeroVideoSchema.optional(),
   }),
   proof: z.object({
     kicker: z.literal("02 · MANUFACTURING SYSTEM"),
@@ -278,9 +291,6 @@ export const VitheloB2BHomeContentSchema = z.object({
     nodes: z.array(B2BLabelCopySchema).length(4),
   }),
   market: z.object({
-    kicker: z.literal("05 · PRODUCT DIRECTION"),
-    title: z.literal("Begin with the routine, not the ingredient list."),
-    intro: z.string().min(1),
     stories: z
       .array(
         B2BLabelCopySchema.extend({
@@ -322,8 +332,24 @@ export const VitheloB2BHomeContentSchema = z.object({
     }),
     steps: z.array(B2BLabelCopySchema).length(6),
   }),
+  statement: z.object({
+    title: z.literal(
+      "From the fresh vitality of daybreak’s first light, to the quiet peace when all the world slips into night.",
+    ),
+    supportingText: z.literal(
+      "Every dawn and dusk of yours, warmth and companionship stay close beside you.",
+    ),
+    media: z.object({
+      status: z.literal("DEMO_ONLY"),
+      src: z.literal("/media/b2b/vithelo-daybreak-nightfall.png"),
+      label: z.string().min(1),
+      width: z.literal(1536),
+      height: z.literal(1024),
+      format: z.literal("PNG"),
+    }),
+  }),
   contact: z.object({
-    kicker: z.literal("08 · START A PROJECT"),
+    kicker: z.literal("09 · START A PROJECT"),
     title: z.literal("Turn your idea into a useful first conversation."),
     copy: z.string().min(1),
     prompts: z.array(z.string().min(1)).length(4),
@@ -429,15 +455,49 @@ const HealthDirectionSlugSchema = z.enum([
   "sports-performance", "womens-health", "sleep-rest",
   "cognitive-focus", "beauty-from-within", "pet-health", "daily-wellness", "immune-support", "digestive-wellness", "hydration",
 ]);
-const ProductDiscoveryItemSchema = z.object({
-  id: z.string().min(1),
+const ProductDiscoveryMediaSchema = z.object({
+  default: DemoMediaSchema,
+  hover: DemoMediaSchema.extend({ alt: z.string() }),
+});
+
+export const ProductDiscoveryItemSchema = z.object({
+  id: z.string().regex(/^[A-Za-z0-9][A-Za-z0-9._-]{1,63}$/),
   formatSlug: ProductFormatSlugSchema,
   formatName: z.string().min(1),
-  healthDirections: z.array(HealthDirectionSlugSchema).min(1),
+  healthDirections: z.array(HealthDirectionSlugSchema).min(1).optional(),
   title: z.string().min(1),
   descriptor: z.string().min(1),
   dataStatus: z.literal("DEMO_ONLY"),
-  media: B2BPageMediaSchema.optional(),
+  sourceBoundary: z
+    .literal("USER_PROVIDED_PENDING_PRODUCTION_VERIFICATION")
+    .optional(),
+  media: ProductDiscoveryMediaSchema.optional(),
+  gallery: z.array(DemoMediaSchema).max(4).optional(),
+  parameters: z.array(z.object({ label: z.string().min(1), value: z.string().min(1) })).optional(),
+  detailSections: z
+    .array(
+      z
+        .object({
+          id: z.enum([
+            "overview",
+            "formula",
+            "ingredients",
+            "customization",
+            "packaging",
+            "evidence",
+          ]),
+          title: z.string().min(1),
+          paragraphs: z.array(z.string().min(1)).optional(),
+          items: z.array(z.string().min(1)).optional(),
+        })
+        .refine(
+          (section) =>
+            Boolean(section.paragraphs?.length || section.items?.length),
+          { message: "Detail section requires paragraphs or items." },
+        ),
+    )
+    .max(6)
+    .optional(),
 });
 
 export const B2BProductsPageSchema = z.object({
@@ -451,8 +511,10 @@ export const B2BProductsPageSchema = z.object({
   }),
   formats: z.array(DosageFormatCapabilitySchema).length(10),
   discovery: z.object({
-    formats: z.array(z.object({ slug: ProductFormatSlugSchema, name: z.string().min(1) })).length(10),
-    healthDirections: z.array(z.object({ slug: HealthDirectionSlugSchema, name: z.string().min(1) })).length(10),
+    formats: z.array(z.object({ slug: ProductFormatSlugSchema, name: z.string().min(1) })).min(1),
+    healthDirections: z
+      .array(z.object({ slug: HealthDirectionSlugSchema, name: z.string().min(1) }))
+      .optional(),
     items: z.array(ProductDiscoveryItemSchema).min(1),
   }),
   comparison: z
@@ -583,6 +645,7 @@ export type SiteConfig = z.infer<typeof SiteConfigSchema>;
 export type HomeContent = z.infer<typeof HomeContentSchema>;
 export type B2BHomeSectionId = z.infer<typeof B2BHomeSectionIdSchema>;
 export type VitheloB2BHomeContent = z.infer<typeof VitheloB2BHomeContentSchema>;
+export type VitheloB2BHeroVideo = z.infer<typeof B2BHeroVideoSchema>;
 export type B2BPageMedia = z.infer<typeof B2BPageMediaSchema>;
 export type B2BSiteContent = z.infer<typeof B2BSiteContentSchema>;
 export type B2BProductsPage = z.infer<typeof B2BProductsPageSchema>;

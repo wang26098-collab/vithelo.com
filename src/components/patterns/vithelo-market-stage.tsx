@@ -1,5 +1,4 @@
 import Image from "next/image";
-import type { CSSProperties } from "react";
 import type { VitheloB2BHomeContent } from "@/content/schema";
 import styles from "@/components/patterns/vithelo-b2b-home.module.css";
 
@@ -10,81 +9,50 @@ type VitheloMarketStageProps = {
 function VitheloMarketStage({ market }: VitheloMarketStageProps) {
   return (
     <section
-      aria-labelledby="solutions-title"
+      aria-label="Product directions"
       className={`${styles.section} ${styles.marketStage}`}
-      data-layout="sticky-product-switcher"
+      data-layout="reference-scene-stack"
       data-motion-fallback="stacked"
       data-motion-intent="RELATE"
       data-narrative-role="routine-to-brief"
       data-testid="market-stage"
-      data-ui-stage="image-led-product-directions"
       id="solutions"
-      style={
-        {
-          "--market-stage-height": `${market.stories.length * 100}svh`,
-        } as CSSProperties
-      }
     >
-      <div className={styles.marketIntro} data-testid="market-intro">
-        <p className={styles.kicker}>{market.kicker}</p>
-        <h2 className={styles.title} id="solutions-title">
-          {market.title}
-        </h2>
-        <p className={styles.marketIntroCopy}>{market.intro}</p>
-      </div>
-
-      <div className={styles.marketStickyStage}>
-        <div className={styles.marketStories}>
-          {market.stories.map((story, index) => {
-            return (
-              <article
-                className={styles.marketStory}
-                data-media-status={story.media.status}
-                data-story={index + 1}
-                data-testid="market-story"
-                key={story.title}
-              >
-                <div
-                  aria-label={`${story.media.label}; ${story.media.width} by ${story.media.height} ${story.media.format}`}
-                  className={styles.marketStoryVisual}
-                  data-testid="market-story-image"
-                  role="img"
-                >
-                  <Image
-                    alt=""
-                    aria-hidden="true"
-                    className={styles.marketStoryImage}
-                    fill
-                    sizes="(max-width: 760px) 92vw, 66vw"
-                    src={story.media.src ?? "/media/b2b/gummies-pexels-14027295.jpg"}
-                  />
-                  <span aria-hidden="true" className={styles.marketStoryShade} />
-                  <h3 className={styles.marketStoryTitle}>{story.title}</h3>
-                  <span aria-hidden="true" className={styles.marketStoryMark}>
-                    VITHELO
-                  </span>
-                </div>
-
-                <div className={styles.marketStoryCaption}>
-                  <span className={styles.marketStoryIndex}>
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <p>{story.copy}</p>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      </div>
-
-      <div aria-hidden="true" className={styles.marketScrollTrack}>
+      <div className={styles.marketSceneStack}>
         {market.stories.map((story, index) => (
-          <div
-            className={styles.marketStep}
-            data-index={index}
-            data-testid="market-step"
+          <article
+            className={styles.marketScene}
+            data-media-status={story.media.status}
+            data-scene={index + 1}
+            data-testid="market-scene"
             key={story.title}
-          />
+          >
+            <div
+              aria-label={`${story.media.label}; ${story.media.width} by ${story.media.height} ${story.media.format}`}
+              className={styles.marketSceneVisual}
+              data-testid="market-scene-image"
+              role="img"
+            >
+              <Image
+                alt=""
+                aria-hidden="true"
+                className={styles.marketSceneImage}
+                fill
+                loading="eager"
+                sizes="(max-width: 760px) 100vw, 96vw"
+                src={story.media.src ?? "/media/b2b/gummies-pexels-14027295.jpg"}
+              />
+              <span aria-hidden="true" className={styles.marketSceneShade} />
+            </div>
+
+            <div className={styles.marketSceneCopy}>
+              <span className={styles.marketSceneIndex}>
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <h3>{story.title}</h3>
+              <p>{story.copy}</p>
+            </div>
+          </article>
         ))}
       </div>
     </section>

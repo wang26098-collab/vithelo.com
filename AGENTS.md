@@ -6,11 +6,11 @@ This repository is the current VITHELO English B2B nutrition-manufacturing websi
 
 - Public identity is `VITHELO` only. Never expose the source company's Chinese name, English name, or original logo in public copy, metadata, images, or alt text.
 - Source material is stored under `独立站内容/`. It may inform design and content only within the evidence boundaries recorded in `docs/current-status.md` and `docs/data-governance.md`.
-- The hero artwork is locked. Do not replace, regenerate, scale, translate, or apply parallax to it.
-- The current rendered Home sequence has eight screens: Hero, manufacturing proof, capability boundary, gummy capability, product directions, product formats, OEM / ODM runway, and inquiry close.
+- The hero uses the user-approved demo video. Reduced Motion shows the static hero artwork; do not otherwise replace, regenerate, scale, translate, or apply parallax to it.
+- The current rendered Home sequence has nine sections: Hero, manufacturing proof, capability boundary, gummy capability, product directions, product formats, OEM / ODM runway, brand statement, and inquiry close.
 - Product directions remain vertically scroll-driven with no page count, left/right arrows, or horizontal carousel.
 - Eight dosage formats remain one section; Oral Films must not be isolated by the layout.
-- Motion is selective. The hero image stays static; meaningful facts remain visible with Reduced Motion.
+- Motion is selective. The hero video yields to a static image with Reduced Motion; meaningful facts remain visible.
 - Do not repeatedly redesign the whole homepage. Work one approved screen at a time and preserve accepted screens.
 - The inquiry close now uses the approved VITHELO wordmark-to-scene scroll reveal. Direct `#contact`, keyboard focus, no-JavaScript fallback, and Reduced Motion must expose Email and WhatsApp without requiring the decorative transition.
 - The current eight-screen homepage is the locked working baseline. Preserve accepted screens and only revise a screen when the user explicitly reopens it.
@@ -66,11 +66,11 @@ pnpm.cmd build
 
 1. Public identity is `VITHELO` only. The source company's names and original logo are not public assets.
 2. The active website is a Nutrition OEM / ODM B2B inquiry site. Do not restore the historical device catalog or commerce prototype unless the user explicitly reopens that scope.
-3. The approved hero artwork is locked and static.
+3. The user-approved hero video has a static Reduced Motion fallback; other hero artwork changes remain locked.
 4. The visual world is cold Ivory, Graphite, Titanium, and restrained Optical light. Do not turn Nutrition into a green channel.
 5. The dependency direction is Tokens -> Core Components -> Domain Components -> Page Patterns -> validated content.
 6. Home orients and builds trust, Products supports format comparison, OEM / ODM explains the project path, Insights supports reading, and Contact completes direct inquiry routing.
-7. Home keeps the approved eight-screen rendered sequence. Screen five is vertical, not horizontal; screen six contains all eight formats in one balanced field.
+7. Home keeps the current nine-section rendered sequence. Product directions remain vertical; the format section contains all eight formats in one balanced field.
 8. Motion follows `SCALE × REVEAL × RESPONSE` and declares `ORIENT`, `RELATE`, `EXPLAIN`, `FOCUS`, or `CONFIRM`. Motion is selective, not mandatory on every screen.
 9. Reduced Motion is a completion requirement. Meaningful facts may not exist only inside animation.
 10. User-provided manufacturing facts retain an explicit source boundary until production verification. Missing facts remain `NOT_CONFIGURED`.
@@ -79,11 +79,11 @@ pnpm.cmd build
 
 ## Current verification truth
 
-- Latest local commit: `a58a4a6` (`feat: advance VITHELO site and inquiry experience`) on `main`; it has not been pushed from this workspace.
+- Before the current sync, local `main` was 44 commits ahead of GitHub `main`; push status must be verified with `git ls-remote`.
 - Inquiry reveal and inquiry journeys: 42 focused E2E checks pass across all six acceptance viewports.
 - `pnpm.cmd typecheck` and `pnpm.cmd build` pass on local Node 24.16.0. This is not the required Node 20 Hostinger proof.
-- Full unit suite currently reports 123 passed. Full E2E last reported 271 passed, 50 failed, and 15 skipped. Do not describe the repository as fully green until those E2E failures are reconciled.
-- Full lint currently scans locally downloaded reference-site scripts under `独立站内容/` and fails there. Targeted lint for the inquiry implementation passes. Do not edit source/reference material merely to satisfy application lint.
+- Full unit suite reports 131 passed after the September 16 sync review. Full E2E must be rerun before claiming a green result.
+- ESLint excludes locally downloaded reference material under `独立站内容/`; do not edit that material to satisfy application lint.
 - `next-env.d.ts` is generated by Next.js. Do not edit it by hand or include incidental local regeneration in a feature change.
 
 ## Do-not rules

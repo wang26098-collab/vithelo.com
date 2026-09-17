@@ -18,6 +18,6 @@ it("keeps every homepage height and padding declaration locked", () => {
     .join("\n");
 
   expect(createHash("sha256").update(geometryDeclarations).digest("hex").toUpperCase()).toBe(
-    "93415C6E2C52BC910C987538F7B33C913CCE512C8D54C4A9AF99B2B360BE898C",
+    "F5B1606DA80C01A16CA1FB1592E109CE19759BF3661988152CE0599217D2A644",
   );
 });

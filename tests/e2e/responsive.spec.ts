@@ -19,7 +19,7 @@ test("B2B hero keeps its decision content inside the hero stage", async ({
 
   const hero = page.locator("#hero");
   const title = hero.getByRole("heading", {
-    name: "Nutrition formats, built for private-label growth.",
+    name: "VITHELO — Nutrition OEM / ODM Manufacturer",
   });
   const action = hero.getByRole("link", { name: "Start a Project" });
 
@@ -119,9 +119,7 @@ test("homepage headings use the approved editorial scale", async ({ page, viewpo
   expect(customizationSize).toBeLessThanOrEqual(viewport && viewport.width <= 760 ? 56 : 86);
 
   const supportingSizes = await page.locator("main h3").evaluateAll((elements) =>
-    elements
-      .filter((element) => !element.closest("#solutions"))
-      .map((element) => Number.parseFloat(getComputedStyle(element).fontSize)),
+    elements.map((element) => Number.parseFloat(getComputedStyle(element).fontSize)),
   );
   const paragraphSizes = await page.locator("main p").evaluateAll((elements) =>
     elements.map((element) => Number.parseFloat(getComputedStyle(element).fontSize)),
@@ -159,61 +157,28 @@ test("content-heavy homepage sections stay within the approved desktop height ra
   }
 });
 
-test("desktop product directions switch inside one sticky viewport", async ({
-  page,
-  viewport,
-}) => {
-  test.skip(!viewport || viewport.width < 1024, "Desktop product direction check");
-
-  await page.setViewportSize({ width: 1440, height: 720 });
+test("brand statement keeps two desktop lines and a readable mobile flow", async ({ page, viewport }) => {
+  if (!viewport) throw new Error("Configured viewport required");
   await page.goto("/");
-
-  const stage = page.locator("#solutions");
-  const stories = stage.getByTestId("market-story");
-  await expect(stories).toHaveCount(3);
-  await expect(stage).toHaveAttribute("data-layout", "sticky-product-switcher");
-  await expect(stage.getByRole("button")).toHaveCount(0);
-
-  const layout = await stage.evaluate((element) => {
-    const stories = Array.from(element.querySelectorAll<HTMLElement>("[data-testid='market-story']"));
+  const statement = page.locator("#brand-statement");
+  await statement.scrollIntoViewIfNeeded();
+  await expect(statement).toBeVisible();
+  await expect(statement.getByRole("link")).toHaveCount(0);
+  await expect(statement.getByRole("button")).toHaveCount(0);
+  const layout = await statement.evaluate((element) => {
+    const lines = Array.from(element.querySelectorAll<HTMLElement>("[data-statement-line]"));
+    const heading = element.querySelector<HTMLElement>("h2")!;
     return {
-      height: Math.round(element.getBoundingClientRect().height),
-      storyTops: stories.map((story) => story.offsetTop),
-      stickyPosition: getComputedStyle(element.children[1]).position,
-      top: element.getBoundingClientRect().top + window.scrollY,
+      clientWidth: element.clientWidth,
+      scrollWidth: element.scrollWidth,
+      headingBottom: heading.getBoundingClientRect().bottom,
+      sectionBottom: element.getBoundingClientRect().bottom,
+      lineRects: lines.map((line) => Array.from(line.getClientRects()).length),
     };
   });
-  expect(layout.height).toBe(2160);
-  expect(new Set(layout.storyTops).size).toBe(1);
-  expect(layout.stickyPosition).toBe("sticky");
-
-  for (let step = 0; step <= 1440; step += 72) {
-    await page.evaluate(
-      ({ stageTop, offset }) => window.scrollTo({ top: stageTop + offset, behavior: "instant" }),
-      { stageTop: layout.top, offset: step },
-    );
-    const visibleStories = await stories.evaluateAll((elements) =>
-      elements.filter((element) => Number.parseFloat(getComputedStyle(element).opacity) > 0.05).length,
-    );
-    expect(visibleStories, `overlap at market scroll offset ${step}`).toBeLessThanOrEqual(1);
-  }
-
-  for (let index = 0; index < 3; index += 1) {
-    await page.evaluate(
-      ({ stageTop, step }) => window.scrollTo({ top: stageTop + step, behavior: "instant" }),
-      { stageTop: layout.top, step: index * 720 },
-    );
-    await expect
-      .poll(() =>
-        stories.evaluateAll((elements) =>
-          elements.findIndex((element) => {
-            const style = getComputedStyle(element);
-            return style.visibility === "visible" && Number.parseFloat(style.opacity) > 0.9;
-          }),
-        ),
-      )
-      .toBe(index);
-  }
+  expect(layout.scrollWidth).toBeLessThanOrEqual(layout.clientWidth + 1);
+  expect(layout.headingBottom).toBeLessThanOrEqual(layout.sectionBottom);
+  if (viewport.width >= 1024) expect(layout.lineRects).toEqual([1, 1]);
 });
 
 test("featured products form three, two and one column layouts without overflow", async ({ page, viewport }) => {
@@ -354,26 +319,4 @@ test("core routes do not overflow the viewport", async ({ page }, testInfo) => {
     fullPage: true,
     path: testInfo.outputPath("home-dark-final.png"),
   });
-});
-
-test("mobile market stories switch inside one sticky viewport", async ({
-  page,
-  viewport,
-}) => {
-  test.skip(!viewport || viewport.width > 760, "Mobile market-stage check");
-
-  await page.goto("/");
-
-  const stage = page.getByTestId("market-stage");
-  const stories = stage.getByTestId("market-story");
-  await expect(stories).toHaveCount(3);
-  await expect(stage.getByTestId("market-step")).toHaveCount(3);
-  await expect(stage).toHaveAttribute("data-layout", "sticky-product-switcher");
-  await expect
-    .poll(() =>
-      stories.evaluateAll((elements) =>
-        elements.map((element) => getComputedStyle(element).visibility),
-      ),
-    )
-    .toEqual(["visible", "hidden", "hidden"]);
 });

@@ -13,5 +13,9 @@ export default defineConfig([
     "test-results/**",
     "blob-report/**",
     "next-env.d.ts",
+    "独立站内容/**",
+    "tmp/**",
+    ".superpowers/**",
+    ".workbuddy/**",
   ]),
 ]);
