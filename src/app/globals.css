@@ -2,7 +2,7 @@
 @import "../styles/tokens.css";
 
 :root {
-  --vithelo-page-hero-height: clamp(750px, calc(69svh + 30px), 1110px);
+  --vithelo-page-hero-height: 1180px;
 }
 
 @media (max-width: 760px) {
