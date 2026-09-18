@@ -221,7 +221,7 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
       >
         {content.hero.heroVideo ? <HeroVideo video={content.hero.heroVideo} /> : null}
         <div aria-hidden="true" className={styles.heroVeil} data-testid="hero-veil" />
-        <div className={styles.heroContent} data-testid="hero-copy">
+        <div className={styles.heroContent} data-testid="hero-copy" style={{ marginTop: 130 }}>
           <div className={styles.heroEyebrow}>{content.hero.eyebrow}</div>
           <h1 id="hero-title">{content.hero.title}</h1>
           <p>{content.hero.copy}</p>

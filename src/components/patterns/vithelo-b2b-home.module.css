@@ -2155,7 +2155,7 @@
   .contactChannelCard { min-height: 180px; }
   .inquirySummaryField { grid-column: auto; }
   .inquiryComposerActions { display: grid; }
-  .heroContent { width: calc(100% - 32px); }
+  .heroContent { width: calc(100% - 32px); margin-top: 0 !important; }
   .hero { height: var(--vithelo-page-hero-height); min-height: var(--vithelo-page-hero-height); align-items: flex-start; }
   .hero::before { background-position: 66% center; }
   .heroContent { padding-top: clamp(6rem, 15vh, 8rem); }
