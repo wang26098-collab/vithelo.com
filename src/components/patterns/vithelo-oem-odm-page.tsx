@@ -2,6 +2,11 @@ import Link from "next/link";
 import styles from "@/components/patterns/vithelo-b2b-pages.module.css";
 import type { B2BOemOdmPage } from "@/content/schema";
 
+const sectionProps = (section: string) => ({
+  "data-testid": "oem-section",
+  "data-section": section,
+});
+
 export function VitheloOemOdmPage({
   content,
 }: {
@@ -11,24 +16,59 @@ export function VitheloOemOdmPage({
     <main
       className={`${styles.page} ${styles.oemPage}`}
       data-content-status={content.dataStatus}
-      data-ui-stage="oem-premium-process"
+      data-ui-stage="oem-capability-ledger"
     >
-      <section data-header-hero className={`${styles.hero} ${styles.oemHero}`}>
+      <section
+        {...sectionProps("hero")}
+        data-header-hero
+        className={`${styles.hero} ${styles.oemHero}`}
+      >
         <p className={styles.kicker}>{content.hero.kicker}</p>
         <h1>{content.hero.title}</h1>
         <p className={styles.lede}>{content.hero.copy}</p>
       </section>
 
-      <section className={`${styles.section} ${styles.identitySection}`}>
-        <p className={styles.kicker}>DIRECT MANUFACTURING RELATIONSHIP</p>
-        <h2>{content.identity.title}</h2>
-        <p className={styles.lede}>{content.identity.copy}</p>
+      <section
+        {...sectionProps("capabilities")}
+        className={`${styles.section} ${styles.oemCapabilitySection}`}
+      >
+        <p className={styles.kicker}>DEVELOPMENT CAPABILITIES</p>
+        <h2>One project system. Seven connected decisions.</h2>
+        <div className={styles.oemCapabilityMap} data-testid="capability-map">
+          {content.capabilities.map((item, index) => (
+            <article key={item.title}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <h3>{item.title}</h3>
+              <p>{item.copy}</p>
+            </article>
+          ))}
+        </div>
       </section>
 
-      <section className={`${styles.section} ${styles.projectPathSection}`}>
+      <section
+        {...sectionProps("formats")}
+        className={`${styles.section} ${styles.oemFormatsSection}`}
+      >
+        <p className={styles.kicker}>DOSAGE FORMS</p>
+        <h2>Eight formats within one review path.</h2>
+        <div className={styles.oemFormatField} data-testid="format-field">
+          {content.formats.map((format, index) => (
+            <Link key={format.href} href={format.href}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <strong>{format.label}</strong>
+              <span aria-hidden="true">↗</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section
+        {...sectionProps("project-path")}
+        className={`${styles.section} ${styles.oemProjectSection}`}
+      >
         <p className={styles.kicker}>PROJECT PATH</p>
-        <h2>Six clear steps from brief to delivery.</h2>
-        <div className={styles.stepLedger} data-testid="oem-steps">
+        <h2>Six confirmations from direction to delivery.</h2>
+        <div className={styles.oemStepLedger} data-testid="oem-steps">
           {content.steps.map((step) => (
             <article key={step.title}>
               <h3>{step.title}</h3>
@@ -38,11 +78,38 @@ export function VitheloOemOdmPage({
         </div>
       </section>
 
-      <section className={`${styles.section} ${styles.customSection}`}>
-        <p className={styles.kicker}>CUSTOM DEVELOPMENT</p>
-        <h2>Align the decisions that have to work together.</h2>
-        <div className={styles.detailLedger}>
-          {content.customization.map((item) => (
+      <section
+        {...sectionProps("commercial-variables")}
+        className={`${styles.section} ${styles.oemVariablesSection}`}
+      >
+        <p className={styles.kicker}>COMMERCIAL VARIABLES</p>
+        <h2>MOQ and timing follow the confirmed project.</h2>
+        <div
+          className={styles.oemVariableGrid}
+          data-testid="commercial-variables"
+        >
+          {content.commercialVariables.map((item) => (
+            <article key={item.title}>
+              <h3>{item.title}</h3>
+              <p>{item.copy}</p>
+              <ul>
+                {item.factors.map((factor) => (
+                  <li key={factor}>{factor}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section
+        {...sectionProps("packaging")}
+        className={`${styles.section} ${styles.oemPackagingSection}`}
+      >
+        <p className={styles.kicker}>PACKAGING ALIGNMENT</p>
+        <h2>Plan the pack with the product.</h2>
+        <div className={styles.oemPackagingGrid} data-testid="packaging-groups">
+          {content.packaging.map((item) => (
             <article key={item.title}>
               <h3>{item.title}</h3>
               <p>{item.copy}</p>
@@ -51,23 +118,13 @@ export function VitheloOemOdmPage({
         </div>
       </section>
 
-      <section className={`${styles.section} ${styles.productionSection}`}>
-        <p className={styles.kicker}>PRODUCTION SYSTEM</p>
-        <h2>A manufacturing route built from confirmed inputs.</h2>
-        <div className={styles.detailLedger}>
-          {content.production.map((item) => (
-            <article key={item.title}>
-              <h3>{item.title}</h3>
-              <p>{item.copy}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className={`${styles.section} ${styles.qualityPathSection}`}>
-        <p className={styles.kicker}>QUALITY PATH</p>
-        <h2>Quality is recorded through the project.</h2>
-        <div className={styles.simpleTable} data-testid="quality-path">
+      <section
+        {...sectionProps("quality")}
+        className={`${styles.section} ${styles.oemQualitySection}`}
+      >
+        <p className={styles.kicker}>QUALITY & DOCUMENTATION</p>
+        <h2>Define the relevant checks before production.</h2>
+        <div className={styles.oemQualityLedger} data-testid="quality-path">
           {content.quality.map((item) => (
             <article key={item.title}>
               <h3>{item.title}</h3>
@@ -77,19 +134,25 @@ export function VitheloOemOdmPage({
         </div>
       </section>
 
-      <section className={`${styles.section} ${styles.prepSection}`}>
-        <p className={styles.kicker}>PROJECT PREPARATION</p>
-        <h2>Five inputs make the first review useful.</h2>
-        <ol className={styles.checklist}>
+      <section
+        {...sectionProps("quote-preparation")}
+        className={`${styles.section} ${styles.oemPrepSection}`}
+      >
+        <p className={styles.kicker}>QUOTE PREPARATION</p>
+        <h2>Six inputs make the first review useful.</h2>
+        <ol className={styles.oemChecklist}>
           {content.checklist.map((item) => (
             <li key={item}>{item}</li>
           ))}
         </ol>
       </section>
 
-      <section className={`${styles.section} ${styles.questionsSection}`}>
-        <p className={styles.kicker}>BUYER QUESTIONS</p>
-        <h2>What to clarify before production.</h2>
+      <section
+        {...sectionProps("questions")}
+        className={`${styles.section} ${styles.oemQuestionsSection}`}
+      >
+        <p className={styles.kicker}>PROJECT QUESTIONS</p>
+        <h2>Clarify the variables before production.</h2>
         <div className={styles.faq}>
           {content.faqs.map((item) => (
             <details key={item.title}>
@@ -100,13 +163,25 @@ export function VitheloOemOdmPage({
         </div>
       </section>
 
-      <section className={styles.cta}>
+      <section
+        {...sectionProps("inquiry")}
+        className={`${styles.cta} ${styles.oemCta}`}
+      >
         <h2>{content.cta.title}</h2>
         <p>{content.cta.copy}</p>
-        <Link href={content.cta.href}>Start a Project</Link>
-        <Link href="/insights/private-label-vs-custom-formulation">Compare private label and custom formulation</Link>
-        <Link href="/insights/how-supplement-sampling-works">Understand the sampling process</Link>
-        <Link href="/insights/how-packaging-affects-moq-and-lead-time">Review packaging, MOQ and timing variables</Link>
+        <Link className={styles.oemPrimaryCta} href={content.cta.href}>
+          Start a Project
+        </Link>
+        <nav
+          className={styles.oemRelatedLinks}
+          aria-label="Related OEM and ODM guides"
+        >
+          {content.relatedLinks.map((link) => (
+            <Link key={link.href} href={link.href}>
+              {link.label}
+            </Link>
+          ))}
+        </nav>
       </section>
     </main>
   );

@@ -6,7 +6,7 @@ import { localContentAdapter } from "@/lib/content";
 export const metadata: Metadata = {
   title: "OEM / ODM | VITHELO",
   description:
-    "A clear nutrition product path from requirement review and sampling to production and release.",
+    "Structured supplement OEM and ODM project development across formulation, dosage form, sampling, packaging, production coordination and quality review.",
   alternates: { canonical: "/oem-odm" },
   openGraph: {
     url: "/oem-odm",
