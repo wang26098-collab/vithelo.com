@@ -224,6 +224,15 @@ const B2BRequiredMediaSchema = z.object({
   format: z.enum(["WebP", "transparent WebP", "PNG", "JPEG"]),
 });
 
+const B2BEditorialDemoMediaSchema = z.object({
+  status: z.literal("DEMO_ONLY"),
+  src: z.string().regex(/^\/media\/b2b\/[\w.-]+$/),
+  label: z.string().min(1),
+  width: z.number().int().positive(),
+  height: z.number().int().positive(),
+  format: z.enum(["WebP", "transparent WebP", "PNG", "JPEG"]),
+});
+
 const B2BHeroVideoSchema = z.object({
   status: z.literal("DEMO_VIDEO"),
   src: z.string().regex(/^\/media\/b2b\/[\w.-]+$/),
@@ -277,6 +286,7 @@ export const VitheloB2BHomeContentSchema = z.object({
       label: z.literal("Find Your Starting Route"),
       href: z.literal("/oem-odm"),
     }),
+    media: B2BEditorialDemoMediaSchema,
     routes: z.array(B2BLabelCopySchema).length(3),
   }),
   customization: z.object({
@@ -287,7 +297,7 @@ export const VitheloB2BHomeContentSchema = z.object({
       label: z.literal("Explore OEM / ODM"),
       href: z.literal("/oem-odm"),
     }),
-    media: B2BRequiredMediaSchema,
+    media: B2BEditorialDemoMediaSchema,
     nodes: z.array(B2BLabelCopySchema).length(4),
   }),
   market: z.object({
@@ -301,7 +311,7 @@ export const VitheloB2BHomeContentSchema = z.object({
   }),
   dosage: z.object({
     kicker: z.literal("06 · PRODUCT FORMATS"),
-    title: z.literal("One brief. Eight ways to deliver it."),
+    title: z.literal("One brief. Eight ways to deliver it"),
     qualifier: z.string().min(1),
     items: z
       .array(
@@ -317,6 +327,8 @@ export const VitheloB2BHomeContentSchema = z.object({
             "functional-gum",
             "oral-films",
           ]),
+          tags: z.array(z.string().min(1)).length(3),
+          description: z.string().min(20).max(200),
           media: B2BRequiredMediaSchema,
         }),
       )
@@ -339,13 +351,19 @@ export const VitheloB2BHomeContentSchema = z.object({
     supportingText: z.literal(
       "Every dawn and dusk of yours, warmth and companionship stay close beside you.",
     ),
+    action: z
+      .object({
+        label: z.string().min(1),
+        href: z.string().regex(/^\//),
+      })
+      .optional(),
     media: z.object({
       status: z.literal("DEMO_ONLY"),
-      src: z.literal("/media/b2b/vithelo-daybreak-nightfall.png"),
+      src: z.literal("/media/b2b/vithelo-daybreak-nightfall-v3.jpg"),
       label: z.string().min(1),
-      width: z.literal(1536),
-      height: z.literal(1024),
-      format: z.literal("PNG"),
+      width: z.literal(1769),
+      height: z.literal(889),
+      format: z.literal("JPEG"),
     }),
   }),
   contact: z.object({
@@ -529,21 +547,29 @@ export const B2BProductsPageSchema = z.object({
   }),
 });
 
+const B2BCommercialVariableSchema = z.object({
+  title: z.string().min(1),
+  copy: z.string().min(1),
+  factors: z.array(z.string().min(1)).min(3),
+});
+
 export const B2BOemOdmPageSchema = z.object({
   dataStatus: DataStatusSchema,
   hero: B2BHeroSchema,
-  identity: B2BTextItemSchema,
+  capabilities: z.array(B2BTextItemSchema).length(7),
+  formats: z.array(B2BLinkSchema).length(8),
   steps: z.array(B2BTextItemSchema).length(6),
-  customization: z.array(B2BTextItemSchema).length(4),
-  production: z.array(B2BTextItemSchema).length(4),
+  commercialVariables: z.array(B2BCommercialVariableSchema).length(2),
+  packaging: z.array(B2BTextItemSchema).length(4),
   quality: z.array(B2BTextItemSchema).length(4),
-  checklist: z.array(z.string().min(1)).length(5),
+  checklist: z.array(z.string().min(1)).length(6),
   faqs: z.array(B2BTextItemSchema).min(5),
   cta: z.object({
-    title: z.string(),
-    copy: z.string(),
+    title: z.string().min(1),
+    copy: z.string().min(1),
     href: z.literal("/contact"),
   }),
+  relatedLinks: z.array(B2BLinkSchema).length(3),
 });
 
 const InsightBlockSchema = z.discriminatedUnion("type", [

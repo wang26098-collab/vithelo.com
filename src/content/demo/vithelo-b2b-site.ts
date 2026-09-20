@@ -285,128 +285,189 @@ export const vitheloB2BProductsPage = B2BProductsPageSchema.parse({
 export const vitheloB2BOemOdmPage = B2BOemOdmPageSchema.parse({
   dataStatus: "DEMO_ONLY",
   hero: {
-    kicker: "OEM / ODM",
-    title: "From product brief to finished batch.",
-    copy: "One project path connects formula review, sampling, packaging alignment, production and release.",
+    kicker: "OEM / ODM PROJECT DEVELOPMENT",
+    title: "Build the project around the decisions that matter.",
+    copy: "VITHELO connects product direction, format, sampling, packaging, production coordination and project-specific quality review in one manufacturing path.",
   },
-  identity: {
-    title: "A direct line to the manufacturing team.",
-    copy: "VITHELO connects international nutrition projects with development and production support.",
-  },
-  steps: [
+  capabilities: [
     {
-      title: "01 · Requirement Review",
-      copy: "Clarify format, formula direction, pack and expected volume.",
+      title: "Product Brief & Feasibility",
+      copy: "Clarify the product objective, intended format, serving context, volume direction and the decisions still open for review.",
     },
     {
-      title: "02 · Formula Development",
-      copy: "Review the formula against product and manufacturing needs.",
+      title: "Formulation Direction",
+      copy: "Review ingredient direction and serving requirements against the needs of the selected dosage form and production route.",
     },
     {
-      title: "03 · Sample Confirmation",
-      copy: "Evaluate samples and agree on required adjustments.",
+      title: "Dosage-Form Selection",
+      copy: "Compare eight oral formats through product use, formula fit, sensory needs, packaging and manufacturing feasibility.",
     },
     {
-      title: "04 · Packaging Alignment",
-      copy: "Match container, label and transport requirements.",
-    },
-    {
-      title: "05 · Production",
-      copy: "Move the confirmed project into the agreed production route.",
-    },
-    {
-      title: "06 · Inspection & Delivery",
-      copy: "Review finished-product records and project-specific delivery needs.",
-    },
-  ],
-  customization: [
-    {
-      title: "Formula Direction",
-      copy: "Ingredients, serving context and product objective",
-    },
-    {
-      title: "Sensory Design",
-      copy: "Flavor, color, shape and texture where applicable",
-    },
-    {
-      title: "Dosage Format",
-      copy: "Eight oral formats within one manufacturing system",
+      title: "Sensory & Sample Development",
+      copy: "Use sampling to review taste, texture, appearance and other format-specific characteristics before production confirmation.",
     },
     {
       title: "Packaging Alignment",
-      copy: "Container, count, label and transport considerations",
+      copy: "Coordinate container, count, label, printed components and transport considerations with the confirmed product direction.",
+    },
+    {
+      title: "Production Coordination",
+      copy: "Move confirmed product, sample and packaging decisions into the agreed manufacturing route and project records.",
+    },
+    {
+      title: "Quality & Documentation",
+      copy: "Define relevant checks and available project documents according to the product, process and destination requirements.",
     },
   ],
-  production: [
+  formats: [
+    { label: "Gummies", href: "/products/gummies" },
+    { label: "Jelly", href: "/products/jelly" },
+    { label: "Hard Capsules", href: "/products/hard-capsules" },
+    { label: "Tablets", href: "/products/tablets" },
+    { label: "Powders", href: "/products/powders" },
+    { label: "Softgels", href: "/products/softgels" },
+    { label: "Liquid Drops", href: "/products/liquids" },
+    { label: "Oral Films", href: "/products/oral-films" },
+  ],
+  steps: [
     {
-      title: "Project Review",
-      copy: "Manufacturing fit is reviewed before the route is confirmed.",
+      title: "01 · Define the Brief",
+      copy: "Share the format, formula direction, pack, estimated volume, destination context and target timing.",
     },
     {
-      title: "Controlled Handoffs",
-      copy: "Development, sample and packaging decisions move into production records.",
+      title: "02 · Review Feasibility",
+      copy: "Connect product requirements with dosage-form, ingredient, sensory and manufacturing considerations.",
     },
     {
-      title: "Multi-format Capability",
-      copy: "Gummies lead the offer, supported by seven additional oral formats.",
+      title: "03 · Develop the Sample",
+      copy: "Review the sample and record the adjustments required before the specification is confirmed.",
     },
     {
-      title: "Documented Release",
-      copy: "Available documents depend on current factory records and project needs.",
+      title: "04 · Align the Pack",
+      copy: "Coordinate container, count, label, artwork inputs and transport requirements with the product.",
+    },
+    {
+      title: "05 · Confirm Production",
+      copy: "Confirm the project inputs that determine the manufacturing route, MOQ review and production schedule.",
+    },
+    {
+      title: "06 · Review & Coordinate Delivery",
+      copy: "Review finished-product records and coordinate the project-specific delivery requirements.",
+    },
+  ],
+  commercialVariables: [
+    {
+      title: "What shapes MOQ",
+      copy: "MOQ is reviewed after the main product and packaging decisions are understood.",
+      factors: [
+        "Dosage form and formula",
+        "Ingredient sourcing",
+        "Packaging and printing",
+        "Production setup",
+        "Customization level",
+      ],
+    },
+    {
+      title: "What shapes lead time",
+      copy: "Timing is assessed from the confirmed development and production scope.",
+      factors: [
+        "Formulation and sample review",
+        "Ingredient availability",
+        "Packaging production",
+        "Manufacturing schedule",
+        "Inspection and shipment preparation",
+      ],
+    },
+  ],
+  packaging: [
+    {
+      title: "Bottles, Jars & Blisters",
+      copy: "Review compatibility, count, closure, label and presentation requirements for the selected format.",
+    },
+    {
+      title: "Sachets, Stick Packs & Pouches",
+      copy: "Align portioning, barrier needs, print inputs and packing format with the product direction.",
+    },
+    {
+      title: "Liquid & Dropper Packaging",
+      copy: "Review product compatibility, serving size, dispensing, sealing, labeling and transport needs.",
+    },
+    {
+      title: "Labels, Cartons & Printed Components",
+      copy: "Coordinate approved artwork inputs with packaging scope, MOQ review and production planning.",
     },
   ],
   quality: [
     {
-      title: "Raw Material",
-      copy: "Identity, specification and supplier documentation review",
+      title: "Material Review",
+      copy: "Relevant identity, specification and supplier records depend on the confirmed project scope.",
     },
     {
-      title: "In Process",
-      copy: "Production checks defined by the confirmed process",
+      title: "In-Process Checks",
+      copy: "Production checks are defined by the confirmed dosage form and manufacturing process.",
     },
     {
-      title: "Finished Product",
-      copy: "Finished-product review and batch documentation",
+      title: "Finished-Product Review",
+      copy: "Finished-product checks and batch records follow the confirmed product requirements.",
     },
     {
-      title: "Third-party Testing",
-      copy: "Configured only when the project and approved provider require it",
+      title: "Project Documentation",
+      copy: "Document availability is reviewed against current records, product needs and destination requirements.",
     },
   ],
   checklist: [
     "Target dosage format",
-    "Formula direction",
-    "Packaging format",
-    "Estimated volume",
+    "Formula or ingredient direction",
+    "Preferred packaging",
+    "Estimated order volume",
+    "Destination context",
     "Target timing",
   ],
   faqs: [
     {
-      title: "How is MOQ confirmed?",
-      copy: "MOQ is reviewed with the formula and packaging. Use the published format figures as project starting points, not unconditional commitments.",
+      title: "How is MOQ reviewed?",
+      copy: "MOQ depends on the dosage form, formula, ingredient sourcing, packaging, production setup and customization level.",
+    },
+    {
+      title: "Can the project begin without a final formula?",
+      copy: "Yes. A formula or ingredient direction can begin the feasibility review; production specifications are confirmed later in the project.",
     },
     {
       title: "Can VITHELO support sampling?",
-      copy: "Sampling belongs to the project path; the exact scope is confirmed after the requirement review.",
+      copy: "Sampling is part of the project path. The sample scope and review points are confirmed after the initial requirement review.",
     },
     {
       title: "Can packaging be coordinated?",
-      copy: "Packaging alignment can cover container, label and transport requirements within the confirmed project scope.",
+      copy: "Packaging alignment can cover the container, count, label, printed components and transport considerations within the confirmed scope.",
     },
     {
       title: "Which documents are available?",
-      copy: "Document availability depends on current factory records, the product and the destination requirements.",
+      copy: "Availability depends on current records, the selected product, the project scope and destination requirements.",
     },
     {
-      title: "What lead time should we plan for?",
-      copy: "Timing is assessed after formula, pack, sample and production requirements are clear.",
+      title: "How is project timing assessed?",
+      copy: "Timing is reviewed after formulation, sample, ingredient, packaging, production and inspection requirements are understood.",
     },
   ],
   cta: {
-    title: "Bring us the brief, not a finished answer.",
-    copy: "Share what is known. The first review will identify the decisions still needed.",
+    title: "Bring the direction. Build the brief together.",
+    copy: "Share what is already decided and what still needs review. The first conversation can define the next practical step.",
     href: "/contact",
   },
+  relatedLinks: [
+    {
+      label: "Compare private label and custom formulation",
+      href: "/insights/private-label-vs-custom-formulation",
+    },
+    {
+      label: "Understand the sampling process",
+      href: "/insights/how-supplement-sampling-works",
+    },
+    {
+      label: "Review packaging, MOQ and timing variables",
+      href: "/insights/how-packaging-affects-moq-and-lead-time",
+    },
+  ],
 });
 
 const articles = [

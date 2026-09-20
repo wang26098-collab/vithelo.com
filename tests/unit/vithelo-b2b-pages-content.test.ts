@@ -29,6 +29,45 @@ it("validates the compact B2B site records", () => {
   expect(B2BContactPageSchema.parse(vitheloB2BContactPage).status).toBe("NOT_CONFIGURED");
 });
 
+it("publishes one unified OEM ODM capability system", () => {
+  const page = B2BOemOdmPageSchema.parse(vitheloB2BOemOdmPage);
+
+  expect(page.capabilities.map(({ title }) => title)).toEqual([
+    "Product Brief & Feasibility",
+    "Formulation Direction",
+    "Dosage-Form Selection",
+    "Sensory & Sample Development",
+    "Packaging Alignment",
+    "Production Coordination",
+    "Quality & Documentation",
+  ]);
+  expect(page.formats).toHaveLength(8);
+  expect(page.steps).toHaveLength(6);
+  expect(page.commercialVariables.map(({ title }) => title)).toEqual([
+    "What shapes MOQ",
+    "What shapes lead time",
+  ]);
+  expect(page.packaging).toHaveLength(4);
+  expect(page.quality).toHaveLength(4);
+  expect(page.checklist).toHaveLength(6);
+  expect(page.relatedLinks).toHaveLength(3);
+  expect(page).not.toHaveProperty("identity");
+  expect(page).not.toHaveProperty("customization");
+  expect(page).not.toHaveProperty("production");
+});
+
+it("keeps OEM ODM commercial claims conditional and evidence bounded", () => {
+  const page = B2BOemOdmPageSchema.parse(vitheloB2BOemOdmPage);
+  const serialized = JSON.stringify(page);
+
+  expect(page.dataStatus).toBe("DEMO_ONLY");
+  expect(serialized).not.toMatch(
+    /FDA approved|certified facility|guaranteed|\b\d+\s*(?:days?|units?)\b/i,
+  );
+  expect(serialized).not.toMatch(/\b(?:GMP|HACCP|HALAL|BRC|FSSC)\b/);
+  expect(serialized).toMatch(/depends|review|confirmed|project/i);
+});
+
 it("publishes eight format groups with ten demo products each", () => {
   const products = B2BProductsPageSchema.parse(vitheloB2BProductsPage);
 
