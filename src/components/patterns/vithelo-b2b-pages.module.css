@@ -1456,3 +1456,387 @@
   .formatDetailCta { display: block; }
   .formatDetailCta a { display: block; margin-top: .7rem; }
 }
+
+/* OEM / ODM — capability-led manufacturing ledger. */
+.oemPage {
+  --oem-ink: #171918;
+  --oem-ivory: #f3f0e8;
+  --oem-titanium: #a9afab;
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 28%), transparent 20%),
+    var(--oem-ivory);
+}
+
+.oemCapabilitySection,
+.oemFormatsSection,
+.oemProjectSection,
+.oemVariablesSection,
+.oemPackagingSection,
+.oemQualitySection,
+.oemPrepSection,
+.oemQuestionsSection {
+  width: min(calc(100% - 64px), 1280px);
+  margin-inline: auto;
+}
+
+.oemCapabilitySection > h2,
+.oemFormatsSection > h2,
+.oemProjectSection > h2,
+.oemVariablesSection > h2,
+.oemPackagingSection > h2,
+.oemQualitySection > h2,
+.oemPrepSection > h2,
+.oemQuestionsSection > h2 {
+  max-width: 760px;
+}
+
+.oemCapabilityMap {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 3rem;
+  border-top: 1px solid rgb(23 25 24 / 42%);
+  border-left: 1px solid rgb(23 25 24 / 18%);
+}
+
+.oemCapabilityMap article {
+  position: relative;
+  min-height: 280px;
+  padding: 1.5rem;
+  border-right: 1px solid rgb(23 25 24 / 18%);
+  border-bottom: 1px solid rgb(23 25 24 / 18%);
+  background: rgb(255 255 255 / 14%);
+}
+
+.oemCapabilityMap article:nth-child(1),
+.oemCapabilityMap article:nth-child(7) {
+  background:
+    linear-gradient(145deg, rgb(255 255 255 / 56%), rgb(255 255 255 / 8%));
+}
+
+.oemCapabilityMap article > span,
+.oemFormatField a > span:first-child {
+  color: #68706c;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+}
+
+.oemCapabilityMap h3,
+.oemVariableGrid h3 {
+  max-width: 13ch;
+  margin: 3.25rem 0 0;
+  font-size: clamp(1.35rem, 2vw, 2rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.oemCapabilityMap p,
+.oemStepLedger p,
+.oemPackagingGrid p,
+.oemQualityLedger p {
+  margin: 1rem 0 0;
+  color: #626863;
+  line-height: 1.55;
+}
+
+.oemFormatField {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 3rem;
+  border-top: 1px solid var(--oem-ink);
+  border-left: 1px solid rgb(23 25 24 / 18%);
+}
+
+.oemFormatField a {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.9rem;
+  min-height: 92px;
+  align-items: center;
+  padding: 1rem;
+  border-right: 1px solid rgb(23 25 24 / 18%);
+  border-bottom: 1px solid rgb(23 25 24 / 18%);
+  color: inherit;
+  text-decoration: none;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.oemFormatField a:hover {
+  background: var(--oem-ink);
+  color: var(--oem-ivory);
+}
+
+.oemFormatField a:hover > span:first-child {
+  color: rgb(243 240 232 / 62%);
+}
+
+.oemFormatField strong {
+  min-width: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+.oemFormatField a:focus-visible,
+.oemPrimaryCta:focus-visible,
+.oemRelatedLinks a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+.oemProjectSection,
+.oemQualitySection {
+  margin-block: clamp(48px, 6vw, 80px);
+  padding: clamp(2.5rem, 5vw, 4.5rem);
+  background:
+    linear-gradient(120deg, rgb(255 255 255 / 34%), transparent 52%),
+    #e6e5df;
+}
+
+.oemStepLedger {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 3rem;
+  border-top: 1px solid var(--oem-ink);
+  border-left: 1px solid rgb(23 25 24 / 18%);
+}
+
+.oemStepLedger article,
+.oemPackagingGrid article,
+.oemQualityLedger article {
+  min-height: 190px;
+  padding: 1.5rem;
+  border-right: 1px solid rgb(23 25 24 / 18%);
+  border-bottom: 1px solid rgb(23 25 24 / 18%);
+}
+
+.oemStepLedger h3,
+.oemPackagingGrid h3,
+.oemQualityLedger h3 {
+  margin: 0;
+  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+.oemVariablesSection {
+  padding-block: clamp(72px, 8vw, 120px);
+}
+
+.oemVariableGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 3rem;
+  background:
+    radial-gradient(circle at 84% 12%, rgb(255 255 255 / 9%), transparent 28%),
+    var(--oem-ink);
+  color: var(--oem-ivory);
+}
+
+.oemVariableGrid article {
+  min-height: 360px;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  border-right: 1px solid rgb(243 240 232 / 22%);
+}
+
+.oemVariableGrid h3 {
+  margin-top: 0;
+}
+
+.oemVariableGrid p,
+.oemVariableGrid li {
+  color: rgb(243 240 232 / 72%);
+}
+
+.oemVariableGrid p {
+  max-width: 34rem;
+  margin-top: 1.25rem;
+}
+
+.oemVariableGrid ul {
+  margin: 2.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.oemVariableGrid li {
+  padding-block: 0.75rem;
+  border-top: 1px solid rgb(243 240 232 / 17%);
+  font-size: 0.82rem;
+}
+
+.oemPackagingGrid,
+.oemQualityLedger {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 3rem;
+  border-top: 1px solid var(--oem-ink);
+  border-left: 1px solid rgb(23 25 24 / 18%);
+}
+
+.oemPackagingSection {
+  padding-block: clamp(72px, 8vw, 120px);
+}
+
+.oemPrepSection {
+  margin-block: clamp(48px, 6vw, 80px);
+  padding: clamp(2.5rem, 5vw, 4.5rem);
+  background:
+    linear-gradient(135deg, rgb(255 255 255 / 5%), transparent 60%),
+    var(--oem-ink);
+  color: var(--oem-ivory);
+}
+
+.oemPrepSection .kicker {
+  color: rgb(243 240 232 / 62%);
+}
+
+.oemChecklist {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 3rem 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: oem-input;
+}
+
+.oemChecklist li {
+  min-height: 132px;
+  padding: 1.25rem;
+  border-top: 1px solid rgb(243 240 232 / 20%);
+  border-right: 1px solid rgb(243 240 232 / 20%);
+  counter-increment: oem-input;
+}
+
+.oemChecklist li::before {
+  display: block;
+  margin-bottom: 1.5rem;
+  color: rgb(243 240 232 / 52%);
+  content: counter(oem-input, decimal-leading-zero);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+}
+
+.oemQuestionsSection {
+  padding-block: clamp(72px, 8vw, 120px);
+}
+
+.oemCta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem 3rem;
+}
+
+.oemCta > p,
+.oemRelatedLinks {
+  grid-column: 1;
+}
+
+.oemCta > p {
+  max-width: 680px;
+  color: rgb(243 240 232 / 68%);
+}
+
+.oemPrimaryCta {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+  justify-content: center;
+  min-width: 180px;
+  border: 1px solid currentColor;
+  padding-inline: 1.25rem;
+}
+
+.oemRelatedLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  margin-top: 1rem;
+}
+
+.oemRelatedLinks a {
+  margin-top: 0;
+  color: rgb(243 240 232 / 72%);
+  font-size: 0.75rem;
+}
+
+@media (max-width: 900px) {
+  .oemCapabilityMap,
+  .oemFormatField,
+  .oemPackagingGrid,
+  .oemQualityLedger {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .oemStepLedger,
+  .oemChecklist {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .oemCapabilitySection,
+  .oemFormatsSection,
+  .oemProjectSection,
+  .oemVariablesSection,
+  .oemPackagingSection,
+  .oemQualitySection,
+  .oemPrepSection,
+  .oemQuestionsSection {
+    width: calc(100% - 32px);
+  }
+
+  .oemProjectSection,
+  .oemQualitySection,
+  .oemPrepSection {
+    padding-inline: 1rem;
+  }
+
+  .oemCapabilityMap,
+  .oemFormatField,
+  .oemStepLedger,
+  .oemVariableGrid,
+  .oemPackagingGrid,
+  .oemQualityLedger,
+  .oemChecklist,
+  .oemCta {
+    grid-template-columns: 1fr;
+  }
+
+  .oemCapabilityMap article,
+  .oemVariableGrid article,
+  .oemStepLedger article,
+  .oemPackagingGrid article,
+  .oemQualityLedger article {
+    min-height: 0;
+  }
+
+  .oemCapabilityMap h3 {
+    margin-top: 2rem;
+  }
+
+  .oemVariableGrid article + article {
+    border-top: 1px solid rgb(243 240 232 / 22%);
+  }
+
+  .oemPrimaryCta,
+  .oemCta > p,
+  .oemRelatedLinks {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .oemPrimaryCta {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oemPage *,
+  .oemPage *::before,
+  .oemPage *::after {
+    scroll-behavior: auto;
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+  }
+}
