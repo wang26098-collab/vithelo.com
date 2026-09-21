@@ -22,7 +22,7 @@ export function LinkPendingFeedback({
       data-pending={pending ? "true" : "false"}
       role="status"
     >
-      {pending ? label : ""}
+      {pending ? <span className="sr-only">{label}</span> : null}
     </span>
   );
 }

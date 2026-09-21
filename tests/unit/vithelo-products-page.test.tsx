@@ -1,10 +1,11 @@
 import { act, fireEvent, render, screen, within } from "@testing-library/react";
-import DosageFormPage from "@/app/products/[slug]/page";
+import DosageFormPage, {
+  generateStaticParams,
+} from "@/app/products/[slug]/page";
 import { VitheloProductsPage } from "@/components/patterns/vithelo-products-page";
 import { VitheloDosageFormDetail } from "@/components/patterns/vithelo-dosage-form-detail";
 import { vitheloB2BProductsPage } from "@/content/demo/vithelo-b2b-site";
 
-const routeQuery = vi.hoisted(() => ({ product: "gummies-concept-02" }));
 const prefetch = vi.hoisted(() => vi.fn());
 
 vi.mock("next/navigation", () => ({
@@ -12,12 +13,9 @@ vi.mock("next/navigation", () => ({
     throw new Error("notFound");
   },
   useRouter: () => ({ prefetch }),
-  useSearchParams: () =>
-    new URLSearchParams(routeQuery.product ? `product=${routeQuery.product}` : ""),
 }));
 
 afterEach(() => {
-  routeQuery.product = "gummies-concept-02";
   prefetch.mockClear();
   vi.useRealTimers();
 });
@@ -39,7 +37,7 @@ it("shows only the selected format's ten products", () => {
   expect(screen.getAllByRole("link", { name: /Capsules Concept/ })).toHaveLength(10);
   expect(screen.getAllByRole("link", { name: /Capsules Concept/ })[0]).toHaveAttribute(
     "href",
-    "/products/hard-capsules?product=hard-capsules-concept-01",
+    "/products/hard-capsules-concept-01",
   );
   expect(screen.queryByRole("link", { name: /Gummies Concept/ })).not.toBeInTheDocument();
 });
@@ -62,7 +60,7 @@ it("prefetches only the intended product after a short hover delay", () => {
   expect(prefetch).not.toHaveBeenCalled();
   act(() => vi.advanceTimersByTime(1));
   expect(prefetch).toHaveBeenCalledWith(
-    "/products/gummies?product=gummies-concept-02",
+    "/products/gummies-concept-02",
   );
   expect(prefetch).toHaveBeenCalledTimes(1);
 });
@@ -131,16 +129,21 @@ it("renders source boundaries and approved product-specific sections", () => {
   expect(screen.getByText("Source-provided ingredient statement")).toBeVisible();
 });
 
-it("resolves the target product from the client route query before rendering", async () => {
+it("renders only the product selected by its static detail slug", async () => {
   const targetProduct = vitheloB2BProductsPage.discovery.items[1];
 
   render(
     await DosageFormPage({
-      params: Promise.resolve({ slug: "gummies" }),
+      params: Promise.resolve({ slug: targetProduct.id }),
     }),
   );
 
   expect(screen.getByRole("heading", { name: targetProduct.title })).toBeVisible();
+  expect(
+    screen.queryByRole("heading", {
+      name: vitheloB2BProductsPage.discovery.items[0].title,
+    }),
+  ).not.toBeInTheDocument();
   expect(screen.getByRole("main")).toHaveAttribute(
     "data-pdp-layout",
     "vithelo-project-story",
@@ -212,11 +215,10 @@ it("renders the project hero, DEMO_ONLY boundary and project disclosures", () =>
   ).toHaveAttribute("aria-expanded", "true");
 });
 
-it("renders Concept 01 from the client route query boundary", async () => {
-  routeQuery.product = "gummies-concept-01";
+it("renders Concept 01 from its static product route", async () => {
   render(
     await DosageFormPage({
-      params: Promise.resolve({ slug: "gummies" }),
+      params: Promise.resolve({ slug: "gummies-concept-01" }),
     }),
   );
 
@@ -463,9 +465,8 @@ it("reads the final inquiry label from the story record", () => {
   ).toHaveAttribute("href", "/contact");
 });
 
-it("falls back to the format overview when the route query targets another format", async () => {
+it("keeps dosage-format slugs on the lightweight format overview", async () => {
   const foreignProduct = vitheloB2BProductsPage.discovery.items[0];
-  routeQuery.product = foreignProduct.id;
 
   render(
     await DosageFormPage({
@@ -475,4 +476,15 @@ it("falls back to the format overview when the route query targets another forma
 
   expect(screen.queryByRole("heading", { name: foreignProduct.title })).not.toBeInTheDocument();
   expect(screen.getByRole("heading", { name: /for your next line/i })).toBeVisible();
+});
+
+it("prebuilds every format and product detail route", () => {
+  const params = generateStaticParams();
+
+  expect(params).toContainEqual({ slug: "gummies" });
+  expect(params).toContainEqual({ slug: "gummies-concept-02" });
+  expect(params).toHaveLength(
+    vitheloB2BProductsPage.formats.length +
+      vitheloB2BProductsPage.discovery.items.length,
+  );
 });

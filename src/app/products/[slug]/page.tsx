@@ -1,17 +1,28 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
 import { vitheloB2BProductsPage } from "@/content/demo/vithelo-b2b-site";
 import { VitheloDosageFormDetail } from "@/components/patterns/vithelo-dosage-form-detail";
-import { VitheloProductDetailRoute } from "@/components/patterns/vithelo-product-detail-route";
 
 export function generateStaticParams() {
-  return vitheloB2BProductsPage.formats.map(({ id }) => ({ slug: id }));
+  return [
+    ...vitheloB2BProductsPage.formats.map(({ id }) => ({ slug: id })),
+    ...vitheloB2BProductsPage.discovery.items.map(({ id }) => ({ slug: id })),
+  ];
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
+  const product = vitheloB2BProductsPage.discovery.items.find(
+    (item) => item.id === slug,
+  );
+  if (product) {
+    return {
+      title: `${product.title} | VITHELO`,
+      description: product.descriptor,
+      alternates: { canonical: `/products/${product.id}` },
+    };
+  }
   const format = vitheloB2BProductsPage.formats.find((item) => item.id === slug);
   if (!format) return {};
   return {
@@ -27,18 +38,24 @@ export default async function DosageFormPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const product = vitheloB2BProductsPage.discovery.items.find(
+    (item) => item.id === slug,
+  );
+  if (product) {
+    const productFormat = vitheloB2BProductsPage.formats.find(
+      (item) => item.id === product.formatSlug,
+    );
+    if (!productFormat) notFound();
+    return <VitheloDosageFormDetail format={productFormat} product={product} />;
+  }
+
   const format = vitheloB2BProductsPage.formats.find((item) => item.id === slug);
   if (!format) notFound();
-  const isInDiscovery = vitheloB2BProductsPage.discovery.formats.some(({ slug }) => slug === format.id);
-  if (isInDiscovery) {
-    const formatProducts = vitheloB2BProductsPage.discovery.items.filter(
-      (item) => item.formatSlug === format.id,
-    );
-    return (
-      <Suspense fallback={<VitheloDosageFormDetail format={format} product={formatProducts[0]} />}>
-        <VitheloProductDetailRoute format={format} products={formatProducts} />
-      </Suspense>
-    );
+  const isDiscoveryFormat = vitheloB2BProductsPage.discovery.items.some(
+    (item) => item.formatSlug === format.id,
+  );
+  if (isDiscoveryFormat) {
+    return <VitheloDosageFormDetail format={format} />;
   }
   return (
     <main className="container-standard pt-28 pb-12 sm:pb-20">

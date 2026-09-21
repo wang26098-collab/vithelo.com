@@ -201,5 +201,5 @@ export function VitheloProductsPage({ content }: { content: B2BProductsPage }) {
 }
 
 function buildProductHref(item: B2BProductsPage["discovery"]["items"][number]) {
-  return `/products/${item.formatSlug}?product=${encodeURIComponent(item.id)}`;
+  return `/products/${encodeURIComponent(item.id)}`;
 }

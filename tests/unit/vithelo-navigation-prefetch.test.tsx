@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import type { AnchorHTMLAttributes, ReactNode } from "react";
 import { VitheloB2BNavigation } from "@/components/core/vithelo-b2b-navigation";
 import { vitheloB2BSite } from "@/content/demo/vithelo-b2b-site";
@@ -64,7 +64,9 @@ it("marks the in-place feedback when a navigation is pending", () => {
     ),
   ).toBe(true);
   expect(feedback[0]).toHaveAttribute("role", "status");
-  expect(feedback[0]).toHaveTextContent("Opening…");
+  expect(within(feedback[0] as HTMLElement).getByText("Opening…")).toHaveClass(
+    "sr-only",
+  );
 });
 
 it("keeps the mobile menu visible until the route actually changes", () => {

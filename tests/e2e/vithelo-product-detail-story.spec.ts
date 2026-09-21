@@ -1,6 +1,6 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
 
-const targetRoute = "/products/gummies?product=gummies-concept-01";
+const targetRoute = "/products/gummies-concept-01";
 const referenceBrand = ["Se", "ed"].join("");
 const storyHeadings = [
   "Plant-Based Gummies Concept 01 for Private Label Nutrition",
@@ -314,7 +314,7 @@ test("short desktop keeps breathing room above the hero action without overflowi
 });
 
 test("Concept 02 keeps the generic gallery-info detail", async ({ page }) => {
-  await page.goto("/products/gummies?product=gummies-concept-02");
+  await page.goto("/products/gummies-concept-02");
 
   await expect(page.locator("main")).toHaveAttribute("data-pdp-layout", "gallery-info");
   await expect(page.getByTestId("pdp-capability-item")).toHaveCount(0);
