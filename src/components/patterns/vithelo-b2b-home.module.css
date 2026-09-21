@@ -12,7 +12,8 @@
   --home-screen-space-y: clamp(72px, 8vh, 112px);
   --home-screen-02-height: clamp(985px, calc(92svh + 165px), 1145px);
   --home-layer-radius: 40px;
-  --home-overlap-02: 40px;
+  --home-proof-radius: var(--vithelo-screen-02-radius);
+  --home-overlap-02: var(--vithelo-screen-02-overlap);
   --home-overlap-03: 32px;
   --home-overlap-04: 28px;
   --home-overlap-05: 24px;
@@ -66,7 +67,7 @@
   z-index: 1;
   height: var(--vithelo-page-hero-height);
   min-height: var(--vithelo-page-hero-height);
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   align-items: center;
   background: #111512;
@@ -109,6 +110,18 @@
   background-image:
     linear-gradient(90deg, rgb(12 15 13 / 64%) 0%, rgb(12 15 13 / 38%) 38%, rgb(12 15 13 / 6%) 72%),
     linear-gradient(180deg, rgb(12 15 13 / 6%), rgb(12 15 13 / 20%));
+}
+
+/* Continue only the hero backdrop beneath the enlarged top corners of the
+   following screen. The hero's visible height and content bounds stay fixed. */
+.heroVeil::after {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  height: calc(var(--home-proof-radius) - var(--home-overlap-02));
+  content: "";
+  background: #111512;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -242,6 +255,10 @@
 .contactRevealSection {
   border-radius: var(--home-layer-radius) var(--home-layer-radius) 0 0;
   box-shadow: 0 -1px 0 rgb(255 255 255 / 38%);
+}
+
+.proof {
+  border-radius: var(--home-proof-radius) var(--home-proof-radius) 0 0;
 }
 
 .proofPrimary {
@@ -713,6 +730,34 @@
   filter: saturate(0.88) contrast(1.01);
 }
 
+.customizationOverviewScene,
+.customizationFormulaScene {
+  transition:
+    opacity var(--motion-narrative) var(--ease-standard),
+    transform var(--motion-narrative) var(--ease-standard);
+}
+
+.customizationOverviewScene {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.customizationFormulaScene {
+  opacity: 0;
+  transform: scale(1.02);
+  pointer-events: none;
+}
+
+.customizationConstellation[data-customization-state="formula"] .customizationOverviewScene {
+  opacity: 0;
+  transform: scale(1.02);
+}
+
+.customizationConstellation[data-customization-state="formula"] .customizationFormulaScene {
+  opacity: 1;
+  transform: scale(1);
+}
+
 .customizationOrbit {
   position: absolute;
   inset: 7% 16% 8% 14%;
@@ -777,6 +822,87 @@
   line-height: 1.45;
 }
 
+.formulaDetails {
+  position: absolute;
+  right: 9%;
+  bottom: 39%;
+  left: 7%;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition:
+    opacity var(--motion-standard) var(--ease-standard) 160ms,
+    transform var(--motion-standard) var(--ease-standard) 160ms,
+    visibility 0s linear var(--motion-standard);
+}
+
+.formulaDetails article {
+  min-width: 0;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgb(255 238 215 / 35%);
+}
+
+.formulaDetails h4 {
+  margin: 0;
+  color: var(--ivory);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-shadow: 0 1px 2px rgb(20 16 14 / 72%);
+}
+
+.formulaDetails p {
+  margin: 0.3rem 0 0;
+  color: rgb(243 240 232 / 82%);
+  font-size: 0.62rem;
+  line-height: 1.35;
+  text-shadow: 0 1px 2px rgb(20 16 14 / 72%);
+}
+
+.customizationConstellation[data-customization-state="formula"] .formulaDetails {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition-delay: 160ms, 160ms, 0s;
+}
+
+.formulaNode {
+  min-height: 62px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.formulaNode:focus-visible {
+  border-radius: 10px;
+  outline: 2px solid #e0b181 !important;
+  outline-offset: 6px;
+}
+
+.formulaNode[aria-pressed="true"] .customizationNodeMark {
+  border-color: rgb(255 238 215 / 55%);
+  background: rgb(102 75 57 / 88%);
+}
+
+.customizationOrbit {
+  transition:
+    opacity var(--motion-standard) var(--ease-standard),
+    transform var(--motion-standard) var(--ease-standard);
+}
+
+.customizationConstellation[data-customization-state="formula"] .customizationOrbit {
+  opacity: 0.25;
+  transform: rotate(-8deg) scale(1.04);
+}
+
 .customizationBenefitRail {
   width: 100%;
   min-height: 104px;
@@ -800,7 +926,7 @@
 .customizationSecondaryAction > span { width: 2.65rem; height: 2.65rem; background: transparent; color: var(--ink); }
 
 @media (hover: hover) and (pointer: fine) {
-  .customizationConstellation:hover .customizationVisual { transform: translate3d(4px, -3px, 0); }
+  .customizationConstellation[data-customization-state="overview"]:hover .customizationOverviewScene { transform: translate3d(4px, -3px, 0); }
   .customizationNode:hover .customizationNodeMark { border-color: rgb(23 25 24 / 38%); background: rgb(255 255 255 / 90%); }
   .customizationPrimaryAction:hover > span,
   .customizationSecondaryAction:hover > span { transform: translateX(4px); }
@@ -814,9 +940,7 @@
   overflow: visible;
   padding-block: 0;
   padding-inline: 0;
-  background:
-    radial-gradient(circle at 78% 18%, rgb(242 236 222 / 7%), transparent 30%),
-    #171b19;
+  background: var(--paper);
   color: var(--ivory);
 }
 
@@ -1141,27 +1265,53 @@
 }
 
 .formatIntro {
-  min-height: var(--home-screen-min-height);
   min-block-size: auto;
-  margin-block: clamp(4rem, 7vw, 7rem) clamp(2rem, 3.5vw, 3.5rem);
-  padding-block: clamp(36px, 4vh, 56px);
+  /* Lift the editorial heading row so the *title* (not the kicker) sits
+     170px below the top of this screen at desktop widths.
+
+     Layout arithmetic (desktop @1440):
+       .dosageSection padding-top  = 0  (padding-block: 0 clamp(...))
+       .formatIntro    margin-top  = 120px  ← this rule
+       kicker  line-height         = 18px   (.75rem × 1.5)
+       .formatHeading flex gap     = 32px   (clamp 1.5rem..2rem @1440)
+       → title top edge = 0 + 120 + 18 + 32 = **170px**
+
+     Below 1100px it scales down with the viewport, and at 760px it locks
+     to a smaller offset so mobile doesn't waste vertical space. */
+  margin-top: 120px;
+  /* Tightened to mirror the formatHeading gap so the qualifier line sits
+     the same visual distance above the first format card as the title sits
+     above the qualifier — matching the reference layout rhythm. */
+  margin-bottom: clamp(1.5rem, 2vw, 2rem);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.72fr) auto;
-  gap: clamp(1.5rem, 4vw, 5rem);
-  align-items: end;
+  /* Editorial two-column intro: heading column (kicker + title + qualifier,
+     stacked vertically and left-aligned) and a top-anchored read-more link
+     that sits flush with the title's top edge, matching the reference. */
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(1.25rem, 3vw, 3rem);
+  align-items: start;
 }
 
-.formatHeading { min-width: 0; }
+.formatHeading {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  /* Single uniform rhythm for kicker → title → qualifier so the heading
+     block itself reads as one editorial row, mirroring the first card row
+     spacing below. */
+  gap: clamp(1.5rem, 2vw, 2rem);
+}
 
-.formatIntro .kicker { margin-bottom: clamp(1.25rem, 2vw, 2rem); }
+.formatIntro .kicker { margin: 0; }
 
 .formatIntro .title {
-  max-width: 14ch;
+  max-width: none;
+  margin: 0;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(3rem, 4.4vw, 5.25rem);
-  font-weight: 400;
-  line-height: 0.96;
-  letter-spacing: -0.045em;
+  font-size: clamp(2.25rem, 3vw, 3.25rem);
+  font-weight: 480;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
 }
 
 .dosageSection[data-format-motion="enhanced"] .formatHeading {
@@ -1173,11 +1323,11 @@
 .dosageSection[data-format-motion="enhanced"][data-format-intro-visible="true"] .formatHeading { opacity: 1; transform: translateY(0); }
 
 .formatQualifier {
-  max-width: 46ch;
+  max-width: none;
   margin: 0;
-  color: var(--muted);
-  font-size: clamp(0.82rem, 0.95vw, 0.95rem);
-  line-height: 1.6;
+  color: var(--ink);
+  font-size: clamp(0.78rem, 0.9vw, 0.875rem);
+  line-height: 1.55;
 }
 
 .dosageSection[data-format-motion="enhanced"] .formatQualifier {
@@ -1191,17 +1341,23 @@
 .formatAllLink {
   min-width: max-content;
   min-block-size: 44px;
+  /* Push the read-more link down so its top edge sits flush with the
+     title's top edge. The calc mirrors the layout arithmetic in
+     .formatIntro: kicker line height (0.75rem × 1.5 = 18px) plus the
+     .formatHeading flex gap (clamp 1.5rem / 2vw / 2rem) above the
+     title. So at any viewport the button top = title top. */
+  margin-top: calc(18px + clamp(1.5rem, 2vw, 2rem));
   inline-size: 9.5rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.7rem;
+  gap: 0.6rem;
   border-radius: 999px;
   background: var(--ink);
   color: white !important;
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 650;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.1em;
   text-decoration: none;
   text-transform: uppercase;
   transition: background-color var(--motion-fast) var(--ease-standard), transform var(--motion-fast) var(--ease-standard);
@@ -1210,11 +1366,20 @@
 .formatWall {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(0.75rem, 1.25vw, 1.25rem);
-  padding-block: var(--home-screen-space-y);
+  column-gap: 30px;
+  row-gap: 20px;
+  /* Tightened from --home-screen-space-y to match the editorial heading
+     row rhythm above: the first card row now sits the same distance below
+     the qualifier as the qualifier sits below the title. */
+  padding-block: clamp(0.75rem, 1vw, 1rem);
 }
 
-.formatProject { --format-entry-y: 32px; min-width: 0; opacity: 1; transform: translate3d(0, 0, 0); }
+.formatProject {
+  --format-entry-y: 32px;
+  min-width: 0;
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
 
 /* Motion-enhanced mode hides cards briefly so the IntersectionObserver can
    reveal them on scroll. The base rule above keeps cards visible by default,
@@ -1233,7 +1398,7 @@
   min-block-size: clamp(250px, 24vw, 390px);
   display: block;
   overflow: hidden;
-  border-radius: clamp(12px, 1vw, 18px);
+  border-radius: clamp(8px, 0.75vw, 12px);
   background: #d9d5cc;
   color: white !important;
   text-decoration: none;
@@ -1259,7 +1424,14 @@
 .formatMeta {
   min-height: 76px;
   position: absolute;
-  inset: clamp(1.35rem, 2.5vw, 2.75rem);
+  /* Top inset deliberately larger than the other three sides so the
+     title + chip + description block sits in the lower-left of the card
+     instead of pinned to the top-left, matching the reference layout.
+     Plus an extra 30px so the meta block reads further down the card. */
+  top: calc(clamp(2.5rem, 4.5vw, 3.75rem) + 30px);
+  right: clamp(1.35rem, 2.5vw, 2.75rem);
+  bottom: clamp(1.35rem, 2.5vw, 2.75rem);
+  left: clamp(1.35rem, 2.5vw, 2.75rem);
   z-index: 2;
   display: flex;
   flex-direction: column;
@@ -1270,13 +1442,13 @@
   max-width: 90%;
   margin: 0;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.8rem, 2.3vw, 2.75rem);
+  font-size: clamp(1.35rem, 1.85vw, 1.95rem);
   font-weight: 400;
   letter-spacing: -0.035em;
   line-height: 1;
 }
 
-.formatTags { margin-top: clamp(1rem, 1.6vw, 1.4rem); display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.formatTags { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .formatTags span {
   min-block-size: 30px;
   display: inline-flex;
@@ -1286,44 +1458,45 @@
   border-radius: 999px;
   background: rgb(255 255 255 / 94%);
   color: var(--ink);
-  font-size: 0.66rem;
-  font-weight: 650;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.formatCardAction {
-  min-block-size: 44px;
-  margin-top: auto;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.65rem;
-  border-bottom: 1px solid rgb(255 255 255 / 64%);
   font-size: 0.72rem;
-  font-weight: 650;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: 0;
 }
 
-.formatCardAction b { font-size: 1rem; font-weight: 400; transition: transform var(--motion-fast) var(--ease-standard); }
+.formatDescription {
+  /* No max-width so the description extends naturally to the right edge of
+     .formatMeta. This keeps the description's left padding aligned with
+     the chips above it while the right padding mirrors it, matching the
+     reference layout where the copy's left/right insets to the card are
+     roughly equal. The 40px top margin matches the title→chips spacing
+     so the three rows (title / chips / description) sit on a uniform
+     40px rhythm. */
+  max-width: none;
+  width: 100%;
+  margin: 40px 0 0;
+  color: rgb(255 255 255 / 86%);
+  font-size: clamp(0.78rem, 0.95vw, 0.9rem);
+  line-height: 1.5;
+  text-shadow: 0 1px 14px rgb(0 0 0 / 28%);
+}
 
 @media (hover: hover) and (pointer: fine) {
   .formatAllLink:hover,
   .formatAllLink:focus-visible { background: #303331; transform: translateY(-1px); }
   .formatLink:hover .formatMediaPlane img,
   .formatLink:focus-visible .formatMediaPlane img { scale: 1.05; filter: saturate(1.04) contrast(1.03); }
-  .formatLink:hover .formatCardAction b,
-  .formatLink:focus-visible .formatCardAction b { transform: translate(3px, -3px); }
 }
 
-/* Reference-video scene stack: moving rounded windows over matched fixed images. */
+/* Nordicus-style scene stack: ordinary panels overlap while their images stay
+   fixed to the viewport. The preceding panel remains directly beneath every
+   rounded top edge, so no page-color wedges can appear between scenes. */
 .marketStage { min-height: auto; padding-block: 0; padding-inline: 0;
   --market-scene-gutter: clamp(20px, 3vw, 48px);
   position: relative;
   overflow: visible;
-  background:
-    radial-gradient(circle at 78% 18%, rgb(242 236 222 / 7%), transparent 30%),
-    #171b19;
+  margin-top: calc(var(--home-layer-radius) * -1.7);
+  box-shadow: none;
+  background: transparent;
 }
 
 .marketIntro { min-height: 84svh; padding: clamp(6rem, 10vw, 9rem) max(var(--home-frame-gutter), calc((100vw - var(--home-frame-width)) / 2));
@@ -1372,71 +1545,105 @@
 }
 
 .marketScene {
-  min-height: 630px;
-  height: 630px;
+  min-height: 600px;
+  height: 600px;
   padding: 0;
   position: relative;
   width: 100%;
   margin-inline: 0;
-  margin-top: calc(var(--home-layer-radius) * -0.7);
-  overflow: clip;
-  border-radius: var(--home-layer-radius);
-  clip-path: inset(0 round var(--home-layer-radius));
+  overflow: hidden;
+  border-radius: var(--home-layer-radius) var(--home-layer-radius) 0 0;
+  background-color: #d8d2c8;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   isolation: isolate;
-  /* Paper-stack layering: each scene is pulled up by ~70% of the radius so its
-     rounded top edge sits over the previous card's rounded bottom edge and a
-     ~12px folded seam stays visible (see Lock #7: geometry/radius untouched
-     — only paint order + overlap change). */
-  box-shadow: 0 -12px 26px rgb(15 18 17 / 22%), 0 6px 22px rgb(15 18 17 / 10%);
 }
 
-/* The next scene folds over the previous one; keep the previous scene's
-   lower edge square so its old rounded corner cannot peek through the seam. */
-.marketScene:not(:last-child) {
-  /* Extend the underlying scene through the overlap so the next rounded top
-     never reveals the page background at the seam. */
-  min-height: calc(630px + var(--home-layer-radius));
-  height: calc(630px + var(--home-layer-radius));
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  clip-path: inset(0 round var(--home-layer-radius) var(--home-layer-radius) 0 0);
-  box-shadow: none;
-}
-
-.marketScene:not(:first-child) {
+.marketScene:not([data-scene="1"]) {
   margin-top: calc(var(--home-layer-radius) * -1.7);
 }
 
 .marketScene:last-child {
-  min-height: 790px;
-  height: 790px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  clip-path: inset(0 round var(--home-layer-radius) var(--home-layer-radius) 0 0);
+  margin-bottom: 0;
 }
 
 .marketScene[data-scene="1"] { z-index: 1; }
 .marketScene[data-scene="2"] { z-index: 2; }
 .marketScene[data-scene="3"] { z-index: 3; }
+.marketScene[data-scene="1"] { background-position: 68% center; }
+.marketScene[data-scene="2"] { background-position: 62% center; }
+.marketScene[data-scene="3"] { background-position: 58% center; }
 
-.marketScene:first-child {
-  margin-top: 0;
-}
+.marketScene[data-scene="1"] { margin-top: 0; }
 
-.marketSceneVisual { height: auto;
+.marketSceneVisual {
+  /* Static fallback: images remain readable without enhanced motion. */
   position: absolute;
   inset: 0;
   overflow: hidden;
-  border-radius: var(--home-layer-radius);
   background: #d8d2c8;
+  z-index: 0;
 }
 
 @media (min-width: 761px) {
   @supports (clip-path: inset(0 round 1px)) {
-    .homepage[data-motion-mode="enhanced"] .marketSceneVisual {
-      position: fixed;
-      inset: 0;
+    .homepage[data-motion-mode="enhanced"] .marketScene {
+      background-attachment: fixed;
     }
+    .homepage[data-motion-mode="enhanced"] .marketSceneVisual {
+      position: absolute;
+      opacity: 0;
+    }
+    .homepage[data-motion-mode="enhanced"] .marketScene::before {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(180deg, rgb(15 18 17 / 10%) 0%, rgb(15 18 17 / 14%) 38%, rgb(15 18 17 / 22%) 72%, rgb(15 18 17 / 30%) 100%),
+        radial-gradient(ellipse 58% 44% at 50% 46%, rgb(15 18 17 / 4%) 0%, rgb(15 18 17 / 10%) 78%);
+      content: "";
+      pointer-events: none;
+    }
+  }
+}
+
+/* Mobile / small viewport (≤ 760px): use separated static panels to avoid
+   fixed-background bugs in mobile browsers. */
+@media (max-width: 760px) {
+  .marketScene {
+    position: relative;
+    min-height: auto;
+    height: auto;
+    margin-top: 0;
+    /* Keep the responsive radius on the static phone composition. */
+  }
+  .marketScene:not([data-scene="1"]) {
+    margin-top: var(--home-layer-radius);
+  }
+  .marketSceneVisual {
+    position: relative;
+    inset: auto;
+    /* Match the scene's rounded corner so the image crops to the
+       same shape as on desktop. */
+    aspect-ratio: 16 / 10;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marketScene {
+    position: relative;
+    min-height: auto;
+    height: auto;
+    margin-top: 0;
+  }
+  .marketScene:not([data-scene="1"]) {
+    margin-top: var(--home-layer-radius);
+  }
+  .marketSceneVisual {
+    position: relative;
+    inset: auto;
+    aspect-ratio: 16 / 10;
   }
 }
 
@@ -1479,17 +1686,14 @@
   left: 190px;
   bottom: clamp(7rem, 15vh, 11rem);
   z-index: 3;
-  width: min(620px, 58vw);
+  width: min(780px, calc(100vw - 240px));
   color: #fffaf0;
   text-shadow: 0 2px 24px rgb(0 0 0 / 34%);
 }
 
-.marketSceneIndex {
-  display: block;
-  margin-bottom: 1rem;
-  color: rgb(255 250 240 / 74%);
-  font-size: 0.68rem;
-  letter-spacing: 0.18em;
+.marketSceneCopy h3,
+.marketSceneCopy p {
+  white-space: nowrap;
 }
 
 .marketSceneCopy h3 {
@@ -1502,7 +1706,7 @@
 }
 
 .marketSceneCopy p {
-  max-width: 52ch;
+  max-width: none;
   margin: 1.15rem 0 0;
   color: rgb(255 250 240 / 82%);
   font-size: clamp(0.8rem, 0.95vw, 0.92rem);
@@ -1746,55 +1950,183 @@
 .brandStatementSection {
   z-index: 8;
   margin-top: calc(var(--home-overlap-08) * -1);
-  height: var(--home-screen-02-height);
-  min-height: var(--home-screen-02-height);
-  padding-block: var(--home-screen-space-y);
-  display: flex;
-  align-items: center;
+  /* Three stacked scene cards layered like picture frames over a fixed
+     daylight-to-night image (see docs/superpowers/specs/2026-09-13-vithelo-
+     reference-scroll-screen-design.md). Section padding-inline stays at
+     --home-frame-gutter so the heading still anchors at 190px on desktop. */
+  padding-block: 0;
+  overflow: visible;
   isolation: isolate;
-  background: #263239;
+  background: var(--color-graphite);
   color: var(--ivory);
 }
 
-.brandStatementMedia {
-  z-index: -2;
-  object-fit: cover;
-  object-position: 62% center;
+.brandStatementScene {
+  /* Single scene card with the same height as #solutions Scene 1/2:
+     630 + var(--home-layer-radius) ≈ 670px. Negative margin pulls the
+     scene edge-to-edge past the section's 190px gutter so the new wide
+     winter-lake landscape fills the viewport with no side gutters. */
+  position: relative;
+  min-height: calc(630px + var(--home-layer-radius));
+  height: calc(630px + var(--home-layer-radius));
+  width: calc(100% + 2 * var(--home-frame-gutter));
+  margin-inline: calc(var(--home-frame-gutter) * -1);
+  overflow: clip;
+  border-radius: var(--home-layer-radius);
+  clip-path: inset(0 round var(--home-layer-radius));
+  background-color: #d8d2c8;
+  background-position: 50% 38%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  isolation: isolate;
 }
 
-.brandStatementVeil {
+.brandStatementSceneVisual {
   position: absolute;
   inset: 0;
-  z-index: -1;
-  background: linear-gradient(90deg, rgb(24 35 40 / 94%) 0 48%, rgb(24 35 40 / 62%) 68%, rgb(13 19 27 / 20%) 100%);
+  overflow: hidden;
+  border-radius: var(--home-layer-radius);
+  background: #d8d2c8;
 }
 
-.brandStatementCopy {
-  position: relative;
+@media (min-width: 761px) {
+  @supports (clip-path: inset(0 round 1px)) {
+    .homepage[data-motion-mode="enhanced"] .brandStatementScene {
+      background-attachment: fixed;
+    }
+    .homepage[data-motion-mode="enhanced"] .brandStatementSceneVisual {
+      position: absolute;
+      opacity: 0;
+    }
+    .homepage[data-motion-mode="enhanced"] .brandStatementScene::before {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(180deg, rgb(15 18 17 / 10%) 0%, rgb(15 18 17 / 14%) 38%, rgb(15 18 17 / 22%) 72%, rgb(15 18 17 / 30%) 100%),
+        radial-gradient(ellipse 58% 44% at 50% 46%, rgb(15 18 17 / 4%) 0%, rgb(15 18 17 / 10%) 78%);
+      content: "";
+      pointer-events: none;
+    }
+  }
+}
+
+.brandStatementSceneImage {
   z-index: 1;
-  width: min(100%, var(--home-frame-width));
-  margin-inline: auto;
+  object-fit: cover;
+  /* Centre on the snow-dusted mountain ridge; the image is 1.78:1 so the
+     scene card (wider than tall) will crop the lower lake band on tall
+     viewport and the side forests on wide viewport. */
+  object-position: 50% 38%;
 }
 
-.brandStatementCopy h2 {
-  max-width: none;
+.brandStatementSceneShade {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  /* Editorial dark veil: center-hold darkness around the title and a
+     heavier bottom pool so the scene index, serif title and ivory copy
+     all read on top of any imagery. Same shape as marketSceneShade. */
+  background:
+    linear-gradient(
+      180deg,
+      rgb(15 18 17 / 10%) 0%,
+      rgb(15 18 17 / 14%) 38%,
+      rgb(15 18 17 / 22%) 72%,
+      rgb(15 18 17 / 30%) 100%
+    ),
+    radial-gradient(
+      ellipse 58% 44% at 50% 46%,
+      rgb(15 18 17 / 4%) 0%,
+      rgb(15 18 17 / 10%) 78%
+    );
+  pointer-events: none;
+}
+
+.brandStatementSceneCopy {
+  position: absolute;
+  /* The scene is pulled −190px via negative margin, so the scene's left
+     edge sits at viewport x = 0. left: 190px anchors the heading at the
+     same 190px gutter as the rest of the homepage (home-fixed-gutters). */
+  left: 190px;
+  bottom: clamp(7rem, 15vh, 11rem);
+  z-index: 3;
+  width: min(880px, 65vw);
+  color: #fffaf0;
+  text-shadow: 0 2px 24px rgb(0 0 0 / 34%);
+  /* Stack the three blocks — heading, supporting line and CTA — as a
+     single flex column so the gap between them stays exactly equal
+     regardless of how the title wraps on smaller viewports. */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(1.5rem, 2.6vh, 2.25rem);
+}
+
+.brandStatementSceneCopy h2 {
   margin: 0;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(2rem, 3.35vw, 3.375rem);
+  font-size: clamp(2rem, 3.25vw, 2.75rem);
   font-weight: 400;
-  letter-spacing: -0.038em;
+  letter-spacing: -0.05em;
   line-height: 1.04;
+}
+
+.brandStatementSceneCopy h2 span { display: block; }
+
+.brandStatementSceneCopy p {
+  max-width: none;
+  margin: 0;
+  color: rgb(255 250 240 / 82%);
+  font-size: clamp(0.875rem, 1vw, 1.05rem);
+  line-height: 1.6;
+  /* Keep the supporting line on a single row on desktop so it reads as one
+     confident breath next to the serif headline, matching the reference
+     frame. Narrow viewports fall back to wrap so it never overflows the
+     container. */
   white-space: nowrap;
 }
 
-.brandStatementCopy h2 span { display: block; }
+.brandStatementAction {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 1.75rem;
+  border: 1px solid rgb(255 250 240 / 86%);
+  border-radius: 999px;
+  background: transparent;
+  color: #fffaf0;
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-shadow: none;
+  transition: background-color var(--motion-fast) var(--ease-standard), color var(--motion-fast) var(--ease-standard), border-color var(--motion-fast) var(--ease-standard), transform var(--motion-fast) var(--ease-standard);
+}
 
-.brandStatementCopy p {
-  max-width: 58ch;
-  margin: 1.875rem 0 0;
-  color: rgb(243 240 232 / 86%);
-  font-size: clamp(1rem, 1.2vw, 1.25rem);
-  line-height: 1.5;
+.brandStatementAction:hover,
+.brandStatementAction:focus-visible {
+  background: #fffaf0;
+  color: #1d2220;
+  border-color: #fffaf0;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 760px) {
+  .brandStatementSceneCopy {
+    left: clamp(20px, 6vw, 40px);
+    right: clamp(20px, 6vw, 40px);
+    width: auto;
+  }
+  .brandStatementSceneCopy p {
+    /* Allow the supporting line to wrap on narrow viewports — the single
+       sentence is intentionally kept as one line on desktop, but on phones
+       it must fit inside the gutter instead of overflowing. */
+    white-space: normal;
+    max-width: 36ch;
+  }
 }
 
 .runwayCopy {
@@ -2079,7 +2411,8 @@
 @media (max-width: 1100px) {
   .homepage {
     --home-layer-radius: 32px;
-    --home-overlap-02: 32px;
+    --home-proof-radius: var(--vithelo-screen-02-radius);
+    --home-overlap-02: var(--vithelo-screen-02-overlap);
     --home-overlap-03: 24px;
     --home-overlap-04: 22px;
     --home-overlap-05: 20px;
@@ -2091,9 +2424,6 @@
 }
 
 @media (max-width: 900px) {
-  .formatIntro { grid-template-columns: minmax(0, 1fr) auto; }
-  .formatQualifier { grid-column: 1 / -1; grid-row: 2; }
-  .formatAllLink { grid-column: 2; grid-row: 1; align-self: end; }
   .contactIntroGrid { grid-template-columns: 1fr; gap: 2.5rem; }
   .proofPrimary { grid-template-columns: 1fr; }
   .proofNarrative { min-height: 570px; padding-right: 0; }
@@ -2134,6 +2464,7 @@
   .manufacturingMetrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .manufacturingMetrics article:nth-child(2n) { border-right: 0; }
   .manufacturingMetrics article:nth-child(-n + 2) { border-bottom: 1px solid rgb(255 255 255 / 18%); }
+  .formatIntro { margin-top: clamp(40px, 12vw, 110px); }
 }
 
 @media (max-width: 760px) {
@@ -2141,7 +2472,8 @@
     --home-frame-gutter: 16px;
     --home-screen-02-height: auto;
     --home-layer-radius: 20px;
-    --home-overlap-02: 20px;
+    --home-proof-radius: var(--vithelo-screen-02-radius);
+    --home-overlap-02: var(--vithelo-screen-02-overlap);
     --home-overlap-03: 16px;
     --home-overlap-04: 14px;
     --home-overlap-05: 12px;
@@ -2201,10 +2533,9 @@
   .featuredProductBody { min-height: 170px; grid-template-columns: 1fr; grid-template-areas: "title" "copy" "action"; }
   .featuredProductAction { width: 100%; margin-top: 0.35rem; }
   .formatShell { border-radius: 18px; }
-  .formatIntro { grid-template-columns: 1fr; gap: 1.25rem; }
-  .formatIntro .title { max-width: 11ch; font-size: clamp(2.75rem, 13vw, 4rem); }
-  .formatQualifier,
-  .formatAllLink { grid-column: auto; grid-row: auto; }
+  .formatIntro { grid-template-columns: 1fr; gap: 1.25rem; align-items: start; margin-top: 32px; }
+  .formatIntro .title { max-width: 11ch; font-size: clamp(2.25rem, 12vw, 3.5rem); }
+  .formatQualifier { max-width: 100%; }
   .formatAllLink { width: max-content; }
   .formatWall { grid-template-columns: 1fr; gap: 0.75rem; }
   .formatLink { min-block-size: min(78vw, 360px); }
@@ -2313,9 +2644,11 @@
   .marketIntro .title { width: auto; max-width: 12ch; margin-top: 1.25rem; font-size: clamp(3rem, 14vw, 4.5rem); }
   .marketIntroCopy { width: auto; margin-top: 1.5rem; font-size: 0.82rem; }
   .marketScene { min-height: 82svh; height: 82svh; width: calc(100% - 2rem); margin-inline: 1rem; }
-  .marketSceneVisual { position: absolute; inset: 0; border-radius: inherit; }
+  .marketSceneVisual { position: absolute; inset: 0; }
   .marketSceneCopy { right: 1.25rem; bottom: 1.5rem; left: 1.25rem; width: auto; }
   .marketSceneCopy h3 { font-size: clamp(2.5rem, 12vw, 4rem); }
+  .marketSceneCopy h3,
+  .marketSceneCopy p { white-space: normal; }
   .marketOutro { min-height: 52svh; padding: 5rem 1.375rem; }
   .qualityDocument,
   .contactGrid { grid-template-columns: 1fr; }
@@ -2587,9 +2920,335 @@
   .partnerStoryBody { max-width: 100%; }
 }
 
+/* Screens 02–04 — approved Atmospheric Cinema direction. */
+.homepage .proof {
+  background: #ffffff;
+  color: var(--ivory);
+}
+
+.homepage .proofPrimary {
+  position: relative;
+  grid-template-columns: minmax(0, 0.82fr) minmax(420px, 1.18fr);
+}
+
+.homepage .proofNarrative .kicker,
+.homepage .proofNarrative .copy,
+.homepage .proofCapabilities p {
+  color: var(--muted);
+}
+
+.homepage .proofNarrative .title,
+.homepage .proofCapabilities,
+.homepage .editorialAction {
+  color: var(--ink);
+}
+
+.homepage .editorialAction {
+  border-color: rgb(23 25 24 / 32%);
+}
+
+.homepage .proofVisual {
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: var(--radius-cinematic);
+  background: #514a44;
+  box-shadow: none;
+}
+
+.homepage .proofVisual::before {
+  display: none;
+}
+
+.homepage .proofVisual::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  content: "";
+  background:
+    linear-gradient(90deg, rgb(30 26 23 / 45%), transparent 52%),
+    linear-gradient(180deg, transparent 58%, rgb(32 28 25 / 48%));
+  pointer-events: none;
+}
+
+.homepage .proofVisual img {
+  object-fit: cover;
+  object-position: 50% 58%;
+  filter: sepia(0.12) saturate(0.68) contrast(1.06) brightness(0.72);
+}
+
+.homepage .proofVisual figcaption {
+  z-index: 2;
+  color: rgb(255 248 236 / 76%);
+}
+
+.homepage .proofCapabilities {
+  border-color: var(--line);
+}
+
+.homepage .proofCapabilities article {
+  border-color: var(--line);
+}
+
+.homepage .proofCapabilityIcon {
+  color: #26332e;
+}
+
+.homepage .capacityBoundarySection {
+  isolation: isolate;
+  background: #302c29;
+}
+
+.entryRouteScene,
+.entryRouteVeil {
+  position: absolute;
+  inset: 0;
+}
+
+.entryRouteScene {
+  z-index: 0;
+  margin: 0;
+}
+
+.entryRouteScene img {
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(0.78) contrast(1.04) brightness(0.76);
+}
+
+.entryRouteVeil {
+  z-index: 1;
+  background:
+    linear-gradient(180deg, rgb(30 27 24 / 48%), rgb(30 27 24 / 22%) 42%, rgb(30 27 24 / 72%)),
+    linear-gradient(90deg, rgb(30 27 24 / 42%), transparent 48%, rgb(30 27 24 / 22%));
+  pointer-events: none;
+}
+
+.homepage .capacityBoundarySection .featuredIntro,
+.homepage .capacityBoundarySection .entryRouteGrid {
+  position: relative;
+  z-index: 2;
+}
+
+.homepage .entryRoute {
+  background: linear-gradient(155deg, transparent 46%, rgb(222 162 104 / 7%));
+}
+
+.homepage .entryRoute:nth-child(2) {
+  background: linear-gradient(155deg, transparent 46%, rgb(126 104 126 / 10%));
+}
+
+.homepage .entryRoute:nth-child(3) {
+  background: linear-gradient(155deg, transparent 46%, rgb(137 146 126 / 8%));
+}
+
+.homepage .customizationSection {
+  background:
+    radial-gradient(circle at 72% 34%, rgb(222 162 104 / 24%), transparent 29%),
+    #302c29;
+  color: var(--ivory);
+}
+
+.homepage .customizationIntro .title,
+.homepage .customizationPrimaryAction,
+.homepage .customizationNode h3 {
+  color: var(--ivory);
+}
+
+.homepage .customizationCopy,
+.homepage .customizationNode p {
+  color: rgb(243 240 232 / 66%);
+}
+
+.homepage .customizationPrimaryAction > span {
+  border-color: rgb(255 248 236 / 72%);
+  background: var(--ivory);
+  color: #302c29;
+}
+
+.homepage .customizationVisual {
+  -webkit-mask-image: radial-gradient(ellipse 64% 74% at 50% 52%, #000 58%, transparent 84%);
+  mask-image: radial-gradient(ellipse 64% 74% at 50% 52%, #000 58%, transparent 84%);
+}
+
+.homepage .customizationVisual img {
+  object-fit: contain;
+  filter: saturate(0.82) contrast(1.04);
+}
+
+/* Preserve the scene-level crossfade after the section entrance reveal has
+   completed; the broader reveal rules intentionally address both figures. */
+.homepage[data-motion-mode="enhanced"]
+  .customizationSection[data-motion-state="visible"]
+  .customizationFormulaScene {
+  opacity: 0;
+  transform: scale(1.02);
+}
+
+.homepage[data-motion-mode="enhanced"]
+  .customizationSection[data-motion-state="visible"]
+  .customizationConstellation[data-customization-state="formula"]
+  .customizationOverviewScene {
+  opacity: 0;
+  transform: scale(1.02);
+}
+
+.homepage[data-motion-mode="enhanced"]
+  .customizationSection[data-motion-state="visible"]
+  .customizationConstellation[data-customization-state="formula"]
+  .customizationFormulaScene {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.homepage[data-motion-mode="enhanced"]
+  .customizationSection[data-motion-state="visible"]
+  .customizationOverviewScene,
+.homepage[data-motion-mode="enhanced"]
+  .customizationSection[data-motion-state="visible"]
+  .customizationFormulaScene {
+  transition:
+    opacity var(--motion-narrative) var(--ease-standard),
+    transform calc(var(--motion-narrative) + var(--motion-fast)) var(--ease-standard);
+}
+
+.homepage .customizationOrbit,
+.homepage .customizationOrbit::after {
+  border-color: rgb(255 238 215 / 18%);
+}
+
+.homepage .customizationNodeMark {
+  border-color: rgb(255 238 215 / 20%);
+  background: rgb(48 44 41 / 62%);
+  color: var(--ivory);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .homepage .customizationNode:hover .customizationNodeMark {
+    border-color: rgb(255 238 215 / 42%);
+    background: rgb(70 60 54 / 82%);
+  }
+}
+
+.homepage .formulaNode[aria-pressed="true"] .customizationNodeMark {
+  border-color: rgb(255 238 215 / 55%);
+  background: rgb(102 75 57 / 88%);
+}
+
+@media (min-width: 1201px) and (max-width: 1360px) {
+  .homepage .customizationLayout {
+    width: calc(100% + 14vw);
+    margin-inline: -7vw;
+  }
+}
+
+@media (max-width: 900px) {
+  .homepage .proofPrimary {
+    grid-template-columns: 1fr;
+  }
+
+  .homepage .proofVisual {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 761px) and (max-width: 900px) {
+  .homepage .proofPrimary {
+    grid-template-columns: minmax(0, 0.9fr) minmax(280px, 1.1fr);
+    gap: 2rem;
+  }
+
+  .homepage .proofVisual {
+    align-self: stretch;
+    height: auto;
+    min-height: 0;
+  }
+
+  .homepage .proofVisual figcaption {
+    max-width: 23ch;
+    letter-spacing: 0.14em;
+  }
+}
+
+@media (max-width: 760px) {
+  .homepage .entryRouteScene img {
+    object-position: 58% center;
+  }
+
+  .homepage .customizationVisual img {
+    object-position: center;
+  }
+
+  .homepage .formulaDetails {
+    top: clamp(5.25rem, 22vw, 6.75rem);
+    right: 8%;
+    bottom: auto;
+    left: 8%;
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+    padding: 0.5rem 0.6rem;
+    background: linear-gradient(90deg, rgb(34 29 26 / 72%), rgb(34 29 26 / 42%));
+    backdrop-filter: blur(3px);
+  }
+
+  .homepage .customizationFormulaScene {
+    position: absolute;
+    inset: 0 auto auto -0.75rem;
+    margin: 0;
+  }
+
+  .homepage .formulaDetails article {
+    display: grid;
+    grid-template-columns: minmax(120px, 0.8fr) minmax(0, 1.2fr);
+    gap: 0.6rem;
+    padding-top: 0.4rem;
+  }
+
+  .homepage .customizationNode {
+    border-color: rgb(255 238 215 / 18%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .homepage .entryRouteScene,
+  .homepage .customizationIntro,
+  .homepage .customizationVisual,
+  .homepage .customizationNode,
+  .homepage [data-motion-role] {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    animation: none !important;
+  }
+
+  .homepage .customizationOverviewScene,
+  .homepage .customizationFormulaScene,
+  .homepage .formulaDetails,
+  .homepage .customizationOrbit {
+    transition: none !important;
+  }
+
+  .homepage .customizationConstellation[data-customization-state="formula"] .customizationFormulaScene,
+  .homepage .customizationConstellation[data-customization-state="formula"] .formulaDetails {
+    transform: none !important;
+  }
+
+  .homepage .customizationFormulaScene,
+  .homepage .customizationConstellation[data-customization-state="formula"] .customizationOverviewScene {
+    opacity: 0 !important;
+  }
+
+  .homepage .customizationOverviewScene,
+  .homepage .customizationConstellation[data-customization-state="formula"] .customizationFormulaScene,
+  .homepage .customizationConstellation[data-customization-state="formula"] .formulaDetails {
+    opacity: 1 !important;
+  }
+}
+
 /* The editorial second screen uses whitespace instead of divider lines. */
 .homepage .proof {
   border-bottom: 0;
+  border-radius: var(--home-proof-radius) var(--home-proof-radius) 0 0;
 }
 
 .homepage .proofPrimary,
@@ -2600,4 +3259,340 @@
   border-right: 0;
   border-bottom: 0;
   border-left: 0;
+}
+
+/* Screen 04 — Nordicus-inspired editorial sheet.
+   Fluid proportions are intentional: the layout should keep the same visual
+   relationship in a normal browser, not only at the Codex preview width. */
+.homepage .customizationSection {
+  block-size: var(--home-screen-02-height);
+  min-block-size: var(--home-screen-02-height);
+  padding-block: 80px;
+  padding-inline: calc(var(--home-frame-gutter) - 16px);
+  border-width: 16px 16px 0;
+  border-style: solid;
+  border-color: #191919;
+  border-radius: 60px 60px 0 0;
+  background: #fbfbfb;
+  color: var(--ink);
+  box-shadow: none;
+  justify-content: flex-start;
+}
+
+.homepage .customizationLayout {
+  width: 100%;
+  min-height: 0;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 0.96fr) minmax(360px, 1.04fr);
+  column-gap: clamp(3rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.customizationIntro {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: start;
+  padding-top: clamp(24px, 2.4vw, 46px);
+}
+
+.customizationIntro .kicker {
+  margin: 0 0 clamp(28px, 2.5vw, 42px);
+  color: #303330;
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.17em;
+}
+
+.homepage .customizationIntro .title {
+  max-width: 100%;
+  margin: 0;
+  color: #171918;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.6rem, 3.2vw, 3.8rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.96;
+  text-wrap: balance;
+}
+
+.homepage .customizationCopy {
+  max-width: 57ch;
+  margin: clamp(24px, 2.3vw, 34px) 0 0;
+  color: #303330;
+  font-size: clamp(1rem, 1.1vw, 1.125rem);
+  line-height: 1.5;
+}
+
+.homepage .customizationPrimaryAction {
+  min-height: 48px;
+  width: max-content;
+  margin-top: clamp(28px, 2.4vw, 38px);
+  padding: 0 1.25rem;
+  border: 0;
+  border-radius: 999px;
+  background: #171918;
+  color: #ffffff;
+  font-size: 0.76rem;
+  font-weight: 650;
+  letter-spacing: 0;
+}
+
+.customizationConstellation {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 0.96fr) minmax(360px, 1.04fr);
+  column-gap: clamp(3rem, 6vw, 6rem);
+  row-gap: clamp(64px, 6vw, 86px);
+  align-items: start;
+}
+
+.customizationMediaFrame {
+  position: relative;
+  grid-column: 2;
+  grid-row: 1;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #d9d0c4;
+  box-shadow: 0 10px 28px rgb(23 25 24 / 10%);
+}
+
+.homepage .customizationVisual,
+.homepage .customizationFormulaScene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.homepage .customizationVisual img {
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(0.78) contrast(1.02) brightness(0.96);
+}
+
+.homepage .customizationOverviewScene {
+  opacity: 1;
+  transform: none;
+}
+
+.homepage .customizationFormulaScene {
+  opacity: 0;
+  transform: scale(1.015);
+}
+
+.homepage .customizationConstellation[data-customization-state="formula"] .customizationOverviewScene {
+  opacity: 0;
+  transform: scale(1.015);
+}
+
+.homepage .customizationConstellation[data-customization-state="formula"] .customizationFormulaScene {
+  opacity: 1;
+  transform: none;
+}
+
+.homepage .formulaDetails {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  left: 18px;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 1.4vw, 22px);
+  padding: 18px 20px;
+  border: 0;
+  border-radius: 12px;
+  background: rgb(25 25 25 / 78%);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  backdrop-filter: blur(10px);
+}
+
+.homepage .formulaDetails article {
+  padding: 0;
+  border: 0;
+}
+
+.homepage .formulaDetails h4 {
+  color: #ffffff;
+  font-size: 0.61rem;
+}
+
+.homepage .formulaDetails p {
+  color: rgb(255 255 255 / 76%);
+  font-size: 0.68rem;
+}
+
+.homepage .customizationConstellation[data-customization-state="formula"] .formulaDetails {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.customizationDecisionGrid {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(28px, 4vw, 72px);
+  align-items: start;
+}
+
+.customizationDecisionGrid .customizationNode,
+.customizationDecisionGrid .customizationNode[data-node-index] {
+  position: relative;
+  inset: auto;
+  width: auto;
+  min-height: 72px;
+  padding: 0;
+  display: block;
+  border: 0;
+  background: transparent;
+  color: #171918;
+  text-align: left;
+}
+
+.homepage .customizationDecisionGrid .customizationNode h3 {
+  margin: 0;
+  color: #171918;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.22rem, 1.5vw, 1.45rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+}
+
+.homepage .customizationDecisionGrid .customizationNode p {
+  max-width: 28ch;
+  margin: 0.8rem 0 0;
+  color: #565a56;
+  font-size: clamp(0.74rem, 0.86vw, 0.82rem);
+  line-height: 1.5;
+}
+
+.homepage .formulaNode {
+  min-height: 72px;
+  cursor: pointer;
+}
+
+.homepage .formulaNode:focus-visible {
+  border-radius: 4px;
+  outline-color: #171918 !important;
+  box-shadow: 0 0 0 4px rgb(23 25 24 / 12%);
+}
+
+.homepage .formulaNode[aria-pressed="true"] h3 {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+}
+
+@media (max-width: 900px) {
+  .homepage .customizationSection {
+    block-size: auto;
+    min-block-size: auto;
+    padding: 56px 14px 72px;
+    border-width: 10px 10px 0;
+    border-radius: 38px 38px 0 0;
+  }
+
+  .homepage .customizationLayout {
+    display: block;
+  }
+
+  .customizationIntro {
+    padding-top: 0;
+  }
+
+  .homepage .customizationIntro .title {
+    max-width: 16ch;
+    font-size: clamp(2.6rem, 7.4vw, 3.35rem);
+  }
+
+  .homepage .customizationCopy {
+    max-width: 58ch;
+  }
+
+  .customizationConstellation {
+    margin-top: clamp(52px, 8vw, 76px);
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: clamp(44px, 7vw, 64px);
+  }
+
+  .customizationMediaFrame,
+  .customizationDecisionGrid {
+    grid-column: 1;
+  }
+
+  .customizationDecisionGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 34px clamp(28px, 7vw, 56px);
+  }
+}
+
+@media (max-width: 560px) {
+  .homepage .customizationSection {
+    padding-inline: 14px;
+    border-width: 8px 8px 0;
+    border-radius: 30px 30px 0 0;
+  }
+
+  .homepage .customizationIntro .title {
+    max-width: 12ch;
+    font-size: clamp(2.75rem, 13vw, 4rem);
+  }
+
+.homepage .customizationPrimaryAction {
+    min-height: 44px;
+  }
+
+  .customizationMediaFrame {
+    border-radius: 14px;
+  }
+
+  .customizationDecisionGrid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .customizationDecisionGrid .customizationNode,
+  .customizationDecisionGrid .customizationNode[data-node-index],
+  .homepage .formulaNode {
+    min-height: 58px;
+  }
+
+  .homepage .formulaDetails {
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    grid-template-columns: 1fr;
+    gap: 7px;
+    padding: 12px 14px;
+  }
+
+  .homepage .formulaDetails article {
+    display: grid;
+    grid-template-columns: minmax(105px, 0.8fr) minmax(0, 1.2fr);
+    gap: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .homepage .customizationOverviewScene,
+  .homepage .customizationFormulaScene,
+  .homepage .formulaDetails {
+    transition: none !important;
+  }
 }

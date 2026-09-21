@@ -290,21 +290,32 @@ export const VitheloB2BHomeContentSchema = z.object({
     routes: z.array(B2BLabelCopySchema).length(3),
   }),
   customization: z.object({
-    kicker: z.literal("04 · PRODUCT DEFINITION"),
-    title: z.literal("Four decisions shape one finished product."),
+    kicker: z.literal("PRODUCT DEFINITION"),
+    title: z.literal("Four decisions. One coherent product."),
     copy: z.string().min(1),
     action: z.object({
       label: z.literal("Explore OEM / ODM"),
       href: z.literal("/oem-odm"),
     }),
     media: B2BEditorialDemoMediaSchema,
+    formulaScene: z.object({
+      media: B2BEditorialDemoMediaSchema,
+      details: z
+        .array(
+          z.object({
+            label: z.string().min(1),
+            copy: z.string().min(1),
+          }),
+        )
+        .length(3),
+    }),
     nodes: z.array(B2BLabelCopySchema).length(4),
   }),
   market: z.object({
     stories: z
       .array(
         B2BLabelCopySchema.extend({
-          media: B2BRequiredMediaSchema,
+          media: B2BEditorialDemoMediaSchema,
         }),
       )
       .length(3),
@@ -478,6 +489,55 @@ const ProductDiscoveryMediaSchema = z.object({
   hover: DemoMediaSchema.extend({ alt: z.string() }),
 });
 
+const ProductStoryTextItemSchema = z.object({
+  title: z.string().min(1),
+  copy: z.string().min(1),
+});
+
+const ProductStoryStageSchema = ProductStoryTextItemSchema.extend({
+  label: z.string().min(1),
+});
+
+const ProductStoryReviewRowSchema = z.object({
+  area: z.string().min(1),
+  status: z.enum(["SELECTED", "TO_CONFIRM"]),
+  guidance: z.string().min(1),
+});
+
+export const ProductDetailStorySchema = z.object({
+  kicker: z.string().min(1),
+  subhead: z.string().min(1),
+  commerceNotice: z.string().min(1),
+  verificationNotice: z.string().min(1),
+  manufacturingReviewItems: z.array(z.string().min(1)).length(4),
+  capabilityHeadline: z.string().min(1),
+  capabilities: z.array(ProductStoryTextItemSchema).length(4),
+  projectHeadline: z.string().min(1),
+  projectIntro: z.string().min(1),
+  projectStages: z.array(ProductStoryStageSchema).length(4),
+  decisionKicker: z.string().min(1),
+  decisionHeadline: z.string().min(1),
+  decisionIntro: z.string().min(1),
+  decisions: z.array(ProductStoryTextItemSchema).length(4),
+  reviewHeadline: z.string().min(1),
+  reviewRows: z.array(ProductStoryReviewRowSchema).length(4),
+  packagingKicker: z.string().min(1),
+  packagingHeadline: z.string().min(1),
+  packagingItems: z.array(ProductStoryTextItemSchema).length(3),
+  qualityKicker: z.string().min(1),
+  qualityHeadline: z.string().min(1),
+  qualityCopy: z.string().min(1),
+  qualityItems: z.array(ProductStoryTextItemSchema).length(3),
+  faqs: z.array(ProductStoryTextItemSchema).length(4),
+  inquiry: z.object({
+    kicker: z.string().min(1),
+    title: z.string().min(1),
+    copy: z.string().min(1),
+    label: z.string().min(1),
+    href: z.literal("/contact"),
+  }),
+});
+
 export const ProductDiscoveryItemSchema = z.object({
   id: z.string().regex(/^[A-Za-z0-9][A-Za-z0-9._-]{1,63}$/),
   formatSlug: ProductFormatSlugSchema,
@@ -516,6 +576,7 @@ export const ProductDiscoveryItemSchema = z.object({
     )
     .max(6)
     .optional(),
+  pdpStory: ProductDetailStorySchema.optional(),
 });
 
 export const B2BProductsPageSchema = z.object({
@@ -553,15 +614,47 @@ const B2BCommercialVariableSchema = z.object({
   factors: z.array(z.string().min(1)).min(3),
 });
 
+const B2BOemStorySchema = B2BTextItemSchema.extend({
+  eyebrow: z.string().min(1),
+  media: DemoMediaSchema,
+});
+
+const B2BOemIntroductionSchema = B2BOemStorySchema.extend({
+  actions: z.tuple([
+    z.object({
+      label: z.literal("Start a Project"),
+      href: z.literal("/contact"),
+    }),
+    z.object({
+      label: z.literal("Explore Formats"),
+      href: z.literal("/products"),
+    }),
+  ]),
+});
+
+const B2BOemFormatSchema = B2BLinkSchema.extend({
+  media: DemoMediaSchema,
+});
+
 export const B2BOemOdmPageSchema = z.object({
   dataStatus: DataStatusSchema,
-  hero: B2BHeroSchema,
-  capabilities: z.array(B2BTextItemSchema).length(7),
-  formats: z.array(B2BLinkSchema).length(8),
-  steps: z.array(B2BTextItemSchema).length(6),
-  commercialVariables: z.array(B2BCommercialVariableSchema).length(2),
+  hero: B2BHeroSchema.extend({ media: DemoMediaSchema }),
+  introduction: B2BOemIntroductionSchema,
+  developmentStories: z.array(B2BOemStorySchema).length(3),
+  formats: z.array(B2BOemFormatSchema).length(8),
+  steps: z.array(B2BTextItemSchema).length(10),
+  commercialVariables: z
+    .array(B2BCommercialVariableSchema.extend({ media: DemoMediaSchema }))
+    .length(2),
+  packagingIntroduction: B2BOemStorySchema,
   packaging: z.array(B2BTextItemSchema).length(4),
-  quality: z.array(B2BTextItemSchema).length(4),
+  quality: z.object({
+    title: z.string().min(1),
+    copy: z.string().min(1),
+    media: DemoMediaSchema,
+    items: z.array(B2BTextItemSchema).length(4),
+  }),
+  quoteStories: z.array(B2BTextItemSchema).length(3),
   checklist: z.array(z.string().min(1)).length(6),
   faqs: z.array(B2BTextItemSchema).min(5),
   cta: z.object({
@@ -614,6 +707,20 @@ const InsightBlockSchema = z.discriminatedUnion("type", [
   }),
 ]);
 
+const B2BInsightMediaSchema = z.object({
+  status: DataStatusSchema,
+  src: z.string().regex(/^\/media\/[\w./-]+$/),
+  alt: z.string().min(1),
+  width: z.number().int().positive(),
+  height: z.number().int().positive(),
+});
+
+const B2BInsightsIntroSchema = z.object({
+  kicker: z.string().min(1),
+  title: z.string().min(1),
+  copy: z.string().min(1),
+});
+
 export const B2BInsightArticleSchema = z.object({
   dataStatus: DataStatusSchema,
   published: z.boolean(),
@@ -621,6 +728,7 @@ export const B2BInsightArticleSchema = z.object({
   category: z.string().min(1),
   title: z.string().min(1),
   summary: z.string().min(1),
+  media: B2BInsightMediaSchema,
   author: z.object({
     name: z.literal("VITHELO Editorial Team"),
     role: z.literal("Manufacturing Knowledge Editor"),
@@ -642,6 +750,7 @@ export const B2BInsightArticleSchema = z.object({
 export const B2BInsightsPageSchema = z.object({
   dataStatus: DataStatusSchema,
   hero: B2BHeroSchema,
+  intro: B2BInsightsIntroSchema,
   categories: z.array(z.string().min(1)).length(5),
   articles: z.array(B2BInsightArticleSchema).min(4),
 });
@@ -653,6 +762,70 @@ export const B2BContactPageSchema = z.object({
   fields: z.array(z.string().min(1)).length(8),
   formats: z.array(z.string().min(1)).length(8),
   pendingMessage: z.string().min(1),
+});
+
+const B2BAboutTextItemSchema = z.object({
+  title: z.string().min(1),
+  copy: z.string().min(1),
+});
+
+export const B2BAboutPageSchema = z.object({
+  dataStatus: z.literal("DEMO_ONLY"),
+  hero: z.object({
+    kicker: z.literal("ABOUT VITHELO"),
+    title: z.string().min(1),
+    copy: z.string().min(1),
+    meta: z.string().min(1),
+    media: DemoMediaSchema,
+    primaryAction: B2BLinkSchema,
+    secondaryAction: B2BLinkSchema,
+  }),
+  role: z.object({
+    kicker: z.string().min(1),
+    title: z.string().min(1),
+    copy: z.string().min(1),
+    media: DemoMediaSchema,
+  }),
+  principles: z.array(B2BAboutTextItemSchema).length(4),
+  capabilities: z.object({
+    kicker: z.string().min(1),
+    title: z.string().min(1),
+    copy: z.string().min(1),
+    media: DemoMediaSchema,
+    items: z.array(B2BAboutTextItemSchema).length(4),
+  }),
+  formats: z.object({
+    kicker: z.string().min(1),
+    title: z.string().min(1),
+    copy: z.string().min(1),
+    media: DemoMediaSchema,
+    items: z
+      .array(
+        z.object({
+          name: z.string().min(1),
+          href: z.string().regex(/^\/products\/[a-z][\w-]*$/),
+        }),
+      )
+      .length(8),
+  }),
+  collaboration: z.object({
+    kicker: z.string().min(1),
+    title: z.string().min(1),
+    copy: z.string().min(1),
+    items: z.array(B2BAboutTextItemSchema).length(4),
+  }),
+  boundary: z.object({
+    kicker: z.string().min(1),
+    title: z.string().min(1),
+    copy: z.string().min(1),
+    items: z.array(z.string().min(1)).length(5),
+  }),
+  cta: z.object({
+    kicker: z.string().min(1),
+    title: z.string().min(1),
+    copy: z.string().min(1),
+    action: B2BLinkSchema,
+  }),
 });
 
 export type Product = z.infer<typeof ProductSchema>;
@@ -674,8 +847,10 @@ export type VitheloB2BHomeContent = z.infer<typeof VitheloB2BHomeContentSchema>;
 export type VitheloB2BHeroVideo = z.infer<typeof B2BHeroVideoSchema>;
 export type B2BPageMedia = z.infer<typeof B2BPageMediaSchema>;
 export type B2BSiteContent = z.infer<typeof B2BSiteContentSchema>;
+export type ProductDetailStory = z.infer<typeof ProductDetailStorySchema>;
 export type B2BProductsPage = z.infer<typeof B2BProductsPageSchema>;
 export type B2BOemOdmPage = z.infer<typeof B2BOemOdmPageSchema>;
 export type B2BInsightArticle = z.infer<typeof B2BInsightArticleSchema>;
 export type B2BInsightsPage = z.infer<typeof B2BInsightsPageSchema>;
 export type B2BContactPage = z.infer<typeof B2BContactPageSchema>;
+export type B2BAboutPage = z.infer<typeof B2BAboutPageSchema>;

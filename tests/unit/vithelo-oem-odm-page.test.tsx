@@ -11,25 +11,27 @@ it("renders the unified OEM ODM decision sequence", () => {
       .map((section) => section.getAttribute("data-section")),
   ).toEqual([
     "hero",
-    "capabilities",
+    "custom-formulation",
+    "development-capabilities",
     "formats",
-    "project-path",
-    "commercial-variables",
-    "packaging",
+    "commercial-planning",
     "quality",
+    "project-path",
+    "packaging-introduction",
     "quote-preparation",
+    "packaging-by-format",
     "questions",
     "inquiry",
   ]);
   expect(
-    within(screen.getByTestId("capability-map")).getAllByRole("article"),
-  ).toHaveLength(7);
+    within(screen.getByTestId("development-stories")).getAllByRole("article"),
+  ).toHaveLength(3);
   expect(
-    within(screen.getByTestId("format-field")).getAllByRole("link"),
+    within(screen.getByTestId("format-gallery")).getAllByRole("link"),
   ).toHaveLength(8);
   expect(
     within(screen.getByTestId("oem-steps")).getAllByRole("article"),
-  ).toHaveLength(6);
+  ).toHaveLength(10);
   expect(
     within(screen.getByTestId("commercial-variables")).getAllByRole("article"),
   ).toHaveLength(2);
@@ -39,10 +41,12 @@ it("renders the unified OEM ODM decision sequence", () => {
   expect(
     within(screen.getByTestId("quality-path")).getAllByRole("article"),
   ).toHaveLength(4);
-  expect(screen.getByRole("link", { name: "Start a Project" })).toHaveAttribute(
-    "href",
-    "/contact",
-  );
+  expect(screen.getAllByRole("img").length).toBeGreaterThanOrEqual(15);
+  expect(
+    screen
+      .getAllByRole("link", { name: "Start a Project" })
+      .every((link) => link.getAttribute("href") === "/contact"),
+  ).toBe(true);
 });
 
 it("does not render a split OEM and ODM comparison", () => {
@@ -51,4 +55,45 @@ it("does not render a split OEM and ODM comparison", () => {
   expect(screen.queryByText(/you bring the specification/i)).not.toBeInTheDocument();
   expect(screen.queryByText(/you bring the product direction/i)).not.toBeInTheDocument();
   expect(document.body.textContent).not.toMatch(/FDA approved|certified|guaranteed/i);
+});
+
+it("renders the approved second-screen narrative before its primary image", () => {
+  render(<VitheloOemOdmPage content={vitheloB2BOemOdmPage} />);
+
+  const intro = screen
+    .getAllByTestId("oem-section")
+    .find((section) => section.getAttribute("data-section") === "custom-formulation");
+  expect(intro).toBeDefined();
+  const narrative = within(intro!).getByTestId("oem-introduction-copy");
+  const media = within(intro!).getByTestId("oem-introduction-media");
+
+  expect(intro!.firstElementChild).toBe(narrative);
+  expect(narrative.nextElementSibling).toBe(media);
+  expect(within(narrative).getByRole("heading", { level: 2 })).toHaveTextContent(
+    "From brief to finished product.",
+  );
+  expect(within(narrative).getByRole("link", { name: "Start a Project" })).toHaveAttribute(
+    "href",
+    "/contact",
+  );
+  expect(within(narrative).getByRole("link", { name: "Explore Formats" })).toHaveAttribute(
+    "href",
+    "/products",
+  );
+  expect(within(narrative).getAllByTestId("intro-format-link")).toHaveLength(5);
+});
+
+it("keeps each development capability as one narrative followed by one image", () => {
+  render(<VitheloOemOdmPage content={vitheloB2BOemOdmPage} />);
+
+  const stories = within(screen.getByTestId("development-stories")).getAllByRole("article");
+  expect(stories).toHaveLength(3);
+
+  for (const story of stories) {
+    const copy = within(story).getByTestId("development-story-copy");
+    const media = within(story).getByTestId("development-story-media");
+    expect(story.firstElementChild).toBe(copy);
+    expect(copy.nextElementSibling).toBe(media);
+    expect(within(copy).getAllByRole("heading")).toHaveLength(1);
+  }
 });

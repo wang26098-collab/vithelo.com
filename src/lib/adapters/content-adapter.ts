@@ -1,4 +1,5 @@
 import type {
+  B2BAboutPage,
   B2BContactPage,
   B2BInsightArticle,
   B2BInsightsPage,
@@ -20,6 +21,7 @@ export interface ContentAdapter {
   getHomeContent(): Promise<HomeContent>;
   getB2BHomeContent(): Promise<VitheloB2BHomeContent>;
   getB2BSiteContent(): Promise<B2BSiteContent>;
+  getB2BAboutPage(): Promise<B2BAboutPage>;
   getB2BProductsPage(): Promise<B2BProductsPage>;
   getB2BOemOdmPage(): Promise<B2BOemOdmPage>;
   getB2BInsightsPage(): Promise<B2BInsightsPage>;

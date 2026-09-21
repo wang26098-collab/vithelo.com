@@ -3,11 +3,22 @@
 
 :root {
   --vithelo-page-hero-height: 1180px;
+  --vithelo-screen-02-radius: 64px;
+  --vithelo-screen-02-overlap: 40px;
+}
+
+@media (max-width: 1100px) {
+  :root {
+    --vithelo-screen-02-radius: 48px;
+    --vithelo-screen-02-overlap: 32px;
+  }
 }
 
 @media (max-width: 760px) {
   :root {
     --vithelo-page-hero-height: min(calc(100svh - 26px), 930px);
+    --vithelo-screen-02-radius: 32px;
+    --vithelo-screen-02-overlap: 20px;
   }
 }
 
@@ -94,8 +105,9 @@ body {
   min-height: var(--vithelo-page-hero-height);
   display: grid;
   grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-  overflow: hidden;
+  overflow: visible;
   background: #e8e3d8;
+  box-shadow: 0 calc(var(--vithelo-screen-02-radius) - var(--vithelo-screen-02-overlap)) 0 #111512;
 }
 
 .informationHero__copy {
@@ -104,8 +116,12 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(8rem, 15vw, 12rem) max(48px, calc((100vw - 1720px) / 2)) 5rem;
+  padding: clamp(8rem, 15vw, 12rem) 48px 5rem;
   background: linear-gradient(115deg, #f3f0e8 0%, rgb(243 240 232 / 0.96) 68%, rgb(243 240 232 / 0.62) 100%);
+}
+
+.informationHero__copyContent {
+  margin-top: 130px;
 }
 
 .informationHero__eyebrow,
@@ -184,6 +200,11 @@ body {
 }
 
 .informationPage__body {
+  position: relative;
+  z-index: 2;
+  margin-top: calc(var(--vithelo-screen-02-overlap) * -1);
+  border-radius: var(--vithelo-screen-02-radius) var(--vithelo-screen-02-radius) 0 0;
+  background: var(--color-background);
   padding-block: clamp(4rem, 8vw, 8rem);
 }
 
@@ -199,6 +220,10 @@ body {
     min-height: 34rem;
     padding: 8rem 1rem 3rem;
     background: linear-gradient(180deg, #f3f0e8 0%, rgb(243 240 232 / 0.94) 72%, rgb(243 240 232 / 0.6) 100%);
+  }
+
+  .informationHero__copyContent {
+    margin-top: 0;
   }
 
   .informationHero h1 {
@@ -217,6 +242,34 @@ body {
 
   .informationPage__body {
     padding-block: 4rem;
+  }
+}
+
+@media (min-width: 1201px) {
+  .informationHero__copy {
+    padding-inline: var(--site-frame-wide-inset);
+  }
+
+  .informationPage__body {
+    width: 100%;
+    max-width: none;
+    padding-inline: var(--site-frame-wide-inset);
+  }
+}
+
+@media (min-width: 761px) and (max-width: 1200px) {
+  .informationPage__body {
+    width: 100%;
+    max-width: none;
+    padding-inline: 48px;
+  }
+}
+
+@media (max-width: 760px) {
+  .informationPage__body {
+    width: 100%;
+    max-width: none;
+    padding-inline: 16px;
   }
 }
 

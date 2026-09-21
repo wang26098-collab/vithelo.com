@@ -7,9 +7,9 @@ const routes = [
   ["/oem-odm", "dark-hero", "/oem-odm"],
   ["/manufacturing", "light-hero", "/manufacturing"],
   ["/quality", "light-hero", "/quality"],
-  ["/insights", "split-hero", "/insights"],
+  ["/insights", "dark-hero", "/insights"],
   ["/insights/choose-the-right-supplement-format", "light-hero", "/insights"],
-  ["/about", "light-hero", "/about"],
+  ["/about", "dark-hero", "/about"],
   ["/contact", "split-hero", "/contact"],
 ] as const;
 

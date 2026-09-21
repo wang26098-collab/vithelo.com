@@ -27,7 +27,8 @@ it("keeps rendered homepage imagery explicit without exposing asset metadata", a
 
   expect(document.querySelectorAll('[data-media-status="FREE_COMMERCIAL_OR_REAL"]')).not.toHaveLength(0);
   expect(screen.queryByText(/Lifestyle asset/)).not.toBeInTheDocument();
-  expect(document.querySelectorAll("img")).toHaveLength(13);
+  expect(document.querySelectorAll("img")).toHaveLength(16);
+  expect(screen.getByTestId("formula-scene").querySelector("img")).toBeInTheDocument();
   expect(document.querySelectorAll("[data-testid='market-scene'] img")).toHaveLength(3);
 });
 

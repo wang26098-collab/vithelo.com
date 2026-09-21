@@ -15,6 +15,7 @@ const publicRoutes = [
   "/insights/what-documents-buyers-should-ask-for",
   "/insights/what-information-to-include-in-an-rfq",
   "/insights/how-packaging-affects-moq-and-lead-time",
+  "/about",
   "/contact",
 ] as const;
 
@@ -89,6 +90,7 @@ test("primary B2B pages use the premium visual shell", async ({ page }) => {
   for (const [route, stage] of [
     ["/products", "products-runway"],
     ["/oem-odm", "oem-premium-process"],
+    ["/about", "about-architectural-ledger"],
     ["/contact", "contact-premium-brief"],
   ] as const) {
     await page.goto(route);

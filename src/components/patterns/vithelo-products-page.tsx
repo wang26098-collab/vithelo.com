@@ -42,11 +42,13 @@ export function VitheloProductsPage({ content }: { content: B2BProductsPage }) {
       data-ui-stage="products-runway"
     >
       <section className={`${styles.hero} ${styles.productsHero}`} data-header-hero>
-        <p className={styles.kicker}>{content.hero.kicker}</p>
-        <h1>Find the format for what comes next.</h1>
-        <p className={styles.lede}>
-          Compare eight dosage formats, then enter the route that fits your next nutrition line.
-        </p>
+        <div className={styles.heroCopy}>
+          <p className={styles.kicker}>{content.hero.kicker}</p>
+          <h1>Find the format for what comes next.</h1>
+          <p className={styles.lede}>
+            Compare eight dosage formats, then enter the route that fits your next nutrition line.
+          </p>
+        </div>
       </section>
 
       <section className={styles.discoveryLayout} aria-label="Product discovery">

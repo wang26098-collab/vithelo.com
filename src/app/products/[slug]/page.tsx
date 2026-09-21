@@ -19,17 +19,28 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export default async function DosageFormPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+export default async function DosageFormPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ product?: string | string[] }>;
+}) {
+  const [{ slug }, query] = await Promise.all([params, searchParams]);
   const format = vitheloB2BProductsPage.formats.find((item) => item.id === slug);
   if (!format) notFound();
   const isInDiscovery = vitheloB2BProductsPage.discovery.formats.some(({ slug }) => slug === format.id);
   if (isInDiscovery) {
-    // Filtered once at build time so client-side search-param lookup is O(format-specific).
     const formatProducts = vitheloB2BProductsPage.discovery.items.filter(
       (item) => item.formatSlug === format.id,
     );
-    return <VitheloDosageFormDetail format={format} products={formatProducts} />;
+    const requestedProduct = Array.isArray(query.product)
+      ? query.product[0]
+      : query.product;
+    const product = requestedProduct
+      ? formatProducts.find((item) => item.id === requestedProduct)
+      : undefined;
+    return <VitheloDosageFormDetail format={format} product={product} />;
   }
   return (
     <main className="container-standard pt-28 pb-12 sm:pb-20">

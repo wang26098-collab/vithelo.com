@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import styles from "@/components/patterns/vithelo-b2b-pages.module.css";
+import { VitheloProductDetailStory } from "@/components/patterns/vithelo-product-detail-story";
 import type { B2BProductsPage } from "@/content/schema";
 
 const FALLBACK_FORMAT_IMAGE: Record<string, string> = {
@@ -25,23 +25,12 @@ type GalleryItem = { src: string; alt: string };
 export function VitheloDosageFormDetail({
   format,
   product,
-  products,
 }: {
   format: B2BProductsPage["formats"][number];
-  /** Explicit product (tests, special embeds). Wins over URL lookup when provided. */
+  /** Resolved by the server page or supplied explicitly by tests and embeds. */
   product?: B2BProductsPage["discovery"]["items"][number];
-  /** All products belonging to this format. Used to resolve the `?product=` search param on the client. */
-  products?: B2BProductsPage["discovery"]["items"];
 }) {
-  // Resolve the active product: explicit prop > ?product= URL param (client-only, no SSR dynamic).
-  // Reading the URL here keeps the page route statically prerendered (CDN-friendly)
-  // while still letting `/products?product=xxx` style deep links work without a server round-trip.
-  const searchParams = useSearchParams();
-  const productIdFromUrl = searchParams?.get("product") ?? null;
-  const resolvedProduct =
-    product ?? (products && productIdFromUrl
-      ? products.find((item) => item.id === productIdFromUrl)
-      : undefined);
+  const resolvedProduct = product;
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [openPanel, setOpenPanel] = useState<string | null>("overview");
@@ -106,11 +95,19 @@ export function VitheloDosageFormDetail({
   const onPrev = () => setActiveIndex((index) => (index - 1 + items.length) % items.length);
   const onNext = () => setActiveIndex((index) => (index + 1) % items.length);
 
+  if (resolvedProduct?.pdpStory) {
+    return (
+      <VitheloProductDetailStory
+        format={format}
+        product={{ ...resolvedProduct, pdpStory: resolvedProduct.pdpStory }}
+      />
+    );
+  }
+
   return (
     <main
       className={styles.formatDetailPage}
       data-pdp-layout="gallery-info"
-      data-pdp-layout-legacy="seed-reference"
     >
       <nav className={styles.formatCrumb} aria-label="Breadcrumb">
         {breadcrumb.map((item, index) => (

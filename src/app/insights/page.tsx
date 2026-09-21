@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/insights" },
   openGraph: {
     url: "/insights",
-    images: ["/media/vithelo-hero-composite.png"],
+    images: ["/media/b2b/hero-loop-poster.jpg"],
   },
 };
 
@@ -21,7 +21,7 @@ export default async function InsightsPage() {
   ]);
 
   return (
-    <VitheloB2BSiteFrame content={site} headerTheme="split-hero">
+    <VitheloB2BSiteFrame content={site} headerTheme="dark-hero">
       <VitheloInsightsPage content={content} />
     </VitheloB2BSiteFrame>
   );

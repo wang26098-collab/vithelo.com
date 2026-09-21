@@ -85,7 +85,7 @@ it("gives every public route a self-referencing canonical", async () => {
   expect(insightsMetadata.alternates).toEqual({ canonical: "/insights" });
   expect(insightsMetadata.openGraph).toEqual({
     url: "/insights",
-    images: ["/media/vithelo-hero-composite.png"],
+    images: ["/media/b2b/hero-loop-poster.jpg"],
   });
   expect(contactMetadata.alternates).toEqual({ canonical: "/contact" });
   expect(contactMetadata.openGraph).toEqual({

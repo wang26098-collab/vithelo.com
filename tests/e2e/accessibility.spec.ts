@@ -61,6 +61,36 @@ test("visible navigation and form controls meet the 44px target", async ({ page 
   }
 });
 
+test("Formula supports keyboard focus and Escape", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-1440");
+  await page.goto("/");
+
+  const formula = page.locator("#gummy-stage").getByRole("button", { name: /Formula/i });
+  await formula.hover();
+  await formula.focus();
+  await expect(formula).toBeFocused();
+  await expect(formula).toHaveAttribute("aria-pressed", "true");
+  await page.keyboard.press("Escape");
+  await expect(formula).toHaveAttribute("aria-pressed", "false");
+});
+
+test("Formula scene is immediately visible with reduced motion", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+
+  const customization = page.locator("#gummy-stage");
+  const formula = customization.getByRole("button", { name: /Formula/i });
+  await formula.focus();
+  await expect(customization.getByTestId("formula-scene")).toHaveAttribute(
+    "aria-hidden",
+    "false",
+  );
+  const transitionDuration = await customization
+    .getByTestId("formula-scene")
+    .evaluate((element) => getComputedStyle(element).transitionDuration);
+  expect(transitionDuration).toBe("0s");
+});
+
 test("reduced motion keeps meaningful content static and visible", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
@@ -74,6 +104,8 @@ test("reduced motion keeps meaningful content static and visible", async ({ page
     page.locator("#hero").getByRole("link", { name: "Start a Project" }),
   ).toBeVisible();
   await expect(page.locator("#proof")).toBeVisible();
+  await expect(page.getByTestId("manufacturing-scene")).toBeVisible();
+  await expect(page.getByTestId("project-entry-scene")).toBeVisible();
   await expect(page.locator("#dosage-forms")).toBeVisible();
   await expect(page.getByRole("link", { name: "Email wang26098@gmail.com" })).toBeVisible();
   await expect(page.getByRole("link", { name: "WhatsApp +86 182 7366 9556" })).toBeVisible();
@@ -83,6 +115,10 @@ test("reduced motion keeps meaningful content static and visible", async ({ page
     customization.getByRole("heading", { name: "Four decisions shape one finished product." }),
   ).toBeVisible();
   await expect(customization.getByTestId("customization-visual")).toBeVisible();
+  await expect(customization.getByTestId("customization-visual")).toHaveAttribute(
+    "data-media-status",
+    "DEMO_ONLY",
+  );
   await expect(customization.getByTestId("customization-node")).toHaveCount(4);
   const customizationTransform = await customization
     .getByTestId("customization-visual")

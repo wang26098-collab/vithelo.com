@@ -51,10 +51,10 @@ it("renders all eight formats as one editorial format grid", () => {
     "/products",
   );
   const title = within(dosage).getByRole("heading", {
-    name: "One brief. Eight ways to deliver it.",
+    name: "One brief. Eight ways to deliver it",
   });
   expect(title).toHaveAttribute("data-format-title");
-  expect(title).toHaveTextContent("One brief. Eight ways to deliver it.");
+  expect(title).toHaveTextContent("One brief. Eight ways to deliver it");
   expect(dosage.querySelectorAll("[data-format-project]")).toHaveLength(8);
   expect(dosage.querySelectorAll("[data-format-media]")).toHaveLength(8);
   expect(dosage.querySelectorAll("[data-format-label]")).toHaveLength(8);
@@ -72,6 +72,10 @@ it("renders manufacturing as four workstreams without unsupported facts", () => 
   const proof = document.getElementById("proof")!;
   expect(proof).toBeInTheDocument();
   expect(proof).toHaveAttribute("data-layout", "manufacturing-editorial-split");
+  expect(within(proof).getByTestId("manufacturing-scene")).toHaveAttribute(
+    "data-media-provenance",
+    "real-source",
+  );
   expect(within(proof).getAllByTestId("manufacturing-workstream")).toHaveLength(4);
   expect(within(proof).getByRole("link", { name: /Explore Manufacturing/i })).toHaveAttribute(
     "href",
@@ -82,6 +86,17 @@ it("renders manufacturing as four workstreams without unsupported facts", () => 
   );
 });
 
+it("does not present a missing manufacturing asset as a real source", () => {
+  const content = structuredClone(vitheloB2BHome);
+  content.proof.media.status = "REQUIRED_REAL_ASSET";
+  content.proof.media.src = undefined;
+
+  render(<VitheloB2BHome content={content} />);
+
+  const proof = document.getElementById("proof")!;
+  expect(within(proof).queryByTestId("manufacturing-scene")).not.toBeInTheDocument();
+});
+
 it("removes the dark direction intro while keeping all three product directions", () => {
   render(<VitheloB2BHome content={vitheloB2BHome} />);
 
@@ -89,6 +104,16 @@ it("removes the dark direction intro while keeping all three product directions"
   expect(directions).toBeInTheDocument();
   expect(within(directions!).getAllByTestId("market-scene")).toHaveLength(3);
   expect(within(directions!).queryByTestId("market-intro")).not.toBeInTheDocument();
+  expect(
+    within(directions!).getByRole("heading", { name: "Evening Wellness" }),
+  ).toBeInTheDocument();
+  expect(
+    within(directions!).getByRole("heading", { name: "Active Nutrition" }),
+  ).toBeInTheDocument();
+  expect(
+    within(directions!).getByRole("heading", { name: "Women’s Wellness" }),
+  ).toBeInTheDocument();
+  expect(within(directions!).queryByText(/^(01|02|03)$/)).not.toBeInTheDocument();
   expect(screen.queryByText("05 · PRODUCT DIRECTION")).not.toBeInTheDocument();
   expect(
     screen.queryByRole("heading", {
@@ -103,6 +128,10 @@ it("renders the third screen as three project entry routes", () => {
   const runway = document.getElementById("capacity-boundary")!;
   expect(runway).toBeInTheDocument();
   expect(runway).toHaveAttribute("data-layout", "project-entry-routes");
+  expect(within(runway).getByTestId("project-entry-scene")).toHaveAttribute(
+    "data-media-status",
+    "DEMO_ONLY",
+  );
   expect(within(runway).getAllByTestId("project-entry-route")).toHaveLength(3);
   expect(within(runway).getByRole("link", { name: /Find Your Starting Route/i })).toHaveAttribute(
     "href",
@@ -120,8 +149,28 @@ it("renders the fourth screen as a customization constellation", () => {
 
   const stage = document.getElementById("gummy-stage")!;
   expect(stage).toHaveAttribute("data-layout", "customization-constellation");
-  expect(within(stage).getByTestId("customization-visual")).toBeInTheDocument();
+  expect(
+    within(stage).getByRole("heading", {
+      name: "Four decisions. One coherent product.",
+    }),
+  ).toBeInTheDocument();
+  expect(within(stage).getByTestId("customization-media-frame")).toBeInTheDocument();
+  expect(within(stage).getByTestId("customization-decision-grid")).toBeInTheDocument();
+  expect(within(stage).getByTestId("customization-visual")).toHaveAttribute(
+    "data-media-status",
+    "DEMO_ONLY",
+  );
+  expect(within(stage).getByTestId("customization-constellation")).toHaveAttribute(
+    "data-customization-state",
+    "overview",
+  );
+  expect(within(stage).getByRole("button", { name: /Formula/i })).toHaveAttribute(
+    "aria-controls",
+    "formula-customization-details",
+  );
   expect(within(stage).getAllByTestId("customization-node")).toHaveLength(4);
+  expect(within(stage).queryByTestId("customization-orbit")).not.toBeInTheDocument();
+  expect(within(stage).queryByTestId("customization-node-icon")).not.toBeInTheDocument();
   expect(
     within(stage).getByRole("link", { name: /Explore OEM \/ ODM/i }),
   ).toHaveAttribute(
@@ -189,7 +238,7 @@ it("keeps the signature close inside the ninth section", () => {
   expect(document.querySelectorAll("main > section")).toHaveLength(9);
 });
 
-it("renders a non-interactive daybreak statement between runway and inquiry", () => {
+it("renders a daybreak statement CTA between runway and inquiry", () => {
   render(<VitheloB2BHome content={vitheloB2BHome} />);
 
   const statement = document.getElementById("brand-statement")!;
@@ -204,9 +253,16 @@ it("renders a non-interactive daybreak statement between runway and inquiry", ()
       "Every dawn and dusk of yours, warmth and companionship stay close beside you.",
     ),
   ).toBeVisible();
-  expect(statement.querySelectorAll("[data-statement-line]")).toHaveLength(2);
-  expect(within(statement).queryByRole("link")).not.toBeInTheDocument();
-  expect(within(statement).queryByRole("button")).not.toBeInTheDocument();
+  expect(statement.querySelectorAll("[data-statement-line]")).toHaveLength(3);
+  // The brand statement now carries a single editorial CTA that links to
+  // /about. Heading, supporting copy and CTA sit inside the same scene card;
+  // we assert the CTA exists, points to /about and is the only link inside
+  // the section so no extra CTAs have been smuggled in.
+  const action = within(statement).getByTestId("brand-statement-action");
+  expect(action.tagName).toBe("A");
+  expect(action).toHaveTextContent("ABOUT VITHELO");
+  expect(action).toHaveAttribute("href", "/about");
+  expect(within(statement).getAllByRole("link")).toHaveLength(1);
   expect(statement.nextElementSibling).toHaveAttribute("id", "contact");
 });
 

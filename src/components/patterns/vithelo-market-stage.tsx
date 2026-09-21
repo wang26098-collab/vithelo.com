@@ -19,41 +19,43 @@ function VitheloMarketStage({ market }: VitheloMarketStageProps) {
       id="solutions"
     >
       <div className={styles.marketSceneStack}>
-        {market.stories.map((story, index) => (
-          <article
-            className={styles.marketScene}
-            data-media-status={story.media.status}
-            data-scene={index + 1}
-            data-testid="market-scene"
-            key={story.title}
-          >
-            <div
-              aria-label={`${story.media.label}; ${story.media.width} by ${story.media.height} ${story.media.format}`}
-              className={styles.marketSceneVisual}
-              data-testid="market-scene-image"
-              role="img"
-            >
-              <Image
-                alt=""
-                aria-hidden="true"
-                className={styles.marketSceneImage}
-                fill
-                loading="eager"
-                sizes="(max-width: 760px) 100vw, 96vw"
-                src={story.media.src ?? "/media/b2b/gummies-pexels-14027295.jpg"}
-              />
-              <span aria-hidden="true" className={styles.marketSceneShade} />
-            </div>
+        {market.stories.map((story, index) => {
+          const currentImage = story.media.src ?? "/media/b2b/gummies-pexels-14027295.jpg";
 
-            <div className={styles.marketSceneCopy}>
-              <span className={styles.marketSceneIndex}>
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <h3>{story.title}</h3>
-              <p>{story.copy}</p>
-            </div>
-          </article>
-        ))}
+          return (
+            <article
+              className={styles.marketScene}
+              data-media-status={story.media.status}
+              data-scene={index + 1}
+              data-testid="market-scene"
+              key={story.title}
+              style={{ backgroundImage: `url("${currentImage}")` }}
+            >
+              <div
+                aria-label={`${story.media.label}; ${story.media.width} by ${story.media.height} ${story.media.format}`}
+                className={styles.marketSceneVisual}
+                data-testid="market-scene-image"
+                role="img"
+              >
+                <Image
+                  alt=""
+                  aria-hidden="true"
+                  className={styles.marketSceneImage}
+                  fill
+                  loading="eager"
+                  sizes="(max-width: 760px) 100vw, 96vw"
+                  src={currentImage}
+                />
+                <span aria-hidden="true" className={styles.marketSceneShade} />
+              </div>
+
+              <div className={styles.marketSceneCopy}>
+                <h3>{story.title}</h3>
+                <p>{story.copy}</p>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </section>
   );

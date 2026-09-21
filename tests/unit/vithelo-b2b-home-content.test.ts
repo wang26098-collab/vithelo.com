@@ -60,9 +60,10 @@ it("defines the manufacturing system as four project workstreams", () => {
     label: "Explore Manufacturing",
     href: "/manufacturing",
   });
-  expect(vitheloB2BHome.proof.media.src).toBe(
-    "/media/b2b/sanitized-factory-production-line.jpg",
-  );
+  expect(vitheloB2BHome.proof.media).toMatchObject({
+    status: "FREE_COMMERCIAL_OR_REAL",
+    src: "/media/b2b/sanitized-factory-production-line.jpg",
+  });
 });
 
 it("defines three project entry routes without repeating product directions", () => {
@@ -78,17 +79,27 @@ it("defines three project entry routes without repeating product directions", ()
     label: "Find Your Starting Route",
     href: "/oem-odm",
   });
+  expect(parsed.entryRoutes.media).toMatchObject({
+    status: "DEMO_ONLY",
+    src: "/media/b2b/vithelo-project-entry-atmospheric-panorama.png",
+  });
   expect(JSON.stringify(parsed.entryRoutes)).not.toMatch(
     /Sleep Health|Active Nutrition|Women’s Health|Shop Now|price|MOQ|Seed/i,
+  );
+  expect(JSON.stringify(parsed.entryRoutes.media)).not.toMatch(
+    /pouch|bottle|jar|box|stick|dropper|GMP|HACCP|Halal|ISO|FDA/i,
   );
 });
 
 it("defines four connected product decisions", () => {
   const parsed = VitheloB2BHomeContentSchema.parse(vitheloB2BHome);
 
-  expect(parsed.customization.kicker).toBe("04 · PRODUCT DEFINITION");
+  expect(parsed.customization.kicker).toBe("PRODUCT DEFINITION");
   expect(parsed.customization.title).toBe(
-    "Four decisions shape one finished product.",
+    "Four decisions. One coherent product.",
+  );
+  expect(parsed.customization.copy).toBe(
+    "Formula, dosage form, sensory direction and packaging are considered together—so the product brief begins as one connected system.",
   );
   expect(parsed.customization.nodes.map((node) => node.title)).toEqual([
     "Formula",
@@ -96,22 +107,87 @@ it("defines four connected product decisions", () => {
     "Sensory Direction",
     "Packaging",
   ]);
+  expect(parsed.customization.nodes.slice(1)).toEqual([
+    {
+      title: "Dosage Form",
+      copy: "Choose how the product is used.",
+    },
+    {
+      title: "Sensory Direction",
+      copy: "Shape taste, texture and experience.",
+    },
+    {
+      title: "Packaging",
+      copy: "Plan protection and presentation.",
+    },
+  ]);
   expect(parsed.customization.action).toEqual({
     label: "Explore OEM / ODM",
     href: "/oem-odm",
   });
-  expect(parsed.customization.media.src).toBe(
-    "/media/b2b/vithelo-customization-constellation.png",
+  expect(parsed.customization.media).toMatchObject({
+    status: "DEMO_ONLY",
+    src: "/media/b2b/vithelo-formula-customization-atmospheric.png",
+  });
+  expect(parsed.customization.formulaScene.media).toMatchObject({
+    status: "DEMO_ONLY",
+    src: "/media/b2b/vithelo-formula-customization-atmospheric.png",
+    width: 1536,
+    height: 1024,
+    format: "PNG",
+  });
+  expect(parsed.customization.formulaScene.details).toEqual([
+    {
+      label: "INGREDIENT DIRECTION",
+      copy: "What belongs in the brief",
+    },
+    {
+      label: "SERVING BRIEF",
+      copy: "How the concept should be framed",
+    },
+    {
+      label: "FEASIBILITY REVIEW",
+      copy: "How the direction fits production",
+    },
+  ]);
+  expect(JSON.stringify(parsed.customization.formulaScene)).not.toMatch(
+    /\b(?:GMP|HACCP|Halal|ISO|FDA|dose|dosage|efficacy|certified|certification)\b/i,
   );
 });
 
 it("keeps three product directions without the removed dark intro content", () => {
   const parsed = VitheloB2BHomeContentSchema.parse(vitheloB2BHome);
 
-  expect(parsed.market.stories.map((story) => story.title)).toEqual([
-    "Evening Routines",
-    "Active Routines",
-    "Life-stage Routines",
+  expect(parsed.market.stories).toMatchObject([
+    {
+      title: "Evening Wellness",
+      copy: "Evening nutrition concepts shaped around format, flavor and everyday routines.",
+      media: {
+        status: "DEMO_ONLY",
+        src: "/media/b2b/vithelo-evening-wellness-scene-v1.png",
+      },
+    },
+    {
+      title: "Active Nutrition",
+      copy: "Portable nutrition formats for movement, training, travel and everyday use.",
+      media: {
+        status: "DEMO_ONLY",
+        src: "/media/b2b/vithelo-active-nutrition-scene-v1.png",
+      },
+    },
+    {
+      title: "Women’s Wellness",
+      copy: "Everyday nutrition concepts shaped around women’s routines and life stages.",
+      media: {
+        status: "DEMO_ONLY",
+        src: "/media/b2b/vithelo-womens-wellness-scene-v1.png",
+      },
+    },
+  ]);
+  expect(parsed.market.stories.map((story) => story.media.status)).toEqual([
+    "DEMO_ONLY",
+    "DEMO_ONLY",
+    "DEMO_ONLY",
   ]);
   expect(parsed.market).not.toHaveProperty("kicker");
   expect(parsed.market).not.toHaveProperty("title");
@@ -123,18 +199,19 @@ it("keeps three product directions without the removed dark intro content", () =
       "From the fresh vitality of daybreak’s first light, to the quiet peace when all the world slips into night.",
     supportingText:
       "Every dawn and dusk of yours, warmth and companionship stay close beside you.",
+    action: { label: "ABOUT VITHELO", href: "/about" },
     media: {
       status: "DEMO_ONLY",
-      src: "/media/b2b/vithelo-daybreak-nightfall.png",
+      src: "/media/b2b/vithelo-daybreak-nightfall-v3.jpg",
       label:
-        "A continuous scene moving from soft daybreak into a quiet blue night with one warm illuminated window",
-      width: 1536,
-      height: 1024,
-      format: "PNG",
+        "A coastal scene moving from a soft dawn glow on the left across a calm sea into a quiet blue night on the right, with one warm illuminated window in a cliffside home and a faint crescent moon overhead",
+      width: 1769,
+      height: 889,
+      format: "JPEG",
     },
   });
   expect(parsed.contact.kicker).toBe("09 · START A PROJECT");
-  expect(parsed.dosage.title).toBe("One brief. Eight ways to deliver it.");
+  expect(parsed.dosage.title).toBe("One brief. Eight ways to deliver it");
   expect(parsed.dosage.items.map((item) => item.slug)).toEqual([
     "gummies",
     "hard-capsules",

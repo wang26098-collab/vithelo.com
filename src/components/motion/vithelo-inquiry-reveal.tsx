@@ -4,7 +4,7 @@ import { useEffect, useId, useRef, type CSSProperties, type ReactNode } from "re
 import styles from "./vithelo-inquiry-reveal.module.css";
 
 type VitheloInquiryRevealProps = {
-  children: ReactNode;
+  children?: ReactNode;
   image: string;
 };
 
@@ -33,11 +33,20 @@ export function VitheloInquiryReveal({ children, image }: VitheloInquiryRevealPr
         mask.current?.setAttribute("viewBox", `0 0 1440 ${1440 * stage.offsetHeight / stage.clientWidth}`);
       }
       const distance = bounds.height - stage.offsetHeight;
-      const progress = staticMode || focused ? 1 : clamp(-bounds.top / Math.max(1, distance));
-      // Exponential scale makes crossing the letter feel continuous at every size.
+      // 让 mask 完全褪完（progress = 0.21）刚好落在 stage sticky 边界
+      // bounds.top = 0（reveal 顶部到达视口顶）那一刻——
+      // 这样下一屏内容（stage 后 sticky 容器）在 stage sticky 时
+      // 紧贴 stage 底部一直在视口里，mask 褪完那一刻无缝接上，无停顿。
+      // 解 0.79 * revealStart = 0.21 * distance 得 revealStart = 0.21/0.79 * distance。
+      const revealStart = staticMode || focused ? 0 : (distance * 21) / 79;
+      const progress = staticMode || focused
+        ? 1
+        : clamp(Math.max(0, revealStart - bounds.top) / Math.max(1, revealStart + distance));
       element.style.setProperty("--reveal-scale", String(Math.pow(22, progress)));
-      element.style.setProperty("--reveal-mask-opacity", String(1 - clamp((progress - 0.42) / 0.21)));
-      element.style.setProperty("--reveal-copy-opacity", String(clamp((progress - 0.5) / 0.22)));
+      element.style.setProperty("--reveal-mask-opacity", String(1 - clamp(progress / 0.21)));
+      // copy 在 mask 完全褪完那一刻立即 = 1（无淡入过渡），
+      // 配合 stage 后 sticky 容器在视口里紧贴 stage 底部，做到真正无缝衔接。
+      element.style.setProperty("--reveal-copy-opacity", String(clamp((progress - 0.21) / 0.001)));
       element.dataset.revealComplete = String(progress >= 0.72);
     };
     const schedule = () => {
@@ -81,7 +90,6 @@ export function VitheloInquiryReveal({ children, image }: VitheloInquiryRevealPr
     >
       <div className={styles.stage}>
         <div aria-hidden="true" className={styles.scene} />
-        <div className={styles.content}>{children}</div>
         <div aria-hidden="true" className={styles.cover}>
           <svg ref={mask} className={styles.mask} viewBox="0 0 1440 900" preserveAspectRatio="none">
             <defs>
@@ -94,6 +102,7 @@ export function VitheloInquiryReveal({ children, image }: VitheloInquiryRevealPr
           </svg>
         </div>
       </div>
+      {children ? <div className={styles.afterStage}>{children}</div> : null}
     </div>
   );
 }

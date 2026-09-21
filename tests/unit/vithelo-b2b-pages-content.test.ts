@@ -24,31 +24,42 @@ it("validates the compact B2B site records", () => {
     { label: "Contact", href: "/contact" },
   ]);
   expect(B2BProductsPageSchema.parse(vitheloB2BProductsPage).formats).toHaveLength(10);
-  expect(B2BOemOdmPageSchema.parse(vitheloB2BOemOdmPage).steps).toHaveLength(6);
+  expect(B2BOemOdmPageSchema.parse(vitheloB2BOemOdmPage).steps).toHaveLength(10);
   expect(B2BInsightsPageSchema.parse(vitheloB2BInsightsPage).articles).toHaveLength(10);
   expect(B2BContactPageSchema.parse(vitheloB2BContactPage).status).toBe("NOT_CONFIGURED");
 });
 
-it("publishes one unified OEM ODM capability system", () => {
+it("publishes one unified image-led OEM ODM story", () => {
   const page = B2BOemOdmPageSchema.parse(vitheloB2BOemOdmPage);
 
-  expect(page.capabilities.map(({ title }) => title)).toEqual([
-    "Product Brief & Feasibility",
-    "Formulation Direction",
-    "Dosage-Form Selection",
-    "Sensory & Sample Development",
-    "Packaging Alignment",
-    "Production Coordination",
-    "Quality & Documentation",
+  expect(page.hero).toMatchObject({
+    kicker: "OEM / ODM PROJECT DEVELOPMENT",
+    title: "From product direction to a production-ready brief.",
+  });
+  expect(page.introduction).toMatchObject({
+    eyebrow: "CUSTOM DEVELOPMENT",
+    title: "From brief to finished product.",
+    actions: [
+      { label: "Start a Project", href: "/contact" },
+      { label: "Explore Formats", href: "/products" },
+    ],
+  });
+  expect(page.developmentStories.map(({ eyebrow, title }) => ({ eyebrow, title }))).toEqual([
+    { eyebrow: "01 · SAMPLE DEVELOPMENT", title: "Start with a sample." },
+    { eyebrow: "02 · FORMULA DIRECTION", title: "Shape the formula direction." },
+    { eyebrow: "03 · DOSAGE FORM", title: "Choose the right dosage form." },
   ]);
+  expect(page.packagingIntroduction.eyebrow).toBe("PACKAGING DEVELOPMENT");
   expect(page.formats).toHaveLength(8);
-  expect(page.steps).toHaveLength(6);
+  expect(page.formats.every(({ media }) => media.status === "DEMO_ONLY")).toBe(true);
+  expect(page.steps).toHaveLength(10);
   expect(page.commercialVariables.map(({ title }) => title)).toEqual([
     "What shapes MOQ",
     "What shapes lead time",
   ]);
   expect(page.packaging).toHaveLength(4);
-  expect(page.quality).toHaveLength(4);
+  expect(page.quality.items).toHaveLength(4);
+  expect(page.quoteStories).toHaveLength(3);
   expect(page.checklist).toHaveLength(6);
   expect(page.relatedLinks).toHaveLength(3);
   expect(page).not.toHaveProperty("identity");
@@ -133,5 +144,25 @@ it("publishes valid article records without configured media claims", () => {
   for (const article of insights.articles) {
     expect(B2BInsightArticleSchema.parse(article).published).toBe(true);
     expect(article.blocks.length).toBeGreaterThanOrEqual(4);
+  }
+});
+
+it("publishes an editorial intro and demo media for every insight", () => {
+  const insights = B2BInsightsPageSchema.parse(vitheloB2BInsightsPage);
+
+  expect(insights.intro).toEqual({
+    kicker: "THE KNOWLEDGE EDIT",
+    title: "Manufacturing knowledge, made practical.",
+    copy:
+      "Ten decision guides connect product format, development, packaging, manufacturing review and project preparation.",
+  });
+  expect(insights.articles).toHaveLength(10);
+
+  for (const article of insights.articles) {
+    expect(article.media.status).toBe("DEMO_ONLY");
+    expect(article.media.src).toMatch(/^\/media\//);
+    expect(article.media.alt).not.toBe("");
+    expect(article.media.width).toBeGreaterThan(0);
+    expect(article.media.height).toBeGreaterThan(0);
   }
 });

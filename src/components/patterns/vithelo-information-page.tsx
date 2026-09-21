@@ -39,14 +39,16 @@ export function VitheloInformationPage({ eyebrow, title, directAnswer, sections,
       {hero ? (
         <section className="informationHero" data-header-hero>
           <div className="informationHero__copy">
-            <p className="informationHero__eyebrow">{eyebrow}</p>
-            <h1>{hero.title}</h1>
-            <p className="informationHero__lede">{hero.copy}</p>
-            <div className="informationHero__actions">
-              <Link href="/products">Explore Dosage Forms</Link>
-              <Link href="/contact">Start a Project</Link>
+            <div className="informationHero__copyContent">
+              <p className="informationHero__eyebrow">{eyebrow}</p>
+              <h1>{hero.title}</h1>
+              <p className="informationHero__lede">{hero.copy}</p>
+              <div className="informationHero__actions">
+                <Link href="/products">Explore Dosage Forms</Link>
+                <Link href="/contact">Start a Project</Link>
+              </div>
+              <p className="informationHero__meta">{hero.meta}</p>
             </div>
-            <p className="informationHero__meta">{hero.meta}</p>
           </div>
           <div className="informationHero__media" aria-hidden="true" style={{ backgroundImage: `url(${hero.image})` }} />
         </section>

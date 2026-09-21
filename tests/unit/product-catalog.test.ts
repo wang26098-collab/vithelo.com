@@ -1,4 +1,6 @@
 import { describe, expect, it } from "vitest";
+import { ProductDiscoveryItemSchema } from "@/content/schema";
+import { vitheloB2BProductsPage } from "@/content/demo/vithelo-b2b-site";
 import {
   mergeProductCatalog,
   parseProductCatalog,
@@ -24,6 +26,54 @@ function validCatalogItem(
 }
 
 describe("generated product catalog", () => {
+  it("configures the long-form PDP story for Gummies Concept 01 only", () => {
+    const storyProducts = vitheloB2BProductsPage.discovery.items.filter(
+      (item) => item.pdpStory,
+    );
+
+    expect(storyProducts).toHaveLength(1);
+    expect(storyProducts[0]).toMatchObject({
+      id: "gummies-concept-01",
+      dataStatus: "DEMO_ONLY",
+    });
+    expect(storyProducts[0].pdpStory?.capabilities).toHaveLength(4);
+    expect(storyProducts[0].pdpStory?.projectStages).toHaveLength(4);
+    expect(storyProducts[0].pdpStory?.reviewRows).toHaveLength(4);
+    expect(storyProducts[0].pdpStory?.faqs).toHaveLength(4);
+    expect(storyProducts[0].pdpStory?.verificationNotice).toMatch(
+      /DEMO_ONLY.*production verification/i,
+    );
+    expect(storyProducts[0].pdpStory?.manufacturingReviewItems).toHaveLength(4);
+    expect(storyProducts[0].pdpStory?.inquiry.label).toBe(
+      "Discuss Concept 01",
+    );
+  });
+
+  it("requires a complete nine-section PDP story when the story is configured", () => {
+    const base = {
+      id: "gummies-concept-01",
+      formatSlug: "gummies",
+      formatName: "Gummies",
+      title: "Plant-Based Gummies Concept 01 for Private Label Nutrition",
+      descriptor: "DEMO_ONLY product concept.",
+      dataStatus: "DEMO_ONLY" as const,
+    };
+
+    const result = ProductDiscoveryItemSchema.safeParse({
+      ...base,
+      pdpStory: {
+        kicker: "GUMMIES · CONCEPT 01",
+        subhead: "A demonstration concept for project review.",
+        commerceNotice:
+          "Price, MOQ, lead time and production claims are not configured.",
+        capabilityHeadline: "Shape the product around your brief.",
+        capabilities: [{ title: "Formula", copy: "Formula direction." }],
+      },
+    });
+
+    expect(result.success).toBe(false);
+  });
+
   it("accepts an empty generated catalog", () => {
     expect(parseProductCatalog([])).toEqual([]);
   });

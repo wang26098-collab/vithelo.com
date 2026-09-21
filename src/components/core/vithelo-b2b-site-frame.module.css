@@ -79,7 +79,7 @@
 
 @media (min-width: 1201px) {
   .headerInner {
-    width: calc(100% - 380px);
+    width: calc(100% - (2 * var(--site-frame-wide-inset)));
     max-width: none;
   }
 }
@@ -239,7 +239,7 @@
   }
 
   .headerInner {
-    width: calc(100% - 44px);
+    width: calc(100% - (2 * var(--site-frame-compact-inset)));
   }
 
   .mobileGroup {

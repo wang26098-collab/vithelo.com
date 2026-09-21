@@ -2,6 +2,7 @@ import { demoEvidence } from "@/content/demo/evidence";
 import { demoHome } from "@/content/demo/home";
 import { demoProducts } from "@/content/demo/products";
 import { demoProfessional } from "@/content/demo/professional";
+import { vitheloB2BAboutPage } from "@/content/demo/vithelo-about-page";
 import { vitheloB2BHome } from "@/content/demo/vithelo-b2b-home";
 import {
   vitheloB2BContactPage,
@@ -11,6 +12,7 @@ import {
   vitheloB2BSite,
 } from "@/content/demo/vithelo-b2b-site";
 import {
+  B2BAboutPageSchema,
   B2BContactPageSchema,
   B2BInsightsPageSchema,
   B2BOemOdmPageSchema,
@@ -32,6 +34,7 @@ const products = demoProducts.items.map((item) => ProductSchema.parse(item));
 const homeContent = HomeContentSchema.parse(demoHome);
 const b2bHome = VitheloB2BHomeContentSchema.parse(vitheloB2BHome);
 const b2bSite = B2BSiteContentSchema.parse(vitheloB2BSite);
+const b2bAboutPage = B2BAboutPageSchema.parse(vitheloB2BAboutPage);
 const b2bProductsPage = B2BProductsPageSchema.parse(vitheloB2BProductsPage);
 const b2bOemOdmPage = B2BOemOdmPageSchema.parse(vitheloB2BOemOdmPage);
 const b2bInsightsPage = B2BInsightsPageSchema.parse(vitheloB2BInsightsPage);
@@ -56,6 +59,9 @@ export const localContentAdapter: ContentAdapter = {
   },
   async getB2BSiteContent() {
     return b2bSite;
+  },
+  async getB2BAboutPage() {
+    return b2bAboutPage;
   },
   async getB2BProductsPage() {
     return b2bProductsPage;

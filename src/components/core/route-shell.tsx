@@ -34,11 +34,19 @@ function RouteShell({
 
   const isLightHeroRoute =
     pathname.startsWith("/products/") ||
-    ["/manufacturing", "/about"].includes(pathname);
+    pathname === "/manufacturing";
 
   if (isLightHeroRoute && siteContent) {
     return (
       <VitheloB2BSiteFrame key={pathname} content={siteContent} headerTheme="light-hero">
+        {children}
+      </VitheloB2BSiteFrame>
+    );
+  }
+
+  if (pathname === "/about" && siteContent) {
+    return (
+      <VitheloB2BSiteFrame key={pathname} content={siteContent} headerTheme="dark-hero">
         {children}
       </VitheloB2BSiteFrame>
     );

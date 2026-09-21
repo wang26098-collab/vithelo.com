@@ -47,6 +47,160 @@ const SECONDARY_SHOTS = [
   "beauty-gummies-detail.png",
 ] as const;
 
+const gummiesConcept01Story = {
+  kicker: "GUMMIES · CONCEPT 01",
+  subhead:
+    "A demonstration concept for aligning formula direction, sensory experience, shape and packaging before project review.",
+  commerceNotice:
+    "Price, MOQ, lead time and production claims are not configured on this demonstration page.",
+  verificationNotice:
+    "DEMO_ONLY · Product parameters and production feasibility remain pending production verification.",
+  manufacturingReviewItems: [
+    "Manufacturing fit review",
+    "Raw-material input review",
+    "In-process check alignment",
+    "Finished-product document discussion",
+  ],
+  capabilityHeadline: "Shape the product around your brief.",
+  capabilities: [
+    {
+      title: "Formula Direction",
+      copy: "Align the intended concept and ingredient direction.",
+    },
+    {
+      title: "Taste + Texture",
+      copy: "Review flavor, sweetness, chew and sensory expectations.",
+    },
+    {
+      title: "Shape + Color",
+      copy: "Connect product form with the intended brand expression.",
+    },
+    {
+      title: "Pack + Count",
+      copy: "Discuss bottle, pouch and count as one project system.",
+    },
+  ],
+  projectHeadline: "Decisions that build into a manufacturable brief.",
+  projectIntro:
+    "The page shows the decisions required to move a concept toward production without promising an outcome before review.",
+  projectStages: [
+    {
+      label: "01 · BRIEF",
+      title: "Define the intended product experience",
+      copy:
+        "Audience, format, formula direction and pack enter one working brief.",
+    },
+    {
+      label: "02 · FEASIBILITY",
+      title: "Review fit before confirmation",
+      copy:
+        "Manufacturing feasibility remains subject to approved project inputs.",
+    },
+    {
+      label: "03 · SAMPLE",
+      title: "Align the sensory direction",
+      copy: "Flavor, texture, shape and color are reviewed together.",
+    },
+    {
+      label: "04 · PACKAGING",
+      title: "Connect the product and the pack",
+      copy:
+        "Bottle, pouch, count and presentation are discussed before route confirmation.",
+    },
+  ],
+  decisionKicker: "CUSTOMIZATION SYSTEM",
+  decisionHeadline: "One gummy concept. Four connected decisions.",
+  decisionIntro:
+    "VITHELO reviews the product as a complete system rather than treating formula, sensory direction and packaging as separate choices.",
+  decisions: [
+    { title: "Formula", copy: "Ingredient and serving direction." },
+    { title: "Sensory", copy: "Flavor, sweetness, texture and chew." },
+    { title: "Form", copy: "Shape, color and visual expression." },
+    {
+      title: "Packaging",
+      copy: "Pack type, count and shelf presentation.",
+    },
+  ],
+  reviewHeadline: "Project review at a glance.",
+  reviewRows: [
+    {
+      area: "Dosage format",
+      status: "SELECTED" as const,
+      guidance: "Gummies selected",
+    },
+    {
+      area: "Formula direction",
+      status: "TO_CONFIRM" as const,
+      guidance: "Requires approved inputs",
+    },
+    {
+      area: "Flavor + sensory",
+      status: "TO_CONFIRM" as const,
+      guidance: "Requires sample alignment",
+    },
+    {
+      area: "Pack + count",
+      status: "TO_CONFIRM" as const,
+      guidance: "Requires project review",
+    },
+  ],
+  packagingKicker: "PACKAGING DIRECTION",
+  packagingHeadline: "Presented as one coherent shelf system.",
+  packagingItems: [
+    { title: "Bottle direction", copy: "DEMO_ONLY packaging direction." },
+    { title: "Label expression", copy: "DEMO_ONLY visual expression." },
+    { title: "Product detail", copy: "DEMO_ONLY product presentation." },
+  ],
+  qualityKicker: "MANUFACTURING + QUALITY",
+  qualityHeadline: "A clearer review path before commitment.",
+  qualityCopy:
+    "Manufacturing fit, raw-material review, in-process checks and finished-product documentation are discussed within the confirmed project scope.",
+  qualityItems: [
+    {
+      title: "Manufacturing feasibility",
+      copy: "Reviewed against approved project inputs.",
+    },
+    {
+      title: "In-process alignment",
+      copy: "Checkpoints are discussed within the confirmed scope.",
+    },
+    {
+      title: "Finished-product documents",
+      copy: "Documentation is discussed before route confirmation.",
+    },
+  ],
+  faqs: [
+    {
+      title: "What information should I prepare?",
+      copy:
+        "Share the product direction, target format, intended pack and expected volume.",
+    },
+    {
+      title: "Which elements can be customized?",
+      copy:
+        "Formula direction, sensory experience, form and packaging can be discussed within the confirmed project scope.",
+    },
+    {
+      title: "How is manufacturing fit reviewed?",
+      copy:
+        "Fit is reviewed after the relevant formula, format, packaging and volume inputs are available.",
+    },
+    {
+      title: "Which packaging routes can be discussed?",
+      copy:
+        "Bottle and pouch directions can be discussed; final compatibility remains subject to project review.",
+    },
+  ],
+  inquiry: {
+    kicker: "DIRECT INQUIRY",
+    title: "Bring the brief. We’ll review the route.",
+    copy:
+      "Share the product direction, intended pack and expected volume through the configured inquiry channels.",
+    label: "Discuss Concept 01",
+    href: "/contact" as const,
+  },
+};
+
 const discoveryMatrix = discoveryFormatExamples.flatMap(([formatSlug, formatName]) =>
   productMediaPairs.map(([defaultImage, hoverImage], index) => {
     const sequence = index + 1;
@@ -63,6 +217,9 @@ const discoveryMatrix = discoveryFormatExamples.flatMap(([formatSlug, formatName
       title: `Plant-Based ${formatName} Concept ${paddedSequence} for Private Label Nutrition`,
       descriptor: `DEMO_ONLY ${formatName.toLowerCase()} product concept for private-label nutrition. Formula, flavor, packaging, and final specifications require approved project inputs before production.`,
       dataStatus: "DEMO_ONLY" as const,
+      ...(formatSlug === "gummies" && sequence === 1
+        ? { pdpStory: gummiesConcept01Story }
+        : {}),
       parameters: [
         { label: "Product type", value: `${formatName} dietary supplement · DEMO_ONLY` },
         { label: "Flavor", value: "DEMO_ONLY · Requires approved project inputs." },
@@ -286,79 +443,133 @@ export const vitheloB2BOemOdmPage = B2BOemOdmPageSchema.parse({
   dataStatus: "DEMO_ONLY",
   hero: {
     kicker: "OEM / ODM PROJECT DEVELOPMENT",
-    title: "Build the project around the decisions that matter.",
-    copy: "VITHELO connects product direction, format, sampling, packaging, production coordination and project-specific quality review in one manufacturing path.",
+    title: "From product direction to a production-ready brief.",
+    copy: "VITHELO connects formulation direction, sampling, dosage form, packaging and project-specific quality review in one considered development path.",
+    media: {
+      status: "DEMO_ONLY",
+      src: "/media/b2b/hero-loop-poster.jpg",
+      width: 1280,
+      height: 720,
+      alt: "Gummy products moving through a demonstration production line",
+    },
   },
-  capabilities: [
+  introduction: {
+    eyebrow: "CUSTOM DEVELOPMENT",
+    title: "From brief to finished product.",
+    copy: "Every project begins with a clear product idea: who it serves, how it should be used and which delivery format best supports that experience.",
+    actions: [
+      { label: "Start a Project", href: "/contact" },
+      { label: "Explore Formats", href: "/products" },
+    ],
+    media: {
+      status: "DEMO_ONLY",
+      src: "/media/b2b/oem-odm-packaging-still-life-v1.png",
+      width: 1536,
+      height: 1024,
+      alt: "Unbranded nutrition packaging formats arranged for project development review",
+    },
+  },
+  developmentStories: [
     {
-      title: "Product Brief & Feasibility",
-      copy: "Clarify the product objective, intended format, serving context, volume direction and the decisions still open for review.",
+      eyebrow: "01 · SAMPLE DEVELOPMENT",
+      title: "Start with a sample.",
+      copy: "Sampling creates a practical review point for appearance, taste, texture and other format-specific characteristics before production inputs are confirmed.",
+      media: {
+        status: "DEMO_ONLY",
+        src: "/media/b2b/format-gummies.png",
+        width: 1536,
+        height: 1024,
+        alt: "Demonstration gummy supplement format arranged for product review",
+      },
     },
     {
-      title: "Formulation Direction",
-      copy: "Review ingredient direction and serving requirements against the needs of the selected dosage form and production route.",
+      eyebrow: "02 · FORMULA DIRECTION",
+      title: "Shape the formula direction.",
+      copy: "Ingredient direction, serving context and sensory goals are considered together with the selected dosage form and the manufacturing route still to be reviewed.",
+      media: {
+        status: "DEMO_ONLY",
+        src: "/media/b2b/vithelo-product-definition-atmospheric.png",
+        width: 1536,
+        height: 1024,
+        alt: "VITHELO demonstration bottle surrounded by a powdered product concept",
+      },
     },
     {
-      title: "Dosage-Form Selection",
-      copy: "Compare eight oral formats through product use, formula fit, sensory needs, packaging and manufacturing feasibility.",
-    },
-    {
-      title: "Sensory & Sample Development",
-      copy: "Use sampling to review taste, texture, appearance and other format-specific characteristics before production confirmation.",
-    },
-    {
-      title: "Packaging Alignment",
-      copy: "Coordinate container, count, label, printed components and transport considerations with the confirmed product direction.",
-    },
-    {
-      title: "Production Coordination",
-      copy: "Move confirmed product, sample and packaging decisions into the agreed manufacturing route and project records.",
-    },
-    {
-      title: "Quality & Documentation",
-      copy: "Define relevant checks and available project documents according to the product, process and destination requirements.",
+      eyebrow: "03 · DOSAGE FORM",
+      title: "Choose the right dosage form.",
+      copy: "Compare oral formats through product use, formula fit, sensory experience, packaging needs and project-specific manufacturing feasibility.",
+      media: {
+        status: "DEMO_ONLY",
+        src: "/media/b2b/format-powders.png",
+        width: 1536,
+        height: 1024,
+        alt: "Demonstration powder supplement format in neutral VITHELO packaging",
+      },
     },
   ],
   formats: [
-    { label: "Gummies", href: "/products/gummies" },
-    { label: "Jelly", href: "/products/jelly" },
-    { label: "Hard Capsules", href: "/products/hard-capsules" },
-    { label: "Tablets", href: "/products/tablets" },
-    { label: "Powders", href: "/products/powders" },
-    { label: "Softgels", href: "/products/softgels" },
-    { label: "Liquid Drops", href: "/products/liquids" },
-    { label: "Oral Films", href: "/products/oral-films" },
+    { label: "Gummies", href: "/products/gummies", media: { status: "DEMO_ONLY", src: "/media/b2b/format-gummies.png", width: 1536, height: 1024, alt: "Demonstration gummies format" } },
+    { label: "Hard Capsules", href: "/products/hard-capsules", media: { status: "DEMO_ONLY", src: "/media/b2b/format-hard-capsules.png", width: 1536, height: 1024, alt: "Demonstration hard capsules format" } },
+    { label: "Tablets", href: "/products/tablets", media: { status: "DEMO_ONLY", src: "/media/b2b/format-tablets.png", width: 1536, height: 1024, alt: "Demonstration tablets format" } },
+    { label: "Powders", href: "/products/powders", media: { status: "DEMO_ONLY", src: "/media/b2b/format-powders.png", width: 1536, height: 1024, alt: "Demonstration powders format" } },
+    { label: "Softgels", href: "/products/softgels", media: { status: "DEMO_ONLY", src: "/media/b2b/format-softgels.png", width: 1536, height: 1024, alt: "Demonstration softgels format" } },
+    { label: "Liquid Drops", href: "/products/liquids", media: { status: "DEMO_ONLY", src: "/media/b2b/format-liquids.png", width: 1536, height: 1024, alt: "Demonstration liquid drops format" } },
+    { label: "Functional Gum", href: "/products/functional-gum", media: { status: "DEMO_ONLY", src: "/media/b2b/format-functional-gum.png", width: 1536, height: 1024, alt: "Demonstration functional gum format" } },
+    { label: "Oral Films", href: "/products/oral-films", media: { status: "DEMO_ONLY", src: "/media/b2b/format-oral-films.png", width: 1536, height: 1024, alt: "Demonstration oral films format" } },
   ],
   steps: [
     {
-      title: "01 · Define the Brief",
+      title: "Share the Brief",
       copy: "Share the format, formula direction, pack, estimated volume, destination context and target timing.",
     },
     {
-      title: "02 · Review Feasibility",
+      title: "Review Feasibility",
       copy: "Connect product requirements with dosage-form, ingredient, sensory and manufacturing considerations.",
     },
     {
-      title: "03 · Develop the Sample",
-      copy: "Review the sample and record the adjustments required before the specification is confirmed.",
+      title: "Set the Formula Direction",
+      copy: "Clarify the intended ingredient direction, serving context and the questions that still require review.",
     },
     {
-      title: "04 · Align the Pack",
-      copy: "Coordinate container, count, label, artwork inputs and transport requirements with the product.",
+      title: "Develop the Sample",
+      copy: "Prepare the agreed sample scope for sensory and format-specific review before production confirmation.",
     },
     {
-      title: "05 · Confirm Production",
-      copy: "Confirm the project inputs that determine the manufacturing route, MOQ review and production schedule.",
+      title: "Review and Refine",
+      copy: "Record the relevant sample feedback and confirm which adjustments should proceed to the next review.",
     },
     {
-      title: "06 · Review & Coordinate Delivery",
-      copy: "Review finished-product records and coordinate the project-specific delivery requirements.",
+      title: "Align the Packaging",
+      copy: "Coordinate container, count, label, artwork inputs and transport considerations with the product direction.",
+    },
+    {
+      title: "Confirm the Scope",
+      copy: "Confirm the project inputs used to review quotation, MOQ and the expected production route.",
+    },
+    {
+      title: "Plan Production",
+      copy: "Assess ingredient, packaging and scheduling dependencies against the confirmed project scope.",
+    },
+    {
+      title: "Produce and Review",
+      copy: "Coordinate the agreed manufacturing route and the checks relevant to the confirmed product requirements.",
+    },
+    {
+      title: "Coordinate Completion",
+      copy: "Review available finished-project records and coordinate the project-specific delivery requirements.",
     },
   ],
   commercialVariables: [
     {
       title: "What shapes MOQ",
       copy: "MOQ is reviewed after the main product and packaging decisions are understood.",
+      media: {
+        status: "DEMO_ONLY",
+        src: "/media/b2b/format-softgels.png",
+        width: 1536,
+        height: 1024,
+        alt: "Demonstration softgel format prepared for packaging review",
+      },
       factors: [
         "Dosage form and formula",
         "Ingredient sourcing",
@@ -370,6 +581,13 @@ export const vitheloB2BOemOdmPage = B2BOemOdmPageSchema.parse({
     {
       title: "What shapes lead time",
       copy: "Timing is assessed from the confirmed development and production scope.",
+      media: {
+        status: "DEMO_ONLY",
+        src: "/media/b2b/format-tablets.png",
+        width: 1536,
+        height: 1024,
+        alt: "Demonstration tablet format in a production-ready presentation",
+      },
       factors: [
         "Formulation and sample review",
         "Ingredient availability",
@@ -379,6 +597,18 @@ export const vitheloB2BOemOdmPage = B2BOemOdmPageSchema.parse({
       ],
     },
   ],
+  packagingIntroduction: {
+    eyebrow: "PACKAGING DEVELOPMENT",
+    title: "Packaging belongs in the product conversation",
+    copy: "Container, portioning, closure, printed components and transport considerations can affect the project route. Align the pack while the product direction is still being reviewed.",
+    media: {
+      status: "DEMO_ONLY",
+      src: "/media/b2b/oem-odm-packaging-still-life-v1.png",
+      width: 1536,
+      height: 1024,
+      alt: "Unbranded bottle, jar, pouch, stick packs, dropper bottle and carton in an ivory studio",
+    },
+  },
   packaging: [
     {
       title: "Bottles, Jars & Blisters",
@@ -397,22 +627,47 @@ export const vitheloB2BOemOdmPage = B2BOemOdmPageSchema.parse({
       copy: "Coordinate approved artwork inputs with packaging scope, MOQ review and production planning.",
     },
   ],
-  quality: [
+  quality: {
+    title: "Quality review follows the confirmed project",
+    copy: "Relevant material, process, finished-product and documentation checks are defined against the product, production route and destination requirements that have been confirmed.",
+    media: {
+      status: "DEMO_ONLY",
+      src: "/media/b2b/sanitized-factory-production-line.jpg",
+      width: 961,
+      height: 1280,
+      alt: "Demonstration manufacturing line in a clean production environment",
+    },
+    items: [
+      {
+        title: "Material Review",
+        copy: "Relevant identity, specification and supplier records depend on the confirmed project scope.",
+      },
+      {
+        title: "In-Process Checks",
+        copy: "Production checks are defined by the confirmed dosage form and manufacturing process.",
+      },
+      {
+        title: "Finished-Product Review",
+        copy: "Finished-product checks and batch records follow the confirmed product requirements.",
+      },
+      {
+        title: "Project Documentation",
+        copy: "Document availability is reviewed against current records, product needs and destination requirements.",
+      },
+    ],
+  },
+  quoteStories: [
     {
-      title: "Material Review",
-      copy: "Relevant identity, specification and supplier records depend on the confirmed project scope.",
+      title: "Sample Development",
+      copy: "Share the sensory and format decisions that the sample should help resolve.",
     },
     {
-      title: "In-Process Checks",
-      copy: "Production checks are defined by the confirmed dosage form and manufacturing process.",
+      title: "MOQ Evaluation",
+      copy: "Provide the expected volume direction so the relevant formula and packaging variables can be reviewed.",
     },
     {
-      title: "Finished-Product Review",
-      copy: "Finished-product checks and batch records follow the confirmed product requirements.",
-    },
-    {
-      title: "Project Documentation",
-      copy: "Document availability is reviewed against current records, product needs and destination requirements.",
+      title: "Lead-Time Planning",
+      copy: "Share the target timing together with the development, packaging and destination context already known.",
     },
   ],
   checklist: [
@@ -470,6 +725,79 @@ export const vitheloB2BOemOdmPage = B2BOemOdmPageSchema.parse({
   ],
 });
 
+const insightMedia = {
+  "choose-the-right-supplement-format": {
+    status: "DEMO_ONLY" as const,
+    src: "/media/b2b/format-tablets.png",
+    alt: "Editorial still of a tablet format concept in the VITHELO visual system.",
+    width: 1536,
+    height: 1024,
+  },
+  "prepare-for-an-oem-odm-project": {
+    status: "DEMO_ONLY" as const,
+    src: "/media/b2b/hero-loop-poster.jpg",
+    alt: "Demo manufacturing scene used to introduce project preparation guidance.",
+    width: 1280,
+    height: 720,
+  },
+  "gummy-development-guide": {
+    status: "DEMO_ONLY" as const,
+    src: "/media/b2b/format-gummies.png",
+    alt: "Editorial still of a gummy format concept with neutral packaging.",
+    width: 1536,
+    height: 1024,
+  },
+  "how-to-evaluate-a-supplement-manufacturer": {
+    status: "DEMO_ONLY" as const,
+    src: "/media/b2b/sanitized-factory-production-line.jpg",
+    alt: "Demo production-line scene for a manufacturer evaluation guide.",
+    width: 961,
+    height: 1280,
+  },
+  "private-label-vs-custom-formulation": {
+    status: "DEMO_ONLY" as const,
+    src: "/media/b2b/format-softgels.png",
+    alt: "Editorial still of a softgel format concept used for route comparison.",
+    width: 1536,
+    height: 1024,
+  },
+  "how-supplement-sampling-works": {
+    status: "DEMO_ONLY" as const,
+    src: "/media/b2b/gummies-pexels-14027295.jpg",
+    alt: "Demo close-up of gummies used for an article about sample review.",
+    width: 2048,
+    height: 2048,
+  },
+  "gummies-vs-hard-capsules": {
+    status: "DEMO_ONLY" as const,
+    src: "/media/b2b/format-hard-capsules.png",
+    alt: "Editorial still of a hard-capsule format concept for format comparison.",
+    width: 1536,
+    height: 1024,
+  },
+  "what-documents-buyers-should-ask-for": {
+    status: "DEMO_ONLY" as const,
+    src: "/media/home-membrane.png",
+    alt: "Abstract translucent structure used as a demo visual for document review.",
+    width: 1536,
+    height: 1024,
+  },
+  "what-information-to-include-in-an-rfq": {
+    status: "DEMO_ONLY" as const,
+    src: "/media/b2b/format-powders.png",
+    alt: "Editorial still of a powder format concept used for RFQ preparation.",
+    width: 1536,
+    height: 1024,
+  },
+  "how-packaging-affects-moq-and-lead-time": {
+    status: "DEMO_ONLY" as const,
+    src: "/media/b2b/format-liquids.png",
+    alt: "Editorial still of a liquid format and packaging concept.",
+    width: 1536,
+    height: 1024,
+  },
+} as const;
+
 const articles = [
   {
     dataStatus: "DEMO_ONLY" as const,
@@ -479,6 +807,7 @@ const articles = [
     title: "How to Choose the Right Supplement Format",
     summary:
       "A practical comparison of use experience, formula fit, packaging and production volume.",
+    media: insightMedia["choose-the-right-supplement-format"],
     author: {
       name: "VITHELO Editorial Team" as const,
       role: "Manufacturing Knowledge Editor" as const,
@@ -548,6 +877,7 @@ const articles = [
     category: "Buyer Guides",
     title: "What to Prepare Before Starting an OEM / ODM Project",
     summary: "Five inputs that make the first manufacturing review clearer and faster.",
+    media: insightMedia["prepare-for-an-oem-odm-project"],
     author: {
       name: "VITHELO Editorial Team" as const,
       role: "Manufacturing Knowledge Editor" as const,
@@ -618,6 +948,7 @@ const articles = [
     title: "Gummy Development: Formula, Texture, Shape and Packaging",
     summary:
       "The linked decisions behind a gummy that works for the formula, the production line and the brand.",
+    media: insightMedia["gummy-development-guide"],
     author: {
       name: "VITHELO Editorial Team" as const,
       role: "Manufacturing Knowledge Editor" as const,
@@ -690,6 +1021,7 @@ const articles = [
     title: "How to Evaluate a Supplement Manufacturer",
     summary:
       "Evaluate a supplement manufacturer by matching the proposed product route to documented controls, relevant records and clear commercial assumptions, not by counting badges on a sales page.",
+    media: insightMedia["how-to-evaluate-a-supplement-manufacturer"],
     author: {
       name: "VITHELO Editorial Team" as const,
       role: "Manufacturing Knowledge Editor" as const,
@@ -788,6 +1120,7 @@ const articles = [
     title: "Private Label vs Custom Formulation: Which Route Fits Your Project?",
     summary:
       "Private label usually fits projects that can work from an existing product direction, while custom formulation fits projects that need a distinct formula brief. The right route depends on how fixed the concept is, which decisions need validation and how much development uncertainty the buyer can manage.",
+    media: insightMedia["private-label-vs-custom-formulation"],
     author: {
       name: "VITHELO Editorial Team" as const,
       role: "Manufacturing Knowledge Editor" as const,
@@ -879,6 +1212,7 @@ const articles = [
     title: "How Supplement Sampling Typically Works",
     summary:
       "Supplement sampling is a development validation stage. It checks whether defined formula, dosage form and sensory targets can work together before scale-up, while recording which decisions are approved, which remain open and which may change the production route.",
+    media: insightMedia["how-supplement-sampling-works"],
     author: {
       name: "VITHELO Editorial Team" as const,
       role: "Manufacturing Knowledge Editor" as const,
@@ -972,6 +1306,7 @@ const articles = [
     title: "Gummies vs Hard Capsules for Private-Label Projects",
     summary:
       "Choose gummies when a chewable, flavor-led experience is central to the concept and the project can support sensory development. Choose hard capsules when swallowing a measured fill suits the formula and brand experience. Formula load, serving, packaging and differentiation should be reviewed before either route is confirmed.",
+    media: insightMedia["gummies-vs-hard-capsules"],
     author: {
       name: "VITHELO Editorial Team" as const,
       role: "Manufacturing Knowledge Editor" as const,
@@ -1064,6 +1399,7 @@ const articles = [
     title: "What Documents Should Supplement Buyers Ask For?",
     summary:
       "Ask for documents that match the proposed product, manufacturing site and destination market. Review the named subject, scope, issuer, dates and product applicability rather than treating a certificate name or logo as sufficient evidence.",
+    media: insightMedia["what-documents-buyers-should-ask-for"],
     author: { name: "VITHELO Editorial Team" as const, role: "Manufacturing Knowledge Editor" as const },
     publishedAt: "2026-09-04",
     updatedAt: "2026-09-04",
@@ -1165,6 +1501,7 @@ const articles = [
     title: "What Information Should You Include in a Supplement RFQ?",
     summary:
       "A useful supplement RFQ identifies the product scope, dosage form, formula direction, target market, estimated quantity, packaging direction and open commercial questions. It can still be useful when some technical decisions remain open, provided those unknowns are clearly marked.",
+    media: insightMedia["what-information-to-include-in-an-rfq"],
     author: { name: "VITHELO Editorial Team" as const, role: "Manufacturing Knowledge Editor" as const },
     publishedAt: "2026-09-04",
     updatedAt: "2026-09-04",
@@ -1254,6 +1591,7 @@ const articles = [
     title: "How Packaging Affects Supplement MOQ and Lead Time",
     summary:
       "Packaging can change MOQ and project timing because the product run, packaging components and packing operation may each have different constraints. The applicable minimum is shaped by the most restrictive dependency, while timing changes with sourcing, printing, tooling, approval and production sequencing.",
+    media: insightMedia["how-packaging-affects-moq-and-lead-time"],
     author: { name: "VITHELO Editorial Team" as const, role: "Manufacturing Knowledge Editor" as const },
     publishedAt: "2026-09-04",
     updatedAt: "2026-09-04",
@@ -1353,6 +1691,12 @@ export const vitheloB2BInsightsPage = B2BInsightsPageSchema.parse({
     kicker: "INSIGHTS",
     title: "Practical guidance for product decisions.",
     copy: "Buyer guides connect format, formula, packaging and manufacturing questions without turning unverified claims into proof.",
+  },
+  intro: {
+    kicker: "THE KNOWLEDGE EDIT",
+    title: "Manufacturing knowledge, made practical.",
+    copy:
+      "Ten decision guides connect product format, development, packaging, manufacturing review and project preparation.",
   },
   categories: [
     "Product Development",

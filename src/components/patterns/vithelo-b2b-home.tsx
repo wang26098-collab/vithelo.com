@@ -6,6 +6,7 @@ import { VitheloHomeMotion } from "@/components/motion/vithelo-home-motion";
 import { VitheloFormatWallMotion } from "@/components/motion/vithelo-format-wall-motion";
 import { VitheloInquiryReveal } from "@/components/motion/vithelo-inquiry-reveal";
 import { VitheloHomeInquiryComposer } from "@/components/patterns/vithelo-home-inquiry-composer";
+import { VitheloFormulaConstellation } from "@/components/patterns/vithelo-formula-constellation";
 import styles from "@/components/patterns/vithelo-b2b-home.module.css";
 import { siteConfig } from "@/content/site-config";
 import { buildEmailInquiryUrl, buildWhatsAppInquiryUrl } from "@/lib/inquiry";
@@ -69,42 +70,6 @@ function HeroVideo({ video }: { video: VitheloB2BHeroVideo }) {
   );
 }
 
-function CustomizationIcon({ index }: { index: number }) {
-  const glyphs = [
-    <g key="formula">
-      <path d="M12 3c0 5.2-2.8 8.2-7 9 1.1 5.2 4.1 8 9 8 0-4.8-2.5-7.8-7-9 4.8-.8 7.6-3.8 8-8-1.2 0-2.2.2-3 .7" />
-      <path d="M7 15c2-2.4 4.5-4.3 8-5.5" />
-    </g>,
-    <g key="format">
-      <path d="m7.2 15.8 8.6-8.6a3.4 3.4 0 0 1 4.8 4.8L12 20.6a3.4 3.4 0 0 1-4.8-4.8Z" />
-      <path d="m12.3 10.7 4.8 4.8M4.2 4.2l5.6 5.6M7 3l4 4M3 7l4 4" />
-    </g>,
-    <g key="taste">
-      <path d="M12 3s6 6.8 6 11a6 6 0 0 1-12 0c0-4.2 6-11 6-11Z" />
-      <path d="M9 14c.4 1.5 1.4 2.3 3 2.5" />
-    </g>,
-    <g key="packaging">
-      <path d="m4 8 8-4 8 4v9l-8 4-8-4V8Z" />
-      <path d="m4 8 8 4 8-4M12 12v9M8 6l8 4" />
-    </g>,
-  ];
-
-  return (
-    <svg
-      aria-hidden="true"
-      className={styles.customizationNodeIcon}
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="1.35"
-      viewBox="0 0 24 24"
-    >
-      {glyphs[index]}
-    </svg>
-  );
-}
-
 function DosageSection({ content }: VitheloB2BHomeProps) {
   return (
     <section
@@ -123,8 +88,8 @@ function DosageSection({ content }: VitheloB2BHomeProps) {
             <h2 className={styles.title} data-format-title id="dosage-title">
               {content.dosage.title}
             </h2>
+            <p className={styles.formatQualifier}>{content.dosage.qualifier}</p>
           </div>
-          <p className={styles.formatQualifier}>{content.dosage.qualifier}</p>
           <Link className={styles.formatAllLink} href="/products">
             Explore all <span aria-hidden="true">↗</span>
           </Link>
@@ -167,12 +132,11 @@ function DosageSection({ content }: VitheloB2BHomeProps) {
                 <div className={styles.formatMeta}>
                   <h3 data-format-label={item.name}>{item.name}</h3>
                   <div className={styles.formatTags} aria-hidden="true">
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                    <span>Dosage format</span>
+                    {item.tags.map((tag) => (
+                      <span key={tag}>{tag}</span>
+                    ))}
                   </div>
-                  <span className={styles.formatCardAction} aria-hidden="true">
-                    Explore <b>↗</b>
-                  </span>
+                  <p className={styles.formatDescription}>{item.description}</p>
                 </div>
               </Link>
             </article>
@@ -257,6 +221,23 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
               <span aria-hidden="true">→</span>
             </Link>
           </div>
+          {content.proof.media.status === "FREE_COMMERCIAL_OR_REAL" &&
+          content.proof.media.src ? (
+            <figure
+              className={styles.proofVisual}
+              data-media-provenance="real-source"
+              data-motion-role="media"
+              data-testid="manufacturing-scene"
+            >
+              <Image
+                alt={content.proof.media.label}
+                fill
+                sizes="(max-width: 900px) 100vw, 42vw"
+                src={content.proof.media.src}
+              />
+              <figcaption>REAL MANUFACTURING REFERENCE</figcaption>
+            </figure>
+          ) : null}
         </div>
         <div className={styles.proofCapabilities} data-motion-role="workstream-ledger">
           {content.proof.workstreams.map((workstream, index) => (
@@ -284,6 +265,16 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
         data-ui-stage="project-entry-routes"
         id="capacity-boundary"
       >
+        <figure
+          aria-hidden="true"
+          className={styles.entryRouteScene}
+          data-media-status={content.entryRoutes.media.status}
+          data-motion-role="media"
+          data-testid="project-entry-scene"
+        >
+          <Image alt="" fill sizes="100vw" src={content.entryRoutes.media.src} />
+        </figure>
+        <div aria-hidden="true" className={styles.entryRouteVeil} />
         <div className={styles.featuredIntro}>
           <div>
             <p className={styles.kicker}>{content.entryRoutes.kicker}</p>
@@ -333,43 +324,11 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
               className={styles.customizationPrimaryAction}
               href={content.customization.action.href}
             >
-              <span aria-hidden="true">→</span>
               {content.customization.action.label}
             </Link>
           </div>
 
-          <div className={styles.customizationConstellation}>
-            <figure
-              className={styles.customizationVisual}
-              data-motion-role="media"
-              data-testid="customization-visual"
-            >
-              <Image
-                alt={content.customization.media.label}
-                fill
-                sizes="(max-width: 760px) 100vw, 62vw"
-                src={content.customization.media.src!}
-              />
-            </figure>
-            <div aria-hidden="true" className={styles.customizationOrbit} />
-            {content.customization.nodes.map((node, index) => (
-              <article
-                className={styles.customizationNode}
-                data-motion-role="relation-item"
-                data-node-index={index + 1}
-                data-testid="customization-node"
-                key={node.title}
-              >
-                <div className={styles.customizationNodeMark}>
-                  <CustomizationIcon index={index} />
-                </div>
-                <div>
-                  <h3>{node.title}</h3>
-                  <p>{node.copy}</p>
-                </div>
-              </article>
-            ))}
-          </div>
+          <VitheloFormulaConstellation customization={content.customization} />
         </div>
 
       </section>
@@ -419,25 +378,48 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
         data-narrative-role="brand-statement"
         id="brand-statement"
       >
-        <Image
-          alt=""
-          aria-hidden="true"
-          className={styles.brandStatementMedia}
-          fill
-          sizes="100vw"
-          src={content.statement.media.src}
-        />
-        <div aria-hidden="true" className={styles.brandStatementVeil} />
-        <div className={styles.brandStatementCopy}>
-          <h2 id="brand-statement-title">
-            <span data-statement-line>
-              {content.statement.title.split(" to the quiet peace")[0]}{" "}
-            </span>
-            <span data-statement-line>
-              to the quiet peace{content.statement.title.split("to the quiet peace")[1]}
-            </span>
-          </h2>
-          <p>{content.statement.supportingText}</p>
+        <div className={styles.marketSceneStack} data-testid="brand-statement-stack">
+          <article
+            className={styles.brandStatementScene}
+            data-scene="1"
+            data-testid="brand-statement-scene"
+            style={{ backgroundImage: `url("${content.statement.media.src}")` }}
+          >
+            <div
+              aria-label={`${content.statement.media.label}; ${content.statement.media.width} by ${content.statement.media.height} ${content.statement.media.format}`}
+              className={styles.brandStatementSceneVisual}
+              data-testid="brand-statement-scene-visual"
+              role="img"
+            >
+              <Image
+                alt=""
+                aria-hidden="true"
+                className={styles.brandStatementSceneImage}
+                fill
+                loading="eager"
+                sizes="(max-width: 760px) 100vw, 96vw"
+                src={content.statement.media.src!}
+              />
+              <span aria-hidden="true" className={styles.brandStatementSceneShade} />
+            </div>
+            <div className={styles.brandStatementSceneCopy}>
+              <h2 aria-label={content.statement.title} id="brand-statement-title">
+                <span data-statement-line>From the fresh vitality of</span>
+                <span data-statement-line>daybreak’s first light, to the quiet peace</span>
+                <span data-statement-line>when all the world slips into night.</span>
+              </h2>
+              <p>{content.statement.supportingText}</p>
+              {content.statement.action ? (
+                <a
+                  className={styles.brandStatementAction}
+                  data-testid="brand-statement-action"
+                  href={content.statement.action.href}
+                >
+                  {content.statement.action.label}
+                </a>
+              ) : null}
+            </div>
+          </article>
         </div>
       </section>
 
@@ -489,8 +471,6 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
             </a>
           </div>
         </div>
-        </VitheloInquiryReveal>
-        <div className={styles.contactDetails}>
         <ul className={styles.contactPrompts} aria-label="Useful details to prepare">
           {content.contact.prompts.map((prompt) => (
             <li key={prompt}>{prompt}</li>
@@ -508,7 +488,7 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
           <strong>Made for what comes next.</strong>
           <span>VITHELO · PRIVATE-LABEL NUTRITION MANUFACTURING</span>
         </div>
-        </div>
+        </VitheloInquiryReveal>
       </section>
 
     </main>

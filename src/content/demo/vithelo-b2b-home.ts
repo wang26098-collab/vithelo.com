@@ -77,6 +77,15 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
     copy:
       "Not every project begins at the same point. The right route depends on what has already been decided — and what still needs to be shaped.",
     action: { label: "Find Your Starting Route", href: "/oem-odm" },
+    media: {
+      status: "DEMO_ONLY",
+      src: "/media/b2b/vithelo-project-entry-atmospheric-panorama.png",
+      label:
+        "A warm, low-lit product-development workspace moving from formula documents through project definition to abstract sensory materials",
+      width: 1536,
+      height: 1024,
+      format: "PNG",
+    },
     routes: [
       {
         title: "Private Label",
@@ -93,70 +102,96 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
     ],
   },
   customization: {
-    kicker: "04 · PRODUCT DEFINITION",
-    title: "Four decisions shape one finished product.",
+    kicker: "PRODUCT DEFINITION",
+    title: "Four decisions. One coherent product.",
     copy:
-      "A product becomes distinctive when formula, delivery experience, sensory direction and packaging are developed as one connected brief.",
+      "Formula, dosage form, sensory direction and packaging are considered together—so the product brief begins as one connected system.",
     action: { label: "Explore OEM / ODM", href: "/oem-odm" },
     media: {
-      status: "FREE_COMMERCIAL_OR_REAL",
-      src: "/media/b2b/vithelo-customization-constellation.png",
-      label: "VITHELO custom nutrition bottle with capsule, softgel, tablet, gummy and powder",
+      status: "DEMO_ONLY",
+      src: "/media/b2b/vithelo-formula-customization-atmospheric.png",
+      label:
+        "A warm editorial formulation workspace with specification papers, mineral powder and amber material samples",
       width: 1536,
       height: 1024,
       format: "PNG",
     },
+    formulaScene: {
+      media: {
+        status: "DEMO_ONLY",
+        src: "/media/b2b/vithelo-formula-customization-atmospheric.png",
+        label:
+          "A warm, low-lit formulation workspace with abstract specification papers, mineral powder and amber material samples",
+        width: 1536,
+        height: 1024,
+        format: "PNG",
+      },
+      details: [
+        {
+          label: "INGREDIENT DIRECTION",
+          copy: "What belongs in the brief",
+        },
+        {
+          label: "SERVING BRIEF",
+          copy: "How the concept should be framed",
+        },
+        {
+          label: "FEASIBILITY REVIEW",
+          copy: "How the direction fits production",
+        },
+      ],
+    },
     nodes: [
-      { title: "Formula", copy: "What should the product brief contain?" },
+      { title: "Formula", copy: "Define what belongs in the brief." },
       {
         title: "Dosage Form",
-        copy: "How should the product be experienced and used?",
+        copy: "Choose how the product is used.",
       },
       {
         title: "Sensory Direction",
-        copy: "What should taste, texture, color and use feel like?",
+        copy: "Shape taste, texture and experience.",
       },
       {
         title: "Packaging",
-        copy: "How should the product be protected, presented and recognised?",
+        copy: "Plan protection and presentation.",
       },
     ],
   },
   market: {
     stories: [
       {
-        title: "Evening Routines",
-        copy: "Define the moment, frequency and desired product experience before deciding how the concept should be delivered.",
+        title: "Evening Wellness",
+        copy: "Evening nutrition concepts shaped around format, flavor and everyday routines.",
         media: {
-          status: "FREE_COMMERCIAL_OR_REAL",
-          src: "/media/nutrition-ritual.png",
-          label: "Hand reaching for a glass of water in a quiet daily routine",
+          status: "DEMO_ONLY",
+          src: "/media/b2b/vithelo-evening-wellness-scene-v1.png",
+          label: "A quiet evening home scene with a VITHELO capsule concept bottle, water and two capsules",
           width: 1536,
           height: 1024,
           format: "PNG",
         },
       },
       {
-        title: "Active Routines",
-        copy: "Consider where the product is carried, prepared and used before shaping portability and presentation.",
+        title: "Active Nutrition",
+        copy: "Portable nutrition formats for movement, training, travel and everyday use.",
         media: {
-          status: "FREE_COMMERCIAL_OR_REAL",
-          src: "/media/home-membrane.png",
-          label: "Abstract flowing material suggesting an active product direction",
+          status: "DEMO_ONLY",
+          src: "/media/b2b/vithelo-active-nutrition-scene-v1.png",
+          label: "An active travel-preparation scene with a VITHELO powder concept jar and two stick packs",
           width: 1536,
           height: 1024,
           format: "PNG",
         },
       },
       {
-        title: "Life-stage Routines",
-        copy: "Start with a clearly defined audience and use context, then turn that understanding into a focused development brief.",
+        title: "Women’s Wellness",
+        copy: "Everyday nutrition concepts shaped around women’s routines and life stages.",
         media: {
-          status: "FREE_COMMERCIAL_OR_REAL",
-          src: "/media/vithelo-womens-gummy-hero-desktop.png",
-          label: "Woman beside a VITHELO gummy concept in a bright daily setting",
-          width: 1536,
-          height: 1024,
+          status: "DEMO_ONLY",
+          src: "/media/b2b/vithelo-womens-wellness-scene-v1.png",
+          label: "A mature woman in a morning routine beside a VITHELO gummy concept bottle and red gummies",
+          width: 1448,
+          height: 1086,
           format: "PNG",
         },
       },
@@ -164,18 +199,74 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
   },
   dosage: {
     kicker: "06 · PRODUCT FORMATS",
-    title: "One brief. Eight ways to deliver it.",
+    title: "One brief. Eight ways to deliver it",
     qualifier:
       "Format selection depends on the formula direction, intended experience, packaging requirements and project review.",
     items: [
-      { name: "Gummies", slug: "gummies", media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-gummies.png", label: "VITHELO gummy product format", width: 1536, height: 1024, format: "PNG" } },
-      { name: "Hard Capsules", slug: "hard-capsules", media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-hard-capsules.png", label: "VITHELO hard capsule product format", width: 1536, height: 1024, format: "PNG" } },
-      { name: "Softgels", slug: "softgels", media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-softgels.png", label: "VITHELO softgel product format", width: 1536, height: 1024, format: "PNG" } },
-      { name: "Tablets", slug: "tablets", media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-tablets.png", label: "VITHELO tablet product format", width: 1536, height: 1024, format: "PNG" } },
-      { name: "Powders", slug: "powders", media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-powders.png", label: "VITHELO powder product format", width: 1536, height: 1024, format: "PNG" } },
-      { name: "Liquids", slug: "liquids", media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-liquids.png", label: "VITHELO liquid product format", width: 1536, height: 1024, format: "PNG" } },
-      { name: "Functional Gum", slug: "functional-gum", media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-functional-gum.png", label: "VITHELO functional gum product format", width: 1536, height: 1024, format: "PNG" } },
-      { name: "Oral Films", slug: "oral-films", media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-oral-films.png", label: "VITHELO oral film product format", width: 1536, height: 1024, format: "PNG" } },
+      {
+        name: "Gummies",
+        slug: "gummies",
+        tags: ["Chewable", "Fruit", "Pouch"],
+        description:
+          "Chewable solid doses molded in batch-controlled rooms. Formed in multiple shapes, colors and flavor directions to match the brand brief.",
+        media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-gummies.png", label: "VITHELO gummy product format", width: 1536, height: 1024, format: "PNG" },
+      },
+      {
+        name: "Hard Capsules",
+        slug: "hard-capsules",
+        tags: ["Shell", "Powder", "Vegan"],
+        description:
+          "Two-piece capsule shells filled with dry, granular or powdered blends. Sized to standard capsule formats and color-coded per project brief.",
+        media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-hard-capsules.png", label: "VITHELO hard capsule product format", width: 1536, height: 1024, format: "PNG" },
+      },
+      {
+        name: "Softgels",
+        slug: "softgels",
+        tags: ["Sealed", "Liquid", "Shaped"],
+        description:
+          "Hermetically sealed soft gelatin shells encapsulating liquid or semi-solid blends in a single closed unit, available in oval, oblong and round shapes.",
+        media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-softgels.png", label: "VITHELO softgel product format", width: 1536, height: 1024, format: "PNG" },
+      },
+      {
+        name: "Tablets",
+        slug: "tablets",
+        tags: ["Solid", "Coated", "Stacked"],
+        description:
+          "Compressed solid doses formed under defined pressure and weight. Supplied as rounds, ovals, capsules or custom shapes with optional coating layers.",
+        media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-tablets.png", label: "VITHELO tablet product format", width: 1536, height: 1024, format: "PNG" },
+      },
+      {
+        name: "Powders",
+        slug: "powders",
+        tags: ["Dry", "Stick", "Blend"],
+        description:
+          "Dry bulk blends prepared in closed transfer lines. Packed in jars, sachets or stick packs and matched to the chosen mixing and filling approach.",
+        media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-powders.png", label: "VITHELO powder product format", width: 1536, height: 1024, format: "PNG" },
+      },
+      {
+        name: "Liquids",
+        slug: "liquids",
+        tags: ["Liquid", "Sachet", "Flavor"],
+        description:
+          "Liquid concentrates and suspensions prepared in closed filling systems. Packaged in bottles, vials or single-serve sachets per project brief.",
+        media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-liquids.png", label: "VITHELO liquid product format", width: 1536, height: 1024, format: "PNG" },
+      },
+      {
+        name: "Functional Gum",
+        slug: "functional-gum",
+        tags: ["Chewy", "Sugar-free", "Pocket"],
+        description:
+          "Sugar-free or sweetened gum bases blended with actives, then cut and coated as pieces, sticks or dragées to fit the desired chew profile.",
+        media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-functional-gum.png", label: "VITHELO functional gum product format", width: 1536, height: 1024, format: "PNG" },
+      },
+      {
+        name: "Oral Films",
+        slug: "oral-films",
+        tags: ["Thin", "Dissolvable", "Fast"],
+        description:
+          "Thin dissolvable strips formed on continuous coating lines, cut to single-dose dimensions and sealed in sachets for individual use.",
+        media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-oral-films.png", label: "VITHELO oral film product format", width: 1536, height: 1024, format: "PNG" },
+      },
     ],
   },
   runway: {
@@ -198,14 +289,18 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
       "From the fresh vitality of daybreak’s first light, to the quiet peace when all the world slips into night.",
     supportingText:
       "Every dawn and dusk of yours, warmth and companionship stay close beside you.",
+    action: {
+      label: "ABOUT VITHELO",
+      href: "/about",
+    },
     media: {
       status: "DEMO_ONLY",
-      src: "/media/b2b/vithelo-daybreak-nightfall.png",
+      src: "/media/b2b/vithelo-daybreak-nightfall-v3.jpg",
       label:
-        "A continuous scene moving from soft daybreak into a quiet blue night with one warm illuminated window",
-      width: 1536,
-      height: 1024,
-      format: "PNG",
+        "A coastal scene moving from a soft dawn glow on the left across a calm sea into a quiet blue night on the right, with one warm illuminated window in a cliffside home and a faint crescent moon overhead",
+      width: 1769,
+      height: 889,
+      format: "JPEG",
     },
   },
   contact: {

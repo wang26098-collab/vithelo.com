@@ -38,7 +38,7 @@ it.each([
   expect(screen.queryByText("Mobile resource")).not.toBeInTheDocument();
 });
 
-it.each(["/products/gummies", "/manufacturing", "/about"])(
+it.each(["/products/gummies", "/manufacturing"])(
   "uses the shared B2B header instead of legacy chrome on %s", (pathname) => {
     navigationState.pathname = pathname;
     renderShell();
@@ -49,6 +49,21 @@ it.each(["/products/gummies", "/manufacturing", "/about"])(
     expect(screen.queryByText("Mobile resource")).not.toBeInTheDocument();
   },
 );
+
+it("uses the dark shared B2B header on the image-led About hero", () => {
+  navigationState.pathname = "/about";
+  renderShell();
+
+  expect(screen.getAllByRole("banner")).toHaveLength(1);
+  expect(screen.getByRole("banner")).toHaveAttribute(
+    "data-header-theme",
+    "dark-hero",
+  );
+  expect(screen.getByRole("banner")).toHaveAttribute(
+    "data-navigation-state",
+    "top",
+  );
+});
 
 it("preserves the existing global chrome on non-home routes", () => {
   navigationState.pathname = "/nutrition";

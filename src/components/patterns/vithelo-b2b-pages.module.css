@@ -1,4 +1,6 @@
 .page {
+  --page-second-radius: var(--vithelo-screen-02-radius);
+  --page-second-overlap: var(--vithelo-screen-02-overlap);
   overflow: clip;
   background:
     radial-gradient(circle at 82% 8%, rgb(255 255 255 / 80%), transparent 28%),
@@ -21,17 +23,18 @@
   width: 100%;
   height: var(--vithelo-page-hero-height);
   min-height: var(--vithelo-page-hero-height);
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-inline: max(48px, calc((100vw - 1720px) / 2));
+  padding-inline: 48px;
   background:
     linear-gradient(90deg, rgb(14 18 16 / 72%), rgb(14 18 16 / 30) 45%, rgb(14 18 16 / 8%)),
     url("/media/b2b/gummies-pexels-14027295.jpg");
   background-size: cover;
   background-position: 62% center;
   color: #f3f0e8;
+  box-shadow: 0 calc(var(--page-second-radius) - var(--page-second-overlap)) 0 #111512;
 }
 
 .hero::after {
@@ -51,9 +54,14 @@
   max-width: 620px;
 }
 
+.heroCopy {
+  width: 100%;
+  margin-top: 130px;
+}
+
 .productsHero {
   background-position: 58% center;
-  padding-inline: max(48px, calc((100vw - 1720px) / 2));
+  padding-inline: 48px;
 }
 
 /* Products page: override the page-level ivory background so the left and
@@ -64,17 +72,46 @@
    breathing gap below the hero — same offset on both sides. */
 .productsPage { background: #fff; }
 .productsPage .discoveryLayout {
+  position: relative;
+  z-index: 2;
   width: 100%;
-  max-width: 1640px;
-  margin-inline: auto;
+  max-width: none;
+  margin: calc(var(--page-second-overlap) * -1) auto 0;
+  border-radius: var(--page-second-radius) var(--page-second-radius) 0 0;
   padding-block: 130px clamp(3rem, 6vw, 5rem);
-  padding-inline: clamp(1.25rem, 3vw, 3rem);
+  padding-inline: 16px;
+  background: #fff;
 }
 
 @media (max-width: 640px) {
   .hero,
   .productsHero { padding-inline: 16px; }
-  .productsPage .discoveryLayout { width: calc(100% - 32px); }
+  .heroCopy { margin-top: 0; padding-top: clamp(6rem, 15vh, 8rem); }
+  .productsPage .discoveryLayout { width: 100%; }
+}
+
+@media (max-width: 760px) {
+  .hero,
+  .productsHero { padding-inline: 16px; }
+  .heroCopy { margin-top: 0; padding-top: clamp(6rem, 15vh, 8rem); }
+  .productsPage .discoveryLayout { width: 100%; }
+}
+
+@media (min-width: 1201px) {
+  .hero,
+  .productsHero {
+    padding-inline: var(--site-frame-wide-inset);
+  }
+
+  .productsPage .discoveryLayout {
+    padding-inline: var(--site-frame-wide-inset);
+  }
+}
+
+@media (min-width: 761px) and (max-width: 1200px) {
+  .productsPage .discoveryLayout {
+    padding-inline: 48px;
+  }
 }
 
 .oemHero {

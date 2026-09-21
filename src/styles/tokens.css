@@ -13,6 +13,7 @@
   --color-ruby-material: #9b2831;
 
   --color-background: var(--color-ivory);
+  --color-paper: #fff;
   --color-surface: #fafbf8;
   --color-foreground: var(--color-graphite);
   --color-muted: var(--color-graphite-soft);
@@ -68,6 +69,8 @@
   --container-form: 38rem;
   --container-data: 92rem;
   --container-gutter: clamp(var(--space-20), 4vw, var(--space-64));
+  --site-frame-wide-inset: 11.875rem;
+  --site-frame-compact-inset: 1.375rem;
   --home-header-height: 4.75rem;
 
   --inquiry-stage-height: max(72svh, 38rem);
