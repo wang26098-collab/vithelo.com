@@ -1,7 +1,29 @@
 import type { NextConfig } from "next";
+import { execFileSync } from "node:child_process";
+
+function resolveDeploymentId() {
+  const environmentId =
+    process.env.NEXT_DEPLOYMENT_ID ??
+    process.env.GIT_COMMIT_SHA ??
+    process.env.COMMIT_SHA ??
+    process.env.GITHUB_SHA;
+
+  if (environmentId?.trim()) {
+    return environmentId.trim();
+  }
+
+  try {
+    return execFileSync("git", ["rev-parse", "--short=12", "HEAD"], {
+      encoding: "utf8",
+    }).trim();
+  } catch {
+    return undefined;
+  }
+}
 
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["127.0.0.1"],
+  deploymentId: resolveDeploymentId(),
 
   // 媒体资源短缓存 + 显式 MIME，避免 Hostinger CDN 长缓存错乱和 MIME 缺失
   // HTML 走 Next.js 默认的 no-cache；_next/static 走默认的 immutable
