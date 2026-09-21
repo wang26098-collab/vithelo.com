@@ -5,11 +5,13 @@ import { VitheloDosageFormDetail } from "@/components/patterns/vithelo-dosage-fo
 import { vitheloB2BProductsPage } from "@/content/demo/vithelo-b2b-site";
 
 const routeQuery = vi.hoisted(() => ({ product: "gummies-concept-02" }));
+const prefetch = vi.hoisted(() => vi.fn());
 
 vi.mock("next/navigation", () => ({
   notFound: () => {
     throw new Error("notFound");
   },
+  useRouter: () => ({ prefetch }),
   useSearchParams: () =>
     new URLSearchParams(routeQuery.product ? `product=${routeQuery.product}` : ""),
 }));
@@ -38,6 +40,16 @@ it("shows only the selected format's ten products", () => {
     "/products/hard-capsules?product=hard-capsules-concept-01",
   );
   expect(screen.queryByRole("link", { name: /Gummies Concept/ })).not.toBeInTheDocument();
+});
+
+it("prefetches a product detail when a card receives intent", () => {
+  render(<VitheloProductsPage content={vitheloB2BProductsPage} />);
+  const firstCard = screen.getAllByRole("link", { name: /Gummies Concept/ })[0];
+
+  fireEvent.pointerEnter(firstCard);
+  expect(prefetch).toHaveBeenCalledWith(
+    "/products/gummies?product=gummies-concept-01",
+  );
 });
 
 it("changes the product detail gallery state when a view is selected", () => {

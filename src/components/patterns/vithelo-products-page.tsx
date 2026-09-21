@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import styles from "@/components/patterns/vithelo-b2b-pages.module.css";
 import type { B2BProductsPage } from "@/content/schema";
@@ -19,6 +20,7 @@ const FALLBACK_FORMAT_IMAGE: Record<string, string> = {
 };
 
 export function VitheloProductsPage({ content }: { content: B2BProductsPage }) {
+  const router = useRouter();
   const defaultFormat = content.discovery.formats[0];
   const [activeFormat, setActiveFormat] = useState(defaultFormat.slug);
   const activeFormatRecord =
@@ -89,8 +91,10 @@ export function VitheloProductsPage({ content }: { content: B2BProductsPage }) {
                 <Link
                   aria-label={`${item.title} · Explore format`}
                   className={styles.productCard}
-                  href={`/products/${item.formatSlug}?product=${encodeURIComponent(item.id)}`}
+                  href={buildProductHref(item)}
                   key={item.id}
+                  onFocus={() => router.prefetch(buildProductHref(item))}
+                  onPointerEnter={() => router.prefetch(buildProductHref(item))}
                 >
                   <span className={styles.productCardMedia}>
                     <Image
@@ -159,4 +163,8 @@ export function VitheloProductsPage({ content }: { content: B2BProductsPage }) {
       </div>
     </main>
   );
+}
+
+function buildProductHref(item: B2BProductsPage["discovery"]["items"][number]) {
+  return `/products/${item.formatSlug}?product=${encodeURIComponent(item.id)}`;
 }
