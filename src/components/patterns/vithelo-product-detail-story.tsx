@@ -61,6 +61,18 @@ export function VitheloProductDetailStory({
       title: "Manufacturing review",
       items: story.manufacturingReviewItems,
     },
+    ...(product.detailSections ?? [])
+      .filter(
+        ({ id }) =>
+          id !== "overview" &&
+          id !== "customization" &&
+          id !== "packaging",
+      )
+      .map((section) => ({
+        id: section.id,
+        title: section.title,
+        items: [...(section.paragraphs ?? []), ...(section.items ?? [])],
+      })),
   ];
 
   return (

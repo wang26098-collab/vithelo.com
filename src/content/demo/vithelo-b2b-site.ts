@@ -201,6 +201,51 @@ const gummiesConcept01Story = {
   },
 };
 
+const createProductStory = (formatName: string, sequence: number) => {
+  const formatLabel = formatName.toLowerCase();
+  const conceptLabel = String(sequence).padStart(2, "0");
+
+  return {
+    ...gummiesConcept01Story,
+    kicker: `${formatName.toUpperCase()} · CONCEPT ${conceptLabel}`,
+    subhead: `A demonstration ${formatLabel} concept for aligning product experience, formula direction and packaging before project review.`,
+    capabilityHeadline: `Shape the ${formatLabel} around your brief.`,
+    capabilities: [
+      {
+        title: "Formula Direction",
+        copy: `Align the intended ${formatLabel} concept and ingredient direction.`,
+      },
+      {
+        title: "Use Experience",
+        copy: `Review use, sensory and format expectations for the ${formatLabel} route.`,
+      },
+      {
+        title: "Format + Pack",
+        copy: `Connect the ${formatLabel} form, count and packaging direction.`,
+      },
+      {
+        title: "Project Fit",
+        copy: "Keep feasibility subject to approved project inputs.",
+      },
+    ],
+    projectHeadline: `Decisions that build into a ${formatLabel} brief.`,
+    projectIntro: `The page shows the decisions required to move a ${formatLabel} concept toward production without promising an outcome before review.`,
+    decisionHeadline: `One ${formatLabel} concept. Four connected decisions.`,
+    reviewRows: [
+      {
+        area: "Dosage format",
+        status: "SELECTED" as const,
+        guidance: `${formatName} selected`,
+      },
+      ...gummiesConcept01Story.reviewRows.slice(1),
+    ],
+    inquiry: {
+      ...gummiesConcept01Story.inquiry,
+      label: `Discuss ${formatName} Concept ${conceptLabel}`,
+    },
+  };
+};
+
 const discoveryMatrix = discoveryFormatExamples.flatMap(([formatSlug, formatName]) =>
   productMediaPairs.map(([defaultImage, hoverImage], index) => {
     const sequence = index + 1;
@@ -217,9 +262,10 @@ const discoveryMatrix = discoveryFormatExamples.flatMap(([formatSlug, formatName
       title: `Plant-Based ${formatName} Concept ${paddedSequence} for Private Label Nutrition`,
       descriptor: `DEMO_ONLY ${formatName.toLowerCase()} product concept for private-label nutrition. Formula, flavor, packaging, and final specifications require approved project inputs before production.`,
       dataStatus: "DEMO_ONLY" as const,
-      ...(formatSlug === "gummies" && sequence === 1
-        ? { pdpStory: gummiesConcept01Story }
-        : {}),
+      pdpStory:
+        formatSlug === "gummies" && sequence === 1
+          ? gummiesConcept01Story
+          : createProductStory(formatName, sequence),
       parameters: [
         { label: "Product type", value: `${formatName} dietary supplement · DEMO_ONLY` },
         { label: "Flavor", value: "DEMO_ONLY · Requires approved project inputs." },

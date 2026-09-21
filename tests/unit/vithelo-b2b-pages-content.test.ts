@@ -110,6 +110,11 @@ it("publishes eight format groups with ten demo products each", () => {
     ),
   ).toEqual(new Set(["/media/products/beauty-gummies/beauty-gummies-default.webp"]));
   expect(products.discovery.items.filter((item) => item.formatSlug !== "gummies").every((item) => !item.media)).toBe(true);
+  expect(products.discovery.items.every((item) => item.pdpStory)).toBe(true);
+  expect(products.discovery.items.find((item) => item.id === "gummies-concept-02")?.pdpStory).toMatchObject({
+    kicker: "GUMMIES · CONCEPT 02",
+    inquiry: { href: "/contact" },
+  });
   expect(
     new Set(
       products.discovery.items.filter((item) => item.formatSlug === "gummies").map((item) => item.media?.hover.src ?? ""),

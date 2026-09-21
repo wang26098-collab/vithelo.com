@@ -26,12 +26,12 @@ function validCatalogItem(
 }
 
 describe("generated product catalog", () => {
-  it("configures the long-form PDP story for Gummies Concept 01 only", () => {
+  it("configures the long-form PDP story for every public product detail", () => {
     const storyProducts = vitheloB2BProductsPage.discovery.items.filter(
       (item) => item.pdpStory,
     );
 
-    expect(storyProducts).toHaveLength(1);
+    expect(storyProducts).toHaveLength(80);
     expect(storyProducts[0]).toMatchObject({
       id: "gummies-concept-01",
       dataStatus: "DEMO_ONLY",
@@ -47,6 +47,10 @@ describe("generated product catalog", () => {
     expect(storyProducts[0].pdpStory?.inquiry.label).toBe(
       "Discuss Concept 01",
     );
+    expect(
+      storyProducts.find((item) => item.id === "gummies-concept-02")?.pdpStory
+        ?.kicker,
+    ).toBe("GUMMIES · CONCEPT 02");
   });
 
   it("requires a complete nine-section PDP story when the story is configured", () => {
