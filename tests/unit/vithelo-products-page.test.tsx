@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, within } from "@testing-library/react";
+import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import DosageFormPage from "@/app/products/[slug]/page";
 import { VitheloProductsPage } from "@/components/patterns/vithelo-products-page";
 import { VitheloDosageFormDetail } from "@/components/patterns/vithelo-dosage-form-detail";
@@ -18,6 +18,8 @@ vi.mock("next/navigation", () => ({
 
 afterEach(() => {
   routeQuery.product = "gummies-concept-02";
+  prefetch.mockClear();
+  vi.useRealTimers();
 });
 
 it("renders eight dosage formats and ten Gummies products by default", () => {
@@ -42,14 +44,36 @@ it("shows only the selected format's ten products", () => {
   expect(screen.queryByRole("link", { name: /Gummies Concept/ })).not.toBeInTheDocument();
 });
 
-it("prefetches a product detail when a card receives intent", () => {
+it("prefetches only the intended product after a short hover delay", () => {
+  vi.useFakeTimers();
   render(<VitheloProductsPage content={vitheloB2BProductsPage} />);
-  const firstCard = screen.getAllByRole("link", { name: /Gummies Concept/ })[0];
+  const [firstCard, secondCard] = screen.getAllByRole("link", {
+    name: /Gummies Concept/,
+  });
 
   fireEvent.pointerEnter(firstCard);
+  expect(prefetch).not.toHaveBeenCalled();
+  fireEvent.pointerLeave(firstCard);
+  act(() => vi.advanceTimersByTime(200));
+  expect(prefetch).not.toHaveBeenCalled();
+
+  fireEvent.pointerEnter(secondCard);
+  act(() => vi.advanceTimersByTime(149));
+  expect(prefetch).not.toHaveBeenCalled();
+  act(() => vi.advanceTimersByTime(1));
   expect(prefetch).toHaveBeenCalledWith(
-    "/products/gummies?product=gummies-concept-01",
+    "/products/gummies?product=gummies-concept-02",
   );
+  expect(prefetch).toHaveBeenCalledTimes(1);
+});
+
+it("shows an in-card navigation feedback element without replacing the page", () => {
+  render(<VitheloProductsPage content={vitheloB2BProductsPage} />);
+
+  const firstCard = screen.getAllByRole("link", { name: /Gummies Concept/ })[0];
+  expect(
+    firstCard.querySelector("[data-link-pending-feedback]"),
+  ).toBeInTheDocument();
 });
 
 it("changes the product detail gallery state when a view is selected", () => {

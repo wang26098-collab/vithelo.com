@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { LinkPendingFeedback } from "@/components/core/link-pending-feedback";
 import styles from "@/components/core/vithelo-b2b-site-frame.module.css";
 import type { B2BSiteContent } from "@/content/schema";
 
@@ -59,13 +60,15 @@ export function VitheloB2BNavigation({
     >
       <div className={styles.headerInner}>
         <div className={`${styles.navigationGroup} ${styles.browseGroup}`}>
-          <Link aria-label="VITHELO home" className={styles.brand} href="/">
+          <Link aria-label="VITHELO home" className={styles.brand} href="/" prefetch={false}>
             VITHELO
+            <LinkPendingFeedback className={styles.linkPendingFeedback} />
           </Link>
           <nav aria-label="Primary navigation" className={styles.desktopNav}>
             {browsingItems.map((item) => (
-              <Link aria-current={isActive(item.href) ? "page" : undefined} href={item.href} key={item.href}>
+              <Link aria-current={isActive(item.href) ? "page" : undefined} href={item.href} key={item.href} prefetch={false}>
                 {item.label}
+                <LinkPendingFeedback className={styles.linkPendingFeedback} />
               </Link>
             ))}
           </nav>
@@ -76,12 +79,14 @@ export function VitheloB2BNavigation({
           className={`${styles.navigationGroup} ${styles.conversionGroup}`}
         >
           {contactItem ? (
-            <Link aria-current={isActive(contactItem.href) ? "page" : undefined} className={styles.contactLink} href={contactItem.href}>
+            <Link aria-current={isActive(contactItem.href) ? "page" : undefined} className={styles.contactLink} href={contactItem.href} prefetch={false}>
               {contactItem.label}
+              <LinkPendingFeedback className={styles.linkPendingFeedback} />
             </Link>
           ) : null}
-          <Link className={styles.quote} href={content.requestQuote.href}>
+          <Link className={styles.quote} href={content.requestQuote.href} prefetch={false}>
             {content.requestQuote.label}
+            <LinkPendingFeedback className={styles.linkPendingFeedback} />
           </Link>
         </nav>
 
@@ -89,8 +94,9 @@ export function VitheloB2BNavigation({
           className={`${styles.navigationGroup} ${styles.mobileGroup}`}
           data-mobile-navigation-group
         >
-          <Link aria-label="VITHELO home" className={styles.brand} href="/">
+          <Link aria-label="VITHELO home" className={styles.brand} href="/" prefetch={false}>
             VITHELO
+            <LinkPendingFeedback className={styles.linkPendingFeedback} />
           </Link>
           <details ref={menu} className={styles.mobileMenu}
             onKeyDown={(event) => {
@@ -105,9 +111,9 @@ export function VitheloB2BNavigation({
             <summary>Menu</summary>
             <nav aria-label="Mobile primary navigation">
               {content.navigation.map((item) => (
-                <Link aria-current={isActive(item.href) ? "page" : undefined} href={item.href} key={item.href}
-                  onClick={() => { if (menu.current) menu.current.open = false; }}>
+                <Link aria-current={isActive(item.href) ? "page" : undefined} href={item.href} key={item.href} prefetch={false}>
                   {item.label}
+                  <LinkPendingFeedback className={styles.linkPendingFeedback} />
                 </Link>
               ))}
             </nav>
@@ -116,8 +122,10 @@ export function VitheloB2BNavigation({
             aria-label="Start a Project"
             className={styles.mobileQuote}
             href={content.requestQuote.href}
+            prefetch={false}
           >
             Start
+            <LinkPendingFeedback className={styles.linkPendingFeedback} />
           </Link>
         </div>
       </div>

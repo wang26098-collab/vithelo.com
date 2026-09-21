@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { LinkPendingFeedback } from "@/components/core/link-pending-feedback";
 import styles from "@/components/patterns/vithelo-b2b-pages.module.css";
 import type { B2BProductsPage } from "@/content/schema";
 import { selectFormatProducts } from "@/lib/product-discovery";
@@ -21,6 +22,8 @@ const FALLBACK_FORMAT_IMAGE: Record<string, string> = {
 
 export function VitheloProductsPage({ content }: { content: B2BProductsPage }) {
   const router = useRouter();
+  const prefetchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const prefetchedProducts = useRef(new Set<string>());
   const defaultFormat = content.discovery.formats[0];
   const [activeFormat, setActiveFormat] = useState(defaultFormat.slug);
   const activeFormatRecord =
@@ -29,6 +32,32 @@ export function VitheloProductsPage({ content }: { content: B2BProductsPage }) {
     () => selectFormatProducts(content.discovery.items, activeFormatRecord.slug),
     [activeFormatRecord.slug, content.discovery.items],
   );
+
+  useEffect(
+    () => () => {
+      if (prefetchTimer.current) clearTimeout(prefetchTimer.current);
+    },
+    [],
+  );
+
+  const cancelProductPrefetch = () => {
+    if (!prefetchTimer.current) return;
+    clearTimeout(prefetchTimer.current);
+    prefetchTimer.current = null;
+  };
+
+  const scheduleProductPrefetch = (
+    item: B2BProductsPage["discovery"]["items"][number],
+  ) => {
+    const href = buildProductHref(item);
+    cancelProductPrefetch();
+    if (prefetchedProducts.current.has(href)) return;
+    prefetchTimer.current = setTimeout(() => {
+      router.prefetch(href);
+      prefetchedProducts.current.add(href);
+      prefetchTimer.current = null;
+    }, 150);
+  };
 
   // Show the last entry as a "submenu" item per the reference layout. The other
   // 7 entries are direct filter pills; the last is rendered with a chevron.
@@ -93,8 +122,11 @@ export function VitheloProductsPage({ content }: { content: B2BProductsPage }) {
                   className={styles.productCard}
                   href={buildProductHref(item)}
                   key={item.id}
-                  onFocus={() => router.prefetch(buildProductHref(item))}
-                  onPointerEnter={() => router.prefetch(buildProductHref(item))}
+                  onBlur={cancelProductPrefetch}
+                  onFocus={() => scheduleProductPrefetch(item)}
+                  onPointerEnter={() => scheduleProductPrefetch(item)}
+                  onPointerLeave={cancelProductPrefetch}
+                  prefetch={false}
                 >
                   <span className={styles.productCardMedia}>
                     <Image
@@ -125,6 +157,7 @@ export function VitheloProductsPage({ content }: { content: B2BProductsPage }) {
                     <strong data-testid="product-title">{item.title}</strong>
                     <span>{item.descriptor}</span>
                   </span>
+                  <LinkPendingFeedback className={styles.productCardPending} />
                 </Link>
               ))}
             </div>
@@ -140,7 +173,7 @@ export function VitheloProductsPage({ content }: { content: B2BProductsPage }) {
 
           <div className={styles.discoveryCta}>
             <span>Have a specific product format in mind?</span>
-            <Link href="/contact">Start an OEM / ODM inquiry →</Link>
+            <Link href="/contact" prefetch={false}>Start an OEM / ODM inquiry →</Link>
           </div>
         </div>
       </section>
@@ -150,6 +183,7 @@ export function VitheloProductsPage({ content }: { content: B2BProductsPage }) {
           aria-label="Open contact form"
           className={`${styles.floatingButton} ${styles.floatingButtonPrimary}`}
           href="/contact"
+          prefetch={false}
         >
           <span aria-hidden="true">✉</span>
         </Link>
@@ -157,6 +191,7 @@ export function VitheloProductsPage({ content }: { content: B2BProductsPage }) {
           aria-label="Talk to a specialist"
           className={`${styles.floatingButton} ${styles.floatingButtonSecondary}`}
           href="/contact"
+          prefetch={false}
         >
           <span aria-hidden="true">☻</span>
         </Link>
