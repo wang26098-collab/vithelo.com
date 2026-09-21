@@ -26,7 +26,7 @@ export async function generateMetadata(
           type: "article",
           publishedTime: article.publishedAt,
           modifiedTime: article.updatedAt,
-          images: ["/media/vithelo-hero-composite.png"],
+          images: ["/media/vithelo-hero-composite.webp"],
         },
       }
     : { title: "Insight Not Found | VITHELO" };

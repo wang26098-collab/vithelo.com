@@ -300,7 +300,7 @@ export function VitheloOemOdmPage({
       >
         <div className={styles.inquiryMedia} aria-hidden="true">
           <Image
-            src="/media/b2b/vithelo-project-entry-atmospheric-panorama.png"
+            src="/media/b2b/vithelo-project-entry-atmospheric-panorama.webp"
             alt=""
             width={1536}
             height={1024}

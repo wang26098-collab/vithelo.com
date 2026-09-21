@@ -17,16 +17,16 @@ const discoveryFormatExamples = [
   ["softgels", "Softgels"], ["liquids", "Liquid Drops"], ["oral-films", "Oral Films"],
 ] as const;
 const productMediaPairs = [
-  ["beauty-gummies-default.png", "beauty-gummies-detail.png"],
-  ["beauty-gummies-default.png", "beauty-gummies-hand.png"],
-  ["beauty-gummies-default.png", "beauty-gummies-closeup.png"],
-  ["beauty-gummies-default.png", "beauty-gummies-routine.png"],
-  ["beauty-gummies-default.png", "beauty-gummies-motion.png"],
-  ["beauty-gummies-default.png", "beauty-gummies-detail.png"],
-  ["beauty-gummies-default.png", "beauty-gummies-hand.png"],
-  ["beauty-gummies-default.png", "beauty-gummies-closeup.png"],
-  ["beauty-gummies-default.png", "beauty-gummies-routine.png"],
-  ["beauty-gummies-default.png", "beauty-gummies-motion.png"],
+  ["beauty-gummies-default.webp", "beauty-gummies-detail.webp"],
+  ["beauty-gummies-default.webp", "beauty-gummies-hand.webp"],
+  ["beauty-gummies-default.webp", "beauty-gummies-closeup.webp"],
+  ["beauty-gummies-default.webp", "beauty-gummies-routine.webp"],
+  ["beauty-gummies-default.webp", "beauty-gummies-motion.webp"],
+  ["beauty-gummies-default.webp", "beauty-gummies-detail.webp"],
+  ["beauty-gummies-default.webp", "beauty-gummies-hand.webp"],
+  ["beauty-gummies-default.webp", "beauty-gummies-closeup.webp"],
+  ["beauty-gummies-default.webp", "beauty-gummies-routine.webp"],
+  ["beauty-gummies-default.webp", "beauty-gummies-motion.webp"],
 ] as const;
 
 const productRunwayMedia = (fileName: string, alt: string) => ({
@@ -40,11 +40,11 @@ const productRunwayMedia = (fileName: string, alt: string) => ({
 // Pool of secondary product shots cycled across concepts so every detail page
 // can show four additional angles (包裝 / 配方 / 场景 / 細節). DEMO_ONLY placeholders.
 const SECONDARY_SHOTS = [
-  "beauty-gummies-closeup.png",
-  "beauty-gummies-routine.png",
-  "beauty-gummies-hand.png",
-  "beauty-gummies-motion.png",
-  "beauty-gummies-detail.png",
+  "beauty-gummies-closeup.webp",
+  "beauty-gummies-routine.webp",
+  "beauty-gummies-hand.webp",
+  "beauty-gummies-motion.webp",
+  "beauty-gummies-detail.webp",
 ] as const;
 
 const gummiesConcept01Story = {
@@ -463,7 +463,7 @@ export const vitheloB2BOemOdmPage = B2BOemOdmPageSchema.parse({
     ],
     media: {
       status: "DEMO_ONLY",
-      src: "/media/b2b/oem-odm-packaging-still-life-v1.png",
+      src: "/media/b2b/oem-odm-packaging-still-life-v1.webp",
       width: 1536,
       height: 1024,
       alt: "Unbranded nutrition packaging formats arranged for project development review",
@@ -476,7 +476,7 @@ export const vitheloB2BOemOdmPage = B2BOemOdmPageSchema.parse({
       copy: "Sampling creates a practical review point for appearance, taste, texture and other format-specific characteristics before production inputs are confirmed.",
       media: {
         status: "DEMO_ONLY",
-        src: "/media/b2b/format-gummies.png",
+        src: "/media/b2b/format-gummies.webp",
         width: 1536,
         height: 1024,
         alt: "Demonstration gummy supplement format arranged for product review",
@@ -488,7 +488,7 @@ export const vitheloB2BOemOdmPage = B2BOemOdmPageSchema.parse({
       copy: "Ingredient direction, serving context and sensory goals are considered together with the selected dosage form and the manufacturing route still to be reviewed.",
       media: {
         status: "DEMO_ONLY",
-        src: "/media/b2b/vithelo-product-definition-atmospheric.png",
+        src: "/media/b2b/vithelo-product-definition-atmospheric.webp",
         width: 1536,
         height: 1024,
         alt: "VITHELO demonstration bottle surrounded by a powdered product concept",
@@ -500,7 +500,7 @@ export const vitheloB2BOemOdmPage = B2BOemOdmPageSchema.parse({
       copy: "Compare oral formats through product use, formula fit, sensory experience, packaging needs and project-specific manufacturing feasibility.",
       media: {
         status: "DEMO_ONLY",
-        src: "/media/b2b/format-powders.png",
+        src: "/media/b2b/format-powders.webp",
         width: 1536,
         height: 1024,
         alt: "Demonstration powder supplement format in neutral VITHELO packaging",
@@ -508,14 +508,14 @@ export const vitheloB2BOemOdmPage = B2BOemOdmPageSchema.parse({
     },
   ],
   formats: [
-    { label: "Gummies", href: "/products/gummies", media: { status: "DEMO_ONLY", src: "/media/b2b/format-gummies.png", width: 1536, height: 1024, alt: "Demonstration gummies format" } },
-    { label: "Hard Capsules", href: "/products/hard-capsules", media: { status: "DEMO_ONLY", src: "/media/b2b/format-hard-capsules.png", width: 1536, height: 1024, alt: "Demonstration hard capsules format" } },
-    { label: "Tablets", href: "/products/tablets", media: { status: "DEMO_ONLY", src: "/media/b2b/format-tablets.png", width: 1536, height: 1024, alt: "Demonstration tablets format" } },
-    { label: "Powders", href: "/products/powders", media: { status: "DEMO_ONLY", src: "/media/b2b/format-powders.png", width: 1536, height: 1024, alt: "Demonstration powders format" } },
-    { label: "Softgels", href: "/products/softgels", media: { status: "DEMO_ONLY", src: "/media/b2b/format-softgels.png", width: 1536, height: 1024, alt: "Demonstration softgels format" } },
-    { label: "Liquid Drops", href: "/products/liquids", media: { status: "DEMO_ONLY", src: "/media/b2b/format-liquids.png", width: 1536, height: 1024, alt: "Demonstration liquid drops format" } },
-    { label: "Functional Gum", href: "/products/functional-gum", media: { status: "DEMO_ONLY", src: "/media/b2b/format-functional-gum.png", width: 1536, height: 1024, alt: "Demonstration functional gum format" } },
-    { label: "Oral Films", href: "/products/oral-films", media: { status: "DEMO_ONLY", src: "/media/b2b/format-oral-films.png", width: 1536, height: 1024, alt: "Demonstration oral films format" } },
+    { label: "Gummies", href: "/products/gummies", media: { status: "DEMO_ONLY", src: "/media/b2b/format-gummies.webp", width: 1536, height: 1024, alt: "Demonstration gummies format" } },
+    { label: "Hard Capsules", href: "/products/hard-capsules", media: { status: "DEMO_ONLY", src: "/media/b2b/format-hard-capsules.webp", width: 1536, height: 1024, alt: "Demonstration hard capsules format" } },
+    { label: "Tablets", href: "/products/tablets", media: { status: "DEMO_ONLY", src: "/media/b2b/format-tablets.webp", width: 1536, height: 1024, alt: "Demonstration tablets format" } },
+    { label: "Powders", href: "/products/powders", media: { status: "DEMO_ONLY", src: "/media/b2b/format-powders.webp", width: 1536, height: 1024, alt: "Demonstration powders format" } },
+    { label: "Softgels", href: "/products/softgels", media: { status: "DEMO_ONLY", src: "/media/b2b/format-softgels.webp", width: 1536, height: 1024, alt: "Demonstration softgels format" } },
+    { label: "Liquid Drops", href: "/products/liquids", media: { status: "DEMO_ONLY", src: "/media/b2b/format-liquids.webp", width: 1536, height: 1024, alt: "Demonstration liquid drops format" } },
+    { label: "Functional Gum", href: "/products/functional-gum", media: { status: "DEMO_ONLY", src: "/media/b2b/format-functional-gum.webp", width: 1536, height: 1024, alt: "Demonstration functional gum format" } },
+    { label: "Oral Films", href: "/products/oral-films", media: { status: "DEMO_ONLY", src: "/media/b2b/format-oral-films.webp", width: 1536, height: 1024, alt: "Demonstration oral films format" } },
   ],
   steps: [
     {
@@ -565,7 +565,7 @@ export const vitheloB2BOemOdmPage = B2BOemOdmPageSchema.parse({
       copy: "MOQ is reviewed after the main product and packaging decisions are understood.",
       media: {
         status: "DEMO_ONLY",
-        src: "/media/b2b/format-softgels.png",
+        src: "/media/b2b/format-softgels.webp",
         width: 1536,
         height: 1024,
         alt: "Demonstration softgel format prepared for packaging review",
@@ -583,7 +583,7 @@ export const vitheloB2BOemOdmPage = B2BOemOdmPageSchema.parse({
       copy: "Timing is assessed from the confirmed development and production scope.",
       media: {
         status: "DEMO_ONLY",
-        src: "/media/b2b/format-tablets.png",
+        src: "/media/b2b/format-tablets.webp",
         width: 1536,
         height: 1024,
         alt: "Demonstration tablet format in a production-ready presentation",
@@ -603,7 +603,7 @@ export const vitheloB2BOemOdmPage = B2BOemOdmPageSchema.parse({
     copy: "Container, portioning, closure, printed components and transport considerations can affect the project route. Align the pack while the product direction is still being reviewed.",
     media: {
       status: "DEMO_ONLY",
-      src: "/media/b2b/oem-odm-packaging-still-life-v1.png",
+      src: "/media/b2b/oem-odm-packaging-still-life-v1.webp",
       width: 1536,
       height: 1024,
       alt: "Unbranded bottle, jar, pouch, stick packs, dropper bottle and carton in an ivory studio",
@@ -728,7 +728,7 @@ export const vitheloB2BOemOdmPage = B2BOemOdmPageSchema.parse({
 const insightMedia = {
   "choose-the-right-supplement-format": {
     status: "DEMO_ONLY" as const,
-    src: "/media/b2b/format-tablets.png",
+    src: "/media/b2b/format-tablets.webp",
     alt: "Editorial still of a tablet format concept in the VITHELO visual system.",
     width: 1536,
     height: 1024,
@@ -742,7 +742,7 @@ const insightMedia = {
   },
   "gummy-development-guide": {
     status: "DEMO_ONLY" as const,
-    src: "/media/b2b/format-gummies.png",
+    src: "/media/b2b/format-gummies.webp",
     alt: "Editorial still of a gummy format concept with neutral packaging.",
     width: 1536,
     height: 1024,
@@ -756,7 +756,7 @@ const insightMedia = {
   },
   "private-label-vs-custom-formulation": {
     status: "DEMO_ONLY" as const,
-    src: "/media/b2b/format-softgels.png",
+    src: "/media/b2b/format-softgels.webp",
     alt: "Editorial still of a softgel format concept used for route comparison.",
     width: 1536,
     height: 1024,
@@ -770,28 +770,28 @@ const insightMedia = {
   },
   "gummies-vs-hard-capsules": {
     status: "DEMO_ONLY" as const,
-    src: "/media/b2b/format-hard-capsules.png",
+    src: "/media/b2b/format-hard-capsules.webp",
     alt: "Editorial still of a hard-capsule format concept for format comparison.",
     width: 1536,
     height: 1024,
   },
   "what-documents-buyers-should-ask-for": {
     status: "DEMO_ONLY" as const,
-    src: "/media/home-membrane.png",
+    src: "/media/home-membrane.webp",
     alt: "Abstract translucent structure used as a demo visual for document review.",
     width: 1536,
     height: 1024,
   },
   "what-information-to-include-in-an-rfq": {
     status: "DEMO_ONLY" as const,
-    src: "/media/b2b/format-powders.png",
+    src: "/media/b2b/format-powders.webp",
     alt: "Editorial still of a powder format concept used for RFQ preparation.",
     width: 1536,
     height: 1024,
   },
   "how-packaging-affects-moq-and-lead-time": {
     status: "DEMO_ONLY" as const,
-    src: "/media/b2b/format-liquids.png",
+    src: "/media/b2b/format-liquids.webp",
     alt: "Editorial still of a liquid format and packaging concept.",
     width: 1536,
     height: 1024,

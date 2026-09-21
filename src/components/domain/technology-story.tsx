@@ -36,7 +36,7 @@ function TechnologyStory({ technologies }: TechnologyStoryProps) {
             className="object-cover object-[58%_center]"
             fill
             sizes="50vw"
-            src="/media/aesthetic-device-demo.png"
+            src="/media/aesthetic-device-demo.webp"
           />
         </div>
       ),
@@ -56,7 +56,7 @@ function TechnologyStory({ technologies }: TechnologyStoryProps) {
             className="object-cover object-[72%_center]"
             fill
             sizes="50vw"
-            src="/media/aesthetic-device-demo.png"
+            src="/media/aesthetic-device-demo.webp"
           />
         </div>
       ),

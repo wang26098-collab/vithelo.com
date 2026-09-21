@@ -8,14 +8,14 @@ import { VitheloProductDetailStory } from "@/components/patterns/vithelo-product
 import type { B2BProductsPage } from "@/content/schema";
 
 const FALLBACK_FORMAT_IMAGE: Record<string, string> = {
-  gummies: "/media/b2b/format-gummies.png",
-  "hard-capsules": "/media/b2b/format-hard-capsules.png",
-  tablets: "/media/b2b/format-tablets.png",
-  softgels: "/media/b2b/format-softgels.png",
-  powders: "/media/b2b/format-powders.png",
-  liquids: "/media/b2b/format-liquids.png",
-  "oral-films": "/media/b2b/format-oral-films.png",
-  "functional-gum": "/media/b2b/format-functional-gum.png",
+  gummies: "/media/b2b/format-gummies.webp",
+  "hard-capsules": "/media/b2b/format-hard-capsules.webp",
+  tablets: "/media/b2b/format-tablets.webp",
+  softgels: "/media/b2b/format-softgels.webp",
+  powders: "/media/b2b/format-powders.webp",
+  liquids: "/media/b2b/format-liquids.webp",
+  "oral-films": "/media/b2b/format-oral-films.webp",
+  "functional-gum": "/media/b2b/format-functional-gum.webp",
 };
 
 const THUMB_COUNT = 4;

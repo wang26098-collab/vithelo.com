@@ -21,14 +21,14 @@ export const metadata: Metadata = {
     siteName: "VITHELO",
     type: "website",
     url: "/",
-    images: ["/media/vithelo-hero-composite.png"],
+    images: ["/media/vithelo-hero-composite.webp"],
   },
   ...(siteOrigin
     ? {
         metadataBase: new URL(siteOrigin),
         twitter: {
           card: "summary_large_image" as const,
-          images: ["/media/vithelo-hero-composite.png"],
+          images: ["/media/vithelo-hero-composite.webp"],
         },
       }
     : { robots: { index: false, follow: false } }),

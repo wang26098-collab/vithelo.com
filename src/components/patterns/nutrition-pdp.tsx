@@ -38,7 +38,7 @@ function NutritionPdp({ evidence, formulas, ingredients, product }: NutritionPdp
               fill
               loading="eager"
               sizes="(min-width: 768px) 54vw, 100vw"
-              src="/media/nutrition-ritual.png"
+              src="/media/nutrition-ritual.webp"
             />
           </div>
           <figcaption className="border-t border-[var(--color-border)] py-4 text-sm text-[var(--color-muted)]">
@@ -110,7 +110,7 @@ function NutritionPdp({ evidence, formulas, ingredients, product }: NutritionPdp
                 className="object-cover object-[62%_center]"
                 fill
                 sizes="(min-width: 768px) 62vw, 100vw"
-                src="/media/nutrition-ritual.png"
+                src="/media/nutrition-ritual.webp"
               />
             </div>
             <div className="border-t border-[var(--color-border)] pt-7 md:mb-10">

@@ -81,7 +81,7 @@ it("defines three project entry routes without repeating product directions", ()
   });
   expect(parsed.entryRoutes.media).toMatchObject({
     status: "DEMO_ONLY",
-    src: "/media/b2b/vithelo-project-entry-atmospheric-panorama.png",
+    src: "/media/b2b/vithelo-project-entry-atmospheric-panorama.webp",
   });
   expect(JSON.stringify(parsed.entryRoutes)).not.toMatch(
     /Sleep Health|Active Nutrition|Women’s Health|Shop Now|price|MOQ|Seed/i,
@@ -127,14 +127,14 @@ it("defines four connected product decisions", () => {
   });
   expect(parsed.customization.media).toMatchObject({
     status: "DEMO_ONLY",
-    src: "/media/b2b/vithelo-formula-customization-atmospheric.png",
+    src: "/media/b2b/vithelo-formula-customization-atmospheric.webp",
   });
   expect(parsed.customization.formulaScene.media).toMatchObject({
     status: "DEMO_ONLY",
-    src: "/media/b2b/vithelo-formula-customization-atmospheric.png",
+    src: "/media/b2b/vithelo-formula-customization-atmospheric.webp",
     width: 1536,
     height: 1024,
-    format: "PNG",
+    format: "WebP",
   });
   expect(parsed.customization.formulaScene.details).toEqual([
     {
@@ -164,7 +164,7 @@ it("keeps three product directions without the removed dark intro content", () =
       copy: "Evening nutrition concepts shaped around format, flavor and everyday routines.",
       media: {
         status: "DEMO_ONLY",
-        src: "/media/b2b/vithelo-evening-wellness-scene-v1.png",
+        src: "/media/b2b/vithelo-evening-wellness-scene-v1.webp",
       },
     },
     {
@@ -172,7 +172,7 @@ it("keeps three product directions without the removed dark intro content", () =
       copy: "Portable nutrition formats for movement, training, travel and everyday use.",
       media: {
         status: "DEMO_ONLY",
-        src: "/media/b2b/vithelo-active-nutrition-scene-v1.png",
+        src: "/media/b2b/vithelo-active-nutrition-scene-v1.webp",
       },
     },
     {
@@ -180,7 +180,7 @@ it("keeps three product directions without the removed dark intro content", () =
       copy: "Everyday nutrition concepts shaped around women’s routines and life stages.",
       media: {
         status: "DEMO_ONLY",
-        src: "/media/b2b/vithelo-womens-wellness-scene-v1.png",
+        src: "/media/b2b/vithelo-womens-wellness-scene-v1.webp",
       },
     },
   ]);

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     "Gummy-first nutrition OEM and ODM manufacturing across gummies, capsules, tablets, powders, liquids, functional gum and oral films.",
   alternates: { canonical: "/" },
-  openGraph: { url: "/", images: ["/media/vithelo-hero-composite.png"] },
+  openGraph: { url: "/", images: ["/media/vithelo-hero-composite.webp"] },
 };
 
 export default async function HomePage() {

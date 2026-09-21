@@ -124,13 +124,13 @@ it("models the Home hero as one women’s gummy project action", async () => {
   expect(home.hero).not.toHaveProperty("secondaryAction");
   expect(home.hero.desktopMedia).toMatchObject({
     status: "DEMO_ONLY",
-    src: "/media/vithelo-womens-gummy-hero-desktop.png",
+    src: "/media/vithelo-womens-gummy-hero-desktop.webp",
     width: 1536,
     height: 1024,
   });
   expect(home.hero.mobileMedia).toMatchObject({
     status: "DEMO_ONLY",
-    src: "/media/vithelo-womens-gummy-hero-mobile.png",
+    src: "/media/vithelo-womens-gummy-hero-mobile.webp",
     width: 1024,
     height: 1536,
   });

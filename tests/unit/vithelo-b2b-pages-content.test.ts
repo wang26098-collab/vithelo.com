@@ -108,7 +108,7 @@ it("publishes eight format groups with ten demo products each", () => {
     new Set(
       products.discovery.items.filter((item) => item.formatSlug === "gummies").map((item) => item.media?.default.src ?? ""),
     ),
-  ).toEqual(new Set(["/media/products/beauty-gummies/beauty-gummies-default.png"]));
+  ).toEqual(new Set(["/media/products/beauty-gummies/beauty-gummies-default.webp"]));
   expect(products.discovery.items.filter((item) => item.formatSlug !== "gummies").every((item) => !item.media)).toBe(true);
   expect(
     new Set(
@@ -116,11 +116,11 @@ it("publishes eight format groups with ten demo products each", () => {
     ),
   ).toEqual(
     new Set([
-      "/media/products/beauty-gummies/beauty-gummies-detail.png",
-      "/media/products/beauty-gummies/beauty-gummies-hand.png",
-      "/media/products/beauty-gummies/beauty-gummies-closeup.png",
-      "/media/products/beauty-gummies/beauty-gummies-routine.png",
-      "/media/products/beauty-gummies/beauty-gummies-motion.png",
+      "/media/products/beauty-gummies/beauty-gummies-detail.webp",
+      "/media/products/beauty-gummies/beauty-gummies-hand.webp",
+      "/media/products/beauty-gummies/beauty-gummies-closeup.webp",
+      "/media/products/beauty-gummies/beauty-gummies-routine.webp",
+      "/media/products/beauty-gummies/beauty-gummies-motion.webp",
     ]),
   );
 });

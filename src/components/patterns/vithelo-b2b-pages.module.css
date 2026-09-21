@@ -117,13 +117,13 @@
 .oemHero {
   background-image:
     linear-gradient(90deg, rgb(14 18 16 / 76%), rgb(14 18 16 / 36) 46%, rgb(14 18 16 / 10%)),
-    url("/media/home-membrane.png");
+    url("/media/home-membrane.webp");
 }
 
 .contactHero {
   background-image:
     linear-gradient(90deg, rgb(14 18 16 / 84%), rgb(14 18 16 / 54%) 48%, rgb(14 18 16 / 18%)),
-    url("/media/nutrition-ritual.png");
+    url("/media/nutrition-ritual.webp");
   color: #f3f0e8;
 }
 
@@ -445,7 +445,7 @@
   border-radius: 24px;
   background:
     linear-gradient(180deg, rgb(246 242 233 / 90%), rgb(246 242 233 / 96%)),
-    url("/media/nutrition-ritual.png");
+    url("/media/nutrition-ritual.webp");
   background-size: cover;
   background-position: center;
 }
@@ -458,7 +458,7 @@
   border-radius: 24px;
   background:
     linear-gradient(180deg, rgb(18 21 19 / 82%), rgb(18 21 19 / 94%)),
-    url("/media/home-membrane.png");
+    url("/media/home-membrane.webp");
   background-size: cover;
   background-position: center;
   color: #f3f0e8;

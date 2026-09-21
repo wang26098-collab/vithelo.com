@@ -51,7 +51,7 @@ function SciencePage({ evidence }: SciencePageProps) {
             fill
             loading="eager"
             sizes="(min-width: 768px) 46vw, 100vw"
-            src="/media/home-membrane.png"
+            src="/media/home-membrane.webp"
           />
         </div>
       </section>

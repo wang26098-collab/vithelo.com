@@ -42,7 +42,6 @@ function VitheloMarketStage({ market }: VitheloMarketStageProps) {
                   aria-hidden="true"
                   className={styles.marketSceneImage}
                   fill
-                  loading="eager"
                   sizes="(max-width: 760px) 100vw, 96vw"
                   src={currentImage}
                 />

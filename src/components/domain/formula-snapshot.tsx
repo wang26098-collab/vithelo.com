@@ -37,7 +37,7 @@ function FormulaSnapshot({ formula, ingredients }: FormulaSnapshotProps) {
             className="object-cover object-[42%_center]"
             fill
             sizes="50vw"
-            src="/media/nutrition-ritual.png"
+            src="/media/nutrition-ritual.webp"
           />
         </div>
       ),
@@ -57,7 +57,7 @@ function FormulaSnapshot({ formula, ingredients }: FormulaSnapshotProps) {
             className="object-cover object-[64%_center]"
             fill
             sizes="50vw"
-            src="/media/nutrition-ritual.png"
+            src="/media/nutrition-ritual.webp"
           />
         </div>
       ),

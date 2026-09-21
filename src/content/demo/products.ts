@@ -38,7 +38,7 @@ export const demoProducts = {
       media: [
         {
           status: "DEMO_ONLY",
-          src: "/media/nutrition-ritual.png",
+          src: "/media/nutrition-ritual.webp",
           width: 1536,
           height: 1024,
           alt: "Demonstration nutrition product image",

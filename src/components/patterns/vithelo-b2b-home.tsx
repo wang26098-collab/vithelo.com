@@ -121,11 +121,6 @@ function DosageSection({ content }: VitheloB2BHomeProps) {
                       fill
                       sizes="(max-width: 760px) calc(100vw - 48px), 50vw"
                       src={item.media.src!}
-                      // The format wall is the page's primary visual comparison; treat these
-                      // 8 images as LCP-critical so they download immediately instead of
-                      // lazy-loading after the IntersectionObserver fires (which previously
-                      // left a gray fallback visible for several seconds).
-                      priority
                     />
                   </span>
                 </figure>
@@ -396,7 +391,6 @@ function VitheloB2BHome({ content }: VitheloB2BHomeProps) {
                 aria-hidden="true"
                 className={styles.brandStatementSceneImage}
                 fill
-                loading="eager"
                 sizes="(max-width: 760px) 100vw, 96vw"
                 src={content.statement.media.src!}
               />

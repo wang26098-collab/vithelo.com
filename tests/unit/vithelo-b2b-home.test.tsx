@@ -66,6 +66,33 @@ it("renders all eight formats as one editorial format grid", () => {
   expect(within(dosage).queryByRole("tablist")).not.toBeInTheDocument();
 });
 
+it("defers format wall images instead of preloading the entire grid", () => {
+  const source = readFileSync(
+    join(process.cwd(), "src/components/patterns/vithelo-b2b-home.tsx"),
+    "utf8",
+  );
+  const formatWallImage = source.slice(
+    source.indexOf('data-testid="format-media-plane"'),
+    source.indexOf("</span>", source.indexOf('data-testid="format-media-plane"')),
+  );
+
+  expect(formatWallImage).not.toContain("priority");
+});
+
+it("does not eagerly load below-the-fold homepage image scenes", () => {
+  const homeSource = readFileSync(
+    join(process.cwd(), "src/components/patterns/vithelo-b2b-home.tsx"),
+    "utf8",
+  );
+  const marketSource = readFileSync(
+    join(process.cwd(), "src/components/patterns/vithelo-market-stage.tsx"),
+    "utf8",
+  );
+
+  expect(homeSource).not.toContain('loading="eager"');
+  expect(marketSource).not.toContain('loading="eager"');
+});
+
 it("renders manufacturing as four workstreams without unsupported facts", () => {
   render(<VitheloB2BHome content={vitheloB2BHome} />);
 

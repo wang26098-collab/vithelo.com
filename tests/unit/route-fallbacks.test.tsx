@@ -1,24 +1,10 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
-import Loading from "@/app/loading";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import GlobalError from "@/app/global-error";
 
-it("keeps route loading lightweight and offers recovery after a stalled navigation", () => {
-  vi.useFakeTimers();
-
-  try {
-    render(<Loading />);
-
-    expect(screen.getByRole("status")).toHaveTextContent("Loading the next page");
-    expect(
-      screen.queryByText("Preparing the requested task and its current system state."),
-    ).not.toBeInTheDocument();
-
-    act(() => vi.advanceTimersByTime(10_000));
-
-    expect(screen.getByRole("button", { name: "Reload page" })).toBeVisible();
-  } finally {
-    vi.useRealTimers();
-  }
+it("does not install a global blank loading boundary over page navigation", () => {
+  expect(existsSync(join(process.cwd(), "src/app/loading.tsx"))).toBe(false);
 });
 
 it("provides a retry path when the root layout fails", () => {

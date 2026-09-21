@@ -31,7 +31,7 @@ export const vitheloB2BAboutPage = B2BAboutPageSchema.parse({
     title: "Purpose in every decision. Precision in every handoff.",
     copy: "We connect format, formula direction, sensory expectations, packaging and project inputs before a manufacturing route is confirmed.",
     media: demoMedia(
-      "/media/b2b/vithelo-active-nutrition-scene-v1.png",
+      "/media/b2b/vithelo-active-nutrition-scene-v1.webp",
       "Demonstration VITHELO nutrition pack in a cool-toned routine setting",
       1536,
       1024,
@@ -89,7 +89,7 @@ export const vitheloB2BAboutPage = B2BAboutPageSchema.parse({
     title: "Eight formats. One connected development conversation.",
     copy: "Compare the format that best fits the intended experience, formula direction and pack.",
     media: demoMedia(
-      "/media/b2b/vithelo-customization-constellation.png",
+      "/media/b2b/vithelo-customization-constellation.webp",
       "Demonstration VITHELO product system with several oral dosage forms",
       1536,
       1024,

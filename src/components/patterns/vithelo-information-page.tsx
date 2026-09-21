@@ -11,14 +11,14 @@ type InformationPageProps = {
 const heroContent = {
   MANUFACTURING: {
     className: "manufacturingHero",
-    image: "/media/home-membrane.png",
+    image: "/media/home-membrane.webp",
     title: "From dosage form to production route.",
     copy: "A practical manufacturing path connects your format, project requirements and production execution.",
     meta: "PRODUCTION PATH / DOSAGE FORMS / PROJECT FIT",
   },
   "QUALITY & R&D": {
     className: "qualityHero",
-    image: "/media/nutrition-ritual.png",
+    image: "/media/nutrition-ritual.webp",
     title: "Quality built around control and evidence.",
     copy: "Understand the checkpoints, records and verification questions that support a responsible nutrition project.",
     meta: "CONTROL / DOCUMENTATION / VERIFICATION",

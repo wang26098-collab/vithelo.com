@@ -42,12 +42,12 @@ it("uses the approved international OEM and ODM site metadata", () => {
       siteName: "VITHELO",
       type: "website",
       url: "/",
-      images: ["/media/vithelo-hero-composite.png"],
+      images: ["/media/vithelo-hero-composite.webp"],
     }),
   );
   expect(layoutMetadata.twitter).toEqual({
     card: "summary_large_image",
-    images: ["/media/vithelo-hero-composite.png"],
+    images: ["/media/vithelo-hero-composite.webp"],
   });
 });
 
@@ -70,17 +70,17 @@ it("gives every public route a self-referencing canonical", async () => {
   expect(homeMetadata.alternates).toEqual({ canonical: "/" });
   expect(homeMetadata.openGraph).toEqual({
     url: "/",
-    images: ["/media/vithelo-hero-composite.png"],
+    images: ["/media/vithelo-hero-composite.webp"],
   });
   expect(productsMetadata.alternates).toEqual({ canonical: "/products" });
   expect(productsMetadata.openGraph).toEqual({
     url: "/products",
-    images: ["/media/vithelo-hero-composite.png"],
+    images: ["/media/vithelo-hero-composite.webp"],
   });
   expect(oemOdmMetadata.alternates).toEqual({ canonical: "/oem-odm" });
   expect(oemOdmMetadata.openGraph).toEqual({
     url: "/oem-odm",
-    images: ["/media/vithelo-hero-composite.png"],
+    images: ["/media/vithelo-hero-composite.webp"],
   });
   expect(insightsMetadata.alternates).toEqual({ canonical: "/insights" });
   expect(insightsMetadata.openGraph).toEqual({
@@ -90,7 +90,7 @@ it("gives every public route a self-referencing canonical", async () => {
   expect(contactMetadata.alternates).toEqual({ canonical: "/contact" });
   expect(contactMetadata.openGraph).toEqual({
     url: "/contact",
-    images: ["/media/vithelo-hero-composite.png"],
+    images: ["/media/vithelo-hero-composite.webp"],
   });
   expect(insightMetadata.alternates).toEqual({
     canonical: "/insights/gummy-development-guide",
@@ -100,6 +100,6 @@ it("gives every public route a self-referencing canonical", async () => {
     type: "article",
     publishedTime: "2026-08-27",
     modifiedTime: "2026-08-27",
-    images: ["/media/vithelo-hero-composite.png"],
+    images: ["/media/vithelo-hero-composite.webp"],
   });
 });

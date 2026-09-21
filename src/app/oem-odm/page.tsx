@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/oem-odm" },
   openGraph: {
     url: "/oem-odm",
-    images: ["/media/vithelo-hero-composite.png"],
+    images: ["/media/vithelo-hero-composite.webp"],
   },
 };
 

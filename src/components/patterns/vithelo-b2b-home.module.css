@@ -83,7 +83,7 @@
   background-image:
     linear-gradient(90deg, rgb(12 15 13 / 64%) 0%, rgb(12 15 13 / 38%) 38%, rgb(12 15 13 / 6%) 72%),
     linear-gradient(180deg, rgb(12 15 13 / 6%), rgb(12 15 13 / 20%)),
-    url("/media/b2b/vithelo-home-hero-products.png");
+    url("/media/b2b/vithelo-home-hero-products.webp");
   background-size: cover;
   background-position: 62% center;
   transform: none;
@@ -1741,7 +1741,7 @@
   justify-content: center;
   background:
     linear-gradient(180deg, rgb(16 19 17 / 70%), rgb(16 19 17 / 92%)),
-    url("/media/home-membrane.png");
+    url("/media/home-membrane.webp");
   background-size: cover;
   background-position: center;
 }
@@ -1812,7 +1812,7 @@
   background:
     linear-gradient(180deg, rgb(10 12 11 / 32%), rgb(10 12 11 / 70%)),
     linear-gradient(90deg, rgb(10 12 11 / 62%), rgb(10 12 11 / 8%) 50%, rgb(10 12 11 / 64%)),
-    url("/media/home-membrane.png");
+    url("/media/home-membrane.webp");
   background-size: cover;
   background-position: center;
   isolation: isolate;
@@ -1942,7 +1942,7 @@
   justify-content: center;
   background:
     linear-gradient(180deg, rgb(16 19 17 / 78%), rgb(16 19 17 / 94%)),
-    url("/media/vithelo-home-screen-02-background.png");
+    url("/media/vithelo-home-screen-02-background.webp");
   background-size: cover;
   background-position: center;
 }
@@ -2201,7 +2201,7 @@
   background:
     radial-gradient(circle at 78% 18%, rgb(255 255 255 / 78%), transparent 28%),
     linear-gradient(180deg, rgb(246 242 233 / 90%), rgb(246 242 233 / 96%)),
-    url("/media/nutrition-ritual.png");
+    url("/media/nutrition-ritual.webp");
   background-size: cover;
   background-position: center;
 }

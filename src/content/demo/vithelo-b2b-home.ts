@@ -79,12 +79,12 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
     action: { label: "Find Your Starting Route", href: "/oem-odm" },
     media: {
       status: "DEMO_ONLY",
-      src: "/media/b2b/vithelo-project-entry-atmospheric-panorama.png",
+      src: "/media/b2b/vithelo-project-entry-atmospheric-panorama.webp",
       label:
         "A warm, low-lit product-development workspace moving from formula documents through project definition to abstract sensory materials",
       width: 1536,
       height: 1024,
-      format: "PNG",
+      format: "WebP",
     },
     routes: [
       {
@@ -109,22 +109,22 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
     action: { label: "Explore OEM / ODM", href: "/oem-odm" },
     media: {
       status: "DEMO_ONLY",
-      src: "/media/b2b/vithelo-formula-customization-atmospheric.png",
+      src: "/media/b2b/vithelo-formula-customization-atmospheric.webp",
       label:
         "A warm editorial formulation workspace with specification papers, mineral powder and amber material samples",
       width: 1536,
       height: 1024,
-      format: "PNG",
+      format: "WebP",
     },
     formulaScene: {
       media: {
         status: "DEMO_ONLY",
-        src: "/media/b2b/vithelo-formula-customization-atmospheric.png",
+        src: "/media/b2b/vithelo-formula-customization-atmospheric.webp",
         label:
           "A warm, low-lit formulation workspace with abstract specification papers, mineral powder and amber material samples",
         width: 1536,
         height: 1024,
-        format: "PNG",
+        format: "WebP",
       },
       details: [
         {
@@ -164,11 +164,11 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
         copy: "Evening nutrition concepts shaped around format, flavor and everyday routines.",
         media: {
           status: "DEMO_ONLY",
-          src: "/media/b2b/vithelo-evening-wellness-scene-v1.png",
+          src: "/media/b2b/vithelo-evening-wellness-scene-v1.webp",
           label: "A quiet evening home scene with a VITHELO capsule concept bottle, water and two capsules",
           width: 1536,
           height: 1024,
-          format: "PNG",
+          format: "WebP",
         },
       },
       {
@@ -176,11 +176,11 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
         copy: "Portable nutrition formats for movement, training, travel and everyday use.",
         media: {
           status: "DEMO_ONLY",
-          src: "/media/b2b/vithelo-active-nutrition-scene-v1.png",
+          src: "/media/b2b/vithelo-active-nutrition-scene-v1.webp",
           label: "An active travel-preparation scene with a VITHELO powder concept jar and two stick packs",
           width: 1536,
           height: 1024,
-          format: "PNG",
+          format: "WebP",
         },
       },
       {
@@ -188,11 +188,11 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
         copy: "Everyday nutrition concepts shaped around women’s routines and life stages.",
         media: {
           status: "DEMO_ONLY",
-          src: "/media/b2b/vithelo-womens-wellness-scene-v1.png",
+          src: "/media/b2b/vithelo-womens-wellness-scene-v1.webp",
           label: "A mature woman in a morning routine beside a VITHELO gummy concept bottle and red gummies",
           width: 1448,
           height: 1086,
-          format: "PNG",
+          format: "WebP",
         },
       },
     ],
@@ -209,7 +209,7 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
         tags: ["Chewable", "Fruit", "Pouch"],
         description:
           "Chewable solid doses molded in batch-controlled rooms. Formed in multiple shapes, colors and flavor directions to match the brand brief.",
-        media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-gummies.png", label: "VITHELO gummy product format", width: 1536, height: 1024, format: "PNG" },
+        media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-gummies.webp", label: "VITHELO gummy product format", width: 1536, height: 1024, format: "WebP" },
       },
       {
         name: "Hard Capsules",
@@ -217,7 +217,7 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
         tags: ["Shell", "Powder", "Vegan"],
         description:
           "Two-piece capsule shells filled with dry, granular or powdered blends. Sized to standard capsule formats and color-coded per project brief.",
-        media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-hard-capsules.png", label: "VITHELO hard capsule product format", width: 1536, height: 1024, format: "PNG" },
+        media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-hard-capsules.webp", label: "VITHELO hard capsule product format", width: 1536, height: 1024, format: "WebP" },
       },
       {
         name: "Softgels",
@@ -225,7 +225,7 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
         tags: ["Sealed", "Liquid", "Shaped"],
         description:
           "Hermetically sealed soft gelatin shells encapsulating liquid or semi-solid blends in a single closed unit, available in oval, oblong and round shapes.",
-        media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-softgels.png", label: "VITHELO softgel product format", width: 1536, height: 1024, format: "PNG" },
+        media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-softgels.webp", label: "VITHELO softgel product format", width: 1536, height: 1024, format: "WebP" },
       },
       {
         name: "Tablets",
@@ -233,7 +233,7 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
         tags: ["Solid", "Coated", "Stacked"],
         description:
           "Compressed solid doses formed under defined pressure and weight. Supplied as rounds, ovals, capsules or custom shapes with optional coating layers.",
-        media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-tablets.png", label: "VITHELO tablet product format", width: 1536, height: 1024, format: "PNG" },
+        media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-tablets.webp", label: "VITHELO tablet product format", width: 1536, height: 1024, format: "WebP" },
       },
       {
         name: "Powders",
@@ -241,7 +241,7 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
         tags: ["Dry", "Stick", "Blend"],
         description:
           "Dry bulk blends prepared in closed transfer lines. Packed in jars, sachets or stick packs and matched to the chosen mixing and filling approach.",
-        media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-powders.png", label: "VITHELO powder product format", width: 1536, height: 1024, format: "PNG" },
+        media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-powders.webp", label: "VITHELO powder product format", width: 1536, height: 1024, format: "WebP" },
       },
       {
         name: "Liquids",
@@ -249,7 +249,7 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
         tags: ["Liquid", "Sachet", "Flavor"],
         description:
           "Liquid concentrates and suspensions prepared in closed filling systems. Packaged in bottles, vials or single-serve sachets per project brief.",
-        media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-liquids.png", label: "VITHELO liquid product format", width: 1536, height: 1024, format: "PNG" },
+        media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-liquids.webp", label: "VITHELO liquid product format", width: 1536, height: 1024, format: "WebP" },
       },
       {
         name: "Functional Gum",
@@ -257,7 +257,7 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
         tags: ["Chewy", "Sugar-free", "Pocket"],
         description:
           "Sugar-free or sweetened gum bases blended with actives, then cut and coated as pieces, sticks or dragées to fit the desired chew profile.",
-        media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-functional-gum.png", label: "VITHELO functional gum product format", width: 1536, height: 1024, format: "PNG" },
+        media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-functional-gum.webp", label: "VITHELO functional gum product format", width: 1536, height: 1024, format: "WebP" },
       },
       {
         name: "Oral Films",
@@ -265,7 +265,7 @@ export const vitheloB2BHome = VitheloB2BHomeContentSchema.parse({
         tags: ["Thin", "Dissolvable", "Fast"],
         description:
           "Thin dissolvable strips formed on continuous coating lines, cut to single-dose dimensions and sealed in sachets for individual use.",
-        media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-oral-films.png", label: "VITHELO oral film product format", width: 1536, height: 1024, format: "PNG" },
+        media: { status: "FREE_COMMERCIAL_OR_REAL", src: "/media/b2b/format-oral-films.webp", label: "VITHELO oral film product format", width: 1536, height: 1024, format: "WebP" },
       },
     ],
   },

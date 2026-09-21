@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/contact" },
   openGraph: {
     url: "/contact",
-    images: ["/media/vithelo-hero-composite.png"],
+    images: ["/media/vithelo-hero-composite.webp"],
   },
 };
 

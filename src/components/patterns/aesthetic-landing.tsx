@@ -39,7 +39,7 @@ function AestheticLanding({
             fill
             loading="eager"
             sizes="(min-width: 1024px) 62vw, 100vw"
-            src="/media/aesthetic-device-demo.png"
+            src="/media/aesthetic-device-demo.webp"
           />
           <div className="absolute right-0 bottom-0 left-[18%] border-t border-white/30 bg-[color:color-mix(in_srgb,var(--color-graphite)_86%,transparent)] p-5 text-[var(--color-ivory)] backdrop-blur-sm">
             <p className="text-xs tracking-[var(--letter-spacing-label)] uppercase">DEMO_ONLY</p>
@@ -120,7 +120,7 @@ function AestheticLanding({
               fill
               loading="eager"
               sizes="(min-width: 768px) 42vw, 100vw"
-              src="/media/aesthetic-device-demo.png"
+              src="/media/aesthetic-device-demo.webp"
             />
           </div>
           <div className="md:pl-10">

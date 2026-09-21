@@ -29,7 +29,7 @@ function NutritionManifesto({ categoryPaths }: NutritionManifestoProps) {
         data-testid="nutrition-manifesto-background"
         fill
         sizes="100vw"
-        src="/media/vithelo-home-screen-02-background.png"
+        src="/media/vithelo-home-screen-02-background.webp"
       />
 
       <div className="absolute inset-x-0 top-0 z-20 hidden items-center justify-between px-[clamp(2rem,2.5vw,3rem)] pt-[clamp(1.75rem,3.8vh,2.75rem)] text-[var(--color-graphite)] lg:flex">

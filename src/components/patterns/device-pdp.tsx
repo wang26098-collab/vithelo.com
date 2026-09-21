@@ -37,7 +37,7 @@ function DevicePdp({ product, technologies }: DevicePdpProps) {
               fill
               loading="eager"
               sizes="(min-width: 1024px) 58vw, 100vw"
-              src="/media/aesthetic-device-demo.png"
+              src="/media/aesthetic-device-demo.webp"
             />
           </div>
           <figcaption className="border-t border-[var(--color-border)] py-4 text-sm text-[var(--color-muted)]">
@@ -115,7 +115,7 @@ function DevicePdp({ product, technologies }: DevicePdpProps) {
                 fill
                 loading="eager"
                 sizes="(min-width: 768px) 42vw, 100vw"
-                src="/media/aesthetic-device-demo.png"
+                src="/media/aesthetic-device-demo.webp"
               />
             </div>
             <div className="md:pl-10">

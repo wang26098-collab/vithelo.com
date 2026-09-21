@@ -99,7 +99,7 @@ function NutritionLanding({
             fill
             loading="eager"
             sizes="(min-width: 768px) 55vw, 100vw"
-            src="/media/nutrition-ritual.png"
+            src="/media/nutrition-ritual.webp"
           />
         </div>
       </section>
