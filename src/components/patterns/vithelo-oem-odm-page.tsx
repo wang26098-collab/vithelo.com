@@ -13,12 +13,12 @@ type OemMediaData = B2BOemOdmPage["hero"]["media"];
 function OemMedia({
   media,
   sizes,
-  priority = false,
+  eager = false,
   unoptimized = false,
 }: {
   media: OemMediaData;
   sizes: string;
-  priority?: boolean;
+  eager?: boolean;
   unoptimized?: boolean;
 }) {
   return (
@@ -28,7 +28,8 @@ function OemMedia({
       width={media.width}
       height={media.height}
       sizes={sizes}
-      priority={priority}
+      loading={eager ? "eager" : "lazy"}
+      fetchPriority={eager ? "high" : undefined}
       unoptimized={unoptimized}
     />
   );
@@ -51,7 +52,7 @@ export function VitheloOemOdmPage({
         className={styles.hero}
       >
         <div className={styles.heroMedia}>
-          <OemMedia media={content.hero.media} sizes="100vw" priority />
+          <OemMedia media={content.hero.media} sizes="100vw" eager />
         </div>
         <div className={styles.heroShade} aria-hidden="true" />
         <div className={styles.heroCopy}>
@@ -138,7 +139,6 @@ export function VitheloOemOdmPage({
               <OemMedia
                 media={format.media}
                 sizes="(max-width: 620px) 50vw, (max-width: 1000px) 33vw, 25vw"
-                priority={index < 2}
                 unoptimized
               />
               <span>{String(index + 1).padStart(2, "0")}</span>

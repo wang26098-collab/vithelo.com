@@ -83,7 +83,9 @@ export function VitheloInsightsPage({
                 >
                   <Image
                     alt={article.media.alt}
+                    fetchPriority={index === 0 ? "high" : undefined}
                     height={article.media.height}
+                    loading={index === 0 ? "eager" : "lazy"}
                     sizes="(max-width: 760px) calc(100vw - 44px), (max-width: 1100px) 52vw, 58vw"
                     src={article.media.src}
                     width={article.media.width}

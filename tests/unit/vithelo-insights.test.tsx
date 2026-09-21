@@ -25,6 +25,15 @@ it("renders ten numbered insight stories with demo media and working links", () 
   ).toHaveAttribute("href", "/insights/choose-the-right-supplement-format");
 });
 
+it("eagerly fetches only the first editorial image", () => {
+  render(<VitheloInsightsPage content={vitheloB2BInsightsPage} />);
+  const images = screen.getAllByRole("img");
+
+  expect(images[0]).toHaveAttribute("loading", "eager");
+  expect(images[0]).toHaveAttribute("fetchpriority", "high");
+  expect(images.slice(1).every((image) => image.getAttribute("loading") === "lazy")).toBe(true);
+});
+
 it("renders configured article blocks and omits unconfigured media actions", () => {
   render(
     <VitheloInsightArticle

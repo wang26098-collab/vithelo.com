@@ -20,6 +20,10 @@ export function VitheloB2BNavigation({
 }: VitheloB2BNavigationProps) {
   const pathname = usePathname();
   const menu = useRef<HTMLDetailsElement>(null);
+  const [intentHref, setIntentHref] = useState<string | null>(null);
+  const [intentTimer, setIntentTimer] = useState<ReturnType<
+    typeof setTimeout
+  > | null>(null);
   const [navigationState, setNavigationState] = useState<"top" | "scrolled">(
     "top",
   );
@@ -42,7 +46,39 @@ export function VitheloB2BNavigation({
     };
   }, [pathname]);
 
+  useEffect(
+    () => () => {
+      if (intentTimer) clearTimeout(intentTimer);
+    },
+    [intentTimer],
+  );
+
   const isActive = (href: string) => pathname === href || pathname?.startsWith(`${href}/`);
+
+  const cancelIntentPrefetch = () => {
+    if (intentTimer) {
+      clearTimeout(intentTimer);
+      setIntentTimer(null);
+    }
+  };
+
+  const scheduleIntentPrefetch = (href: string) => {
+    cancelIntentPrefetch();
+    if (isActive(href) || intentHref === href) return;
+    setIntentTimer(
+      setTimeout(() => {
+        setIntentHref(href);
+        setIntentTimer(null);
+      }, 150),
+    );
+  };
+
+  const intentPrefetchProps = (href: string) => ({
+    onPointerEnter: () => scheduleIntentPrefetch(href),
+    onPointerLeave: cancelIntentPrefetch,
+    onFocus: () => scheduleIntentPrefetch(href),
+    onBlur: cancelIntentPrefetch,
+  });
 
   const browsingItems = content.navigation.filter(
     (item) => item.label !== "Contact",
@@ -60,13 +96,25 @@ export function VitheloB2BNavigation({
     >
       <div className={styles.headerInner}>
         <div className={`${styles.navigationGroup} ${styles.browseGroup}`}>
-          <Link aria-label="VITHELO home" className={styles.brand} href="/" prefetch={false}>
+          <Link
+            aria-label="VITHELO home"
+            className={styles.brand}
+            href="/"
+            prefetch={intentHref === "/" ? null : false}
+            {...intentPrefetchProps("/")}
+          >
             VITHELO
             <LinkPendingFeedback className={styles.linkPendingFeedback} />
           </Link>
           <nav aria-label="Primary navigation" className={styles.desktopNav}>
             {browsingItems.map((item) => (
-              <Link aria-current={isActive(item.href) ? "page" : undefined} href={item.href} key={item.href} prefetch={false}>
+              <Link
+                aria-current={isActive(item.href) ? "page" : undefined}
+                href={item.href}
+                key={item.href}
+                prefetch={intentHref === item.href ? null : false}
+                {...intentPrefetchProps(item.href)}
+              >
                 {item.label}
                 <LinkPendingFeedback className={styles.linkPendingFeedback} />
               </Link>
@@ -79,12 +127,23 @@ export function VitheloB2BNavigation({
           className={`${styles.navigationGroup} ${styles.conversionGroup}`}
         >
           {contactItem ? (
-            <Link aria-current={isActive(contactItem.href) ? "page" : undefined} className={styles.contactLink} href={contactItem.href} prefetch={false}>
+            <Link
+              aria-current={isActive(contactItem.href) ? "page" : undefined}
+              className={styles.contactLink}
+              href={contactItem.href}
+              prefetch={intentHref === contactItem.href ? null : false}
+              {...intentPrefetchProps(contactItem.href)}
+            >
               {contactItem.label}
               <LinkPendingFeedback className={styles.linkPendingFeedback} />
             </Link>
           ) : null}
-          <Link className={styles.quote} href={content.requestQuote.href} prefetch={false}>
+          <Link
+            className={styles.quote}
+            href={content.requestQuote.href}
+            prefetch={intentHref === content.requestQuote.href ? null : false}
+            {...intentPrefetchProps(content.requestQuote.href)}
+          >
             {content.requestQuote.label}
             <LinkPendingFeedback className={styles.linkPendingFeedback} />
           </Link>
@@ -94,7 +153,13 @@ export function VitheloB2BNavigation({
           className={`${styles.navigationGroup} ${styles.mobileGroup}`}
           data-mobile-navigation-group
         >
-          <Link aria-label="VITHELO home" className={styles.brand} href="/" prefetch={false}>
+          <Link
+            aria-label="VITHELO home"
+            className={styles.brand}
+            href="/"
+            prefetch={intentHref === "/" ? null : false}
+            {...intentPrefetchProps("/")}
+          >
             VITHELO
             <LinkPendingFeedback className={styles.linkPendingFeedback} />
           </Link>
@@ -111,7 +176,13 @@ export function VitheloB2BNavigation({
             <summary>Menu</summary>
             <nav aria-label="Mobile primary navigation">
               {content.navigation.map((item) => (
-                <Link aria-current={isActive(item.href) ? "page" : undefined} href={item.href} key={item.href} prefetch={false}>
+                <Link
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                  href={item.href}
+                  key={item.href}
+                  prefetch={intentHref === item.href ? null : false}
+                  {...intentPrefetchProps(item.href)}
+                >
                   {item.label}
                   <LinkPendingFeedback className={styles.linkPendingFeedback} />
                 </Link>
@@ -122,7 +193,8 @@ export function VitheloB2BNavigation({
             aria-label="Start a Project"
             className={styles.mobileQuote}
             href={content.requestQuote.href}
-            prefetch={false}
+            prefetch={intentHref === content.requestQuote.href ? null : false}
+            {...intentPrefetchProps(content.requestQuote.href)}
           >
             Start
             <LinkPendingFeedback className={styles.linkPendingFeedback} />

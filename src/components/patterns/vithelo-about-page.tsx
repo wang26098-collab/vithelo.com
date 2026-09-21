@@ -13,11 +13,11 @@ type AboutMedia = B2BAboutPage["hero"]["media"];
 function AboutImage({
   media,
   sizes,
-  priority = false,
+  eager = false,
 }: {
   media: AboutMedia;
   sizes: string;
-  priority?: boolean;
+  eager?: boolean;
 }) {
   return (
     <Image
@@ -26,7 +26,8 @@ function AboutImage({
       width={media.width}
       height={media.height}
       sizes={sizes}
-      priority={priority}
+      loading={eager ? "eager" : "lazy"}
+      fetchPriority={eager ? "high" : undefined}
     />
   );
 }
@@ -44,7 +45,7 @@ export function VitheloAboutPage({ content }: { content: B2BAboutPage }) {
         className={styles.hero}
       >
         <div className={styles.heroMedia}>
-          <AboutImage media={content.hero.media} sizes="100vw" priority />
+          <AboutImage media={content.hero.media} sizes="100vw" eager />
         </div>
         <div className={styles.heroShade} aria-hidden="true" />
         <div className={styles.heroCopy}>

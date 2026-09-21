@@ -97,3 +97,12 @@ it("keeps each development capability as one narrative followed by one image", (
     expect(within(copy).getAllByRole("heading")).toHaveLength(1);
   }
 });
+
+it("prioritizes only the hero image instead of the below-fold format gallery", () => {
+  render(<VitheloOemOdmPage content={vitheloB2BOemOdmPage} />);
+  const images = screen.getAllByRole("img");
+
+  expect(images[0]).toHaveAttribute("loading", "eager");
+  expect(images[0]).toHaveAttribute("fetchpriority", "high");
+  expect(images.slice(1).every((image) => image.getAttribute("loading") === "lazy")).toBe(true);
+});
